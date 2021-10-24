@@ -25,10 +25,7 @@ namespace Factory
 		FVehicle();
 		~FVehicle();
 		std::unique_ptr<class Vehicle> Create(int32_t Type);
-		std::unique_ptr<class Vehicle> Create(const std::string& name);
-		
-		// 戦車の登録リスト
-		const std::vector<std::string>& GetPanzerNameList() const;
+		std::unique_ptr<class Vehicle> Create(const std::string& name);		
 
 	private:
 		// 戦車の名前のリスト

@@ -22,7 +22,6 @@ public:
 	void ChangeState(std::unique_ptr<BulletState> State)override;
 	void OnCollision()override;
 private:
-	void OnCollisionToPawn(class Pawn * Pawn);
 	std::unique_ptr<BulletState> m_State;
 	class Resource& m_Resource;
 };

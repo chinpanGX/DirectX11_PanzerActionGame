@@ -27,10 +27,10 @@ namespace GameScene
 	private:
 		void Load()override;
 		void Unload()override;
-		void Thread_A();
-		void Thread_B();
-		void Thread_C();
-		void Thread_D();
+		void Thread_Audio();
+		void Thread_Texture_A();
+		void Thread_Texture_B();
+		void Thread_Model();
 	};
 
 	// チュートリアル

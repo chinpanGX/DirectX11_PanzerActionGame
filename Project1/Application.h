@@ -17,8 +17,12 @@ public:
 	void Init();
 	void Update();
 	void Draw();
+	// 現在のシーン
 	Scene* GetScene() const;
+	// シーンを変える
 	void ChangeScene(Scene* scene);
+
+	// シーンのセット
 	template<typename T>
 	inline void SetScene()
 	{

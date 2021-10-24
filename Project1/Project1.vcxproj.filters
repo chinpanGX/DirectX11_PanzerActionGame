@@ -262,9 +262,6 @@
     <ClCompile Include="Hp.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Manager.cpp">
-      <Filter>GameManager</Filter>
-    </ClCompile>
     <ClCompile Include="Spawn.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
@@ -356,6 +353,9 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="PanzerNameList.cpp" />
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -572,9 +572,6 @@
     <ClInclude Include="Hp.h">
       <Filter>GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Manager.h">
-      <Filter>GameManager</Filter>
-    </ClInclude>
     <ClInclude Include="Spawn.h">
       <Filter>GameManager</Filter>
     </ClInclude>
@@ -673,6 +670,12 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="PanzerNameList.h" />
+    <ClInclude Include="AudioManager.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Common.hlsl">

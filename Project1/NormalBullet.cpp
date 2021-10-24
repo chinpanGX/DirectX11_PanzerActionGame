@@ -42,6 +42,7 @@ void NormalBullet::Update()
 
 void NormalBullet::Event()
 {
+	// 当たったら、消す
 	if(Actor::CollisionEnter())
 	{
 		ChangeState(std::make_unique<BulletStateDestory>());
@@ -65,6 +66,7 @@ void NormalBullet::Create(const Math::Vector3& Position, const Math::Vector3 & V
 	m_Transform->SetPosition(Position);
 	m_Transform->SetScale(1.5f);
 
+	// コンポーネントの設定
 	m_BoxComponent = Actor::AddComponent<BoxComponent>();
 	Math::Vector3 scale = m_Transform->GetScale() * 0.5f;
 	m_BoxComponent->SetSphere3(*m_Transform, 1.0f);

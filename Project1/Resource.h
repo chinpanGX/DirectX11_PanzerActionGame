@@ -23,17 +23,21 @@ public:
 	// テクスチャのロード
 	void LoadTexture(const std::string& tag, const std::string& filename);
 	void UnloadTexture(const std::string& tag);
-	void LoadTexture_ThreadA();
-	void LoadTexture_ThreadB();
 
-	// モデルのロード
+	// 共通で使うリソースのロード
+	void LoadTexture_ThreadA();
+	void LoadTexture_ThreadB();	
 	void LoadModel_ThreadA();
+	
+	// モデルのロード
 	void LoadModel(const std::string& tag, const std::string& filename);
 	void UnloadModel(const std::string& tag);
 
 	//　オーディオ
 	void AudioLoad(const std::string& tag, bool loop);
 	void AudioUnload();	// アンロード
+
+	// オーディオの操作
 	void AudioPlay(const std::string& tag, float volume = 1.0f);
 	void AudioStop();
 	void AudioSetVolume(const std::string& tag, float volume);

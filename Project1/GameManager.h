@@ -47,6 +47,7 @@ private:
 	std::array<std::unique_ptr<IManager>, 3> m_Manager;
 };
 
+// ƒŠƒUƒ‹ƒg
 class ResultManager final : public DefaultObject
 {
 public:

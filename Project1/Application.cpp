@@ -40,6 +40,7 @@ void Application::Init()
 
 void Application::Update()
 {
+	// ƒQ[ƒ€
 	m_Scene->Update();
 	m_Fade->Update();
 }
@@ -47,6 +48,7 @@ void Application::Update()
 void Application::Draw()
 {
 	m_Graphics.Begin();
+	// ƒ‰ƒCƒg‚ÌÝ’è
 	Light light;
 	light.Enable = true;
 	light.Direction = DirectX::XMFLOAT4(1.0f, -1.0f, 1.0f, 0.0f);
@@ -55,11 +57,13 @@ void Application::Draw()
 	light.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Graphics.SetLight(light);
 
+	// ƒQ[ƒ€
 	m_Scene->Draw();
 	m_Fade->Draw();
 
 	light.Enable = false;
 	m_Graphics.SetLight(light);
+	
 	m_Graphics.End();
 }
 

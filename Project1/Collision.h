@@ -69,6 +69,7 @@ public:
 	
 	// デバッグ表示用の設定
 	void SystemDraw();
+
 	void Update(const Math::Vector3& Position);
 	void Update(const Math::Vector3 & Position, const Math::Quaternion& Rot);
 	bool Contains(const Math::Vector3& point) const;

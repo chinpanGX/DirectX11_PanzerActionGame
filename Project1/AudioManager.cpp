@@ -14,7 +14,7 @@
 #include "Audio.h"
 #include "Gage.h"
 #include "Spawn.h"
-#include "Manager.h"
+#include "AudioManager.h"
 
 GameAudio::GameAudio()
 {
@@ -25,7 +25,7 @@ GameAudio::GameAudio()
 		auto resource = Engine::Get().GetResource();
 		int32_t Country = player->GetVehicle().GetStatus().GetCountry();
 		int32_t r = 0; // 乱数
-		// 国よってBGMを変える
+		// 戦車のステータスの国によって、BGMを変える
 		switch (Country)
 		{
 		case Status::Country::DE:
@@ -57,8 +57,10 @@ GameAudio::GameAudio()
 			name = "RU01";
 			break;
 		}
+		
+		// オーディオのロードと再生
 		resource->AudioLoad(name, true);
-		//resource->AudioPlay(name, 0.3f);
+		resource->AudioPlay(name, 0.3f);
 	}
 }
 

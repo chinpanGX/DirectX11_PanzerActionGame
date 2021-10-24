@@ -11,7 +11,7 @@
 #include "LoadShader.h"
 #include <io.h>
 
-// 頂点シェーダー
+#pragma region 頂点シェーダー
 LoadVertexShader::LoadVertexShader(Graphics & graphics) : m_Graphics(graphics), m_VertexShader(nullptr), m_InputLayout(nullptr)
 {
 	
@@ -57,7 +57,9 @@ Microsoft::WRL::ComPtr<ID3D11InputLayout> LoadVertexShader::GetInputLayout() con
 {
 	return m_InputLayout;
 }
+#pragma endregion 頂点シェーダー
 
+#pragma region ピクセルシェーダー
 LoadPixelShader::LoadPixelShader(Graphics & graphics) : m_Graphics(graphics), m_PixelShader(nullptr)
 {
 }
@@ -85,3 +87,4 @@ Microsoft::WRL::ComPtr<ID3D11PixelShader> LoadPixelShader::GetPixelShader() cons
 {
 	return m_PixelShader;
 }
+#pragma endregion ピクセルシェーダー

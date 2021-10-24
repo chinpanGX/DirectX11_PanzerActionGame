@@ -32,10 +32,14 @@ private:
 	void CreateGameWindow(HWND& hwnd, WNDCLASSEX& window);
 	WNDCLASSEX m_WindowClass;
 	HWND m_hwnd;
-	std::shared_ptr<Graphics> m_Graphics;
-	std::shared_ptr<Resource> m_Resource;
-	std::shared_ptr<Application> m_Application;
+	
+	std::shared_ptr<Graphics> m_Graphics;		// DirectX11
+	std::shared_ptr<Resource> m_Resource;		// リソース管理
+	std::shared_ptr<Application> m_Application;	// アプリケーション
+	// Windowモード/FullScreenモード
 	bool m_WindowMode;
+
+	// サイズ
 	const float m_Width = 1920.0f;
 	const float m_Height = 1080.0f;
 };

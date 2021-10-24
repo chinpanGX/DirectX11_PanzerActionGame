@@ -11,6 +11,7 @@
 #include "myLib.h"
 #include <array>
 
+// リスポーン
 class Respawn final : public IManager
 {
 public:
@@ -22,7 +23,6 @@ private:
 	std::array<std::unique_ptr<class ISpawn>, 2> m_Spawn;
 	bool m_IsRespawn = false; // trueでリスポーンする
 };
-
 
 class ISpawn
 {

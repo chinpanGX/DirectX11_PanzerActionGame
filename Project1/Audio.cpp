@@ -313,6 +313,7 @@ Audio::~Audio()
 	CoUninitialize();
 }
 
+// ロード処理(name = ファイル名, loop = ループするかどうか)
 void Audio::Load(const std::string & name, bool loop)
 {
 	m_Map[name] = std::make_unique<LoadAudio>();
@@ -320,19 +321,23 @@ void Audio::Load(const std::string & name, bool loop)
 	m_Map[name]->Load(file, loop, m_xAudio2);
 }
 
+// 指定のものだけアンロード
 void Audio::Unload(const std::string & name)
 {
 	m_Map[name]->Unload();
 }
 
+// すべてアンロード
 void Audio::Unload()
 {
+	// オーディオのアンロード
 	for (auto itr = m_Map.begin(); itr != m_Map.end(); ++itr)
 	{
 		itr->second->Unload();
 		itr->second.reset();
 		itr->second = nullptr;
 	}
+	// クリア
 	m_Map.clear();
 	if (!m_Map.empty())
 	{

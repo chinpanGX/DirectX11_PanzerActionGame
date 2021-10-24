@@ -15,11 +15,15 @@
 #pragma region GameScene::Title_method
 void GameScene::Title::Init()
 {
+	// オブジェクトの追加
 	AddGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
 	AddGameObject<GameBg::TitleBg>(ELayer::LAYER_2D_BG);
 	AddGameObject<TitleCommand>(ELayer::LAYER_SYSTEM);
+	
+	// リソースのロード
 	Load();
 	Engine::Get().GetResource()->AudioPlay("Title", 0.3f);
+
 	Begin();
 }
 
@@ -41,7 +45,10 @@ void GameScene::Title::Draw()
 
 void GameScene::Title::Load()
 {
+	// テクスチャ
 	Engine::Get().GetResource()->LoadTexture("TitleBg", "TitleBg.png");
+
+	// オーディオ
 	Engine::Get().GetResource()->AudioLoad("Title", true);
 	Engine::Get().GetResource()->AudioLoad("Button", false);
 	Engine::Get().GetResource()->AudioLoad("Enter", false);

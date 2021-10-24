@@ -27,6 +27,7 @@ BoxComponent::~BoxComponent()
 	
 }
 
+// 位置の更新
 void BoxComponent::Update(const Math::Vector3& Position, const Transform & t)
 {
 	if (m_sphere)
@@ -45,6 +46,7 @@ void BoxComponent::Update(const Math::Vector3& Position, const Transform & t)
 
 void BoxComponent::SystemDraw()
 {
+	// Debub用描画
 	if (m_aabb)
 	{
 		m_aabb->SystemDraw();

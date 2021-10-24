@@ -32,6 +32,7 @@
 #pragma region GameScene::PanzerSelect_method
 void GameScene::PanzerSelect::Init()
 {	
+	// オブジェクトの追加
 	AddGameObject<GarageCamera>(ELayer::LAYER_CAMERA);
 	AddGameObject<PlaneGarage>(ELayer::LAYER_3D_STAGE);
 	AddGameObject<PanzerGarage>(ELayer::LAYER_3D_STAGE);
@@ -39,8 +40,12 @@ void GameScene::PanzerSelect::Init()
 	AddGameObject<PanzerContainer>(ELayer::LAYER_3D_ACTOR);
 	AddGameObject<SelectCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG);
+
+	// BGMのロードと再生
 	Engine::Get().GetResource()->AudioLoad("PanzerSelect", true);
 	Engine::Get().GetResource()->AudioPlay("PanzerSelect", 0.6f);
+
+	// リソースのロード
 	Load();
 	Begin();
 }
@@ -51,13 +56,16 @@ void GameScene::PanzerSelect::Uninit()
 	Scene::Uninit();
 }
 
+#pragma region private_Fuc
 void GameScene::PanzerSelect::Load()
 {
-	std::thread thA(&GameScene::PanzerSelect::Thread_A, this);
-	std::thread thB(&GameScene::PanzerSelect::Thread_B, this);
-	std::thread thC(&GameScene::PanzerSelect::Thread_C, this);
-	std::thread thD(&GameScene::PanzerSelect::Thread_D, this);
+	// マルチスレッドでロード
+	std::thread thA(&GameScene::PanzerSelect::Thread_Audio, this);
+	std::thread thB(&GameScene::PanzerSelect::Thread_Texture_A, this);
+	std::thread thC(&GameScene::PanzerSelect::Thread_Texture_B, this);
+	std::thread thD(&GameScene::PanzerSelect::Thread_Model, this);
 
+	// 終了まち
 	thA.join();
 	thB.join();
 	thC.join();
@@ -76,30 +84,29 @@ void GameScene::PanzerSelect::Unload()
 	Engine::Get().GetResource()->AudioUnload();
 }
 
-void GameScene::PanzerSelect::Thread_A()
+void GameScene::PanzerSelect::Thread_Audio()
 {
-	//オーディオ関係
 	Engine::Get().GetResource()->AudioLoad("Select", false);
 	Engine::Get().GetResource()->AudioLoad("Enter", false);
 	Engine::Get().GetResource()->AudioLoad("Cancel", false);
 	Engine::Get().GetResource()->AudioLoad("Button", false);
 }
 
-void GameScene::PanzerSelect::Thread_B()
+void GameScene::PanzerSelect::Thread_Texture_A()
 {
 	Engine::Get().GetResource()->LoadTexture("SelectUi", "SelectUi.png");
 	Engine::Get().GetResource()->LoadTexture("Param", "Parameters.png");
 	Engine::Get().GetResource()->LoadTexture("Waffuru", "waffuru.tif");
 }
 
-void GameScene::PanzerSelect::Thread_C()
+void GameScene::PanzerSelect::Thread_Texture_B()
 {
 	Engine::Get().GetResource()->LoadTexture("Ui03", "Ui03.png");
 	Engine::Get().GetResource()->LoadTexture("Plane", "Plane.png");	
 	Engine::Get().GetResource()->LoadTexture("SelectList", "psUI.png");
 }
 
-void GameScene::PanzerSelect::Thread_D()
+void GameScene::PanzerSelect::Thread_Model()
 {
 	// モデル
 	Engine::Get().GetResource()->LoadModel("PanzerGarage", "Other\\souko.obj");
@@ -130,11 +137,14 @@ void GameScene::Tutorial::Uninit()
 	Unload();
 	Scene::Uninit();
 }
+
 void GameScene::Tutorial::Load()
 {
+	// オーディオのロード
 	Engine::Get().GetResource()->AudioLoad("Select", false);
 	Engine::Get().GetResource()->AudioLoad("Shot", false);
 	Engine::Get().GetResource()->AudioLoad("Idel", true);
+	// テクスチャのロード
 	Engine::Get().GetResource()->LoadTexture("Target", "Target.png");
 	Engine::Get().GetResource()->LoadTexture("Ui04", "Ui04.png");
 }
@@ -145,6 +155,7 @@ void GameScene::Tutorial::Unload()
 	Engine::Get().GetResource()->UnloadTexture("Target");
 	Engine::Get().GetResource()->AudioUnload();
 }
+#pragma endregion private関数
 #pragma endregion GameScene::Tutorialメソッド
 
 #pragma region GameScene::Game_method
@@ -175,6 +186,7 @@ void GameScene::Game::Uninit()
 
 void GameScene::Game::Load()
 {
+	// オーディオのロード
 	Engine::Get().GetResource()->AudioLoad("Select", false);
 	Engine::Get().GetResource()->AudioLoad("Idel", true);
 	Engine::Get().GetResource()->AudioLoad("Shot", false);

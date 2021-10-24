@@ -14,10 +14,14 @@
 #pragma region GameScene::Result_method
 void GameScene::Result::Init()
 {
+	// オブジェクトの追加
 	AddGameObject<ResultManager>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::ResultUi>(ELayer::LAYER_2D_BG);
 	AddGameObject<ResultCommand>(ELayer::LAYER_SYSTEM);
+	// リソースのロード
 	Load();
+	
+	// 初期化処理
 	Begin();
 }
 

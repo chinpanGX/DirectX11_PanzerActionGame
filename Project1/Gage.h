@@ -10,6 +10,7 @@
 #include "Bg.h"
 #include "Manager.h"
 
+// Ÿr–ÅƒQ[ƒW‚ÌŠÇ—
 class RemainGage final : public IManager
 {
 public:
@@ -23,6 +24,7 @@ private:
 	float m_PlayerGage = 1000.0f;
 };
 
+// Ÿr–ÅƒQ[ƒW‚ğ•`‰æ‚·‚é
 namespace GameBg
 {
 	class DrawGage : public Bg

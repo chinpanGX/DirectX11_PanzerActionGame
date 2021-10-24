@@ -17,6 +17,7 @@
 
 Factory::FVehicle::FVehicle()
 {	
+	// 戦車の名前のリストを取得
 	m_PanzerNameList = PanzerNameList::Get().GetPanzerList();
 }
 
@@ -77,11 +78,6 @@ std::unique_ptr<class Vehicle> Factory::FVehicle::Create(const std::string & nam
 	return nullptr;
 }
 
-const std::vector<std::string>& Factory::FVehicle::GetPanzerNameList() const
-{
-	return m_PanzerNameList;
-}
-
 // 戦車
 std::unique_ptr<class Panzer> Factory::FPanzer::Create(const std::string & PanzerName)
 {
@@ -91,9 +87,11 @@ std::unique_ptr<class Panzer> Factory::FPanzer::Create(const std::string & Panze
 // 戦車
 std::unique_ptr<class PanzerPilot> Factory::FPilot::Create(Vehicle & vehicle)
 {
+	//　パイロットの設定
 	std::unique_ptr<PanzerPilot> tmp = std::make_unique<PanzerPilot>(vehicle);
 	auto pos = vehicle.GetBodyTransform().GetPosition();
 	pos.y += 5.0f;
+	
 	// 初期位置の設定
 	tmp->GetTransform().SetPosition(pos);
 	tmp->GetTransform().SetRotation(vehicle.GetBodyTransform().GetRotation());

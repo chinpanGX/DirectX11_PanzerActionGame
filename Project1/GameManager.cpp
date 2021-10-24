@@ -8,7 +8,7 @@
 	リスポーン, 殲滅ゲージ, 勝敗
 
 ---------------------------------------------------------------*/
-#include "Manager.h"
+#include "AudioManager.h"
 #include "Spawn.h"
 #include "Gage.h"
 #include "Player.h"
@@ -26,7 +26,7 @@
 
 namespace
 {
-	static bool g_PlayerWinner = false;
+	static bool g_PlayerWinner = false; // プレイヤーの勝利ならtrue
 }
 
 GameManager::GameManager()
@@ -47,6 +47,7 @@ void GameManager::Begin()
 
 void GameManager::Update()
 {
+	// ゲームが終了したら、リザルトシーンへ遷移
 	if (m_GameEnd)
 	{
 		Engine::Get().GetApplication()->SetScene<GameScene::Result>();
@@ -80,6 +81,7 @@ const bool GameManager::GetGameEnd() const
 
 void GameManager::SetWinner(int32_t type)
 {
+	// どちらが勝ったか決める
 	int32_t i = type;
 	switch (i)
 	{
@@ -96,8 +98,12 @@ void GameManager::SetWinner(int32_t type)
 
 ResultManager::ResultManager()
 {
-	auto mgr = std::make_unique<ResultAudio>();
-	mgr->Begin(g_PlayerWinner);
+	// オーディオの設定
+	auto audio = std::make_unique<ResultAudio>();
+	// BGMの再生
+	audio->Begin(g_PlayerWinner);
+	
+	// 背景の追加
 	Engine::Get().GetApplication()->GetScene()->AddGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->Begin(g_PlayerWinner);
 }
 

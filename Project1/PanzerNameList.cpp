@@ -9,6 +9,7 @@
 
 void PanzerNameList::Register()
 {
+	// íÔ‚Ì–¼‘O‚ğ“o˜^
 	m_PanzerName = { "Tiger", "Centurion", "Patton", "T-34-85", "IV-H", "Shrman" };
 }
 

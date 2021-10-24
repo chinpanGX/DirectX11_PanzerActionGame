@@ -24,6 +24,7 @@ GameBg::Hp::~Hp()
 void GameBg::Hp::Begin()
 {
 	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	// 実際のHPとMAXのサイズから描画する比率を求める
 	m_DrawRatio = m_MaxDrawSize / m_Player->GetVehicle().GetStatus().GetMaxHp();
 }
 
@@ -48,7 +49,12 @@ void GameBg::Hp::Event()
 
 void GameBg::Hp::Draw()
 {
+	// 描画位置を設定
 	Math::Vector2 pos = Math::Vector2(1450.0f, 900.0f);
+	
+	// MAX状態のHPバー
 	m_Render->Draw(m_MaxDrawSize, pos, Math::Vector4(0.35f, 0.35f, 0.35f, 0.75f));
+
+	// 現在のHPバー
 	m_Render->Draw(m_DrawSize, pos, Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 }

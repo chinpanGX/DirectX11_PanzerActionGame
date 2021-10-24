@@ -3,6 +3,8 @@
 	[Graphics.h]
 	Author : o‡ãÄ‘¾
 
+	DirectX11‚ÌŠÇ—
+
 -------------------------------------------------------------*/
 #pragma once
 #include "Singleton.h"

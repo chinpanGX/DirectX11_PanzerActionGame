@@ -186,7 +186,7 @@
     <ClCompile Include="LoadShader.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGun.cpp" />
-    <ClCompile Include="Manager.cpp" />
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="MuzzleFlash.cpp" />
@@ -288,6 +288,7 @@
     <ClInclude Include="LoadModel.h" />
     <ClInclude Include="LoadShader.h" />
     <ClInclude Include="MainGun.h" />
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MoveComponent.h" />

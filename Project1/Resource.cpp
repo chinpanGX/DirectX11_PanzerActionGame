@@ -13,6 +13,7 @@
 
 Resource::Resource(Graphics & graphics) : m_Graphics(graphics)
 {
+	// 各種リソースを管理しているオブジェクト
 	m_Audio = std::make_unique<Audio>();
 	m_Texture = std::make_unique<Texture>();
 	m_VertexShader = std::make_unique <VertexShader>(m_Graphics);
@@ -35,6 +36,7 @@ void Resource::UnloadTexture(const std::string & tag)
 	m_Texture->Unload(tag);
 }
 
+#pragma region 共通で使うリソースのロード
 void Resource::LoadTexture_ThreadA()
 {
 	m_Texture->Load("Bg", "Bg.png");
@@ -52,7 +54,6 @@ void Resource::LoadTexture_ThreadB()
 	m_Texture->Load("Timer", "TimeMarker.png");
 }
 
-#pragma region LoadThread_method
 void Resource::LoadModel_ThreadA()
 {
 	m_StaticModel->Load("Sky", "Other\\Sky.obj");
@@ -60,7 +61,7 @@ void Resource::LoadModel_ThreadA()
 	m_StaticModel->Load("Bullet", "Other\\TankBullet.obj");
 	m_StaticModel->Load("WallFence", "Other\\Box.obj");
 }
-#pragma endregion LoadThread_methed
+#pragma endregion 共通で使うリソースのロード
 
 void Resource::LoadModel(const std::string & tag, const std::string & filename)
 {
@@ -84,6 +85,7 @@ void Resource::AudioUnload()
 	m_Audio->Unload();
 }
 
+// オーディオの操作
 void Resource::AudioPlay(const std::string & tag, float volume)
 {
 	m_Audio->Play(tag, volume);
