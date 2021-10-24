@@ -77,6 +77,7 @@ void Shadow::Draw()
 
 	m_Resource.SetTexture(0,"Effect");
 
+	// ブレンドステートは減算
 	m_Graphics.SetBlendStateSub();
 
 	// 頂点バッファ
@@ -90,5 +91,6 @@ void Shadow::Draw()
 	//ポリゴン描画
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 	
+	// ブレンドステートを元に戻す
 	m_Graphics.SetBlendStateDefault();
 }

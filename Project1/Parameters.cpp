@@ -24,8 +24,11 @@ Parameters::~Parameters()
 void Parameters::Draw(float Param, const Math::Vector2 & pos)
 {
 	Math::Vector4 color = Math::Vector4(0.0f, 0.0f, 1.0f, 0.5);
+	// 背景
 	m_Bg->Draw();
+	// MAX状態のバー
 	m_Render->Draw(300.0f, pos, color);
+	// 実際のバー
 	m_Render->Draw(Param, pos);
 }
 #pragma endregion Parametersのメソッド

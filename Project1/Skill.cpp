@@ -22,6 +22,7 @@ Skill::Skill() : m_AlreadyUseble(false)
 
 Skill::~Skill()
 {
+	// ƒNƒŠƒA
 	m_UseSkill.clear();
 }
 

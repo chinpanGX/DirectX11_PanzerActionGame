@@ -17,9 +17,13 @@ class Skill
 public:
 	Skill();
 	~Skill();
+	// スキルを設定する(設定するスキル)
 	void SetSkill(std::unique_ptr<IUseSkill> useSkill);
-	void Begin(float enableTime);
+	// スキル発動(発動するまでの時間)
+	void Begin(float enableTime); 
 	void Update(Status& status);
+
+	// スキルゲージがたまる時間
 	void SetTime(float time); //　進める時間
 	void Enable();
 	const int32_t GetPhase() const;

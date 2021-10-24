@@ -31,16 +31,21 @@ void Target::Begin()
 
 void Target::Update()
 {
+	// ポーズ中
 	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG);
 	if (pause->GetEnable()) { return; }
-	// ターゲット
+	
+	// 弾
 	auto Bullet = Engine::Get().GetApplication()->GetScene()->GetGameObject<NormalBullet>(ELayer::LAYER_3D_ACTOR);
 	if(Bullet)
 	{
+		// 描画している状態のとき
 		if (m_NotDraw == false)
 		{
+			// 衝突検知
 			if (Intersect(Bullet->GetBoxComponent().GetSphere3(), m_BoxComponent->GetSphere3()))
 			{
+				// 弾のオブジェクトに通知
 				Bullet->OnCollisionEnter();
 				// 当たったら描画しない
 				m_NotDraw = true;
@@ -68,7 +73,7 @@ void Target::Event()
 
 void Target::Draw()
 {
-	if (!m_NotDraw)
+	if (!m_NotDraw) 
 	{
 		// マトリクスの設定
 		auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);

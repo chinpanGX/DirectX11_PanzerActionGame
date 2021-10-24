@@ -46,6 +46,7 @@ void Vehicle::Draw()
 	m_Panzer->Draw();
 }
 
+// スタート位置を決める
 void Vehicle::SetStartPosition(Math::Vector3 pos, Math::Vector3 rot)
 {
 	this->GetBodyTransform().SetPosition(pos);
@@ -105,6 +106,7 @@ void Vehicle::CalculateHp(float AttackPoint)
 }
 #pragma endregion Panzerのアクション
 
+// コリジョンの位置を更新
 void Vehicle::ColiisionUpdate(int32_t Element, const Math::Vector3 & Position, const Transform & t)
 {
 	m_BoxComponent[Element]->Update(Position, t);
@@ -153,16 +155,22 @@ Skill & Vehicle::GetSkill() const
 }
 
 #pragma region proteced_method
+// 戦車をセット
 void Vehicle::SetPanzer()
 {
+	// タグにあった戦車を生成
 	Factory::FPanzer fpanzer;
 	m_Panzer = fpanzer.Create(m_Tag);
 	m_Panzer->Begin();
+	// 影を生成
 	Factory::FShadow fshadow;
 	m_Shadow = fshadow.Create();
+
+	// スキルを生成
 	m_Skill = std::make_unique<Skill>();
 }
 
+// ステータスを設定
 void Vehicle::SetProperty(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed)
 {
 	m_Status = std::make_unique<Status>(Country, Cost, Hp, Attack, Defence, Speed, Reload, RotSpeed);
