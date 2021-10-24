@@ -1,0 +1,703 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{13490b43-a8f4-4eb3-a9a5-a24f22990aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Bullet">
+      <UniqueIdentifier>{f1a31d45-9861-4ddf-b775-73f03975f2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{e8c72d42-c037-4919-9d1b-6cf897bd150a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{e05d580c-a460-46b6-a816-6636811fd7bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\2D">
+      <UniqueIdentifier>{25198ec4-9707-4eb6-90df-3b03cddbf1e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Panzer">
+      <UniqueIdentifier>{8b4b0c15-80da-461c-b825-045ffb335eaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{627055f7-31a8-4888-bc11-0529fef92f8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Stage">
+      <UniqueIdentifier>{5bdccb4b-bad0-483a-8f04-692dcfc55d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Stage\Object">
+      <UniqueIdentifier>{202c51a1-56d5-4387-93af-732cda0b8042}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Panzer\State">
+      <UniqueIdentifier>{6f565254-acce-40f0-8acb-88973c42535b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Pawn">
+      <UniqueIdentifier>{5fe25600-264a-4af8-a755-c55c55068707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Title">
+      <UniqueIdentifier>{37b526c9-52c9-439a-bcdf-9c86a3248586}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Result">
+      <UniqueIdentifier>{10880981-0a0a-4610-86d3-4389942a4f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="シェーダー">
+      <UniqueIdentifier>{974fc649-8da4-4c5e-b7a1-37507268a0fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameManager">
+      <UniqueIdentifier>{28c23623-1306-4c93-8a08-27a23f4d5cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{018faa8d-06bc-4288-8440-7ecab2a345a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Command">
+      <UniqueIdentifier>{1853295f-ef03-4747-a33b-2411950f75bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Camera">
+      <UniqueIdentifier>{6beffdee-0ca4-4648-86fd-5f16515247c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{650d7208-b803-4ee3-8e68-03ef5e7e8dc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Panzer\Object">
+      <UniqueIdentifier>{dbaa73f6-88ff-45f6-8e20-e36d5944e807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\2D\Game">
+      <UniqueIdentifier>{c0bdaf23-a780-46db-9d65-493979e36584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\2D\Number">
+      <UniqueIdentifier>{77fa1926-2302-450f-8873-009a0f761d7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\2D\Bg">
+      <UniqueIdentifier>{2c25e9af-c272-46a6-b7d9-49a4b630332d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\2D\Effect">
+      <UniqueIdentifier>{e861a12f-2113-49fb-839d-b1c85c352095}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="BulletStateDestory.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletStateMove.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="NormalBullet.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMode.cpp">
+      <Filter>Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCamera.cpp">
+      <Filter>Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="GarageCamera.cpp">
+      <Filter>Actor\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Fps.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Graphics.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="myLib.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadModel.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadShader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Resource.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer2D.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer3D.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStage.cpp">
+      <Filter>Actor\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="GameStageSetter.cpp">
+      <Filter>Actor\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialStageSetter.cpp">
+      <Filter>Actor\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialStage.cpp">
+      <Filter>Actor\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Fence.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Grass.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="GrassField.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlaneGarage.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Skydome.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerContainer.cpp">
+      <Filter>Actor\Panzer</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerList.cpp">
+      <Filter>Actor\Panzer</Filter>
+    </ClCompile>
+    <ClCompile Include="Body.cpp">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGun.cpp">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Panzer.cpp">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerState.cpp">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerStateMove.cpp">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerStateRotation.cpp">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerStateShot.cpp">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerStateStay.cpp">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerPilot.cpp">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Actor\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Pawn.cpp">
+      <Filter>Actor\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleSystem.cpp">
+      <Filter>Actor\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Status.cpp">
+      <Filter>Actor\Panzer</Filter>
+    </ClCompile>
+    <ClCompile Include="Gage.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Hp.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawn.cpp">
+      <Filter>GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerGarage.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Parts.cpp">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="StageObject.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="WallBox.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="OnComponentEvent.cpp">
+      <Filter>Actor\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitStageSetter.cpp">
+      <Filter>Actor\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletComponentEvent.cpp">
+      <Filter>Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillList.cpp">
+      <Filter>Actor\Panzer</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Actor\Panzer</Filter>
+    </ClCompile>
+    <ClCompile Include="Vehicle.cpp">
+      <Filter>Actor\Panzer</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawSkill.cpp">
+      <Filter>Actor\2D\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="IDrawNumber.cpp">
+      <Filter>Actor\2D\Number</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Actor\2D\Number</Filter>
+    </ClCompile>
+    <ClCompile Include="Cost.cpp">
+      <Filter>Actor\2D\Number</Filter>
+    </ClCompile>
+    <ClCompile Include="Reload.cpp">
+      <Filter>Actor\2D\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="GameBg.cpp">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Bg.cpp">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleBg.cpp">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultBg.cpp">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Fade.cpp">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClCompile>
+    <ClCompile Include="Pause.cpp">
+      <Filter>Actor\2D\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Explosion.cpp">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="MuzzleFlash.cpp">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Parameters.cpp">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Shadow.cpp">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Target.cpp">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerNameList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Factory.h" />
+    <ClInclude Include="Application.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletStateDestory.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletStateMove.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="NormalBullet.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMode.h">
+      <Filter>Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCamera.h">
+      <Filter>Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GarageCamera.h">
+      <Filter>Actor\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Fps.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Graphics.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="myLib.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadModel.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadShader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Loader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer3D.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer2D.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStageSetter.h">
+      <Filter>Actor\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStage.h">
+      <Filter>Actor\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialStageSetter.h">
+      <Filter>Actor\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialStage.h">
+      <Filter>Actor\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Fence.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="GrassField.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Grass.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlaneGarage.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Skydome.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerContainer.h">
+      <Filter>Actor\Panzer</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerList.h">
+      <Filter>Actor\Panzer</Filter>
+    </ClInclude>
+    <ClInclude Include="Body.h">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGun.h">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Panzer.h">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Parts.h">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerState.h">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerStateMove.h">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerStateRotation.h">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerStateShot.h">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerStateStay.h">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerPilot.h">
+      <Filter>Actor\Panzer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Command</Filter>
+    </ClInclude>
+    <ClInclude Include="DefaultObject.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Actor\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Pawn.h">
+      <Filter>Actor\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleSystem.h">
+      <Filter>Actor\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
+      <Filter>Actor\Panzer</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultState.h">
+      <Filter>Actor\Result</Filter>
+    </ClInclude>
+    <ClInclude Include="Gage.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Hp.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawn.h">
+      <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ISetterObject.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerGarage.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="StageObject.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="WallBox.h">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="OnComponentEvent.h">
+      <Filter>Actor\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitStageSetter.h">
+      <Filter>Actor\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="IOnComponentEvent.h" />
+    <ClInclude Include="BulletComponentEvent.h">
+      <Filter>Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillList.h">
+      <Filter>Actor\Panzer</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Actor\Panzer</Filter>
+    </ClInclude>
+    <ClInclude Include="Vehicle.h">
+      <Filter>Actor\Panzer</Filter>
+    </ClInclude>
+    <ClInclude Include="IUseSkill.h">
+      <Filter>Actor\Panzer</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawSkill.h">
+      <Filter>Actor\2D\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="IDrawNumber.h">
+      <Filter>Actor\2D\Number</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Actor\2D\Number</Filter>
+    </ClInclude>
+    <ClInclude Include="Cost.h">
+      <Filter>Actor\2D\Number</Filter>
+    </ClInclude>
+    <ClInclude Include="Reload.h">
+      <Filter>Actor\2D\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="GameBg.h">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Bg.h">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleBg.h">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultBg.h">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Fade.h">
+      <Filter>Actor\2D\Bg</Filter>
+    </ClInclude>
+    <ClInclude Include="Pause.h">
+      <Filter>Actor\2D\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Explosion.h">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="MuzzleFlash.h">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Parameters.h">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Shadow.h">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Target.h">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerNameList.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Common.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="MappingPS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="MappingVS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="unlitTexturePS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="unlitTextureVS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="vertexLightingPS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="vertexLightingVS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
