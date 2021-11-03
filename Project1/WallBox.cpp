@@ -21,6 +21,7 @@ WallBox::~WallBox()
 
 void WallBox::Begin()
 {
+	m_BoxComponent->SetOBB3(*m_Transform, m_Transform->GetScale());
 	m_BoxComponent->SetAABB3(*m_Transform, m_Transform->GetScale());
 }
 

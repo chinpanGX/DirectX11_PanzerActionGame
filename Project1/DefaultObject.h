@@ -61,15 +61,15 @@ public:
 	}
 	inline void OnTriggerEvent()
 	{
-		m_OnTriggerEvent = true;
+		m_OnTrigerEvent = true;
 	}
 	inline void ResetTriggerEvent()
 	{
-		m_OnTriggerEvent = false;
+		m_OnTrigerEvent = false;
 	}
-	const bool TriggerEvent() const
+	const bool TrigerEvent() const
 	{
-		if (m_OnTriggerEvent == true)
+		if (m_OnTrigerEvent == true)
 		{
 			return true;
 		}
@@ -82,6 +82,6 @@ public:
 private:
 	bool m_OnDestroy;	// trueでインスタンスを削除
 	bool m_OnCollision;	// trueで当たり判定を検知
-	bool m_OnTriggerEvent; // trueで衝突イベント
+	bool m_OnTrigerEvent; // trueで衝突イベント
 };
 

@@ -86,5 +86,36 @@ void NormalBullet::ChangeState(std::unique_ptr<BulletState> State)
 
 void NormalBullet::OnCollision()
 {
+	// プレイヤー
+	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	if (player)
+	{
+		OnCollisionToPawn(player);
+	}
+
+	// エネミー
+	auto enemy_1 = Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
+	if (enemy_1)
+	{
+		OnCollisionToPawn(enemy_1);
+	}
 	BeginOverlap(this);
 }
+
+void NormalBullet::OnCollisionToPawn(Pawn * Pawn)
+{
+	// 球同士の当たり判定を取る
+	if (Intersect(m_BoxComponent->GetSphere3(), Pawn->GetVehicle().GetBoxComponent(0).GetSphere3()))
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (Intersect(m_BoxComponent->GetOBB3(), Pawn->GetVehicle().GetBoxComponent(i).GetOBB3()))
+			{
+				Bullet::OnCollisionEnter();
+				Pawn->OnCollisionEnter();
+			}
+		}
+	}
+}
+
+

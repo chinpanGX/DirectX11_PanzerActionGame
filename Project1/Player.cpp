@@ -87,16 +87,16 @@ void Player::Respawn(const Math::Vector3& pos)
 void Player::OnCollision()
 {
 	// 敵との当たり判定
-	if(TriggerEvent())
+	if(TrigerEvent())
 	{
-			if (Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
-			{
-				GetMoveComponent().MoveBackward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
-			}
-			if (Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
-			{
-				GetMoveComponent().MoveForward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
-			}
+		if (Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+		{
+			GetMoveComponent().MoveBackward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
+		}
+		if (Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
+		{
+			GetMoveComponent().MoveForward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
+		}
 	}
 	BeginOverlap(this);
 }
