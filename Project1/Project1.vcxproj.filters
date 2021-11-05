@@ -356,6 +356,9 @@
     <ClCompile Include="AudioManager.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
+    <ClCompile Include="SkillParticle.cpp">
+      <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -675,6 +678,9 @@
     </ClInclude>
     <ClInclude Include="Manager.h">
       <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillParticle.h">
+      <Filter>Actor\2D\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

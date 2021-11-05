@@ -221,6 +221,7 @@
     <ClCompile Include="Shadow.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillList.cpp" />
+    <ClCompile Include="SkillParticle.cpp" />
     <ClCompile Include="Skydome.cpp" />
     <ClCompile Include="Spawn.cpp" />
     <ClCompile Include="StageObject.cpp" />
@@ -327,6 +328,7 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillList.h" />
+    <ClInclude Include="SkillParticle.h" />
     <ClInclude Include="Skydome.h" />
     <ClInclude Include="Spawn.h" />
     <ClInclude Include="Stage.h" />
