@@ -12,7 +12,7 @@
 #include "Application.h"
 #include "Resource.h"
 #include "GameCamera.h"
-
+#include "Pause.h"
 
 Explosion::Explosion() : Effect()
 {
@@ -30,6 +30,10 @@ void Explosion::Begin()
 
 void Explosion::Update()
 {
+	// ポーズ中かどうか
+	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
+	if (pause) { return; }
+
 	Effect::Update();
 	// フレーム数が16になったら消去
 	if (Effect::GetFrame() >= 16)
@@ -44,8 +48,6 @@ void Explosion::Event()
 
 void Explosion::Draw()
 {	
-	m_Resource.SetShader("NoLighting");
-
 	// テクスチャ座標を計算
 	float x = Effect::GetFrame() % 4 * (1.0f / 4.0f);
 	float y = Effect::GetFrame() / 4 * (1.0f / 4.0f);

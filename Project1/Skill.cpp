@@ -9,11 +9,14 @@
 #include "myLib.h"
 #include "Status.h"
 #include "IUseSkill.h"
+#include "Pawn.h"
+#include "Vehicle.h"
 #include "Skill.h"
 #include "Fps.h"
 #include "Engine.h"
 #include "Application.h"
 #include "DrawSkill.h"
+#include "SkillParticle.h"
 
 #pragma region Skill_method
 Skill::Skill() : m_AlreadyUseble(false)
@@ -85,13 +88,15 @@ void Skill::SetTime(float time)
 	m_Time = time;
 }
 
-void Skill::Enable()
+void Skill::Enable(Pawn* pawn)
 {
 	// すでにスキルが使える状態
 	if (m_AlreadyUseble)
 	{
 		m_Phase = 1;
 		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
+		// エフェクトを発生
+		PlayEffect(pawn);
 	}
 }
 
@@ -108,5 +113,15 @@ const float Skill::GetEnableTime() const
 const bool Skill::GetAlreadyUseble() const
 {
 	return m_AlreadyUseble;
+}
+
+// private_Function
+void Skill::PlayEffect(Pawn* pawn)
+{
+	// エフェクトを発生する位置を戦車の位置にする
+	auto pos = pawn->GetVehicle().GetBodyTransform().GetPosition();
+	// エフェクトを再生する
+	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
+	effect->GetTransform().SetPosition(pos);
 }
 #pragma endregion スキル

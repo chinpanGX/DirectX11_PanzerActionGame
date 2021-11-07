@@ -94,5 +94,5 @@ void Controller::Shot()
 
 void Controller::UseSkill()
 {
-	m_Pawn->GetVehicle().GetSkill().Enable();
+	m_Pawn->GetVehicle().GetSkill().Enable(m_Pawn);
 }

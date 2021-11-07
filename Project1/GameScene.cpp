@@ -190,11 +190,13 @@ void GameScene::Game::Load()
 	Engine::Get().GetResource()->AudioLoad("Select", false);
 	Engine::Get().GetResource()->AudioLoad("Idel", true);
 	Engine::Get().GetResource()->AudioLoad("Shot", false);
+	Engine::Get().GetResource()->LoadTexture("SkillEffect", "Skill.png");
 }
 
 void GameScene::Game::Unload()
 {
 	Engine::Get().GetResource()->AudioUnload();
+	Engine::Get().GetResource()->UnloadTexture("SkillEffect");
 }
 
 #pragma endregion GameScene::Gameƒƒ\ƒbƒh

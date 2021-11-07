@@ -108,9 +108,7 @@ void Effect::Event()
 void Effect::Draw()
 {
 	// ライティングなし
-	m_Resource.SetVertexShader("NoLighting");
-	m_Resource.SetInputLayout("NoLighting");
-	m_Resource.SetPixelShader("NoLighting");
+	m_Resource.SetShader("NoLighting");
 	// 頂点バッファ
 	UINT stride = sizeof(Vertex3D);
 	UINT offset = 0;
