@@ -48,6 +48,7 @@ void Pawn::Event()
 
 void Pawn::Draw()
 {
+	
 }
 
 Vehicle & Pawn::GetVehicle() const

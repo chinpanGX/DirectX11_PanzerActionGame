@@ -227,7 +227,7 @@ AABB3::~AABB3() {}
 #pragma region Setting_SystemDebug
 void AABB3::SystemDraw()
 {
-#if 0
+#if 1
 	auto& graphics = Engine::Get().GetGraphics();
 	auto& resource = Engine::Get().GetResource();
 	resource->SetShader("NoLighting");
@@ -467,7 +467,7 @@ void OBB3::Update(const Math::Vector3& Position, const Transform & t)
 
 void OBB3::SystemDraw()
 {
-#if 0
+#if 1
 	auto& graphics = Engine::Get().GetGraphics();
 	auto& resource = Engine::Get().GetResource();
 	resource->SetShader("NoLighting");

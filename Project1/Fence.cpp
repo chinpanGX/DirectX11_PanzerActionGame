@@ -28,6 +28,7 @@ Fence::~Fence()
 void Fence::Begin()
 {
 	m_BoxComponent->SetAABB3(*m_Transform, Math::Vector3(8.0f, 6.0f, 2.0f));
+	m_BoxComponent->SetOBB3(*m_Transform, Math::Vector3(8.0f, 6.0f, 2.0f));
 }
 
 void Fence::Update()
@@ -64,7 +65,7 @@ void Fence::Draw()
 
 void Fence::OnCollisionToVehicle(const Vehicle & Vehicle)
 {
-	if (Intersect(m_BoxComponent->GetAABB3(), Vehicle.GetBoxComponent(0).GetAABB3()))
+	if (Intersect(m_BoxComponent->GetOBB3(), Vehicle.GetBoxComponent(0).GetOBB3()))
 	{
 		OnCollisionEnter();
 	}
