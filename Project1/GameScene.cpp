@@ -147,10 +147,12 @@ void GameScene::Tutorial::Load()
 	// テクスチャのロード
 	Engine::Get().GetResource()->LoadTexture("Target", "Target.png");
 	Engine::Get().GetResource()->LoadTexture("Ui04", "Ui04.png");
+	Engine::Get().GetResource()->LoadTexture("SkillEffect", "Skill.png");
 }
 
 void GameScene::Tutorial::Unload()
 {
+	Engine::Get().GetResource()->UnloadTexture("SkillEffect");
 	Engine::Get().GetResource()->UnloadTexture("Ui04");
 	Engine::Get().GetResource()->UnloadTexture("Target");
 	Engine::Get().GetResource()->AudioUnload();
@@ -190,6 +192,7 @@ void GameScene::Game::Load()
 	Engine::Get().GetResource()->AudioLoad("Select", false);
 	Engine::Get().GetResource()->AudioLoad("Idel", true);
 	Engine::Get().GetResource()->AudioLoad("Shot", false);
+	// テクスチャのロード
 	Engine::Get().GetResource()->LoadTexture("SkillEffect", "Skill.png");
 }
 

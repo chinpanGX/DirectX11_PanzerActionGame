@@ -250,7 +250,7 @@ void T_34_85::Draw()
 	m_BoxComponent[0]->SystemDraw();
 	m_BoxComponent[1]->SystemDraw();
 	m_BoxComponent[2]->SystemDraw();
-#else
+#endif
 }
 #pragma endregion T-34-85
 

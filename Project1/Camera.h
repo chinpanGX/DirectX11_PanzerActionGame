@@ -18,6 +18,9 @@ public:
 	void Event()override {}
 	void Draw()override {}
 
+	// ‹‘äƒJƒŠƒ“ƒO‚·‚é‚©‚Ç‚¤‚©‚Ì”»’è	
+
+
 	// ’‹“_
 	void SetTarget(Math::Vector3 Target);
 	Math::Vector3& GetTarget();

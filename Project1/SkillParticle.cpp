@@ -16,8 +16,7 @@
 SkillParticle::SkillParticle() : Effect()
 {
 	m_Transform = Actor::AddComponent<Transform>();
-	m_Transform->Begin();
-	m_Transform->SetScale(3.0f);
+	m_Transform->SetScale(10.0f);
 }
 
 SkillParticle::~SkillParticle()

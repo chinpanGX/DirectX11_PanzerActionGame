@@ -17,6 +17,7 @@
 Explosion::Explosion() : Effect()
 {
 	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform->SetScale(10.0f);
 }
 
 Explosion::~Explosion()
@@ -25,7 +26,7 @@ Explosion::~Explosion()
 
 void Explosion::Begin()
 {
-	m_Transform->SetScale(3.0f, 3.0f, 0.0f);
+	
 }
 
 void Explosion::Update()
