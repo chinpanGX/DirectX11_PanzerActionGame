@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------
 	
-	[PanzerPilot.h]
+	[Pivot.h]
 	Author : 出合翔太
 	
 	戦車を操縦
@@ -11,12 +11,12 @@
 
 class MoveComponent;
 class Vehicle;
-class PanzerPilot : public Actor
+class Pivot : public Actor
 {
 public:
-	PanzerPilot() = delete;
-	PanzerPilot(Vehicle& m_Vehicle);
-	~PanzerPilot();
+	Pivot() = delete;
+	Pivot(Vehicle& m_Vehicle);
+	~Pivot();
 	void Begin()override;
 	void Update()override;
 	void Event()override;

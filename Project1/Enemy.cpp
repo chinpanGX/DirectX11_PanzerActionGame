@@ -8,7 +8,7 @@
 #include "PanzerContainer.h"
 #include "Engine.h"
 #include "Application.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "Fps.h"
 #include "Body.h"
 #include "Turret.h"

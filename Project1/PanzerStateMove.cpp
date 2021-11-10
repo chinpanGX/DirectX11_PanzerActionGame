@@ -9,7 +9,7 @@
 #include "Enemy.h"
 #include "PanzerStateMove.h"
 #include "PanzerStateStay.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "Reload.h"
 #include "Body.h"
 #include "Turret.h"

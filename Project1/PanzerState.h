@@ -9,7 +9,7 @@
 #include "myLib.h"
 
 class Pawn;
-class PanzerPilot;
+class Pivot;
 class AIController;
 class PanzerState : public StateBase
 {

@@ -10,11 +10,11 @@
 #include "myLib.h"
 
 class GameCamera;
-class PanzerPilot;
+class Pivot;
 class CameraMode
 {
 public:
-	virtual void Update(GameCamera* Camera, PanzerPilot* Panzer) = 0;
+	virtual void Update(GameCamera* Camera, Pivot* Panzer) = 0;
 };
 
 // TPS視点モード
@@ -23,7 +23,7 @@ class TpsCameraMode final : public CameraMode
 public:
 	TpsCameraMode();
 	~TpsCameraMode();
-	void Update(GameCamera* Camera, PanzerPilot* Panzer)override;
+	void Update(GameCamera* Camera, Pivot* Panzer)override;
 private:
 	// 補正をかける値
 	const Math::Vector3	m_PositionOffset = Math::Vector3(0.0f, 10.0f, 0.0f);
@@ -37,5 +37,5 @@ class FpsCameraMode final : public CameraMode
 public:
 	FpsCameraMode();
 	~FpsCameraMode();
-	void Update(GameCamera* Camera, PanzerPilot* Panzer)override;
+	void Update(GameCamera* Camera, Pivot* Panzer)override;
 };

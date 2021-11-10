@@ -1,6 +1,6 @@
 /*---------------------------------------------------------------
 
-	[PanzerPilot.cpp]
+	[Pivot.cpp]
 	Author : 出合翔太
 
 ---------------------------------------------------------------*/
@@ -11,38 +11,38 @@
 #include "Player.h"
 #include "Vehicle.h"
 #include "Fps.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 
-PanzerPilot::PanzerPilot(Vehicle & vehicle) : m_Vehicle(vehicle)
+Pivot::Pivot(Vehicle & vehicle) : m_Vehicle(vehicle)
 {
 	m_Transform = Actor::AddComponent<Transform>();
 	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle.GetStatus());
 }
 
-PanzerPilot::~PanzerPilot()
+Pivot::~Pivot()
 {
 
 }
 
-void PanzerPilot::Begin()
+void Pivot::Begin()
 {
 }
 
-void PanzerPilot::Update()
+void Pivot::Update()
 {
 	Move();
 }
 
-void PanzerPilot::Event()
+void Pivot::Event()
 {
 }
 
-void PanzerPilot::Draw()
+void Pivot::Draw()
 {
 	
 }
 
-void PanzerPilot::SetStartPosition(Math::Vector3 Position, Math::Vector3 Rot)
+void Pivot::SetStartPosition(Math::Vector3 Position, Math::Vector3 Rot)
 {
 	auto tmp = Position;
 	tmp.y += 5.0f;
@@ -50,22 +50,22 @@ void PanzerPilot::SetStartPosition(Math::Vector3 Position, Math::Vector3 Rot)
 	m_Transform->rotation(Rot.x, Rot.y, Rot.z, 1.0f);
 }
 
-const float PanzerPilot::GetTpsOffset() const
+const float Pivot::GetTpsOffset() const
 {
 	return m_TspOffset;
 }
 
-const float PanzerPilot::GetFpsOffset() const
+const float Pivot::GetFpsOffset() const
 {
 	return m_FpsOffset;
 }
 
-const float PanzerPilot::GetTargetOffset() const
+const float Pivot::GetTargetOffset() const
 {
 	return m_TargetOffset;
 }
 
-void PanzerPilot::Move()
+void Pivot::Move()
 {
 	// 移動はボディの位置に合わせる
 	Math::Vector3& pos = m_Transform->position();
@@ -74,7 +74,7 @@ void PanzerPilot::Move()
 	pos.z = body.z;
 }
 
-MoveComponent & PanzerPilot::GetMoveComponent() const
+MoveComponent & Pivot::GetMoveComponent() const
 {
 	if (!m_MoveComponent)
 	{

@@ -8,7 +8,7 @@
 ----------------------------------------------------------------*/
 #include "Vehicle.h"
 #include "Pawn.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "PanzerStateShot.h"
 #include "Engine.h"
 #include "Application.h"

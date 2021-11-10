@@ -8,7 +8,7 @@
 ----------------------------------------------------------------*/
 #include "Vehicle.h"
 #include "MoveComponent.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "PanzerStateRotation.h"
 #include "PanzerStateShot.h"
 #include "PanzerStateStay.h"

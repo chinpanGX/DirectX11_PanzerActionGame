@@ -6,7 +6,7 @@
 ---------------------------------------------------------------*/
 #include "Vehicle.h"
 #include "Status.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "MoveComponent.h"
 #include "Engine.h"
 #include "Application.h"
@@ -60,7 +60,7 @@ Vehicle & Pawn::GetVehicle() const
 	return *m_Vehicle;
 }
 
-PanzerPilot & Pawn::GetPilot() const
+Pivot & Pawn::GetPilot() const
 {
 	if (!m_Pilot)
 	{

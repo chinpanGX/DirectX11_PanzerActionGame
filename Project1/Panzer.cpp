@@ -68,28 +68,19 @@ void Panzer::Draw()
 #pragma region getter
 const Body & Panzer::GetBody() const
 {
-	if (!m_Body)
-	{
-		throw std::domain_error("null pointer"); // nullptrのとき例外エラー
-	}
+	if (!m_Body) { OutputDebugString("m_Body is nullptr\n"); }
 	return *m_Body;
 }
 
 const Turret & Panzer::GetTurret() const
 {
-	if (!m_Turret)
-	{
-		throw std::domain_error("null pointer"); // nullptrのとき例外エラー
-	}
+	if (!m_Turret) { OutputDebugString("m_Turret is nullptr\n"); }
 	return *m_Turret;
 }
 
 const MainGun & Panzer::GetMainGun() const
 {
-	if (!m_Gun)
-	{
-		throw std::domain_error("null pointer"); // nullptrのとき例外エラー
-	}
+	if (!m_Gun) { OutputDebugString("m_Gun is nullptr\n"); }
 	return *m_Gun;
 }
 #pragma region getter

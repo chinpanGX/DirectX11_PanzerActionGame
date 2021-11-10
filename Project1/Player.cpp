@@ -23,7 +23,7 @@
 #include "Fps.h"
 #include "Enemy.h"
 #include "GameCamera.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "OnComponentEvent.h"
 #include "Player.h"
 

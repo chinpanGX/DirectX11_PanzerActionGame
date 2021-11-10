@@ -10,14 +10,14 @@
 #include "CameraMode.h"
 #include "Engine.h"
 #include "Application.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 
 #pragma region TpsCameraMode_method
 TpsCameraMode::TpsCameraMode() {}
 
 TpsCameraMode::~TpsCameraMode() {}
 
-void TpsCameraMode::Update(GameCamera * Camera, PanzerPilot* Panzer)
+void TpsCameraMode::Update(GameCamera * Camera, Pivot* Panzer)
 {
 	// モードチェンジ
 	if (Camera->GetChageMode() == true)
@@ -38,7 +38,7 @@ FpsCameraMode::FpsCameraMode() {}
 
 FpsCameraMode::~FpsCameraMode() {}
 
-void FpsCameraMode::Update(GameCamera * Camera, PanzerPilot* Panzer)
+void FpsCameraMode::Update(GameCamera * Camera, Pivot* Panzer)
 {
 	if (Camera->GetChageMode() == false)
 	{

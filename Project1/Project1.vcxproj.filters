@@ -226,9 +226,6 @@
     <ClCompile Include="PanzerStateStay.cpp">
       <Filter>Actor\Panzer\State</Filter>
     </ClCompile>
-    <ClCompile Include="PanzerPilot.cpp">
-      <Filter>Actor\Panzer\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Command.cpp">
       <Filter>Command</Filter>
     </ClCompile>
@@ -358,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="SkillParticle.cpp">
       <Filter>Actor\2D\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Pivot.cpp">
+      <Filter>Actor\Panzer\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -530,9 +530,6 @@
     <ClInclude Include="PanzerStateStay.h">
       <Filter>Actor\Panzer\State</Filter>
     </ClInclude>
-    <ClInclude Include="PanzerPilot.h">
-      <Filter>Actor\Panzer\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>Command</Filter>
     </ClInclude>
@@ -681,6 +678,9 @@
     </ClInclude>
     <ClInclude Include="SkillParticle.h">
       <Filter>Actor\2D\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Pivot.h">
+      <Filter>Actor\Panzer\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

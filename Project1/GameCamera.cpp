@@ -9,7 +9,7 @@
 #include "CameraMode.h"
 #include "GameCamera.h"
 #include "Player.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 
 #pragma region CameCamera_method
 GameCamera::GameCamera() : m_IsChangeMode(false)

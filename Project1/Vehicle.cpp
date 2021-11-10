@@ -16,6 +16,7 @@
 #include "Pawn.h"
 #include "GameManager.h"
 #include "Factory.h"
+#include "Utility.h"
 
 Vehicle::Vehicle(std::string Tag) : m_Tag(Tag)
 {
@@ -39,11 +40,14 @@ void Vehicle::Update()
 
 void Vehicle::Draw()
 {
+	// êÌé‘ÇÃï`âÊ
+	m_Panzer->Draw();
+
+	// âeÇÃï`âÊ
 	m_Shadow->GetTransform().position(m_Panzer->GetBody().GetTransform().position());
 	m_Shadow->GetTransform().position().y = 0.01f;
 	m_Shadow->GetTransform().scale(8.0f, 0.0f, 10.0f);
 	m_Shadow->Draw();
-	m_Panzer->Draw();
 }
 
 // ÉXÉ^Å[Égà íuÇåàÇﬂÇÈ
@@ -138,19 +142,15 @@ Transform & Vehicle::GetGunTransform() const
 
 Status & Vehicle::GetStatus() const
 {
-	if (!m_Status)
-	{
-		std::domain_error("null");
-	}
+	// nullcheck
+	if (!m_Status) { OutputDebugString("m_Status is NullPtr\n"); }
 	return *m_Status;
 }
 
 Skill & Vehicle::GetSkill() const
 {
-	if (!m_Skill)
-	{
-		std::domain_error("null");
-	}
+	// nullcheck
+	if (!m_Skill) { OutputDebugString("m_Skill is NullPtr\n"); }
 	return *m_Skill;
 }
 
@@ -162,6 +162,7 @@ void Vehicle::SetPanzer()
 	Factory::FPanzer fpanzer;
 	m_Panzer = fpanzer.Create(m_Tag);
 	m_Panzer->Begin();
+
 	// âeÇê∂ê¨
 	Factory::FShadow fshadow;
 	m_Shadow = fshadow.Create();
@@ -178,10 +179,8 @@ void Vehicle::SetProperty(Status::Country Country, float Cost, float Hp, float A
 
 Panzer & Vehicle::GetPanzer() const
 {
-	if (!m_Panzer)
-	{
-		std::domain_error("null");
-	}
+	// nullcheck
+	if (!m_Panzer) { OutputDebugString("m_Panzer is NullPtr\n"); }
 	return *m_Panzer;
 }
 

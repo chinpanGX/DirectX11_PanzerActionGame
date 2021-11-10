@@ -15,7 +15,7 @@
 #include "Panzer.h"
 #include "Vehicle.h"
 #include "Player.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "Pause.h"
 
 Reload::Reload() : Effect()

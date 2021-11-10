@@ -15,7 +15,7 @@
 #include "Resource.h"
 #include "GameScene.h"
 #include "Player.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "NormalBullet.h"
 #include "GameCamera.h"
 #include "Fps.h"
@@ -303,8 +303,8 @@ GameCommand::GameCommand()
 	// ƒvƒŒƒCƒ„[‚Ì‘€ì
 	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	// íŽÔ‚Ì‘€c
-	auto& panzerPilot = m_Player->GetPilot();
-	m_Controller = std::make_unique<Controller>(m_Player, camera, &panzerPilot);
+	auto& Pivot = m_Player->GetPilot();
+	m_Controller = std::make_unique<Controller>(m_Player, camera, &Pivot);
 }
 GameCommand::~GameCommand() {}
 void GameCommand::Begin() {}
