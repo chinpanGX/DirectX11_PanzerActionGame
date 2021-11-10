@@ -22,8 +22,8 @@ PanzerGarage::~PanzerGarage()
 
 void PanzerGarage::Begin()
 {
-	m_Transform->SetPosition(0.0f, 0.0f, -6.0f);
-	m_Transform->SetScale(3.0f);
+	m_Transform->position(0.0f, 0.0f, -6.0f);
+	m_Transform->scale(3.0f);
 }
 
 void PanzerGarage::Update()

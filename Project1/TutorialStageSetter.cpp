@@ -32,12 +32,12 @@ void TutorialStageSetterWall::Set(Scene * scene)
 // “I
 void TutorialStageSetterTarget::Set(Scene * scene)
 {
-	scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(0.0f, 10.0f, 150.0f);
+	scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().position(0.0f, 10.0f, 150.0f);
 	for (int32_t i = 1; i < 3; ++i)
 	{
-		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(40.0f * i, 5.0f, 100.0f);
-		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(-40.0f * i, 5.0f, 100.0f);
-		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(40.0f * i, 25.0f, 200.0f);
-		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(-40.0f * i, 25.0f, 200.0f);
+		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().position(40.0f * i, 5.0f, 100.0f);
+		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().position(-40.0f * i, 5.0f, 100.0f);
+		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().position(40.0f * i, 25.0f, 200.0f);
+		scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().position(-40.0f * i, 25.0f, 200.0f);
 	}
 }

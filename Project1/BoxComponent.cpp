@@ -60,7 +60,7 @@ void BoxComponent::SystemDraw()
 void BoxComponent::SetSphere3(const Transform & t, const float & Radius)
 {
 	auto transform = t;
-	m_sphere = std::make_unique<Sphere3>(transform.GetPosition(), Radius);
+	m_sphere = std::make_unique<Sphere3>(transform.position(), Radius);
 }
 
 const Sphere3 & BoxComponent::GetSphere3() const
@@ -75,7 +75,7 @@ const Sphere3 & BoxComponent::GetSphere3() const
 void BoxComponent::SetAABB3(const Transform& t, const Math::Vector3 & Size)
 {
 	auto transform = t;
-	m_aabb = std::make_unique<AABB3>(transform.GetPosition(), Size);
+	m_aabb = std::make_unique<AABB3>(transform.position(), Size);
 }
 
 const AABB3& BoxComponent::GetAABB3() const

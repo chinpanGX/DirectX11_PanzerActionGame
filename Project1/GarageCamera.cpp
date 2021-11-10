@@ -21,7 +21,7 @@ GarageCamera::~GarageCamera()
 
 void GarageCamera::Begin()
 {
-	m_Transform->SetPosition(Math::Vector3(15.2f, 5.5f, 2.3f));
+	m_Transform->position(Math::Vector3(15.2f, 5.5f, 2.3f));
 }
 
 void GarageCamera::Update()

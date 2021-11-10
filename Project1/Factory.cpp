@@ -89,12 +89,12 @@ std::unique_ptr<class PanzerPilot> Factory::FPilot::Create(Vehicle & vehicle)
 {
 	//　パイロットの設定
 	std::unique_ptr<PanzerPilot> tmp = std::make_unique<PanzerPilot>(vehicle);
-	auto pos = vehicle.GetBodyTransform().GetPosition();
+	auto pos = vehicle.GetBodyTransform().position();
 	pos.y += 5.0f;
 	
 	// 初期位置の設定
-	tmp->GetTransform().SetPosition(pos);
-	tmp->GetTransform().SetRotation(vehicle.GetBodyTransform().GetRotation());
+	tmp->GetTransform().position(pos);
+	tmp->GetTransform().rotation(vehicle.GetBodyTransform().rotation());
 	return tmp;
 }
 

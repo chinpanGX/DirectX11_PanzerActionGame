@@ -34,6 +34,7 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	sd.SampleDesc.Count = 1;
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = TRUE;
+	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // alt-enter fullscreen
 	hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &sd,
 		m_SwapChain.GetAddressOf(), m_Device.GetAddressOf(), &featurelevel, m_DeviceContext.GetAddressOf());
 	ThrowIfFailed(hr, "D3D11CreateDeviceAndSwapchain");
@@ -186,10 +187,6 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	m_Device->CreateBuffer(&hBufferDesc, NULL,  m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
 	m_DeviceContext->PSSetConstantBuffers(6, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
 
-	hBufferDesc.ByteWidth = sizeof(cbPerObject);
-	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_EFFECT].GetAddressOf());
-	m_DeviceContext->VSSetConstantBuffers(7, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_EFFECT].GetAddressOf());
-
 	// ƒ‰ƒCƒg–³Œø‰»
 	Light light;
 	light.Enable = false;
@@ -284,11 +281,6 @@ void Graphics::SetCameraPosition(DirectX::XMFLOAT3 CameraPosition)
 void Graphics::SetParameter(DirectX::XMFLOAT4 Parameter)
 {
 	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER], &Parameter);
-}
-
-void Graphics::SetEffectParameter(cbPerObject obj)
-{
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_EFFECT], &obj);
 }
 
 void Graphics::SetBlendStateDefault()

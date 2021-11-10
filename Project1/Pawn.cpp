@@ -36,10 +36,10 @@ void Pawn::Update()
 {
 	m_Vehicle->Update();
 	m_MoveComponent->Update();
-	m_Vehicle->ColiisionUpdate(0, m_Vehicle->GetBodyTransform().GetPosition(), m_Vehicle->GetBodyTransform());
-	m_Vehicle->ColiisionUpdate(1, m_Pilot->GetTransform().GetPosition(), m_Pilot->GetTransform());
-	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pilot->GetTransform().GetPosition().x, m_Pilot->GetTransform().GetPosition().y,
-		m_Pilot->GetTransform().GetPosition().z + 3.0f), m_Pilot->GetTransform());
+	m_Vehicle->ColiisionUpdate(0, m_Vehicle->GetBodyTransform().position(), m_Vehicle->GetBodyTransform());
+	m_Vehicle->ColiisionUpdate(1, m_Pilot->GetTransform().position(), m_Pilot->GetTransform());
+	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pilot->GetTransform().position().x, m_Pilot->GetTransform().position().y,
+		m_Pilot->GetTransform().position().z + 3.0f), m_Pilot->GetTransform());
 }
 
 void Pawn::Event()

@@ -20,9 +20,9 @@ Body::~Body()
 
 void Body::Begin()
 {
-	m_Transform->SetPosition(Math::Vector3::Zero);
-	m_Transform->SetRotation(Math::Quaternion::Identity);
-	m_Transform->SetScale(1.3f);
+	m_Transform->position(Math::Vector3::Zero);
+	m_Transform->rotation(Math::Quaternion::Identity);
+	m_Transform->scale(1.3f);
 }
 
 void Body::Update()
@@ -45,9 +45,9 @@ void Body::Draw()
 void Body::UpdateMatrix(const DirectX::XMFLOAT4X4 & ParentMatirx)
 {
 	DirectX::XMMATRIX scale, rot, trans;
-	scale = Math::Matrix::MatrixScaling(m_Transform->GetScale());
-	rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->GetRotation());
-	trans = Math::Matrix::MatrixTranslation(m_Transform->GetPosition());
+	scale = Math::Matrix::MatrixScaling(m_Transform->scale());
+	rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->rotation());
+	trans = Math::Matrix::MatrixTranslation(m_Transform->position());
 	auto local = scale * rot * trans;
 	DirectX::XMStoreFloat4x4(&m_WorldMatrix, local);
 }

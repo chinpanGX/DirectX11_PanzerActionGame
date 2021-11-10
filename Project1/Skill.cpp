@@ -119,9 +119,9 @@ const bool Skill::GetAlreadyUseble() const
 void Skill::PlayEffect(Pawn* pawn)
 {
 	// エフェクトを発生する位置を戦車の位置にする
-	auto pos = pawn->GetVehicle().GetBodyTransform().GetPosition();
+	auto pos = pawn->GetVehicle().GetBodyTransform().position();
 	// エフェクトを再生する
 	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
-	effect->GetTransform().SetPosition(pos);
+	effect->GetTransform().position(pos);
 }
 #pragma endregion スキル

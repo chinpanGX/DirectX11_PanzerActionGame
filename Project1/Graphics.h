@@ -51,17 +51,6 @@ struct Light
 	DirectX::XMFLOAT4 Ambient;
 };
 
-// エフェクト用コンスタントバッファー
-struct cbPerObject
-{
-	cbPerObject()
-	{
-		ZeroMemory(this, sizeof(cbPerObject));
-	}
-	DirectX::XMMATRIX wvp;
-	DirectX::XMMATRIX world;
-};
-
 class Graphics final
 {
 	template<typename T>
@@ -80,7 +69,6 @@ public:
 	void SetLight(Light Light);
 	void SetCameraPosition(DirectX::XMFLOAT3 CameraPosition);
 	void SetParameter(DirectX::XMFLOAT4 Parameter);
-	void SetEffectParameter(cbPerObject obj);
 	void SetBlendStateDefault();
 	void SetBlendStateSub();
 
@@ -109,7 +97,6 @@ private:
 		CONSTANT_BUFFER_LIGHT,
 		CONSTANT_BUFFER_CAMERA,
 		CONSTANT_BUFFER_PARAMETER,
-		CONSTANT_BUFFER_EFFECT,
 		NUM_MAX
 	};
 	std::array<ComPtr<ID3D11Buffer>, EBuffer::NUM_MAX> m_Buffer;

@@ -431,7 +431,7 @@ void AABB3::UpdateMinMax(const Math::Vector3 & Point)
 OBB3::OBB3(const Transform & t, const Math::Vector3 & Size)
 {
 	auto transform = t;
-	m_Position = transform.GetPosition();
+	m_Position = transform.position();
 	m_Size = Size;
 
 	// 0,1,2 = x,y,z
@@ -586,7 +586,7 @@ void OBB3::SystemDraw()
 #endif
 }
 
-const Math::Vector3 & OBB3::GetPosition() const
+const Math::Vector3 & OBB3::position() const
 {
 	return m_Position;
 }
@@ -747,7 +747,7 @@ bool Intersect(const AABB3 & a, const AABB3 & b)
 
 bool Intersect(const Sphere3 & s, const OBB3 & b)
 {
-	Math::Vector3 dist = b.GetPosition() - s.GetCenter();
+	Math::Vector3 dist = b.position() - s.GetCenter();
 	float dot = Math::Vector3::Dot(dist, dist);
 	if (dot <= s.GetRadius() * s.GetRadius())
 	{
@@ -794,7 +794,7 @@ bool Intersect(const OBB3 & a, const OBB3 & b)
 	Math::Vector3 Nbe3 = obj_b.GetDirection(2);
 	Math::Vector3 be3 = Nae3 * obj_b.GetLength().z;
 
-	Math::Vector3 Interval = obj_a.GetPosition() - obj_b.GetPosition();
+	Math::Vector3 Interval = obj_a.position() - obj_b.position();
 
 	// •ª—£Ž² : ae1
 	float rA = ae1.Length();

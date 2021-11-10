@@ -46,8 +46,8 @@ void PanzerPilot::SetStartPosition(Math::Vector3 Position, Math::Vector3 Rot)
 {
 	auto tmp = Position;
 	tmp.y += 5.0f;
-	m_Transform->SetPosition(tmp);
-	m_Transform->SetRotation(Rot.x, Rot.y, Rot.z);
+	m_Transform->position(tmp);
+	m_Transform->rotation(Rot.x, Rot.y, Rot.z, 1.0f);
 }
 
 const float PanzerPilot::GetTpsOffset() const
@@ -68,8 +68,8 @@ const float PanzerPilot::GetTargetOffset() const
 void PanzerPilot::Move()
 {
 	// 移動はボディの位置に合わせる
-	Math::Vector3& pos = m_Transform->GetPosition();
-	Math::Vector3 body = m_Vehicle.GetBodyTransform().GetPosition();
+	Math::Vector3& pos = m_Transform->position();
+	Math::Vector3 body = m_Vehicle.GetBodyTransform().position();
 	pos.x = body.x;
 	pos.z = body.z;
 }

@@ -25,7 +25,7 @@ Target::~Target()
 
 void Target::Begin()
 {
-	m_Transform->SetScale(5.0f, 5.0f, 1.0f);
+	m_Transform->scale(5.0f, 5.0f, 1.0f);
 	m_BoxComponent->SetSphere3(*m_Transform, 5.0f);
 }
 
@@ -78,8 +78,8 @@ void Target::Draw()
 		// マトリクスの設定
 		auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 
-		DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->GetScale());
-		DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->GetPosition());
+		DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->scale());
+		DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->position());
 		DirectX::XMMATRIX world = scale * trans;
 		m_Graphics.SetWorldMatrix(world);
 

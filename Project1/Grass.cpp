@@ -19,7 +19,7 @@ Grass::~Grass()
 
 void Grass::Begin()
 {
-	m_Transform->SetPosition(0.0f, 1.0f, 0.0f);
+	m_Transform->position(0.0f, 1.0f, 0.0f);
 }
 
 void Grass::Update()

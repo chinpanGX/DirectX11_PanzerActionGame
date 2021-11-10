@@ -20,7 +20,7 @@
 float State::Rotation::GetRightDirection(Pawn * pPawn)
 {
 	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	Math::Vector3 dist = pPawn->GetVehicle().GetBodyTransform().GetPosition() - player->GetVehicle().GetBodyTransform().GetPosition();
+	Math::Vector3 dist = pPawn->GetVehicle().GetBodyTransform().position() - player->GetVehicle().GetBodyTransform().position();
 	Math::Vector3 cross = Math::Vector3::Cross(pPawn->GetPilot().GetTransform().GetVector(Transform::Vector::Forward), dist);
 	float t = cross.x - cross.y - cross.z;
 	return t;

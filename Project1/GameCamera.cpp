@@ -25,7 +25,7 @@ GameCamera::~GameCamera()
 
 void GameCamera::Begin()
 {
-	m_Transform->SetPosition(Math::Vector3(0.0f, 5.0f, -8.0f));
+	m_Transform->position(Math::Vector3(0.0f, 5.0f, -8.0f));
 }
 
 void GameCamera::Update()
@@ -54,7 +54,7 @@ const DirectX::XMMATRIX GameCamera::GetInverseView() const
 	DirectX::XMVECTOR vec = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
 	DirectX::XMMATRIX tmp = DirectX::XMMatrixIdentity();
 	
-	DirectX::XMVECTOR eye = DirectX::XMVectorSet(m_Transform->GetPosition().x, m_Transform->GetPosition().y, m_Transform->GetPosition().z, 1.0f);
+	DirectX::XMVECTOR eye = DirectX::XMVectorSet(m_Transform->position().x, m_Transform->position().y, m_Transform->position().z, 1.0f);
 	DirectX::XMVECTOR force = DirectX::XMVectorSet(m_Target.x, m_Target.y, m_Target.z, 1.0f);
 	DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
 

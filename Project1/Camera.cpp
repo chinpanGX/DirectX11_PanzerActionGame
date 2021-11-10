@@ -17,7 +17,7 @@ Camera::Camera() : m_Target(Math::Vector3(0.0f, 0.0f, 0.0f)), m_Aspect(Engine::G
 void Camera::SetViewMatrix()
 {
 	// ˆÊ’u‚ÌXV
-	DirectX::XMVECTOR eye = DirectX::XMVectorSet(m_Transform->GetPosition().x, m_Transform->GetPosition().y, m_Transform->GetPosition().z, 1.0f);
+	DirectX::XMVECTOR eye = DirectX::XMVectorSet(m_Transform->position().x, m_Transform->position().y, m_Transform->position().z, 1.0f);
 	DirectX::XMVECTOR force = DirectX::XMVectorSet(m_Target.x, m_Target.y, m_Target.z, 1.0f);
 	DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
 
@@ -31,7 +31,7 @@ void Camera::SetProjectionMatrix()
 	auto proj = DirectX::XMLoadFloat4x4(&m_Projection);
 	proj = DirectX::XMMatrixPerspectiveFovLH(1.0f, m_Aspect, 1.0f, 2000.0f);
 	m_Graphics.SetProjectionMatrix(proj);
-	m_Graphics.SetCameraPosition(Math::Vector3::CastXMFloat3(m_Transform->GetPosition()));
+	m_Graphics.SetCameraPosition(Math::Vector3::CastXMFloat3(m_Transform->position()));
 }
 
 void Camera::SetTarget(Math::Vector3 Target)

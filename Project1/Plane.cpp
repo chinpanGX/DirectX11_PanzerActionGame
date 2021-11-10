@@ -14,7 +14,7 @@
 Plane::Plane()
 {
 	m_Transform = AddComponent<Transform>();
-	m_Renderer = std::make_unique<Renderer3D>(*Engine::Get().GetGraphics(), m_Transform->GetPosition(), Math::Vector3::Zero, m_Transform->GetScale());
+	m_Renderer = std::make_unique<Renderer3D>(*Engine::Get().GetGraphics(), m_Transform->position(), Math::Vector3::Zero, m_Transform->scale());
 }
 
 Plane::~Plane()
@@ -24,7 +24,7 @@ Plane::~Plane()
 
 void Plane::Begin()
 {
-	m_Transform->SetScale(1000.0f, 1.0f, 1000.0f);
+	m_Transform->scale(1000.0f, 1.0f, 1000.0f);
 	m_Renderer->CreatePlane(10, 1000);
 }
 

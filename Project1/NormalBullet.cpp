@@ -63,12 +63,12 @@ void NormalBullet::Create(const Math::Vector3& Position, const Math::Vector3 & V
 	// インスタンス生成
 	Bullet::SetProperty(Vector, 300.0f, 240);
 	m_Transform = Actor::AddComponent<Transform>();
-	m_Transform->SetPosition(Position);
-	m_Transform->SetScale(1.5f);
+	m_Transform->position(Position);
+	m_Transform->scale(1.5f);
 
 	// コンポーネントの設定
 	m_BoxComponent = Actor::AddComponent<BoxComponent>();
-	Math::Vector3 scale = m_Transform->GetScale() * 0.5f;
+	Math::Vector3 scale = m_Transform->scale() * 0.5f;
 	m_BoxComponent->SetSphere3(*m_Transform, 1.0f);
 	m_BoxComponent->SetAABB3(*m_Transform, scale);
 	m_BoxComponent->SetOBB3(*m_Transform, scale);
@@ -76,7 +76,7 @@ void NormalBullet::Create(const Math::Vector3& Position, const Math::Vector3 & V
 
 	// リソース
 	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<MuzzleFlash>(ELayer::LAYER_2D_EFFECT);
-	effect->GetTransform().SetPosition(Position);
+	effect->GetTransform().position(Position);
 }
 
 void NormalBullet::ChangeState(std::unique_ptr<BulletState> State)

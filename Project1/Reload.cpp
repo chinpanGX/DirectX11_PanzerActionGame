@@ -37,7 +37,7 @@ void Reload::Update()
 	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
 	if (pause) { return; }
 	auto& panzer = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetVehicle();
-	m_Transform->GetRotation().z += 0.05f;
+	m_Transform->rotation().z += 0.05f;
 	if (panzer.GetStatus().GetFinishReload() == true)
 	{
 		OnDestroy();
@@ -54,11 +54,11 @@ void Reload::Draw()
 	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	DirectX::XMMATRIX view = camera->GetInverseView(); // View‚Ì‹ts—ñ
 	auto& pilot = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetPilot();
-	m_Transform->GetPosition().x = pilot.GetTransform().GetPosition().x;
-	m_Transform->GetPosition().z = pilot.GetTransform().GetPosition().z;
-	DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->GetScale());
-	DirectX::XMMATRIX rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->GetRotation());
-	DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->GetPosition());
+	m_Transform->position().x = pilot.GetTransform().position().x;
+	m_Transform->position().z = pilot.GetTransform().position().z;
+	DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->scale());
+	DirectX::XMMATRIX rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->rotation());
+	DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->position());
 	DirectX::XMMATRIX world = scale * rot * view * trans;
 	m_Graphics.SetWorldMatrix(world);
 

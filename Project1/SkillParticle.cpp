@@ -16,7 +16,7 @@
 SkillParticle::SkillParticle() : Effect()
 {
 	m_Transform = Actor::AddComponent<Transform>();
-	m_Transform->SetScale(10.0f);
+	m_Transform->scale(10.0f);
 }
 
 SkillParticle::~SkillParticle()
@@ -60,8 +60,8 @@ void SkillParticle::Draw()
 	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	DirectX::XMMATRIX view = camera->GetInverseView(); // View‚Ì‹ts—ñ
 
-	DirectX::XMMATRIX scale = DirectX::XMMatrixScaling(m_Transform->GetScale().x, m_Transform->GetScale().y, m_Transform->GetScale().z);
-	DirectX::XMMATRIX trans = DirectX::XMMatrixTranslation(m_Transform->GetPosition().x, m_Transform->GetPosition().y, m_Transform->GetPosition().z);
+	DirectX::XMMATRIX scale = DirectX::XMMatrixScaling(m_Transform->scale().x, m_Transform->scale().y, m_Transform->scale().z);
+	DirectX::XMMATRIX trans = DirectX::XMMatrixTranslation(m_Transform->position().x, m_Transform->position().y, m_Transform->position().z);
 	DirectX::XMMATRIX world = scale * view * trans;
 	m_Graphics.SetWorldMatrix(world);
 

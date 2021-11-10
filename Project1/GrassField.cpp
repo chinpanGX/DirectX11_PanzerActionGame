@@ -19,7 +19,7 @@ GrassField::GrassField()
 	{
 		for (int32_t x = 0; x < GrassMax; ++x)
 		{
-			Engine::Get().GetApplication()->GetScene()->AddGameObject<Grass>(LAYER_3D_STAGE)->GetTransform().SetPosition(3.0f * x, -1.0f, 3.0f * z);
+			Engine::Get().GetApplication()->GetScene()->AddGameObject<Grass>(LAYER_3D_STAGE)->GetTransform().position(3.0f * x, -1.0f, 3.0f * z);
 		}
 	}
 }

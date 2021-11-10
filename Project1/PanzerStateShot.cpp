@@ -31,8 +31,8 @@ void State::Shot::Update(Pawn * pPawn, float deltaTime)
 	pPawn->GetVehicle().Shot(pPawn->GetPilot().GetTransform());
 	OnSound(pPawn);
 	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
-	Math::Vector3 offset = pPawn->GetPilot().GetTransform().GetPosition() + Math::Vector3(0.0f, 3.0f, 0.0f);
-	effect->GetTransform().SetPosition(offset);
+	Math::Vector3 offset = pPawn->GetPilot().GetTransform().position() + Math::Vector3(0.0f, 3.0f, 0.0f);
+	effect->GetTransform().position(offset);
 	pPawn->ChangeState(std::make_unique<State::Stay>());
 }
 
@@ -40,9 +40,9 @@ void State::Shot::OnSound(Pawn * pPawn)
 {
 	// プレイヤーの位置を取得
 	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	Math::Vector3 playerPos = player->GetVehicle().GetBodyTransform().GetPosition();
+	Math::Vector3 playerPos = player->GetVehicle().GetBodyTransform().position();
 	// CPUの位置を取得
-	Math::Vector3 cpuPos = pPawn->GetVehicle().GetBodyTransform().GetPosition();
+	Math::Vector3 cpuPos = pPawn->GetVehicle().GetBodyTransform().position();
 
 	// プレイヤーとCPU間の距離を取り,2倍する
 	float d = 2.0f * (Math::Sqrt((cpuPos.x - playerPos.x) * (cpuPos.x - playerPos.x) + (cpuPos.y - playerPos.y) *  (cpuPos.y - playerPos.y) + (cpuPos.z - playerPos.z) * (cpuPos.z - playerPos.z)));

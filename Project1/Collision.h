@@ -97,7 +97,7 @@ public:
 	~OBB3();
 	void Update(const Math::Vector3& Position, const class Transform& t);
 	void SystemDraw();
-	const Math::Vector3& GetPosition()const;
+	const Math::Vector3& position()const;
 	const Math::Vector3& GetDirection(int32_t Element);
 	const Math::Vector3& GetLength()const;
 private:

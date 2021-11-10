@@ -42,20 +42,19 @@ public:
 	};
 
 	// プロパティ
-	inline Math::Vector3& GetPosition()	   { return this->m_Position; }
-	inline Math::Quaternion& GetRotation() { return this->m_Rotation; }
-	inline Math::Vector3& GetScale()	   { return this->m_Scale; }
+	inline Math::Vector3& position()	   { return this->m_Position; }
+	inline Math::Quaternion& rotation() { return this->m_Rotation; }
+	inline Math::Vector3& scale()	   { return this->m_Scale; }
 	
-	inline void SetPosition(Math::Vector3 pos)    { this->m_Position = pos; }
-	inline void SetRotation(Math::Quaternion rot) { this->m_Rotation = rot; }
-	inline void SetScale(Math::Vector3 scl)	      { this->m_Scale = scl; }
+	inline void position(Math::Vector3 pos)    { this->m_Position = pos; }
+	inline void rotation(Math::Quaternion rot) { this->m_Rotation = rot; }
+	inline void scale(Math::Vector3 scl)	      { this->m_Scale = scl; }
 	
-	inline void SetPosition(float x, float y, float z)			{ this->m_Position = Math::Vector3(x, y, z); }
-	inline void SetRotation(float x, float y, float z)			{ this->m_Rotation = Math::Quaternion(x, y, z, 1.0f); }
-	inline void SetRotation(float x, float y, float z, float w) { this->m_Rotation = Math::Quaternion(x, y, z, w); }
-	inline void SetRotation(Math::Vector3 v, float angle)		{ this->m_Rotation = Math::Quaternion(v, angle); }
-	inline void SetScale(float s)								{ this->m_Scale = Math::Vector3(s, s, s); }
-	inline void SetScale(float x, float y, float z)				{ this->m_Scale = Math::Vector3(x, y, z); }
+	inline void position(float x, float y, float z)			{ this->m_Position = Math::Vector3(x, y, z); }
+	inline void rotation(float x, float y, float z, float w){ this->m_Rotation = Math::Quaternion(x, y, z, w); }
+	inline void rotation(Math::Vector3 v, float angle)		{ this->m_Rotation = Math::Quaternion(v, angle); }
+	inline void scale(float s)								{ this->m_Scale = Math::Vector3(s, s, s); }
+	inline void scale(float x, float y, float z)			{ this->m_Scale = Math::Vector3(x, y, z); }
 
 
 	// 指定した方向ベクトルを返す

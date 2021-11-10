@@ -87,8 +87,8 @@ void Controller::Shot()
 		m_Pawn->GetVehicle().Shot(m_Panzerpilot->GetTransform());
 		Engine::Get().GetResource()->AudioPlay("Shot");
 		auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
-		Math::Vector3 offset = m_Panzerpilot->GetTransform().GetPosition() + Math::Vector3(0.0f, 3.0f, 0.0f);
-		effect->GetTransform().SetPosition(offset);
+		Math::Vector3 offset = m_Panzerpilot->GetTransform().position() + Math::Vector3(0.0f, 3.0f, 0.0f);
+		effect->GetTransform().position(offset);
 	}
 }
 

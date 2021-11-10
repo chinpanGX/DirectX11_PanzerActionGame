@@ -39,9 +39,9 @@ void Vehicle::Update()
 
 void Vehicle::Draw()
 {
-	m_Shadow->GetTransform().SetPosition(m_Panzer->GetBody().GetTransform().GetPosition());
-	m_Shadow->GetTransform().GetPosition().y = 0.01f;
-	m_Shadow->GetTransform().SetScale(8.0f, 0.0f, 10.0f);
+	m_Shadow->GetTransform().position(m_Panzer->GetBody().GetTransform().position());
+	m_Shadow->GetTransform().position().y = 0.01f;
+	m_Shadow->GetTransform().scale(8.0f, 0.0f, 10.0f);
 	m_Shadow->Draw();
 	m_Panzer->Draw();
 }
@@ -49,15 +49,15 @@ void Vehicle::Draw()
 // スタート位置を決める
 void Vehicle::SetStartPosition(Math::Vector3 pos, Math::Vector3 rot)
 {
-	this->GetBodyTransform().SetPosition(pos);
-	this->GetBodyTransform().SetRotation(rot.x, rot.y, rot.z, 1.0f);
+	this->GetBodyTransform().position(pos);
+	this->GetBodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
 void Vehicle::SetStartPosition(Pawn* pawn, Math::Vector3 pos, Math::Vector3 rot)
 {
 	m_Panzer->Begin();
-	pawn->GetVehicle().GetBodyTransform().SetPosition(pos);
-	pawn->GetVehicle().GetBodyTransform().SetRotation(rot.x, rot.y, rot.z, 1.0f);
+	pawn->GetVehicle().GetBodyTransform().position(pos);
+	pawn->GetVehicle().GetBodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
 // ダメージ計算
@@ -83,7 +83,7 @@ void Vehicle::Shot(const Transform & transform)
 	float offset = 10.0f; // 補正値
 	auto t = transform;
 	// 発射位置
-	Math::Vector3 pos = t.GetPosition() + t.GetVector(Transform::Vector::Forward) * offset;
+	Math::Vector3 pos = t.position() + t.GetVector(Transform::Vector::Forward) * offset;
 	// 飛んでいく方向ベクトル
 	Math::Vector3 vector = t.GetVector(Transform::Vector::Forward);
 	
