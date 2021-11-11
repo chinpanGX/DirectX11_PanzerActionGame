@@ -119,7 +119,7 @@ const bool Skill::GetAlreadyUseble() const
 void Skill::PlayEffect(Pawn* pawn)
 {
 	// エフェクトを発生する位置を戦車の位置にする
-	auto pos = pawn->GetVehicle().GetBodyTransform().position();
+	auto pos = pawn->vehicle().GetBodyTransform().position();
 	// エフェクトを再生する
 	auto effect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
 	effect->transform().position(pos);

@@ -38,13 +38,13 @@ void Fence::Update()
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
-		OnCollisionToVehicle(player->GetVehicle());
+		OnCollisionToVehicle(player->vehicle());
 	}
 	// エネミー
 	auto enemy_1 = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 	if (enemy_1)
 	{
-		OnCollisionToVehicle(enemy_1->GetVehicle());
+		OnCollisionToVehicle(enemy_1->vehicle());
 	}
 }
 

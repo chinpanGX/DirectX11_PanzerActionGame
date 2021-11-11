@@ -115,9 +115,9 @@ void CollisionTriggerEvent()
 	for (auto e : enemys)
 	{
 		// 戦車同士の当たり判定
-		if (Intersect(player->GetVehicle().GetBoxComponent(0).GetSphere3(), e->GetVehicle().GetBoxComponent(0).GetSphere3()))
+		if (Intersect(player->vehicle().GetBoxComponent(0).GetSphere3(), e->vehicle().GetBoxComponent(0).GetSphere3()))
 		{
-			if (Intersect(player->GetVehicle().GetBoxComponent(0).GetOBB3(), e->GetVehicle().GetBoxComponent(0).GetOBB3()))
+			if (Intersect(player->vehicle().GetBoxComponent(0).GetOBB3(), e->vehicle().GetBoxComponent(0).GetOBB3()))
 			{
 				player->OnTriggerEvent();
 				e->OnTriggerEvent();
@@ -129,11 +129,11 @@ void CollisionTriggerEvent()
 	for (auto b : bullets)
 	{
 		//　弾とプレイヤー
-		if (Intersect(b->GetBoxComponent().GetSphere3(), player->GetVehicle().GetBoxComponent(0).GetSphere3()))
+		if (Intersect(b->GetBoxComponent().GetSphere3(), player->vehicle().GetBoxComponent(0).GetSphere3()))
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				if (Intersect(b->GetBoxComponent().GetOBB3(), player->GetVehicle().GetBoxComponent(i).GetOBB3()))
+				if (Intersect(b->GetBoxComponent().GetOBB3(), player->vehicle().GetBoxComponent(i).GetOBB3()))
 				{
 					b->OnCollisionEnter();
 					player->OnCollisionEnter();
@@ -144,11 +144,11 @@ void CollisionTriggerEvent()
 		// 弾とエネミー
 		for (auto e : enemys)
 		{
-			if (Intersect(b->GetBoxComponent().GetSphere3(), e->GetVehicle().GetBoxComponent(0).GetSphere3()))
+			if (Intersect(b->GetBoxComponent().GetSphere3(), e->vehicle().GetBoxComponent(0).GetSphere3()))
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					if (Intersect(b->GetBoxComponent().GetOBB3(), e->GetVehicle().GetBoxComponent(i).GetOBB3()))
+					if (Intersect(b->GetBoxComponent().GetOBB3(), e->vehicle().GetBoxComponent(i).GetOBB3()))
 					{
 						b->OnCollisionEnter();
 						e->OnCollisionEnter();

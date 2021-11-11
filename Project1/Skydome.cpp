@@ -51,8 +51,8 @@ void Skydome::Draw()
 void Skydome::UpdateMatrix()
 {
 	// カメラの情報を取得する
-	auto& camera = *Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	Math::Vector3 pos = camera.transform().position();
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	Math::Vector3 pos = camera->position();
 
 	// マトリクス計算
 	// 錯覚維持のためにスカイドームがカメラの中心に来るようにする

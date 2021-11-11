@@ -5,17 +5,16 @@
 
 --------------------------------------------------------------*/
 #include "Engine.h"
+#include "Graphics.h"
 #include "Application.h"
-#include "CameraMode.h"
 #include "GameCamera.h"
 #include "Player.h"
 #include "Pivot.h"
 
 #pragma region CameCamera_method
-GameCamera::GameCamera() : m_IsChangeMode(false)
+GameCamera::GameCamera() : m_Position(Math::Vector3(0.0f, 5.0f, -8.0f)), m_Target(Math::Vector3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().graphics()), m_EnableFpsMode(false)
 {
-	m_Transform = Actor::AddComponent<Transform>();
-	m_Mode = std::make_unique<TpsCameraMode>();
+	
 }
 
 GameCamera::~GameCamera()
@@ -25,13 +24,27 @@ GameCamera::~GameCamera()
 
 void GameCamera::Begin()
 {
-	m_Transform->position(Math::Vector3(0.0f, 5.0f, -8.0f));
+
 }
 
 void GameCamera::Update()
 {
-	auto& pilot = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetPilot();
-	m_Mode->Update(this, &pilot);
+	const auto& pivot = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->pivot();
+
+	// FPSモード
+	if (m_EnableFpsMode)
+	{
+		m_Position = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Forward) * pivot.GetFpsOffset());
+		m_Target = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Forward) * pivot.GetTargetOffset());
+	}
+	// TPSモード	
+	else
+	{
+		auto offset = Math::Vector3(0.0f, 5.0f, 0.0f);
+		m_Position = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Backward) * pivot.GetTpsOffset()) + offset;
+		m_Target = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Forward) * pivot.GetTargetOffset());
+	}
+
 }
 
 void GameCamera::Event()
@@ -40,88 +53,65 @@ void GameCamera::Event()
 
 void GameCamera::Draw()
 {
+	// ビューマトリクスの設定
 	SetViewMatrix();
+
+	// プロジェクションマトリクスの設定
 	SetProjectionMatrix();
 }
 
-void GameCamera::ChangeMode(std::unique_ptr<CameraMode> Mode)
+DirectX::XMFLOAT4X4 GameCamera::view() const
 {
-	m_Mode = std::move(Mode);
+	return m_View;
 }
 
-const DirectX::XMMATRIX GameCamera::GetInverseView() const
+const Math::Vector3 GameCamera::position() const
 {
-	DirectX::XMVECTOR vec = DirectX::XMVectorSet(0.0f, 0.0f, 0.0f, 1.0f);
-	DirectX::XMMATRIX tmp = DirectX::XMMatrixIdentity();
-	
-	DirectX::XMVECTOR eye = DirectX::XMVectorSet(m_Transform->position().x, m_Transform->position().y, m_Transform->position().z, 1.0f);
-	DirectX::XMVECTOR force = DirectX::XMVectorSet(m_Target.x, m_Target.y, m_Target.z, 1.0f);
+	return m_Position;
+}
+
+const bool GameCamera::FpsModeNow() const
+{
+	return m_EnableFpsMode;
+}
+
+void GameCamera::EnableFpsMode(bool Enable)
+{
+	m_EnableFpsMode = Enable;
+}
+
+// GameCamera_HelperFunction
+void GameCamera::SetViewMatrix()
+{
+	// 変換
+	DirectX::XMVECTOR eye = Math::Vector3::CastXMVECTOR(m_Position);
+	DirectX::XMVECTOR force = Math::Vector3::CastXMVECTOR(m_Target);
 	DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
+	DirectX::XMMATRIX view = DirectX::XMLoadFloat4x4(&m_View);
 
-	tmp = DirectX::XMMatrixLookAtLH(eye, force, up);
-	tmp = DirectX::XMMatrixInverse(&vec, tmp);
-	tmp.r[3].m128_f32[0] = 0.0f;
-	tmp.r[3].m128_f32[1] = 0.0f;
-	tmp.r[3].m128_f32[2] = 0.0f;
-	return tmp;
+	// ビューマトリクスの設定
+	view = DirectX::XMMatrixLookAtLH(eye, force, up);
+	m_Graphics.SetViewMatrix(view);
+
+	// 計算結果を保存する
+	m_Position = Math::Vector3(eye);
+	m_Target = Math::Vector3(force);
+	DirectX::XMStoreFloat4x4(&m_View, view);
 }
 
-void GameCamera::ChangeCameraMode(bool Change)
+void GameCamera::SetProjectionMatrix()
 {
-	if (this)
-	{
-		m_IsChangeMode = Change;
-	}
-}
+	// アスペクト比の計算	
+	float aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
+	// 変換
+	auto proj = DirectX::XMLoadFloat4x4(&m_Projection);
 
-const bool GameCamera::GetChageMode() const
-{
-	return m_IsChangeMode;
+	// プロジェクションマトリクスの設定
+	proj = DirectX::XMMatrixPerspectiveFovLH(1.0f, aspect, 1.0f, 2000.0f);
+	m_Graphics.SetProjectionMatrix(proj);
+	m_Graphics.SetCameraPosition(Math::Vector3::CastXMFloat3(m_Position));
+
+	// 計算結果を保存
+	DirectX::XMStoreFloat4x4(&m_Projection, proj);
 }
 #pragma endregion GameCameraのメソッド
-
-// 視錐台カリング
-/*
-View,D3DX_PI/4,1.0,100,(float)WINDOW_WIDTH/(float)WINDOW_HEIGHT
-D3DXMATRIX* pmView,float Angle,float NearClip,float FarClip,float Aspect
-//左右、上下の平面を計算
-{
-	D3DXVECTOR3 p1, p2, p3;
-	//左面
-	p1 = D3DXVECTOR3(0, 0, 0);
-	p2.x = -FarClip * ((FLOAT)tan(Angle / 2)*Aspect);
-	p2.y = -FarClip * (FLOAT)tan(Angle / 2);
-	p2.z = FarClip;
-	p3.x = p2.x;
-	p3.y = -p2.y;
-	p3.z = p2.z;
-	D3DXPlaneFromPoints(&VFLeftPlane, &p1, &p2, &p3);
-	//右面
-	p1 = D3DXVECTOR3(0, 0, 0);
-	p2.x = FarClip * ((FLOAT)tan(Angle / 2)*Aspect);
-	p2.y = FarClip * (FLOAT)tan(Angle / 2);
-	p2.z = FarClip;
-	p3.x = p2.x;
-	p3.y = -p2.y;
-	p3.z = p2.z;
-	D3DXPlaneFromPoints(&VFRightPlane, &p1, &p2, &p3);
-	//上面
-	p1 = D3DXVECTOR3(0, 0, 0);
-	p2.x = -FarClip * ((FLOAT)tan(Angle / 2)*Aspect);
-	p2.y = FarClip * (FLOAT)tan(Angle / 2);
-	p2.z = FarClip;
-	p3.x = -p2.x;
-	p3.y = p2.y;
-	p3.z = p2.z;
-	D3DXPlaneFromPoints(&VFTopPlane, &p1, &p2, &p3);
-	//下面
-	p1 = D3DXVECTOR3(0, 0, 0);
-	p2.x = FarClip * ((FLOAT)tan(Angle / 2)*Aspect);
-	p2.y = -FarClip * (FLOAT)tan(Angle / 2);
-	p2.z = FarClip;
-	p3.x = -p2.x;
-	p3.y = p2.y;
-	p3.z = p2.z;
-	D3DXPlaneFromPoints(&VFBottomPlane, &p1, &p2, &p3);
-}
-*/

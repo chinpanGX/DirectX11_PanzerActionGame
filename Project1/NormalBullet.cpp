@@ -105,11 +105,11 @@ void NormalBullet::OnCollision()
 void NormalBullet::OnCollisionToPawn(Pawn * Pawn)
 {
 	// ‹…“¯Žm‚Ì“–‚½‚è”»’è‚ðŽæ‚é
-	if (Intersect(m_BoxComponent->GetSphere3(), Pawn->GetVehicle().GetBoxComponent(0).GetSphere3()))
+	if (Intersect(m_BoxComponent->GetSphere3(), Pawn->vehicle().GetBoxComponent(0).GetSphere3()))
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			if (Intersect(m_BoxComponent->GetOBB3(), Pawn->GetVehicle().GetBoxComponent(i).GetOBB3()))
+			if (Intersect(m_BoxComponent->GetOBB3(), Pawn->vehicle().GetBoxComponent(i).GetOBB3()))
 			{
 				Bullet::OnCollisionEnter();
 				Pawn->OnCollisionEnter();

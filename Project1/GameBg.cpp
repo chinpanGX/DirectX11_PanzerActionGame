@@ -44,7 +44,7 @@ void GameBg::Scope::Event()
 void GameBg::Scope::Draw()
 {
 	// カメラがFPSモードのときにスコープを描画する
-	if(Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->GetChageMode() == true)
+	if(Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->FpsModeNow() == true)
 	{
 		m_Renderer2D->Draw();
 	}

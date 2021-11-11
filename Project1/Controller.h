@@ -18,7 +18,7 @@ public:
 	Controller(Pawn* pPawn, GameCamera* pCamera, Pivot* pPivot);
 	~Controller();
 
-	void ChangeCameraMode(bool Mode);	// カメラモード
+	void FpsCameraMode(bool fpsMode);	// カメラモード
 	//　移動
 	void MoveForward(float deltaTime);
 	void MoveBackward(float deltaTime);

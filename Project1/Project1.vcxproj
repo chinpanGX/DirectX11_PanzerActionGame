@@ -154,7 +154,6 @@
     <ClCompile Include="BulletStateDestory.cpp" />
     <ClCompile Include="BulletStateMove.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraMode.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -253,7 +252,6 @@
     <ClInclude Include="BulletStateDestory.h" />
     <ClInclude Include="BulletStateMove.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraMode.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DrawSkill.h" />
     <ClInclude Include="IOnComponentEvent.h" />

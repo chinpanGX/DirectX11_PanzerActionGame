@@ -60,8 +60,8 @@ void Vehicle::SetStartPosition(Math::Vector3 pos, Math::Vector3 rot)
 void Vehicle::SetStartPosition(Pawn* pawn, Math::Vector3 pos, Math::Vector3 rot)
 {
 	m_Panzer->Begin();
-	pawn->GetVehicle().GetBodyTransform().position(pos);
-	pawn->GetVehicle().GetBodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
+	pawn->vehicle().GetBodyTransform().position(pos);
+	pawn->vehicle().GetBodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
 // ƒ_ƒ[ƒWŒvŽZ
@@ -73,7 +73,7 @@ void Vehicle::CalcuateDamege(Pawn * Pawn)
 	{
 		// —”¶¬(50 ` 100)‚Ì•â³‚ð‚·‚é
 		int r = myLib::Random::Rand_R(50, 100);
-		attackpt = Pawn->GetVehicle().GetStatus().GetAttack() + r * b->GetDDE() - m_Status->GetDefence();
+		attackpt = Pawn->vehicle().GetStatus().GetAttack() + r * b->GetDDE() - m_Status->GetDefence();
 		CalculateHp(attackpt);
 	}
 }

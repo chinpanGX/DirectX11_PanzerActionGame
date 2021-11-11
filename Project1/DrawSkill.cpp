@@ -30,14 +30,14 @@ GameBg::DrawSkill::~DrawSkill()
 void GameBg::DrawSkill::Begin()
 {
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	float t = m_Player->GetVehicle().GetSkill().GetEnableTime();
+	float t = m_Player->vehicle().GetSkill().GetEnableTime();
 	m_Add = m_MaxDrawSize / t * Fps::Get().deltaTime;
 }
 
 void GameBg::DrawSkill::Update()
 {
 	// ‚Ü‚¾ƒXƒLƒ‹‚ªŽg‚¦‚éó‘Ô‚¶‚á‚È‚¢
-	if (m_Player->GetVehicle().GetSkill().GetAlreadyUseble() == false)
+	if (m_Player->vehicle().GetSkill().GetAlreadyUseble() == false)
 	{
 		m_DrawSize += m_Add;
 	}

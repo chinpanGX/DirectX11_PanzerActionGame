@@ -21,15 +21,15 @@ void OnComponentEventWallBox::BeginOverlap(Pawn * pPawn)
 	auto wallFence = Engine::Get().application()->GetScene()->GetGameObjects<WallBox>(ELayer::LAYER_3D_STAGE);
 	for (auto w : wallFence)
 	{
-		if (Intersect(pPawn->GetVehicle().GetBoxComponent(0).GetOBB3(), w->GetBoxComponent().GetOBB3()))
+		if (Intersect(pPawn->vehicle().GetBoxComponent(0).GetOBB3(), w->GetBoxComponent().GetOBB3()))
 		{
 			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
 			{
-				pPawn->GetMoveComponent().MoveBackward(pPawn->GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
+				pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().GetBodyTransform(), Fps::Get().deltaTime);
 			}
 			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
 			{
-				pPawn->GetMoveComponent().MoveForward(pPawn->GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
+				pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().GetBodyTransform(), Fps::Get().deltaTime);
 			}
 		}
 	}

@@ -56,7 +56,7 @@ void Enemy::Event()
 		auto player = Engine::Get().application()->GetScene()->GetGameObjects<Player>(ELayer::LAYER_3D_ACTOR);
 		for (auto p : player)
 		{
-			GetVehicle().CalcuateDamege(p);
+			vehicle().CalcuateDamege(p);
 			ResetCollisionEnter();
 		}
 	}
@@ -65,7 +65,7 @@ void Enemy::Event()
 
 void Enemy::Draw()
 {
-	GetVehicle().Draw();
+	vehicle().Draw();
 }
 
 void Enemy::ChangeState(std::unique_ptr<PanzerState> State)

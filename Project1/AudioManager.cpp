@@ -23,7 +23,7 @@ GameAudio::GameAudio()
 	{
 		std::string name;
 		auto resource = Engine::Get().resource();
-		int32_t Country = player->GetVehicle().GetStatus().GetCountry();
+		int32_t Country = player->vehicle().GetStatus().GetCountry();
 		int32_t r = 0; // 乱数
 		// 戦車のステータスの国によって、BGMを変える
 		switch (Country)

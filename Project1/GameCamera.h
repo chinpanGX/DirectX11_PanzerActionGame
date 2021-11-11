@@ -7,11 +7,10 @@
 
 --------------------------------------------------------------*/
 #pragma once
-#include "Camera.h"
+#include "DefaultObject.h"
+#include "myLib.h"
 
-// ゲームカメラ
-class CameraMode;
-class GameCamera final : public Camera
+class GameCamera final : public DefaultObject 
 {
 public:
 	GameCamera();
@@ -21,15 +20,26 @@ public:
 	void Event()override;
 	void Draw()override;
 
-	// カメラモードの変更
-	void ChangeMode(std::unique_ptr<CameraMode> Mode);
+	// Getter
+	DirectX::XMFLOAT4X4 view() const;
+	const Math::Vector3 position() const;
 
-	// Getter/Setter
-	const DirectX::XMMATRIX GetInverseView() const;  // 逆行列
-
-	void ChangeCameraMode(bool Change);
-	const bool GetChageMode() const;
+	// FPSモードの設定
+	const bool FpsModeNow() const;
+	void EnableFpsMode(bool Enable);
 private:
-	std::unique_ptr<CameraMode> m_Mode;	// カメラモード
-	bool m_IsChangeMode; // カメラのモードを切り替える trueのときFPSカメラにする
+	// ヘルパー関数
+	void SetViewMatrix();		// ビューマトリクスの設定
+	void SetProjectionMatrix();	// プロジェクションマトリクスの設定
+
+	// 行列
+	DirectX::XMFLOAT4X4 m_View;
+	DirectX::XMFLOAT4X4 m_Projection;
+
+	// カメラの設定
+	Math::Vector3 m_Position;
+	Math::Vector3 m_Target;
+	
+	class Graphics& m_Graphics;
+	bool m_EnableFpsMode; // カメラのモードを切り替える trueのときFPSカメラにする
 };

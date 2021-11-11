@@ -94,9 +94,6 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Actor\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CameraMode.cpp">
-      <Filter>Actor\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="GameCamera.cpp">
       <Filter>Actor\Camera</Filter>
     </ClCompile>
@@ -381,9 +378,6 @@
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
-      <Filter>Actor\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraMode.h">
       <Filter>Actor\Camera</Filter>
     </ClInclude>
     <ClInclude Include="GameCamera.h">

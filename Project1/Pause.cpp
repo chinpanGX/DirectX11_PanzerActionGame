@@ -149,7 +149,7 @@ void Pause::SelectBottom()
 	m_TopToBottom = false;
 }
 
-bool Pause::GetToorBottom()
+bool Pause::GetToporBottom()
 {
 	return m_TopToBottom;
 }
@@ -176,12 +176,15 @@ Keepon::Keepon() : PauseState()
 
 void Keepon::Draw(Pause * Pause)
 {
+	// 共通のx座標
+	float x = 960.0f;
 	Math::Vector2 size = Math::Vector2(512.0f, 128.0f);
 	Math::Vector4 color = Math::Vector4(1.0f, 1.0f, 1.0f, Pause->GetAlpha());
-	GetRenderer().Draw(Math::Vector2(960.0f, 400.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), color);
-	GetRenderer().Draw(Math::Vector2(960.0f, 400.0f), size, Math::Vector2(0.0f, 0.5f), Math::Vector2(0.25f, 0.625f));
-	GetRenderer().Draw(Math::Vector2(960.0f, 600.0f), size, Math::Vector2(0.0f, 0.625f), Math::Vector2(0.25f, 0.75f));
-	GetRenderer().Draw(Math::Vector2(960.0f, 800.0f), size, Math::Vector2(0.25f, 0.375f), Math::Vector2(0.5f, 0.5f));
+
+	GetRenderer().Draw(Math::Vector2(x, 400.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), color);
+	GetRenderer().Draw(Math::Vector2(x, 400.0f), size, Math::Vector2(0.0f, 0.5f), Math::Vector2(0.25f, 0.625f));
+	GetRenderer().Draw(Math::Vector2(x, 600.0f), size, Math::Vector2(0.0f, 0.625f), Math::Vector2(0.25f, 0.75f));
+	GetRenderer().Draw(Math::Vector2(x, 800.0f), size, Math::Vector2(0.25f, 0.375f), Math::Vector2(0.5f, 0.5f));
 }
 #pragma endregion 続ける
 
@@ -193,18 +196,21 @@ Operation::Operation() : PauseState()
 
 void Operation::Draw(Pause * Pause)
 {
+	// 共通のx座標
+	float x = 960.0f;
+
 	if (!Pause->GetOperation())
 	{
 		Math::Vector2 size = Math::Vector2(512.0f, 128.0f);
 		Math::Vector4 color = Math::Vector4(1.0f, 1.0f, 1.0f, Pause->GetAlpha());
-		GetRenderer().Draw(Math::Vector2(960.0f, 600.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), color);
-		GetRenderer().Draw(Math::Vector2(960.0f, 400.0f), size, Math::Vector2(0.0f, 0.5f), Math::Vector2(0.25f, 0.625f));
-		GetRenderer().Draw(Math::Vector2(960.0f, 600.0f), size, Math::Vector2(0.0f, 0.625f), Math::Vector2(0.25f, 0.75f));
-		GetRenderer().Draw(Math::Vector2(960.0f, 800.0f), size, Math::Vector2(0.25f, 0.375f), Math::Vector2(0.5f, 0.5f));
+		GetRenderer().Draw(Math::Vector2(x, 600.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), color);
+		GetRenderer().Draw(Math::Vector2(x, 400.0f), size, Math::Vector2(0.0f, 0.5f), Math::Vector2(0.25f, 0.625f));
+		GetRenderer().Draw(Math::Vector2(x, 600.0f), size, Math::Vector2(0.0f, 0.625f), Math::Vector2(0.25f, 0.75f));
+		GetRenderer().Draw(Math::Vector2(x, 800.0f), size, Math::Vector2(0.25f, 0.375f), Math::Vector2(0.5f, 0.5f));
 	}
 	else
 	{
-		Math::Vector2 pos = Math::Vector2(960.0f, 540.0f);
+		Math::Vector2 pos = Math::Vector2(x, 540.0f);
 		Math::Vector2 size = Math::Vector2(1024.0f, 512.f);
 		// キーボードマウスの設定
 		if (g_IsInputGamePad == false)
@@ -227,32 +233,35 @@ GameEnd::GameEnd() : PauseState()
 
 void GameEnd::Draw(Pause * Pause)
 {
+	// 共通のx座標
+	float x = 960.0f;
+
 	if (!Pause->GetEnd())
 	{
 		Math::Vector2 size = Math::Vector2(512.0f, 128.0f);
 		Math::Vector4 color = Math::Vector4(1.0f, 1.0f, 1.0f, Pause->GetAlpha());
-		GetRenderer().Draw(Math::Vector2(960.0f, 800.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), color);
-		GetRenderer().Draw(Math::Vector2(960.0f, 400.0f), size, Math::Vector2(0.0f, 0.5f), Math::Vector2(0.25f, 0.625f));
-		GetRenderer().Draw(Math::Vector2(960.0f, 800.0f), size, Math::Vector2(0.25f, 0.375f), Math::Vector2(0.5f, 0.5f));
-		GetRenderer().Draw(Math::Vector2(960.0f, 600.0f), size, Math::Vector2(0.0f, 0.625f), Math::Vector2(0.25f, 0.75f));
+		GetRenderer().Draw(Math::Vector2(x, 800.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), color);
+		GetRenderer().Draw(Math::Vector2(x, 400.0f), size, Math::Vector2(0.0f, 0.5f), Math::Vector2(0.25f, 0.625f));
+		GetRenderer().Draw(Math::Vector2(x, 800.0f), size, Math::Vector2(0.25f, 0.375f), Math::Vector2(0.5f, 0.5f));
+		GetRenderer().Draw(Math::Vector2(x, 600.0f), size, Math::Vector2(0.0f, 0.625f), Math::Vector2(0.25f, 0.75f));
 	}
 	else
 	{
 		// 上を選んだとき、はい
-		if (Pause->GetToorBottom() == true)
+		if (Pause->GetToporBottom() == true)
 		{
-			GetRenderer().Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f),Math::Vector4(1.0f, 1.0f, 1.0f, Pause->GetAlpha()));
-			GetRenderer().Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
-			GetRenderer().Draw(Math::Vector2(960.0f, 800.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
-			GetRenderer().Draw(Math::Vector2(960.0f, 400.0f), Math::Vector2(1024.0f, 128.0f), Math::Vector2(0.0f, 0.875f), Math::Vector2(0.5f, 1.0f));
+			GetRenderer().Draw(Math::Vector2(x, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f),Math::Vector4(1.0f, 1.0f, 1.0f, Pause->GetAlpha()));
+			GetRenderer().Draw(Math::Vector2(x, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
+			GetRenderer().Draw(Math::Vector2(x, 800.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
+			GetRenderer().Draw(Math::Vector2(x, 400.0f), Math::Vector2(1024.0f, 128.0f), Math::Vector2(0.0f, 0.875f), Math::Vector2(0.5f, 1.0f));
 		}
 		// 下を選んだ時、いいえ
-		else if (Pause->GetToorBottom() == false)
+		else if (Pause->GetToporBottom() == false)
 		{
-			GetRenderer().Draw(Math::Vector2(960.0f, 800.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), Math::Vector4(1.0f,1.0f,1.0f, Pause->GetAlpha()));
-			GetRenderer().Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
-			GetRenderer().Draw(Math::Vector2(960.0f, 800.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
-			GetRenderer().Draw(Math::Vector2(960.0f, 400.0f), Math::Vector2(1024.0f, 128.0f), Math::Vector2(0.0f, 0.875f), Math::Vector2(0.5f, 1.0f));
+			GetRenderer().Draw(Math::Vector2(x, 800.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), Math::Vector4(1.0f,1.0f,1.0f, Pause->GetAlpha()));
+			GetRenderer().Draw(Math::Vector2(x, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
+			GetRenderer().Draw(Math::Vector2(x, 800.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
+			GetRenderer().Draw(Math::Vector2(x, 400.0f), Math::Vector2(1024.0f, 128.0f), Math::Vector2(0.0f, 0.875f), Math::Vector2(0.5f, 1.0f));
 		}
 	}
 }

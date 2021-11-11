@@ -51,7 +51,7 @@ void Pawn::Draw()
 	
 }
 
-Vehicle & Pawn::GetVehicle() const
+Vehicle & Pawn::vehicle() const
 {
 	if (!m_Vehicle)
 	{
@@ -60,7 +60,7 @@ Vehicle & Pawn::GetVehicle() const
 	return *m_Vehicle;
 }
 
-Pivot & Pawn::GetPilot() const
+Pivot & Pawn::pivot() const
 {
 	if (!m_Pilot)
 	{

@@ -25,8 +25,8 @@ public:
 	
 	virtual void Respawn(const Math::Vector3& pos) = 0;
 	virtual void ChangeState(std::unique_ptr<class PanzerState> State) = 0;
-	Vehicle& GetVehicle() const;
-	Pivot& GetPilot()const;
+	Vehicle& vehicle() const;
+	Pivot& pivot()const;
 	MoveComponent& GetMoveComponent()const;
 
 protected:

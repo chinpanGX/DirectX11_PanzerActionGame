@@ -72,6 +72,8 @@ void TitleCommand::Draw() {}
 
 void TitleCommand::BeginInput()
 {
+	// Any Pressで入力できるようにする
+
 	// キーボード
 	for (int32_t i = 0; i < 256; ++i)
 	{
@@ -178,6 +180,7 @@ void TitleCommand::InputKeyBoard()
 		}
 	}
 
+	// ゲームパッドに変更するかチェックする
 	if (m_TitleSystem->EState::CHECK_INPUT == state)
 	{
 		if (KeyBoard::IsTrigger(DIK_W))
@@ -273,6 +276,7 @@ void TitleCommand::InputGamePad()
 			}	
 		}
 	}
+
 	if (m_TitleSystem->EState::CHECK_INPUT == state)
 	{
 		if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
@@ -303,7 +307,7 @@ GameCommand::GameCommand()
 	// プレイヤーの操作
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	// 戦車の操縦
-	auto& Pivot = m_Player->GetPilot();
+	auto& Pivot = m_Player->pivot();
 	m_Controller = std::make_unique<Controller>(m_Player, camera, &Pivot);
 }
 GameCommand::~GameCommand() {}
@@ -347,11 +351,12 @@ bool GameCommand::GetNowInput(int32_t i) const { return m_NowInput[i]; }
 // キーボード入力
 void GameCommand::InputKeyboard(float deltaTime)
 {
+	// 入力状態をリセット
 	for (int32_t i = 0; i < 10; i++)
 	{
 		m_NowInput[i] = false;
 	}
-	m_Controller->ChangeCameraMode(false);
+	m_Controller->FpsCameraMode(false);
 
 	// 現在のマウスポインタ
 	m_Mouse.y = (Mouse::GetMouseY() - m_OldMouse.y) * 0.08f;
@@ -361,7 +366,7 @@ void GameCommand::InputKeyboard(float deltaTime)
 	if (Mouse::RightPress())
 	{
 		m_NowInput[9] = true;
-		m_Controller->ChangeCameraMode(true);
+		m_Controller->FpsCameraMode(true);
 	}
 
 	// 戦車（ボディ）の移動
@@ -429,15 +434,18 @@ void GameCommand::InputKeyboard(float deltaTime)
 // ゲームパッドの入力
 void GameCommand::InputGamePad(float deltaTime)
 {
+	// 入力状態をリセット
 	for (int32_t i = 0; i < 9; i++)
 	{
 		m_NowInput[i] = false;
 	}
-	m_Controller->ChangeCameraMode(false);
+	m_Controller->FpsCameraMode(false);
+
 	// カメラモードをFPSにする
 	if (GamePad::IsPress(0, TRIGGER_L2))
 	{
-		m_Controller->ChangeCameraMode(true);
+		m_NowInput[9] = true;
+		m_Controller->FpsCameraMode(true);
 	}
 
 	// 戦車（ボディ）の移動
@@ -684,21 +692,26 @@ void PauseCommand::InputKeyBoard()
 	{
 		switch (m_Pause->GetState())
 		{
+		// ゲームに戻るを選択
 		case 0:
+			// 下を選択
 			if (KeyBoard::IsTrigger(DIK_S))
 			{
 				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Pause->SetState(m_Pause->OPERATION);
 			}
+			// 決定
 			else if (KeyBoard::IsTrigger(DIK_SPACE))
 			{
 				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Pause->Disable();
 			}
 			break;
+		// 操作方法を選択
 		case 1:
 			if (!m_Pause->GetOperation())
 			{
+				// 他のメニューを選択する
 				if (KeyBoard::IsTrigger(DIK_W))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
@@ -709,14 +722,17 @@ void PauseCommand::InputKeyBoard()
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->END);
 				}
+				// 操作方法の表示する
 				else if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->OperationEnable();
 				}
 			}
+			// 操作方法を選択中
 			else
 			{
+				// 操作方法の表示を終了
 				if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
@@ -724,22 +740,27 @@ void PauseCommand::InputKeyBoard()
 				}
 			}
 			break;
+		// ゲーム終了を選択
 		case 2:
 			if (!m_Pause->GetEnd())
 			{
+				// 上を選択
 				if (KeyBoard::IsTrigger(DIK_W))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->OPERATION);
 				}
+				// ポーズ終了
 				else if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->EndEnable();
 				}
 			}
+			// ゲーム終了を選択したとき
 			else
 			{
+				// 上下選択
 				if (KeyBoard::IsTrigger(DIK_W))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
@@ -750,10 +771,12 @@ void PauseCommand::InputKeyBoard()
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SelectBottom();
 				}
+				// 決定
 				else if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
-					m_Pause->GetToorBottom() ? Engine::Get().application()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
+					// 上→ゲーム終了、下→キャンセル
+					m_Pause->GetToporBottom() ? Engine::Get().application()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
 				}
 			}
 			break;
@@ -775,7 +798,7 @@ void PauseCommand::InputGamePad()
 	{
 		switch (m_Pause->GetState())
 		{
-			//続ける
+		//続ける
 		case 0:
 			if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 			{
@@ -789,7 +812,7 @@ void PauseCommand::InputGamePad()
 				m_Pause->Disable();
 			}
 			break;
-			// 操作方法
+		// 操作方法
 		case 1:
 			if (!m_Pause->GetOperation())
 			{
@@ -821,7 +844,7 @@ void PauseCommand::InputGamePad()
 				}
 			}
 			break;
-			// やめる
+		// ゲーム終了
 		case 2:
 			if (!m_Pause->GetEnd())
 			{
@@ -838,6 +861,7 @@ void PauseCommand::InputGamePad()
 			}
 			else
 			{
+				// 上下選択
 				if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
@@ -848,10 +872,12 @@ void PauseCommand::InputGamePad()
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SelectBottom();
 				}
+				// 決定
 				else if (GamePad::IsTrigger(0, BUTTON_2))
 				{
 					Engine::Get().resource()->AudioPlay("Select", 1.0f);
-					m_Pause->GetToorBottom() ? Engine::Get().application()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
+					// 上→ゲーム終了、下→キャンセル
+					m_Pause->GetToporBottom() ? Engine::Get().application()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
 				}
 			}
 			break;

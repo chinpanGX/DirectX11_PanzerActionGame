@@ -20,8 +20,8 @@
 float State::Rotation::GetRightDirection(Pawn * pPawn)
 {
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	Math::Vector3 dist = pPawn->GetVehicle().GetBodyTransform().position() - player->GetVehicle().GetBodyTransform().position();
-	Math::Vector3 cross = Math::Vector3::Cross(pPawn->GetPilot().transform().GetVector(Transform::Vector::Forward), dist);
+	Math::Vector3 dist = pPawn->vehicle().GetBodyTransform().position() - player->vehicle().GetBodyTransform().position();
+	Math::Vector3 cross = Math::Vector3::Cross(pPawn->pivot().transform().GetVector(Transform::Vector::Forward), dist);
 	float t = cross.x - cross.y - cross.z;
 	return t;
 }
@@ -43,14 +43,14 @@ void State::BodyRotation::Update(Pawn * pPawn, float deltaTime)
 	// 右旋回
 	if (m_Random == 0)
 	{
-		pPawn->GetMoveComponent().RotRight(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotRight(pPawn->GetPilot().transform(), deltaTime);
+		pPawn->GetMoveComponent().RotRight(pPawn->vehicle().GetBodyTransform(), deltaTime);
+		pPawn->pivot().GetMoveComponent().RotRight(pPawn->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else if(m_Random == 1)
 	{
-		pPawn->GetMoveComponent().RotLeft(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotLeft(pPawn->GetPilot().transform(), deltaTime);
+		pPawn->GetMoveComponent().RotLeft(pPawn->vehicle().GetBodyTransform(), deltaTime);
+		pPawn->pivot().GetMoveComponent().RotLeft(pPawn->pivot().transform(), deltaTime);
 	}
 	if (GetFrameZeroFlag() == true)
 	{
@@ -73,17 +73,17 @@ void State::TurretRotation::Update(Pawn * pPawn, float deltaTime)
 	// 右旋回
 	if (GetRightDirection(pPawn) > 0.0f)
 	{
-		pPawn->GetMoveComponent().RotRight(pPawn->GetVehicle().GetTurretTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotRight(pPawn->GetPilot().transform(), deltaTime);
+		pPawn->GetMoveComponent().RotRight(pPawn->vehicle().GetTurretTransform(), deltaTime);
+		pPawn->pivot().GetMoveComponent().RotRight(pPawn->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pPawn->GetMoveComponent().RotLeft(pPawn->GetVehicle().GetTurretTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotLeft(pPawn->GetPilot().transform(), deltaTime);
+		pPawn->GetMoveComponent().RotLeft(pPawn->vehicle().GetTurretTransform(), deltaTime);
+		pPawn->pivot().GetMoveComponent().RotLeft(pPawn->pivot().transform(), deltaTime);
 	}
 	// リロードが完了したら撃つ
-	if (pPawn->GetVehicle().GetStatus().GetFinishReload() == true)
+	if (pPawn->vehicle().GetStatus().GetFinishReload() == true)
 	{
 		pPawn->ChangeState(std::make_unique<State::Shot>());
 	}

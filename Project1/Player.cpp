@@ -59,7 +59,7 @@ void Player::Event()
 		auto enemy = Engine::Get().application()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
 		for (auto e : enemy)
 		{
-			GetVehicle().CalcuateDamege(e);
+			vehicle().CalcuateDamege(e);
 			ResetCollisionEnter();
 		}
 	}
@@ -68,7 +68,7 @@ void Player::Event()
 
 void Player::Draw()
 {
-	GetVehicle().Draw();
+	vehicle().Draw();
 }
 
 void Player::ChangeState(std::unique_ptr<PanzerState> State)
@@ -91,11 +91,11 @@ void Player::OnCollision()
 	{
 		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
 		{
-			GetMoveComponent().MoveBackward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
+			GetMoveComponent().MoveBackward(vehicle().GetBodyTransform(), Fps::Get().deltaTime);
 		}
 		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
 		{
-			GetMoveComponent().MoveForward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
+			GetMoveComponent().MoveForward(vehicle().GetBodyTransform(), Fps::Get().deltaTime);
 		}
 	}
 	BeginOverlap(this);

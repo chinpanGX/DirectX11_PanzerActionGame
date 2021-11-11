@@ -25,13 +25,13 @@ void GameBg::Hp::Begin()
 {
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	// 実際のHPとMAXのサイズから描画する比率を求める
-	m_DrawRatio = m_MaxDrawSize / m_Player->GetVehicle().GetStatus().GetMaxHp();
+	m_DrawRatio = m_MaxDrawSize / m_Player->vehicle().GetStatus().GetMaxHp();
 }
 
 void GameBg::Hp::Update()
 {
 	// 現在のHP
-	m_NowHp = m_Player->GetVehicle().GetStatus().GetHp();
+	m_NowHp = m_Player->vehicle().GetStatus().GetHp();
 	// 更新前のHPと比較する
 	if (m_OldHp != m_NowHp)
 	{
