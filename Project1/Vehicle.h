@@ -38,9 +38,9 @@ public:
 	void ColiisionUpdate(int32_t Element, const Math::Vector3& Position, const Transform& t);
 	BoxComponent& GetBoxComponent(int32_t Element) const;
 	
-	class Transform& GetBodyTransform() const;
-	class Transform& GetTurretTransform() const;
-	class Transform& GetGunTransform() const;
+	class Transform& bodyTransform() const;
+	class Transform& turretTransform() const;
+	class Transform& gunTransform() const;
 	Status& GetStatus() const;
 	Skill& GetSkill() const;
 protected:

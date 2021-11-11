@@ -110,16 +110,16 @@ private:
 	static DIMOUSESTATE2		m_mouseTrigger;	// 押された瞬間だけON
 public:
 	static HRESULT	Init(HINSTANCE hInst, HWND hWnd, bool bShaw = false); //	初期化
-	static void		Uninit();									 // 終了処理
-	static HRESULT	Update();									 // 更新処理
-	static BOOL		LeftPress();								 // 左クリックした状態
-	static BOOL		LeftTrigger();								 // 左クリックした瞬間
-	static BOOL		RightPress();								 // 右クリックした状態
-	static BOOL		RightTrigger();								 // 右クリックした瞬間
-	static BOOL		CenterPress();								 // 中央クリックした状態
-	static BOOL		CenterTrigger();							 // 中央クリックした瞬間
-	static long		GetMouseX();								 // マウスがX方向に動いた相対値
-	static long		GetMouseY();								 // マウスがY方向に動いた相対値
-	static long		GetMouseZ();								 // マウスホイールが動いた相対値
+	static void		Uninit();			// 終了処理
+	static HRESULT	Update();			// 更新処理
+	static BOOL		LeftPress();		// 左クリックした状態
+	static BOOL		LeftTrigger();		// 左クリックした瞬間
+	static BOOL		RightPress();		// 右クリックした状態
+	static BOOL		RightTrigger();		// 右クリックした瞬間
+	static BOOL		CenterPress();		// 中央クリックした状態
+	static BOOL		CenterTrigger();	// 中央クリックした瞬間
+	static long		GetMouseX();		// マウスがX方向に動いた相対値
+	static long		GetMouseY();		// マウスがY方向に動いた相対値
+	static long		GetMouseZ();		// マウスホイールが動いた相対値
 };
 

@@ -42,9 +42,9 @@ void State::Shot::PlayAudio(Pawn * pPawn)
 {
 	// プレイヤーの位置を取得
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	Math::Vector3 playerPos = player->vehicle().GetBodyTransform().position();
+	Math::Vector3 playerPos = player->vehicle().bodyTransform().position();
 	// CPUの位置を取得
-	Math::Vector3 cpuPos = pPawn->vehicle().GetBodyTransform().position();
+	Math::Vector3 cpuPos = pPawn->vehicle().bodyTransform().position();
 
 	// プレイヤーとCPU間の距離を取り,2倍する
 	float d = 2.0f * (Math::Sqrt((cpuPos.x - playerPos.x) * (cpuPos.x - playerPos.x) + (cpuPos.y - playerPos.y) *  (cpuPos.y - playerPos.y) + (cpuPos.z - playerPos.z) * (cpuPos.z - playerPos.z)));

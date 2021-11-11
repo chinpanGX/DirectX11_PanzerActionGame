@@ -147,20 +147,24 @@ void TitleSystem::UpdateColorChenge()
 }
 void TitleSystem::DrawSelect()
 {
+	// 共通変数
 	Math::Vector4 beginColor = Math::Vector4(0.0f, 1.0f, 0.0f, 1.0f);
 	Math::Vector4 alpha = Math::Vector4(1.0f, 1.0f, 1.0f, m_Alpha);
+	Math::Vector2 size = Math::Vector2(512.0f, 128.0f);
+	float px = 960.0f;
+
 	// 上を選んだ時はゲームスタートを選択、下を選んだときはSettingを選択している
 	if (m_ToporButtom)
 	{
-		m_Render->Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), alpha);
-		m_Render->Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.0f), Math::Vector2(0.5f, 0.125f), m_Color);
-		m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.125f), Math::Vector2(0.25f, 0.245f), beginColor);
+		m_Render->Draw(Math::Vector2(px, 600.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), alpha);
+		m_Render->Draw(Math::Vector2(px, 600.0f), size, Math::Vector2(0.25f, 0.0f), Math::Vector2(0.5f, 0.125f), m_Color);
+		m_Render->Draw(Math::Vector2(px, 750.0f), size, Math::Vector2(0.0f, 0.125f), Math::Vector2(0.25f, 0.245f), beginColor);
 	}
 	else
 	{
-		m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), alpha);
-		m_Render->Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.0f), Math::Vector2(0.5f, 0.125f), beginColor);
-		m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.125f), Math::Vector2(0.25f, 0.245f), m_Color);
+		m_Render->Draw(Math::Vector2(px, 750.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), alpha);
+		m_Render->Draw(Math::Vector2(px, 600.0f), size, Math::Vector2(0.25f, 0.0f), Math::Vector2(0.5f, 0.125f), beginColor);
+		m_Render->Draw(Math::Vector2(px, 750.0f), size, Math::Vector2(0.0f, 0.125f), Math::Vector2(0.25f, 0.245f), m_Color);
 	}
 }
 
@@ -183,21 +187,25 @@ void TitleSystem::DrawSetting()
 
 void TitleSystem::DrawInput()
 {
+	// 共通変数
+	float px = 960.0f; // x座標
+	float sy = 128.0f; // サイズy座標
+
 	if (m_InputGamePad == true)
 	{
 		if (m_InputCheck == false)
 		{
-			m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f));
-			m_Render->Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
-			m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
-			m_Render->Draw(Math::Vector2(960.0f, 450.0f), Math::Vector2(1024.0f, 128.0f), Math::Vector2(0.0f, 0.75f), Math::Vector2(0.5f, 0.875f), m_Color);
+			m_Render->Draw(Math::Vector2(px, 750.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f));
+			m_Render->Draw(Math::Vector2(px, 600.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
+			m_Render->Draw(Math::Vector2(px, 750.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
+			m_Render->Draw(Math::Vector2(px, 450.0f), Math::Vector2(1024.0f, sy), Math::Vector2(0.0f, 0.75f), Math::Vector2(0.5f, 0.875f), m_Color);
 		}
 		else if (m_InputCheck == true)
 		{
-			m_Render->Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f));
-			m_Render->Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
-			m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
-			m_Render->Draw(Math::Vector2(960.0f, 450.0f), Math::Vector2(1024.0f, 128.0f), Math::Vector2(0.0f, 0.75f), Math::Vector2(0.5f, 0.875f), m_Color);
+			m_Render->Draw(Math::Vector2(px, 600.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f));
+			m_Render->Draw(Math::Vector2(px, 600.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
+			m_Render->Draw(Math::Vector2(px, 750.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
+			m_Render->Draw(Math::Vector2(px, 450.0f), Math::Vector2(1024.0f, sy), Math::Vector2(0.0f, 0.75f), Math::Vector2(0.5f, 0.875f), m_Color);
 		}
 	}
 }

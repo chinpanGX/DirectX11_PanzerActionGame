@@ -91,11 +91,11 @@ void Player::OnCollision()
 	{
 		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
 		{
-			GetMoveComponent().MoveBackward(vehicle().GetBodyTransform(), Fps::Get().deltaTime);
+			GetMoveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 		}
 		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
 		{
-			GetMoveComponent().MoveForward(vehicle().GetBodyTransform(), Fps::Get().deltaTime);
+			GetMoveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 		}
 	}
 	BeginOverlap(this);

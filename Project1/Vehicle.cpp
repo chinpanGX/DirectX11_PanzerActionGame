@@ -53,15 +53,15 @@ void Vehicle::Draw()
 // スタート位置を決める
 void Vehicle::SetStartPosition(Math::Vector3 pos, Math::Vector3 rot)
 {
-	this->GetBodyTransform().position(pos);
-	this->GetBodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
+	this->bodyTransform().position(pos);
+	this->bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
 void Vehicle::SetStartPosition(Pawn* pawn, Math::Vector3 pos, Math::Vector3 rot)
 {
 	m_Panzer->Begin();
-	pawn->vehicle().GetBodyTransform().position(pos);
-	pawn->vehicle().GetBodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
+	pawn->vehicle().bodyTransform().position(pos);
+	pawn->vehicle().bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
 // ダメージ計算
@@ -125,17 +125,17 @@ BoxComponent & Vehicle::GetBoxComponent(int32_t Element) const
 	return *m_BoxComponent[Element];
 }
 
-Transform & Vehicle::GetBodyTransform() const
+Transform & Vehicle::bodyTransform() const
 {
 	return m_Panzer->GetBody().transform();
 }
 
-Transform & Vehicle::GetTurretTransform() const
+Transform & Vehicle::turretTransform() const
 {
 	return m_Panzer->GetTurret().transform();
 }
 
-Transform & Vehicle::GetGunTransform() const
+Transform & Vehicle::gunTransform() const
 {
 	return m_Panzer->GetMainGun().transform();
 }

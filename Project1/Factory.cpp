@@ -89,12 +89,12 @@ std::unique_ptr<class Pivot> Factory::FPilot::Create(Vehicle & vehicle)
 {
 	//　パイロットの設定
 	std::unique_ptr<Pivot> tmp = std::make_unique<Pivot>(vehicle);
-	auto pos = vehicle.GetBodyTransform().position();
+	auto pos = vehicle.bodyTransform().position();
 	pos.y += 5.0f;
 	
 	// 初期位置の設定
 	tmp->transform().position(pos);
-	tmp->transform().rotation(vehicle.GetBodyTransform().rotation());
+	tmp->transform().rotation(vehicle.bodyTransform().rotation());
 	return tmp;
 }
 

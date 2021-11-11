@@ -36,7 +36,7 @@ void Pawn::Update()
 {
 	m_Vehicle->Update();
 	m_MoveComponent->Update();
-	m_Vehicle->ColiisionUpdate(0, m_Vehicle->GetBodyTransform().position(), m_Vehicle->GetBodyTransform());
+	m_Vehicle->ColiisionUpdate(0, m_Vehicle->bodyTransform().position(), m_Vehicle->bodyTransform());
 	m_Vehicle->ColiisionUpdate(1, m_Pilot->transform().position(), m_Pilot->transform());
 	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pilot->transform().position().x, m_Pilot->transform().position().y,
 		m_Pilot->transform().position().z + 3.0f), m_Pilot->transform());

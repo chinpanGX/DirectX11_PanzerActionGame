@@ -69,7 +69,7 @@ void Pivot::Move()
 {
 	// 移動はボディの位置に合わせる
 	Math::Vector3& pos = m_Transform->position();
-	Math::Vector3 body = m_Vehicle.GetBodyTransform().position();
+	Math::Vector3 body = m_Vehicle.bodyTransform().position();
 	pos.x = body.x;
 	pos.z = body.z;
 }
