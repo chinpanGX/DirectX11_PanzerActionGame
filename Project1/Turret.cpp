@@ -36,8 +36,8 @@ void Turret::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
 	auto m = DirectX::XMLoadFloat4x4(&m_WorldMatrix);
-	GetGraphics().SetWorldMatrix(m);
-	GetResource().SetStaticModel(Parts::GetTag() + "Turret");
+	graphics().SetWorldMatrix(m);
+	resource().SetStaticModel(Parts::GetTag() + "Turret");
 }
 
 void Turret::UpdateMatrix(const DirectX::XMFLOAT4X4 & ParentMatirx)

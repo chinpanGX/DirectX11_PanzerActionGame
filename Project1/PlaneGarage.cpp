@@ -13,7 +13,7 @@
 PlaneGarage::PlaneGarage()
 {
 	m_Transform = Actor::AddComponent<Transform>();
-	m_Renderer = std::make_unique<Renderer3D>(*Engine::Get().GetGraphics(), m_Transform->position(), Math::Vector3::Zero, m_Transform->scale());
+	m_Renderer = std::make_unique<Renderer3D>(*Engine::Get().graphics(), m_Transform->position(), Math::Vector3::Zero, m_Transform->scale());
 }
 
 PlaneGarage::~PlaneGarage()
@@ -37,9 +37,9 @@ void PlaneGarage::Event()
 
 void PlaneGarage::Draw()
 {
-	GetResource().SetShader("Mapping");
-	GetResource().SetTexture(0, "Plane");
-	GetResource().SetTexture(1, "Waffuru");
+	resource().SetShader("Mapping");
+	resource().SetTexture(0, "Plane");
+	resource().SetTexture(1, "Waffuru");
 	Actor::UpdateMatrix(*m_Transform);
 	m_Renderer->Draw();
 }

@@ -17,7 +17,7 @@
 
 Application::Application(Graphics & graphics) : m_Graphics(graphics), m_Fade(nullptr), m_Scene(nullptr)
 {
-	m_Fade = std::make_unique<Fade>(*this, *Engine::Get().GetResource(), Fps::Get());
+	m_Fade = std::make_unique<Fade>(*this, *Engine::Get().resource(), Fps::Get());
 	
 	PanzerNameList::Get().Register(); // íÔ‚Ì–¼‘O‚ğ“o˜^
 	

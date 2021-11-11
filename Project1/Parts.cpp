@@ -9,7 +9,7 @@
 #include "Graphics.h"
 #include "Parts.h"
 
-Parts::Parts(const std::string & Tag) : m_Tagname(Tag), m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
+Parts::Parts(const std::string & Tag) : m_Tagname(Tag), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
 }
 
@@ -23,12 +23,12 @@ const std::string & Parts::GetTag() const
 	return m_Tagname;
 }
 
-Resource & Parts::GetResource() const
+Resource & Parts::resource() const
 {
 	return m_Resource;
 }
 
-Graphics & Parts::GetGraphics() const
+Graphics & Parts::graphics() const
 {
 	return m_Graphics;
 }

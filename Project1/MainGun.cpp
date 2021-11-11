@@ -38,8 +38,8 @@ void MainGun::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
 	auto m = DirectX::XMLoadFloat4x4(&m_WorldMatrix);
-	GetGraphics().SetWorldMatrix(m);
-	GetResource().SetStaticModel(Parts::GetTag() + "Gun");
+	graphics().SetWorldMatrix(m);
+	resource().SetStaticModel(Parts::GetTag() + "Gun");
 }
 
 void MainGun::UpdateMatrix(const DirectX::XMFLOAT4X4 & ParentMatirx)

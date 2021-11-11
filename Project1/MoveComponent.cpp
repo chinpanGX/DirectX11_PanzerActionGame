@@ -30,7 +30,7 @@ void MoveComponent::Update()
 	myLib::Timeline acc(0.0f, m_Status.GetSpeed(), m_Status.GetAddForce());
 	for (int32_t i = 0; i < 2; i++)
 	{
-		nowInput = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(i);
+		nowInput = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(i);
 		if (nowInput == true) { break; }
 	}
 	// スピードアップ

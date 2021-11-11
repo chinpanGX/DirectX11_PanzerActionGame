@@ -20,7 +20,7 @@
 #include "Enemy.h"
 #include "NormalBullet.h"
 
-NormalBullet::NormalBullet() : m_Resource(*Engine::Get().GetResource())
+NormalBullet::NormalBullet() : m_Resource(*Engine::Get().resource())
 {
 	AddComponentEvent<BulletEvent::OnComponentEventFence>();
 	AddComponentEvent<BulletEvent::OnComponentEventWallBox>();
@@ -75,8 +75,8 @@ void NormalBullet::Create(const Math::Vector3& Position, const Math::Vector3 & V
 	m_State = std::make_unique<BulletStateMove>();
 
 	// リソース
-	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<MuzzleFlash>(ELayer::LAYER_2D_EFFECT);
-	effect->GetTransform().position(Position);
+	auto effect = Engine::Get().application()->GetScene()->AddGameObject<MuzzleFlash>(ELayer::LAYER_2D_EFFECT);
+	effect->transform().position(Position);
 }
 
 void NormalBullet::ChangeState(std::unique_ptr<BulletState> State)
@@ -87,14 +87,14 @@ void NormalBullet::ChangeState(std::unique_ptr<BulletState> State)
 void NormalBullet::OnCollision()
 {
 	// プレイヤー
-	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
 		OnCollisionToPawn(player);
 	}
 
 	// エネミー
-	auto enemy_1 = Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
+	auto enemy_1 = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 	if (enemy_1)
 	{
 		OnCollisionToPawn(enemy_1);

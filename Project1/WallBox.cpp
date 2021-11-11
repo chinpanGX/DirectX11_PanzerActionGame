@@ -36,7 +36,7 @@ void WallBox::Event()
 
 void WallBox::Draw()
 {
-	GetResource().SetShader("Default");
+	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	GetResource().SetStaticModel("WallFence");
+	resource().SetStaticModel("WallFence");
 }

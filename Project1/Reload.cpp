@@ -34,9 +34,9 @@ void Reload::Begin()
 
 void Reload::Update()
 {
-	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
 	if (pause) { return; }
-	auto& panzer = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetVehicle();
+	auto& panzer = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetVehicle();
 	m_Transform->rotation().z += 0.05f;
 	if (panzer.GetStatus().GetFinishReload() == true)
 	{
@@ -51,11 +51,11 @@ void Reload::Event()
 void Reload::Draw()
 {
 	// マトリクスの設定
-	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	DirectX::XMMATRIX view = camera->GetInverseView(); // Viewの逆行列
-	auto& pilot = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetPilot();
-	m_Transform->position().x = pilot.GetTransform().position().x;
-	m_Transform->position().z = pilot.GetTransform().position().z;
+	auto& pilot = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetPilot();
+	m_Transform->position().x = pilot.transform().position().x;
+	m_Transform->position().z = pilot.transform().position().z;
 	DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->scale());
 	DirectX::XMMATRIX rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->rotation());
 	DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->position());

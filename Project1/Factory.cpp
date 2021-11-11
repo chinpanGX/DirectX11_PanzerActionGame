@@ -93,8 +93,8 @@ std::unique_ptr<class Pivot> Factory::FPilot::Create(Vehicle & vehicle)
 	pos.y += 5.0f;
 	
 	// ‰ŠúˆÊ’u‚ÌÝ’è
-	tmp->GetTransform().position(pos);
-	tmp->GetTransform().rotation(vehicle.GetBodyTransform().rotation());
+	tmp->transform().position(pos);
+	tmp->transform().rotation(vehicle.GetBodyTransform().rotation());
 	return tmp;
 }
 

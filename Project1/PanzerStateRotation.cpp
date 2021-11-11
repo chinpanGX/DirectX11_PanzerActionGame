@@ -19,9 +19,9 @@
 #pragma region Rotation_method
 float State::Rotation::GetRightDirection(Pawn * pPawn)
 {
-	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	Math::Vector3 dist = pPawn->GetVehicle().GetBodyTransform().position() - player->GetVehicle().GetBodyTransform().position();
-	Math::Vector3 cross = Math::Vector3::Cross(pPawn->GetPilot().GetTransform().GetVector(Transform::Vector::Forward), dist);
+	Math::Vector3 cross = Math::Vector3::Cross(pPawn->GetPilot().transform().GetVector(Transform::Vector::Forward), dist);
 	float t = cross.x - cross.y - cross.z;
 	return t;
 }
@@ -44,13 +44,13 @@ void State::BodyRotation::Update(Pawn * pPawn, float deltaTime)
 	if (m_Random == 0)
 	{
 		pPawn->GetMoveComponent().RotRight(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotRight(pPawn->GetPilot().GetTransform(), deltaTime);
+		pPawn->GetPilot().GetMoveComponent().RotRight(pPawn->GetPilot().transform(), deltaTime);
 	}
 	// ¶ù‰ñ
 	else if(m_Random == 1)
 	{
 		pPawn->GetMoveComponent().RotLeft(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotLeft(pPawn->GetPilot().GetTransform(), deltaTime);
+		pPawn->GetPilot().GetMoveComponent().RotLeft(pPawn->GetPilot().transform(), deltaTime);
 	}
 	if (GetFrameZeroFlag() == true)
 	{
@@ -74,13 +74,13 @@ void State::TurretRotation::Update(Pawn * pPawn, float deltaTime)
 	if (GetRightDirection(pPawn) > 0.0f)
 	{
 		pPawn->GetMoveComponent().RotRight(pPawn->GetVehicle().GetTurretTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotRight(pPawn->GetPilot().GetTransform(), deltaTime);
+		pPawn->GetPilot().GetMoveComponent().RotRight(pPawn->GetPilot().transform(), deltaTime);
 	}
 	// ¶ù‰ñ
 	else
 	{
 		pPawn->GetMoveComponent().RotLeft(pPawn->GetVehicle().GetTurretTransform(), deltaTime);
-		pPawn->GetPilot().GetMoveComponent().RotLeft(pPawn->GetPilot().GetTransform(), deltaTime);
+		pPawn->GetPilot().GetMoveComponent().RotLeft(pPawn->GetPilot().transform(), deltaTime);
 	}
 	// ƒŠƒ[ƒh‚ªŠ®—¹‚µ‚½‚çŒ‚‚Â
 	if (pPawn->GetVehicle().GetStatus().GetFinishReload() == true)

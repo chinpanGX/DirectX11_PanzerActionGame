@@ -8,7 +8,7 @@
 #include "Resource.h"
 #include "StageObject.h"
 
-StageObject::StageObject() : m_Resource(*Engine::Get().GetResource())
+StageObject::StageObject() : m_Resource(*Engine::Get().resource())
 {
 }
 
@@ -32,7 +32,7 @@ void StageObject::Draw()
 {
 }
 
-Resource & StageObject::GetResource() const
+Resource & StageObject::resource() const
 {
 	return m_Resource;
 }

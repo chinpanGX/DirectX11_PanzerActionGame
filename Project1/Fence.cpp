@@ -35,13 +35,13 @@ void Fence::Update()
 {
 	Actor::UpdateCollision(*m_BoxComponent);
 	// プレイヤー
-	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
 		OnCollisionToVehicle(player->GetVehicle());
 	}
 	// エネミー
-	auto enemy_1 = Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
+	auto enemy_1 = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 	if (enemy_1)
 	{
 		OnCollisionToVehicle(enemy_1->GetVehicle());
@@ -58,9 +58,9 @@ void Fence::Event()
 
 void Fence::Draw()
 {
-	GetResource().SetShader("Default");
+	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	GetResource().SetStaticModel("Fence");
+	resource().SetStaticModel("Fence");
 }
 
 void Fence::OnCollisionToVehicle(const Vehicle & Vehicle)

@@ -10,7 +10,7 @@
 #include "Camera.h"
 
 #pragma region Camera_method
-Camera::Camera() : m_Target(Math::Vector3(0.0f, 0.0f, 0.0f)), m_Aspect(Engine::Get().GetWidth() / Engine::Get().GetHeight()), m_Graphics(*Engine::Get().GetGraphics())
+Camera::Camera() : m_Target(Math::Vector3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().graphics())
 {
 }
 
@@ -28,8 +28,9 @@ void Camera::SetViewMatrix()
 
 void Camera::SetProjectionMatrix()
 {
+	float aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
 	auto proj = DirectX::XMLoadFloat4x4(&m_Projection);
-	proj = DirectX::XMMatrixPerspectiveFovLH(1.0f, m_Aspect, 1.0f, 2000.0f);
+	proj = DirectX::XMMatrixPerspectiveFovLH(1.0f, aspect, 1.0f, 2000.0f);
 	m_Graphics.SetProjectionMatrix(proj);
 	m_Graphics.SetCameraPosition(Math::Vector3::CastXMFloat3(m_Transform->position()));
 }

@@ -103,7 +103,7 @@ const OBB3 & BoxComponent::GetOBB3() const
 
 void CollisionTriggerEvent()
 {
-	auto scene = Engine::Get().GetApplication()->GetScene();
+	auto scene = Engine::Get().application()->GetScene();
 	auto player = scene->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	auto enemys = scene->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
 	auto wallboxs = scene->GetGameObjects<WallBox>(ELayer::LAYER_3D_STAGE);

@@ -27,7 +27,7 @@
 #include "OnComponentEvent.h"
 #include "Player.h"
 
-Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().GetResource())
+Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().resource())
 {
 	Pawn::Create();
 	AddComponentEvent<OnComponentEventWallBox>();
@@ -45,7 +45,7 @@ void Player::Begin()
 
 void Player::Update()
 {
-	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
 	if (pause) { return; }
 	OnSound();
 	Pawn::Update();
@@ -56,7 +56,7 @@ void Player::Event()
 {
 	if (CollisionEnter())
 	{
-		auto enemy = Engine::Get().GetApplication()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
+		auto enemy = Engine::Get().application()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
 		for (auto e : enemy)
 		{
 			GetVehicle().CalcuateDamege(e);
@@ -80,7 +80,7 @@ void Player::Respawn(const Math::Vector3& pos)
 {
 	Pawn::SetStartPosition(this, pos, Math::Vector3(0.0f, 0.0f, 0.0f));
 	Pawn::RespawnSetMaxHP();
-	Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->Update();
+	Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->Update();
 	this->Update();
 }
 
@@ -89,11 +89,11 @@ void Player::OnCollision()
 	// 敵との当たり判定
 	if(TrigerEvent())
 	{
-		if (Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
 		{
 			GetMoveComponent().MoveBackward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
 		}
-		if (Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
+		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
 		{
 			GetMoveComponent().MoveForward(GetVehicle().GetBodyTransform(), Fps::Get().deltaTime);
 		}
@@ -107,7 +107,7 @@ void Player::OnSound()
 	bool nowInput = false;
 	for (int32_t i = 0; i < 2; i++)
 	{
-		nowInput = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(i);
+		nowInput = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(i);
 		if (nowInput == true)
 		{
 			break;

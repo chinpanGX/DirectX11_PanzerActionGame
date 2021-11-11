@@ -12,7 +12,7 @@
 
 GameStage::GameStage()
 {
-	m_Scene = Engine::Get().GetApplication()->GetScene();
+	m_Scene = Engine::Get().application()->GetScene();
 	// ステージオブジェクト
 	Stage::AddObject<StageSetterSkydome>();
 	Stage::AddObject<StageSetterPlane>();

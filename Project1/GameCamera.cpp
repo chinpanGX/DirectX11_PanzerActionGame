@@ -30,7 +30,7 @@ void GameCamera::Begin()
 
 void GameCamera::Update()
 {
-	auto& pilot = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetPilot();
+	auto& pilot = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->GetPilot();
 	m_Mode->Update(this, &pilot);
 }
 

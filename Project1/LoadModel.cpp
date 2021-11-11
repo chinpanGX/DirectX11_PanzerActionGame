@@ -58,7 +58,7 @@ void Model::Load(const std::string& name)
 		m_SubsetArray[i].StartIndex = model.SubsetArray[i].StartIndex;
 		m_SubsetArray[i].IndexNum = model.SubsetArray[i].IndexNum;
 		m_SubsetArray[i].Material.Material = model.SubsetArray[i].Material.Material;
-		D3DX11CreateShaderResourceViewFromFile(Engine::Get().GetGraphics()->GetDevice().Get(), model.SubsetArray[i].Material.TextureName,
+		D3DX11CreateShaderResourceViewFromFile(Engine::Get().graphics()->GetDevice().Get(), model.SubsetArray[i].Material.TextureName,
 			NULL, NULL, m_SubsetArray[i].Material.Texture.GetAddressOf(), NULL);
 		assert(m_SubsetArray[i].Material.Texture);
 	}

@@ -8,11 +8,6 @@
 #include "Utility.h"
 #include "Graphics.h"
 
-namespace
-{
-	// ウィンドウサイズ
-	const Math::Vector2 g_Size = Engine::Get().GetWindowSize(); 
-}
 
 Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(nullptr), m_RenderTargetView(nullptr), 
 						m_DepthStencilView(nullptr) ,m_DepthStateEnable(nullptr), m_DepthStateDisable(nullptr)
@@ -24,8 +19,8 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
 	sd.BufferCount = 1;
-	sd.BufferDesc.Width = (UINT)g_Size.x;
-	sd.BufferDesc.Height = (UINT)g_Size.y;
+	sd.BufferDesc.Width = static_cast<UINT>(SCREEN_WIDTH);
+	sd.BufferDesc.Height = static_cast<UINT>(SCREEN_HEIGHT);
 	sd.BufferDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
 	sd.BufferDesc.RefreshRate.Numerator = 60;
 	sd.BufferDesc.RefreshRate.Denominator = 1;
@@ -35,6 +30,7 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = TRUE;
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // alt-enter fullscreen
+
 	hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &sd,
 		m_SwapChain.GetAddressOf(), m_Device.GetAddressOf(), &featurelevel, m_DeviceContext.GetAddressOf());
 	ThrowIfFailed(hr, "D3D11CreateDeviceAndSwapchain");
@@ -73,8 +69,8 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 
 	// ビューポート設定
 	D3D11_VIEWPORT vp;
-	vp.Width = g_Size.x;
-	vp.Height = g_Size.y;
+	vp.Width = static_cast<FLOAT>(SCREEN_WIDTH);
+	vp.Height = static_cast<FLOAT>(SCREEN_HEIGHT);
 	vp.MinDepth = 0.0f;
 	vp.MaxDepth = 1.0f;
 	vp.TopLeftX = 0;
@@ -234,53 +230,53 @@ void Graphics::SetWorldViewProjection2D()
 	using namespace DirectX;
 	XMMATRIX world = XMMatrixIdentity();
 	world = XMMatrixTranspose(world);
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD], &world);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD], &world);
 
 	XMMATRIX view = XMMatrixIdentity();
 	view = XMMatrixTranspose(view);
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW], &view);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW], &view);
 
-	XMMATRIX projection = XMMatrixOrthographicOffCenterLH(0.0f, g_Size.x, g_Size.y, 0.0f, 0.0f, 1.0f);
+	XMMATRIX projection = XMMatrixOrthographicOffCenterLH(0.0f, static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT), 0.0f, 0.0f, 1.0f);
 	projection = XMMatrixTranspose(projection);
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &projection);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &projection);
 }
 
 void Graphics::SetWorldMatrix(DirectX::XMMATRIX & WorldMatrix)
 {
 	WorldMatrix = DirectX::XMMatrixTranspose(WorldMatrix);
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD], &WorldMatrix);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD], &WorldMatrix);
 }
 
 void Graphics::SetViewMatrix(DirectX::XMMATRIX & ViewMatrix)
 {
 	ViewMatrix = DirectX::XMMatrixTranspose(ViewMatrix);
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW], &ViewMatrix);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW], &ViewMatrix);
 }
 
 void Graphics::SetProjectionMatrix(DirectX::XMMATRIX & ProjectionMatrix)
 {
 	ProjectionMatrix = DirectX::XMMatrixTranspose(ProjectionMatrix);
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &ProjectionMatrix);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &ProjectionMatrix);
 }
 
 void Graphics::SetMaterial(Material Material)
 {
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_MATERIAL], &Material);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_MATERIAL], &Material);
 }
 
 void Graphics::SetLight(Light Light)
 {
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT], &Light);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT], &Light);
 }
 
 void Graphics::SetCameraPosition(DirectX::XMFLOAT3 CameraPosition)
 {
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA], &DirectX::XMFLOAT4(CameraPosition.x, CameraPosition.y, CameraPosition.z, 1.0f));
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA], &DirectX::XMFLOAT4(CameraPosition.x, CameraPosition.y, CameraPosition.z, 1.0f));
 }
 
 void Graphics::SetParameter(DirectX::XMFLOAT4 Parameter)
 {
-	UpdateCBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER], &Parameter);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER], &Parameter);
 }
 
 void Graphics::SetBlendStateDefault()
@@ -305,8 +301,9 @@ const Microsoft::WRL::ComPtr<ID3D11DeviceContext> Graphics::GetDeviceContext() c
 	return m_DeviceContext;
 }
 
+//
 template<typename T>
-void Graphics::UpdateCBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer>  buffer, const T & src)
+void Graphics::UpdateConstantBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer>  buffer, const T & src)
 {
 	m_DeviceContext->UpdateSubresource(buffer.Get(), 0, nullptr, src, 0, 0);
 }

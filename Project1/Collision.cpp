@@ -228,8 +228,8 @@ AABB3::~AABB3() {}
 void AABB3::SystemDraw()
 {
 #if 1
-	auto& graphics = Engine::Get().GetGraphics();
-	auto& resource = Engine::Get().GetResource();
+	auto& graphics = Engine::Get().graphics();
+	auto& resource = Engine::Get().resource();
 	resource->SetShader("NoLighting");
 	
 	m_Min = GetMin();
@@ -468,8 +468,8 @@ void OBB3::Update(const Math::Vector3& Position, const Transform & t)
 void OBB3::SystemDraw()
 {
 #if 1
-	auto& graphics = Engine::Get().GetGraphics();
-	auto& resource = Engine::Get().GetResource();
+	auto& graphics = Engine::Get().graphics();
+	auto& resource = Engine::Get().resource();
 	resource->SetShader("NoLighting");
 
 	// ’[‚Ì“_‚ğ‹‚ß‚é

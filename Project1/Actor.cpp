@@ -34,7 +34,7 @@ void Actor::Draw()
 {
 }
 
-Transform & Actor::GetTransform() const
+Transform & Actor::transform() const
 {
 	if (!m_Transform)
 	{
@@ -65,6 +65,6 @@ void Actor::UpdateMatrix(Transform & Transform)
 	rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->rotation());
 	trans = Math::Matrix::MatrixTranslation(m_Transform->position());
 	world = scale * rot * trans;
-	Engine::Get().GetGraphics()->SetWorldMatrix(world);
+	Engine::Get().graphics()->SetWorldMatrix(world);
 }
 #pragma endregion protecedƒƒ\ƒbƒh

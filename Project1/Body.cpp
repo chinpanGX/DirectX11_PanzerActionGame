@@ -38,8 +38,8 @@ void Body::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
 	auto m = DirectX::XMLoadFloat4x4(&m_WorldMatrix);
-	GetGraphics().SetWorldMatrix(m);
-	GetResource().SetStaticModel(Parts::GetTag() + "Body");
+	graphics().SetWorldMatrix(m);
+	resource().SetStaticModel(Parts::GetTag() + "Body");
 }
 
 void Body::UpdateMatrix(const DirectX::XMFLOAT4X4 & ParentMatirx)

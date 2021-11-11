@@ -22,7 +22,7 @@ void GameScene::Title::Init()
 	
 	// リソースのロード
 	Load();
-	Engine::Get().GetResource()->AudioPlay("Title", 0.3f);
+	Engine::Get().resource()->AudioPlay("Title", 0.3f);
 
 	Begin();
 }
@@ -46,19 +46,19 @@ void GameScene::Title::Draw()
 void GameScene::Title::Load()
 {
 	// テクスチャ
-	Engine::Get().GetResource()->LoadTexture("TitleBg", "TitleBg.png");
+	Engine::Get().resource()->LoadTexture("TitleBg", "TitleBg.png");
 
 	// オーディオ
-	Engine::Get().GetResource()->AudioLoad("Title", true);
-	Engine::Get().GetResource()->AudioLoad("Button", false);
-	Engine::Get().GetResource()->AudioLoad("Enter", false);
-	Engine::Get().GetResource()->AudioLoad("Cancel", false);
-	Engine::Get().GetResource()->AudioLoad("Select", false);
+	Engine::Get().resource()->AudioLoad("Title", true);
+	Engine::Get().resource()->AudioLoad("Button", false);
+	Engine::Get().resource()->AudioLoad("Enter", false);
+	Engine::Get().resource()->AudioLoad("Cancel", false);
+	Engine::Get().resource()->AudioLoad("Select", false);
 }
 
 void GameScene::Title::Unload()
 {
-	Engine::Get().GetResource()->UnloadTexture("TitleBg");
-	Engine::Get().GetResource()->AudioUnload();
+	Engine::Get().resource()->UnloadTexture("TitleBg");
+	Engine::Get().resource()->AudioUnload();
 }
 #pragma endregion GameScene::Titleメソッド

@@ -44,7 +44,7 @@ void GameBg::Scope::Event()
 void GameBg::Scope::Draw()
 {
 	// カメラがFPSモードのときにスコープを描画する
-	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->GetChageMode() == true)
+	if(Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->GetChageMode() == true)
 	{
 		m_Renderer2D->Draw();
 	}
@@ -80,7 +80,7 @@ void GameBg::PanzerSelectUi::Begin()
 
 void GameBg::PanzerSelectUi::Update()
 {
-	auto container = Engine::Get().GetApplication()->GetScene()->GetGameObject<PanzerContainer>(LAYER_3D_ACTOR);
+	auto container = Engine::Get().application()->GetScene()->GetGameObject<PanzerContainer>(LAYER_3D_ACTOR);
 	// 上
 	if (container->GetButton() == 1)
 	{
@@ -210,8 +210,8 @@ void GameBg::PanzerSelectUi::DrawGameRule(Math::Vector2 pos, Math::Vector2 size)
 #pragma region Mode_method
 GameBg::Mode::Mode()
 {
-	m_Renderer2D = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "SelectList");
-	m_Renderer = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Ui");
+	m_Renderer2D = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "SelectList");
+	m_Renderer = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui");
 }
 
 GameBg::Mode::~Mode()
@@ -259,7 +259,7 @@ bool GameBg::Mode::SetMode(bool f)
 
 void GameBg::Mode::DrawFrame(Math::Vector2 pos, float size_y)
 {
-	if (Engine::Get().GetApplication()->GetScene()->GetGameObject<SelectCommand>(ELayer::LAYER_SYSTEM)->GetSelect() == false)
+	if (Engine::Get().application()->GetScene()->GetGameObject<SelectCommand>(ELayer::LAYER_SYSTEM)->GetSelect() == false)
 	{
 		m_Renderer->Draw(pos, Math::Vector2(512.0f, size_y), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), Math::Vector4(1.0f, 1.0f, 1.0f, m_Alpha));
 	}

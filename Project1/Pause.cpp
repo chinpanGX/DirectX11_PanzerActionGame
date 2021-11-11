@@ -14,7 +14,7 @@
 
 Pause::Pause()
 {
-	m_RenderBg = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Bg");
+	m_RenderBg = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Bg");
 }
 
 Pause::~Pause()
@@ -159,7 +159,7 @@ void Pause::ChangeState(std::unique_ptr<PauseState> State)
 	m_PauseState = std::move(State);
 }
 
-PauseState::PauseState() : m_Renderer(std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Ui"))
+PauseState::PauseState() : m_Renderer(std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui"))
 {
 }
 

@@ -38,7 +38,5 @@ private:
 	DirectX::XMFLOAT4X4 m_View;
 	DirectX::XMFLOAT4X4 m_Projection;
 	DirectX::XMFLOAT4 m_Up; // カメラの上ベクトル
-
-	const float m_Aspect; // アスペクト比
 	class Graphics& m_Graphics;
 };

@@ -11,7 +11,7 @@
 #include "Graphics.h"
 #include "PanzerGarage.h"
 
-PanzerGarage::PanzerGarage() : m_Graphics(*Engine::Get().GetGraphics())
+PanzerGarage::PanzerGarage() : m_Graphics(*Engine::Get().graphics())
 {
 	m_Transform = Actor::AddComponent<Transform>();
 }
@@ -45,9 +45,9 @@ void PanzerGarage::Draw()
 	light.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Graphics.SetLight(light);
 
-	GetResource().SetShader("Default");
+	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	GetResource().SetStaticModel("PanzerGarage");
+	resource().SetStaticModel("PanzerGarage");
 
 	light.Enable = false;
 	m_Graphics.SetLight(light);

@@ -30,7 +30,7 @@ void MuzzleFlash::Begin()
 
 void MuzzleFlash::Update()
 {
-	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
 	if (pause) { return; }
 	Effect::Update();
 	// フレーム数が16になったら消去
@@ -54,7 +54,7 @@ void MuzzleFlash::Draw()
 	Effect::MapAndUnmap(x, y);
 
 	// マトリクスの設定
-	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	DirectX::XMMATRIX view = camera->GetInverseView(); // Viewの逆行列
 
 	DirectX::XMMATRIX scale = DirectX::XMMatrixScaling(m_Transform->scale().x, m_Transform->scale().y, m_Transform->scale().z);

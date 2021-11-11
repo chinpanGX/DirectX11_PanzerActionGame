@@ -9,7 +9,7 @@
 #include "Resource.h"
 #include "Effect.h"
 
-Effect::Effect() : m_VertexBuffer(nullptr), m_Frame(0), m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
+Effect::Effect() : m_VertexBuffer(nullptr), m_Frame(0), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
 	// í∏ì_çÏê¨
 	Vertex3D vertex[4];
@@ -48,7 +48,7 @@ Effect::Effect() : m_VertexBuffer(nullptr), m_Frame(0), m_Resource(*Engine::Get(
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
 }
 
-Effect::Effect(Math::Vector2 texMin, Math::Vector2 texMax) : m_VertexBuffer(nullptr), m_Frame(0), m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
+Effect::Effect(Math::Vector2 texMin, Math::Vector2 texMax) : m_VertexBuffer(nullptr), m_Frame(0), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
 	// í∏ì_çÏê¨
 	Vertex3D vertex[4];

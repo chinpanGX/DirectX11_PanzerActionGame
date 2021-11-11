@@ -20,7 +20,7 @@
 #pragma region DrawSkill_method
 GameBg::DrawSkill::DrawSkill()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
 }
 
 GameBg::DrawSkill::~DrawSkill()
@@ -29,7 +29,7 @@ GameBg::DrawSkill::~DrawSkill()
 
 void GameBg::DrawSkill::Begin()
 {
-	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	float t = m_Player->GetVehicle().GetSkill().GetEnableTime();
 	m_Add = m_MaxDrawSize / t * Fps::Get().deltaTime;
 }

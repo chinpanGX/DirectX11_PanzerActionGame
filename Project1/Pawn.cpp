@@ -37,9 +37,9 @@ void Pawn::Update()
 	m_Vehicle->Update();
 	m_MoveComponent->Update();
 	m_Vehicle->ColiisionUpdate(0, m_Vehicle->GetBodyTransform().position(), m_Vehicle->GetBodyTransform());
-	m_Vehicle->ColiisionUpdate(1, m_Pilot->GetTransform().position(), m_Pilot->GetTransform());
-	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pilot->GetTransform().position().x, m_Pilot->GetTransform().position().y,
-		m_Pilot->GetTransform().position().z + 3.0f), m_Pilot->GetTransform());
+	m_Vehicle->ColiisionUpdate(1, m_Pilot->transform().position(), m_Pilot->transform());
+	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pilot->transform().position().x, m_Pilot->transform().position().y,
+		m_Pilot->transform().position().z + 3.0f), m_Pilot->transform());
 }
 
 void Pawn::Event()
@@ -83,7 +83,7 @@ void Pawn::CheckZeroHp(Pawn* pawn)
 	// 0以下になったら、ゲームマネージャーに知らせる
 	if (m_Vehicle->GetStatus().GetHp() <= 0.0f)
 	{
-		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(pawn, m_Type);
+		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(pawn, m_Type);
 	}
 }
 

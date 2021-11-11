@@ -37,7 +37,7 @@ void GameBg::TitleBg::Event()
 
 void GameBg::TitleBg::Draw()
 {
-	m_TitleSystem = Engine::Get().GetApplication()->GetScene()->GetGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
+	m_TitleSystem = Engine::Get().application()->GetScene()->GetGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
 	uint32_t state = m_TitleSystem->GetState();
 
 	if (m_TitleSystem->EState::SETTING_SELECT == state || m_TitleSystem->EState::CHECK_INPUT == state)

@@ -17,7 +17,7 @@ public:
 	void Event()override;
 	void Draw()override;
 protected:
-	class Resource& GetResource()const;
+	class Resource& resource()const;
 private:
 	class Resource& m_Resource;
 };

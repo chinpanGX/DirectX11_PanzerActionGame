@@ -48,14 +48,14 @@ void RemainGage::SetGage(float gage, int32_t type)
 	case 0:
 	//case 1:
 		m_PlayerGage = gage;
-		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetPlayerGage(m_PlayerGage);
+		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetPlayerGage(m_PlayerGage);
 		break;
 		// “G‘¤
 	//case 2:
 	//case 3:
 	case 1:
 		m_EmenyGage = gage;
-		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetEnemyGage(m_EmenyGage);
+		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetEnemyGage(m_EmenyGage);
 		break;
 	}
 }
@@ -77,7 +77,7 @@ const float RemainGage::GetGage(int32_t type) const
 
 GameBg::DrawGage::DrawGage()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
 }
 
 GameBg::DrawGage::~DrawGage()

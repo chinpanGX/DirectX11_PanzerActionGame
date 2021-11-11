@@ -24,8 +24,8 @@ public:
 protected:
 	const std::string& GetTag() const;
 	DirectX::XMFLOAT4X4 m_WorldMatrix;
-	class Resource& GetResource() const;
-	class Graphics& GetGraphics() const;
+	class Resource& resource() const;
+	class Graphics& graphics() const;
 private:
 	std::string m_Tagname; // É^ÉOñº
 	class Resource& m_Resource;

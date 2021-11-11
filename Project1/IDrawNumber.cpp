@@ -13,7 +13,7 @@
 
 IDrawNumber::IDrawNumber(float size , int32_t digit) : m_Size(size), m_digit(digit)
 {
-	m_Render = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Number");
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Number");
 	// テクスチャ座標のxの値
 	m_Numbers = { 0.0f, 0.1f, 0.2f, 0.3f, 0.4f, 0.5f, 0.6f, 0.7f, 0.8f, 0.9f, 1.0f };
 	m_Color = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);

@@ -9,7 +9,7 @@
 #include "Engine.h"
 #include "Shadow.h"
 
-Shadow::Shadow() : m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
+Shadow::Shadow() : m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
 	// í∏ì_çÏê¨
 	Vertex3D vertex[4];

@@ -15,8 +15,8 @@
 
 TitleSystem::TitleSystem() : m_State(EState::BEGIN), m_Changecolor(0.01f)
 {
-	auto& g = Engine::Get().GetGraphics();
-	auto& r = Engine::Get().GetResource();
+	auto& g = Engine::Get().graphics();
+	auto& r = Engine::Get().resource();
 
 	m_Render = std::make_unique<Renderer2D>(*g, *r, "Ui");		
 }

@@ -70,7 +70,7 @@ void GameBg::Timer::Begin()
 void GameBg::Timer::Update()
 {
 	// ボーズ中なら、タイマーをストップ
-	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
 	if (pause) { return; }
 
 	m_NowTime -= Fps::Get().deltaTime;
@@ -96,7 +96,7 @@ void GameBg::Timer::Update()
 	if (m_NowTime < 0.0f)
 	{
 		// 制限時間になっても戦力ゲージが０になっていないため、敗北
-		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->GameSet();
+		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->GameSet();
 	}
 	// 時間の設定
 	m_Minute = (int32_t)m_NowTime / 60;

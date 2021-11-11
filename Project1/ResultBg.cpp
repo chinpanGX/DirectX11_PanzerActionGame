@@ -87,7 +87,7 @@ void GameBg::ResultUi::Event()
 
 void GameBg::ResultUi::Draw()
 {
-	auto& state = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	auto& state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
 	float x = 1920.0f * 0.5f;
 	Math::Vector2 size = Math::Vector2(512.0f, 128.0f);
 	Math::Vector2 texMin = Math::Vector2(0.0f, 0.375f);

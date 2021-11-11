@@ -14,7 +14,7 @@
 
 GameBg::Hp::Hp()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
 }
 
 GameBg::Hp::~Hp()
@@ -23,7 +23,7 @@ GameBg::Hp::~Hp()
 
 void GameBg::Hp::Begin()
 {
-	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	// ŽÀÛ‚ÌHP‚ÆMAX‚ÌƒTƒCƒY‚©‚ç•`‰æ‚·‚é”ä—¦‚ð‹‚ß‚é
 	m_DrawRatio = m_MaxDrawSize / m_Player->GetVehicle().GetStatus().GetMaxHp();
 }

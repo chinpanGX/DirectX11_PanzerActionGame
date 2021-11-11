@@ -32,7 +32,7 @@ void Grass::Event()
 
 void Grass::Draw()
 {
-	GetResource().SetShader("Default");
+	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	GetResource().SetStaticModel("Grass");
+	resource().SetStaticModel("Grass");
 }

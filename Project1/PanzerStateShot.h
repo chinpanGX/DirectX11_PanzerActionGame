@@ -18,6 +18,6 @@ namespace State
 		~Shot();
 		void Update(Pawn* pPawn, float deltaTime)override;
 	private:
-		void OnSound(Pawn* pPawn);
+		void PlayAudio(Pawn* pPawn);
 	};
 }

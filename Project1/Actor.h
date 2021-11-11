@@ -26,7 +26,7 @@ public:
 	void Draw()override;
 	
 	// Getter
-	Transform& GetTransform() const;
+	Transform& transform() const;
 	BoxComponent& GetBoxComponent() const;
 protected:
 	template<typename T>

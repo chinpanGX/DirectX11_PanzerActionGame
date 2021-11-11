@@ -47,48 +47,48 @@ void Controller::MoveBackward(float deltaTime)
 void Controller::RotRight(float deltaTime)
 {
 	m_Pawn->GetMoveComponent().RotRight(m_Pawn->GetVehicle().GetBodyTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotRight(m_Pivot->GetTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotLeft(float deltaTime)
 {
 	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->GetVehicle().GetBodyTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->GetTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretRight(float deltaTime)
 {
 	m_Pawn->GetMoveComponent().RotRight(m_Pawn->GetVehicle().GetTurretTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotRight(m_Pivot->GetTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretLeft(float deltaTime)
 {
 	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->GetVehicle().GetTurretTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->GetTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunUp(float deltaTime)
 {
 	m_Pawn->GetMoveComponent().GunUp(m_Pawn->GetVehicle().GetGunTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().GunUp(m_Pivot->GetTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().GunUp(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunDown(float deltaTime)
 {
 	m_Pawn->GetMoveComponent().GunDown(m_Pawn->GetVehicle().GetGunTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().GunDown(m_Pivot->GetTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().GunDown(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::Shot()
 {
 	if (m_Pawn->GetVehicle().GetStatus().GetFinishReload() == true)
 	{
-		m_Pawn->GetVehicle().Shot(m_Pivot->GetTransform());
-		Engine::Get().GetResource()->AudioPlay("Shot");
-		auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
-		Math::Vector3 offset = m_Pivot->GetTransform().position() + Math::Vector3(0.0f, 3.0f, 0.0f);
-		effect->GetTransform().position(offset);
+		m_Pawn->GetVehicle().Shot(m_Pivot->transform());
+		Engine::Get().resource()->AudioPlay("Shot");
+		auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
+		Math::Vector3 offset = m_Pivot->transform().position() + Math::Vector3(0.0f, 3.0f, 0.0f);
+		effect->transform().position(offset);
 	}
 }
 

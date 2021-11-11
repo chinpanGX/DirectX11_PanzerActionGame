@@ -14,7 +14,7 @@
 Plane::Plane()
 {
 	m_Transform = AddComponent<Transform>();
-	m_Renderer = std::make_unique<Renderer3D>(*Engine::Get().GetGraphics(), m_Transform->position(), Math::Vector3::Zero, m_Transform->scale());
+	m_Renderer = std::make_unique<Renderer3D>(*Engine::Get().graphics(), m_Transform->position(), Math::Vector3::Zero, m_Transform->scale());
 }
 
 Plane::~Plane()
@@ -39,8 +39,8 @@ void Plane::Event()
 
 void Plane::Draw()
 {
-	GetResource().SetShader("NoLighting");
-	GetResource().SetTexture(0, "Grass");
+	resource().SetShader("NoLighting");
+	resource().SetTexture(0, "Grass");
 	Actor::UpdateMatrix(*m_Transform);
 	m_Renderer->Draw();
 }

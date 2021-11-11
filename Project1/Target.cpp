@@ -32,11 +32,11 @@ void Target::Begin()
 void Target::Update()
 {
 	// ポーズ中
-	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG);
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG);
 	if (pause->GetEnable()) { return; }
 	
 	// 弾
-	auto Bullet = Engine::Get().GetApplication()->GetScene()->GetGameObject<NormalBullet>(ELayer::LAYER_3D_ACTOR);
+	auto Bullet = Engine::Get().application()->GetScene()->GetGameObject<NormalBullet>(ELayer::LAYER_3D_ACTOR);
 	if(Bullet)
 	{
 		// 描画している状態のとき
@@ -76,7 +76,7 @@ void Target::Draw()
 	if (!m_NotDraw) 
 	{
 		// マトリクスの設定
-		auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+		auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 
 		DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->scale());
 		DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->position());

@@ -69,6 +69,8 @@ public:
 	void SetLight(Light Light);
 	void SetCameraPosition(DirectX::XMFLOAT3 CameraPosition);
 	void SetParameter(DirectX::XMFLOAT4 Parameter);
+
+	// ブレンドステート
 	void SetBlendStateDefault();
 	void SetBlendStateSub();
 
@@ -77,7 +79,7 @@ public:
 private:
 	// コンスタントバッファの更新
 	template<typename T>
-	void UpdateCBuffer(ComPtr<ID3D11Buffer> buffer, const T& src);
+	void UpdateConstantBuffer(ComPtr<ID3D11Buffer> buffer, const T& src);
 	
 	ComPtr<ID3D11Device>			m_Device;
 	ComPtr<ID3D11DeviceContext>		m_DeviceContext;

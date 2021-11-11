@@ -94,7 +94,7 @@ void Skill::Enable(Pawn* pawn)
 	if (m_AlreadyUseble)
 	{
 		m_Phase = 1;
-		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
+		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
 		// エフェクトを発生
 		PlayEffect(pawn);
 	}
@@ -121,7 +121,7 @@ void Skill::PlayEffect(Pawn* pawn)
 	// エフェクトを発生する位置を戦車の位置にする
 	auto pos = pawn->GetVehicle().GetBodyTransform().position();
 	// エフェクトを再生する
-	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
-	effect->GetTransform().position(pos);
+	auto effect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
+	effect->transform().position(pos);
 }
 #pragma endregion スキル

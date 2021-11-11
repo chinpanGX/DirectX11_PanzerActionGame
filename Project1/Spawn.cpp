@@ -56,7 +56,7 @@ PlayerSpawn::~PlayerSpawn()
 
 void PlayerSpawn::SetSpawn()
 {
-	Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->Respawn(GetSpawnPoint());
+	Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->Respawn(GetSpawnPoint());
 }
 
 EnemySpawn::EnemySpawn() : ISpawn(Math::Vector3(20.0f, 0.0f, 150.0f))
@@ -69,5 +69,5 @@ EnemySpawn::~EnemySpawn()
 
 void EnemySpawn::SetSpawn()
 {
-	Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->Respawn(GetSpawnPoint());
+	Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->Respawn(GetSpawnPoint());
 }

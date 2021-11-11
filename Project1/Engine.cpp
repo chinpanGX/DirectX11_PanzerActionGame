@@ -55,9 +55,9 @@ LRESULT WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 void Engine::Init(HINSTANCE h)
 {
 	auto result = CoInitializeEx(0, COINITBASE_MULTITHREADED);
-	MessageBox(NULL, "ウィンドウモードで起動しますか？", "画面モード確認", MB_YESNO) == IDYES ? m_WindowMode = true : m_WindowMode = false;
+	MessageBox(NULL, "ウィンドウモードで起動しますか？", "画面モード確認", MB_YESNO) == IDYES ? m_EnableWindowMode = true : m_EnableWindowMode = false;
 	CreateGameWindow(m_hwnd, m_WindowClass);	// ゲームウィンドウ
-	InputDevice::Init(h, m_hwnd, m_WindowMode);	// コントローラの初期
+	InputDevice::Init(h, m_hwnd, m_EnableWindowMode);	// コントローラの初期
 }
 
 void Engine::Run()
@@ -144,42 +144,27 @@ void Engine::Run()
 	UnregisterClass(m_WindowClass.lpszClassName, m_WindowClass.hInstance); // ウィンドウクラスの登録を解除
 }
 
-const Math::Vector2 Engine::GetWindowSize() const
-{
-	return Math::Vector2(m_Width, m_Height);
-}
-
-const float Engine::GetWidth() const
-{
-	return m_Width;
-}
-
-const float Engine::GetHeight() const
-{
-	return m_Height;
-}
-
 const HWND & Engine::GetHwnd() const
 {
 	return m_hwnd;
 }
 
-const std::shared_ptr<class Graphics> Engine::GetGraphics() const
+const std::shared_ptr<class Graphics> Engine::graphics() const
 {
 	return m_Graphics;
 }
 
-const std::shared_ptr<class Application> Engine::GetApplication() const
-{
-	return m_Application;
-}
-
-const std::shared_ptr<class Resource> Engine::GetResource() const
+const std::shared_ptr<class Resource> Engine::resource() const
 {
 	return m_Resource;
 }
 
-Engine::Engine() : m_WindowMode(true)
+const std::shared_ptr<class Application> Engine::application() const
+{
+	return m_Application;
+}
+
+Engine::Engine() : m_EnableWindowMode(true)
 {
 }
 
@@ -189,7 +174,7 @@ Engine::~Engine()
 
 void Engine::CreateGameWindow(HWND & hwnd, WNDCLASSEX & window)
 {
-	if (m_WindowMode == true) // ウィンドウモード
+	if (m_EnableWindowMode == true) // ウィンドウモード
 	{
 		HINSTANCE hInstance = GetModuleHandle(NULL);
 		// ウィンドウの生成＆登録
@@ -198,7 +183,7 @@ void Engine::CreateGameWindow(HWND & hwnd, WNDCLASSEX & window)
 		window.lpszClassName = "Dx11";			// アプリケーション名
 		window.hInstance = GetModuleHandle(0);	// ハンドルの指定
 		RegisterClassEx(&window);				// アプリケーションクラス
-		RECT wrc = { 0, 0, (LONG)m_Width, (LONG)m_Height };
+		RECT wrc = { 0, 0, static_cast<LONG>(SCREEN_WIDTH), static_cast<LONG>(SCREEN_HEIGHT) };
 		AdjustWindowRect(&wrc, WS_OVERLAPPEDWINDOW, false);
 		// ウィンドウオブジェクトの生成
 		hwnd = CreateWindow(window.lpszClassName,		// クラス名
@@ -208,7 +193,7 @@ void Engine::CreateGameWindow(HWND & hwnd, WNDCLASSEX & window)
 			wrc.right - wrc.left, wrc.bottom - wrc.top, // ウィンドウ幅と高さ
 			NULL, NULL, window.hInstance, NULL);		// ウィンドウハンドル, メニューハンドル,呼び出しアプリケーションハンドル, 追加パラメータ
 	}
-	else if (m_WindowMode == false)
+	else if (m_EnableWindowMode == false)
 	{
 		HINSTANCE hInstance = GetModuleHandle(NULL);
 		// ウィンドウの生成＆登録
@@ -217,7 +202,7 @@ void Engine::CreateGameWindow(HWND & hwnd, WNDCLASSEX & window)
 		window.lpszClassName = "Dx11";			// アプリケーション名
 		window.hInstance = GetModuleHandle(0);	// ハンドルの指定
 		RegisterClassEx(&window);				// アプリケーションクラス
-		RECT wrc = { 0,0, (LONG)m_Width, (LONG)m_Height };
+		RECT wrc = { 0, 0, static_cast<LONG>(SCREEN_WIDTH), static_cast<LONG>(SCREEN_HEIGHT) };
 		AdjustWindowRect(&wrc, WS_CAPTION, false);
 		// ウィンドウオブジェクトの生成
 		hwnd = CreateWindow(window.lpszClassName,		// クラス名

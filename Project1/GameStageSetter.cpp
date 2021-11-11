@@ -18,7 +18,7 @@ void GameStageSetterFence::Set(Scene * scene)
 		float angle = (float)myLib::Random::Rand_R(0, 360);
 		Math::Vector3 pos = Math::Vector3(x, 0.0f, z);
 		Math::Quaternion rot = Math::Quaternion(Math::Vector3::UnitY, angle);
-		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->GetTransform().Set(pos, Math::Vector3::One, rot);
+		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, Math::Vector3::One, rot);
 	}
 }
 
@@ -28,11 +28,11 @@ void GameStageSetterWallBox::Set(Scene * scene)
 	{
 		float random = (float)myLib::Random::Rand_R(3, 10);
 		Math::Vector3 size = Math::Vector3(random, random, random);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->GetTransform().Set(Math::Vector3(30.0f * i, 0.0f, 150.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->GetTransform().Set(Math::Vector3(-30.0f * i, 0.0f, 150.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->GetTransform().Set(Math::Vector3(150.0f, 0.0f, -30.0f * i), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->GetTransform().Set(Math::Vector3(-150.0f, 0.0f, -30.0f * i), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->GetTransform().Set(Math::Vector3(30.0f * i, 0.0f, -150.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->GetTransform().Set(Math::Vector3(-30.0f * i, 0.0f, -150.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(Math::Vector3(30.0f * i, 0.0f, 150.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(Math::Vector3(-30.0f * i, 0.0f, 150.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(Math::Vector3(150.0f, 0.0f, -30.0f * i), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(Math::Vector3(-150.0f, 0.0f, -30.0f * i), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(Math::Vector3(30.0f * i, 0.0f, -150.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(Math::Vector3(-30.0f * i, 0.0f, -150.0f), size);
 	}
 }

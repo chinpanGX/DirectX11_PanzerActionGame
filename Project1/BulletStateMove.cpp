@@ -28,7 +28,7 @@ BulletStateMove::~BulletStateMove()
 void BulletStateMove::Update(Bullet * Bullet, float deltaTime)
 {
 	// 弾の移動
-	Math::Vector3& BulletPosition = Bullet->GetTransform().position();
+	Math::Vector3& BulletPosition = Bullet->transform().position();
 	// 飛んでいく方向を出す
 	Math::Vector3 vector = Bullet->GetDirectionVector();
 	// 方向ベクトルを足していく
@@ -46,7 +46,7 @@ void BulletStateMove::Destory(Bullet* Bullet)
 {
 	Bullet->FrameCountDown();
 	// フレーム数が０になる　OR　0.0fより低くなるとき
-	if (Bullet->GetFrameZeroFlag() == true || Bullet->GetTransform().position().y <= 0.0f)
+	if (Bullet->GetFrameZeroFlag() == true || Bullet->transform().position().y <= 0.0f)
 	{
 		if (Bullet != nullptr)
 		{

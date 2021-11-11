@@ -44,9 +44,9 @@ void Vehicle::Draw()
 	m_Panzer->Draw();
 
 	// ‰e‚Ì•`‰æ
-	m_Shadow->GetTransform().position(m_Panzer->GetBody().GetTransform().position());
-	m_Shadow->GetTransform().position().y = 0.01f;
-	m_Shadow->GetTransform().scale(8.0f, 0.0f, 10.0f);
+	m_Shadow->transform().position(m_Panzer->GetBody().transform().position());
+	m_Shadow->transform().position().y = 0.01f;
+	m_Shadow->transform().scale(8.0f, 0.0f, 10.0f);
 	m_Shadow->Draw();
 }
 
@@ -68,7 +68,7 @@ void Vehicle::SetStartPosition(Pawn* pawn, Math::Vector3 pos, Math::Vector3 rot)
 void Vehicle::CalcuateDamege(Pawn * Pawn)
 {
 	float attackpt = 0.0f; // —^‚¦‚éƒ_ƒ[ƒW
-	auto bullet = Engine::Get().GetApplication()->GetScene()->GetGameObjects<NormalBullet>(ELayer::LAYER_3D_ACTOR);
+	auto bullet = Engine::Get().application()->GetScene()->GetGameObjects<NormalBullet>(ELayer::LAYER_3D_ACTOR);
 	for (auto b : bullet)
 	{
 		// —”¶¬(50 ` 100)‚Ì•â³‚ð‚·‚é
@@ -92,7 +92,7 @@ void Vehicle::Shot(const Transform & transform)
 	Math::Vector3 vector = t.GetVector(Transform::Vector::Forward);
 	
 	// Bullet‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ð¶¬‚·‚é
-	auto normalBullet = Engine::Get().GetApplication()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
+	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
 	normalBullet->Create(pos, vector);
 
 	m_Status->ResetReloadTime();
@@ -127,17 +127,17 @@ BoxComponent & Vehicle::GetBoxComponent(int32_t Element) const
 
 Transform & Vehicle::GetBodyTransform() const
 {
-	return m_Panzer->GetBody().GetTransform();
+	return m_Panzer->GetBody().transform();
 }
 
 Transform & Vehicle::GetTurretTransform() const
 {
-	return m_Panzer->GetTurret().GetTransform();
+	return m_Panzer->GetTurret().transform();
 }
 
 Transform & Vehicle::GetGunTransform() const
 {
-	return m_Panzer->GetMainGun().GetTransform();
+	return m_Panzer->GetMainGun().transform();
 }
 
 Status & Vehicle::GetStatus() const
