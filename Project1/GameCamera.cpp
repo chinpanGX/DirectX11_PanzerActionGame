@@ -60,6 +60,11 @@ void GameCamera::Draw()
 	SetProjectionMatrix();
 }
 
+bool GameCamera::IsDrawObject(Math::Vector3 TargetPosition, float Raduis)
+{
+	return false;
+}
+
 DirectX::XMFLOAT4X4 GameCamera::view() const
 {
 	return m_View;

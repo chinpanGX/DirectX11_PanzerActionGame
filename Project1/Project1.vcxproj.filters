@@ -91,9 +91,6 @@
     <ClCompile Include="Audio.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Actor\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="GameCamera.cpp">
       <Filter>Actor\Camera</Filter>
     </ClCompile>
@@ -376,9 +373,6 @@
     </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Actor\Camera</Filter>
     </ClInclude>
     <ClInclude Include="GameCamera.h">
       <Filter>Actor\Camera</Filter>

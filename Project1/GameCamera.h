@@ -20,6 +20,10 @@ public:
 	void Event()override;
 	void Draw()override;
 
+	// ‹‘ä‚ÅView“à‚ÉTargetObject‚ª‚ ‚é‚©’²‚×‚é
+	// •`‰æ‚Å‚«‚é‚©‚ğbool•Ï”‚Å•Ô‚·
+	bool IsDrawObject(Math::Vector3 TargetPosition, float Raduis);
+
 	// Getter
 	DirectX::XMFLOAT4X4 view() const;
 	const Math::Vector3 position() const;
