@@ -85,7 +85,7 @@ std::unique_ptr<class Panzer> Factory::FPanzer::Create(const std::string & Panze
 }
 
 // 戦車
-std::unique_ptr<class Pivot> Factory::FPilot::Create(Vehicle & vehicle)
+std::unique_ptr<class Pivot> Factory::FPivot::Create(Vehicle & vehicle)
 {
 	//　パイロットの設定
 	std::unique_ptr<Pivot> tmp = std::make_unique<Pivot>(vehicle);

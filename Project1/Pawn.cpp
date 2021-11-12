@@ -12,6 +12,7 @@
 #include "Application.h"
 #include "GameManager.h"
 #include "OnComponentEvent.h"
+#include "GameCamera.h"
 #include "Pawn.h"
 
 Pawn::Pawn()
@@ -37,9 +38,9 @@ void Pawn::Update()
 	m_Vehicle->Update();
 	m_MoveComponent->Update();
 	m_Vehicle->ColiisionUpdate(0, m_Vehicle->bodyTransform().position(), m_Vehicle->bodyTransform());
-	m_Vehicle->ColiisionUpdate(1, m_Pilot->transform().position(), m_Pilot->transform());
-	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pilot->transform().position().x, m_Pilot->transform().position().y,
-		m_Pilot->transform().position().z + 3.0f), m_Pilot->transform());
+	m_Vehicle->ColiisionUpdate(1, m_Pivot->transform().position(), m_Pivot->transform());
+	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pivot->transform().position().x, m_Pivot->transform().position().y,
+		m_Pivot->transform().position().z + 3.0f), m_Pivot->transform());
 }
 
 void Pawn::Event()
@@ -62,11 +63,11 @@ Vehicle & Pawn::vehicle() const
 
 Pivot & Pawn::pivot() const
 {
-	if (!m_Pilot)
+	if (!m_Pivot)
 	{
 		throw std::domain_error("null pointer");
 	}
-	return *m_Pilot;
+	return *m_Pivot;
 }
 
 MoveComponent & Pawn::GetMoveComponent() const
@@ -95,15 +96,15 @@ void Pawn::RespawnSetMaxHP()
 void Pawn::SetStartPosition(Pawn * pawn, const Math::Vector3& pos, const Math::Vector3& rot)
 {
 	m_Vehicle->SetStartPosition(pawn, pos, rot);
-	m_Pilot->SetStartPosition(pos, rot);
+	m_Pivot->SetStartPosition(pos, rot);
 }
 
 void Pawn::Create()
 {
 	Factory::FVehicle fvehicle;
 	m_Vehicle = fvehicle.Create(m_Type);
-	Factory::FPilot fpilot;
-	m_Pilot = fpilot.Create(*m_Vehicle);
+	Factory::FPivot fPivot;
+	m_Pivot = fPivot.Create(*m_Vehicle);
 	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->GetStatus());	
 }
 

@@ -22,7 +22,7 @@ public:
 
 	// ‹‘ä‚ÅView“à‚ÉTargetObject‚ª‚ ‚é‚©’²‚×‚é
 	// •`‰æ‚Å‚«‚é‚©‚ğbool•Ï”‚Å•Ô‚·
-	bool IsDrawObject(Math::Vector3 TargetPosition, float Raduis);
+	bool IsDrawObject(const Math::Vector3& TargetPosition, float Raduis);
 
 	// Getter
 	DirectX::XMFLOAT4X4 view() const;

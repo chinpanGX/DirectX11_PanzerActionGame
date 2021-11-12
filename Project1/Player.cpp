@@ -68,6 +68,12 @@ void Player::Event()
 
 void Player::Draw()
 {
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
+	{
+		OutputDebugString("Player NoRendering\n");
+		return;
+	}
 	vehicle().Draw();
 }
 

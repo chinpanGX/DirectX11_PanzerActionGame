@@ -60,9 +60,63 @@ void GameCamera::Draw()
 	SetProjectionMatrix();
 }
 
-bool GameCamera::IsDrawObject(Math::Vector3 TargetPosition, float Raduis)
+bool GameCamera::IsDrawObject(const Math::Vector3& TargetPosition, float Raduis)
 {
-	return false;
+	// マトリクス計算に使う変数
+	DirectX::XMMATRIX view, proj, matViewProj, matInvViewProj;
+
+	// 計算用に変換
+	view = DirectX::XMLoadFloat4x4(&m_View);
+	proj = DirectX::XMLoadFloat4x4(&m_Projection);
+
+	// ビューマトリクスとプロジェクションマトリクスをかける
+	matViewProj = view * proj;
+	// 逆行列を求める
+	matInvViewProj = DirectX::XMMatrixInverse(nullptr, matViewProj);
+
+	// Far面の座標を求める
+	DirectX::XMVECTOR farVecPos[4];
+	DirectX::XMVECTOR farPos[4];
+
+	//ベクトルのセット
+	farVecPos[0] = DirectX::XMVectorSet(-1.0f, 1.0f, 1.0f, 1.0f);	// 左上
+	farVecPos[1] = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);	// 右上	
+	farVecPos[2] = DirectX::XMVectorSet(-1.0f, -1.0f, 1.0f, 1.0f);	// 左下
+	farVecPos[3] = DirectX::XMVectorSet(1.0f, -1.0f, 1.0f, 1.0f);	// 右下
+
+	// 座標変換
+	farPos[0] = DirectX::XMVector3TransformCoord(farVecPos[0], matInvViewProj); // 左上
+	farPos[1] = DirectX::XMVector3TransformCoord(farVecPos[1], matInvViewProj); // 右上
+	farPos[2] = DirectX::XMVector3TransformCoord(farVecPos[2], matInvViewProj); // 左下
+	farPos[3] = DirectX::XMVector3TransformCoord(farVecPos[3], matInvViewProj); // 右下
+
+	// ベクトルの計算に使う変数
+	DirectX::XMVECTOR toTarget, normal, v1, v2;
+	float dot;
+
+	// 計算用に変換
+	DirectX::XMVECTOR c = Math::Vector3::CastXMVECTOR(m_Position); // カメラの位置
+	DirectX::XMVECTOR t = Math::Vector3::CastXMVECTOR(TargetPosition); // ターゲットの位置
+	// カメラとターゲットのオブジェクトのベクトルを計算
+	toTarget = DirectX::XMVectorSubtract(c, t);
+
+	// 指数台と当たり判定のチェック
+	
+	// 左側
+	v1 = DirectX::XMVectorSubtract(farPos[0], c); // カメラから左上のベクトル
+	v2 = DirectX::XMVectorSubtract(farPos[2], c); // カメラから左下のベクトル		
+	// 外積から法線ベクトルを求める
+	normal = DirectX::XMVector3Cross(v1, v2);
+	// 法線ベクトルを正規化する
+	normal = DirectX::XMVector3Normalize(normal);
+	// 法線ベクトルと対象のオブジェクトの内積を取る
+	dot = DirectX::XMVectorGetX(DirectX::XMVector3Dot(normal, toTarget));
+	if (dot < -Raduis)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 DirectX::XMFLOAT4X4 GameCamera::view() const

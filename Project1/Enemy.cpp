@@ -21,6 +21,7 @@
 #include "Command.h"
 #include "MoveComponent.h"
 #include "OnComponentEvent.h"
+#include "GameCamera.h"
 #include "Enemy.h"
 
 Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU)
@@ -65,6 +66,12 @@ void Enemy::Event()
 
 void Enemy::Draw()
 {
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
+	{
+		OutputDebugString("Enemy NoRendering\n");
+		return;
+	}
 	vehicle().Draw();
 }
 
