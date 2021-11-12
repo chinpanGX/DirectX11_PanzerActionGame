@@ -116,6 +116,20 @@ bool GameCamera::IsDrawObject(const Math::Vector3& TargetPosition, float Raduis)
 		return false;
 	}
 
+	// 右側
+	v1 = DirectX::XMVectorSubtract(farPos[0], c); // カメラから右上のベクトル
+	v2 = DirectX::XMVectorSubtract(farPos[1], c); // カメラから右下のベクトル		
+	// 外積から法線ベクトルを求める
+	normal = DirectX::XMVector3Cross(v1, v2);
+	// 法線ベクトルを正規化する
+	normal = DirectX::XMVector3Normalize(normal);
+	// 法線ベクトルと対象のオブジェクトの内積を取る
+	dot = DirectX::XMVectorGetX(DirectX::XMVector3Dot(normal, toTarget));
+	if (dot > Raduis)
+	{
+		return false;
+	}
+
 	return true;
 }
 
