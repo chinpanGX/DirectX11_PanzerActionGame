@@ -23,7 +23,7 @@ DrawTimerMinute::~DrawTimerMinute()
 
 void DrawTimerMinute::Draw(int32_t n)
 {
-	NumberDraw(Math::Vector2(305.0f, 80.0f), n);
+	NumberDraw(D3DXVECTOR2(305.0f, 80.0f), n);
 }
 #pragma endregion DrawTimerMinute_メソッド
 
@@ -42,7 +42,7 @@ void DrawTimerSecond::Draw(int32_t n)
 	{
 		int num = n % 10;
 		n /= 10;
-		NumberDraw(Math::Vector2(365.0f + ((GetSize() - 30.0f) * (Getdigit() - (i + 1))), 80.0f), num);
+		NumberDraw(D3DXVECTOR2(365.0f + ((GetSize() - 30.0f) * (Getdigit() - (i + 1))), 80.0f), num);
 	}
 }
 #pragma endregion DrawTimerSecond_メソッド
@@ -51,7 +51,7 @@ void DrawTimerSecond::Draw(int32_t n)
 							/* 5分*/
 GameBg::Timer::Timer() : m_TimeLimit_min(5), m_NowTime(0)
 {
-	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Timer", Math::Vector2(350.0f, 80.0f), Math::Vector2(200.0f, 128.0f));
+	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Timer", D3DXVECTOR2(350.0f, 80.0f), D3DXVECTOR2(200.0f, 128.0f));
 	m_DrawTimer[0] = std::make_unique<DrawTimerMinute>();
 	m_DrawTimer[1] = std::make_unique<DrawTimerSecond>();
 }

@@ -150,7 +150,7 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 
 	/// 定数バッファ生成
 	D3D11_BUFFER_DESC hBufferDesc{};
-	hBufferDesc.ByteWidth = sizeof(DirectX::XMMATRIX);
+	hBufferDesc.ByteWidth = sizeof(D3DXMATRIX);
 	hBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 	hBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 	hBufferDesc.CPUAccessFlags = 0;
@@ -175,11 +175,11 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	m_DeviceContext->VSSetConstantBuffers(4, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
 	m_DeviceContext->PSSetConstantBuffers(4, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
 
-	hBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4);
+	hBufferDesc.ByteWidth = sizeof(D3DXVECTOR4);
 	m_Device->CreateBuffer(&hBufferDesc, NULL,  m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA].GetAddressOf());
 	m_DeviceContext->PSSetConstantBuffers(5, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA].GetAddressOf());
 
-	hBufferDesc.ByteWidth = sizeof(DirectX::XMFLOAT4);
+	hBufferDesc.ByteWidth = sizeof(D3DXVECTOR4);
 	m_Device->CreateBuffer(&hBufferDesc, NULL,  m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
 	m_DeviceContext->PSSetConstantBuffers(6, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
 
@@ -190,8 +190,8 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 
 	// マテリアル初期化
 	Material material;
-	material.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	material.Ambient = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	material.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	material.Ambient = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	SetMaterial(material);
 }
 
@@ -241,22 +241,25 @@ void Graphics::SetWorldViewProjection2D()
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &projection);
 }
 
-void Graphics::SetWorldMatrix(DirectX::XMMATRIX & WorldMatrix)
+void Graphics::SetWorldMatrix(D3DXMATRIX & WorldMatrix)
 {
-	WorldMatrix = DirectX::XMMatrixTranspose(WorldMatrix);
-	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD], &WorldMatrix);
+	D3DXMATRIX world;
+	D3DXMatrixTranspose(&world, &WorldMatrix);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD], &world);
 }
 
-void Graphics::SetViewMatrix(DirectX::XMMATRIX & ViewMatrix)
+void Graphics::SetViewMatrix(D3DXMATRIX & ViewMatrix)
 {
-	ViewMatrix = DirectX::XMMatrixTranspose(ViewMatrix);
-	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW], &ViewMatrix);
+	D3DXMATRIX view;
+	D3DXMatrixTranspose(&view, &ViewMatrix);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW], &view);
 }
 
-void Graphics::SetProjectionMatrix(DirectX::XMMATRIX & ProjectionMatrix)
+void Graphics::SetProjectionMatrix(D3DXMATRIX & ProjectionMatrix)
 {
-	ProjectionMatrix = DirectX::XMMatrixTranspose(ProjectionMatrix);
-	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &ProjectionMatrix);
+	D3DXMATRIX proj;
+	D3DXMatrixTranspose(&proj, &ProjectionMatrix);
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &proj);
 }
 
 void Graphics::SetMaterial(Material Material)
@@ -269,12 +272,12 @@ void Graphics::SetLight(Light Light)
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT], &Light);
 }
 
-void Graphics::SetCameraPosition(DirectX::XMFLOAT3 CameraPosition)
+void Graphics::SetCameraPosition(D3DXVECTOR3 CameraPosition)
 {
-	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA], &DirectX::XMFLOAT4(CameraPosition.x, CameraPosition.y, CameraPosition.z, 1.0f));
+	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA], &D3DXVECTOR4(CameraPosition.x, CameraPosition.y, CameraPosition.z, 1.0f));
 }
 
-void Graphics::SetParameter(DirectX::XMFLOAT4 Parameter)
+void Graphics::SetParameter(D3DXVECTOR4 Parameter)
 {
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER], &Parameter);
 }

@@ -19,6 +19,6 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void UpdateMatrix(const DirectX::XMFLOAT4X4& ParentMatirx)override;
+	void UpdateMatrix(const D3DXMATRIX& ParentMatirx)override;
 };
 

@@ -22,7 +22,7 @@ protected:
 	const float& ShotRange()const { return m_ShotRange; }
 
 	// プレイヤーの位置を取得する
-	const Math::Vector3& SearchPlayer() const;
+	const D3DXVECTOR3& SearchPlayer() const;
 private:
 	const float m_SearchRange = 200.0f; // サーチ範囲
 	const float m_ShotRange = 50.0f;	// 射程範囲

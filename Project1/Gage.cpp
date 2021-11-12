@@ -95,12 +95,12 @@ void GameBg::DrawGage::Event()
 void GameBg::DrawGage::Draw()
 {
 	// ”wŒi‚ÌƒJƒ‰[
-	Math::Vector4 frameColor = Math::Vector4(0.3f, 0.8f, 0.8f, 0.7f);
+	D3DXVECTOR4 frameColor = D3DXVECTOR4(0.3f, 0.8f, 0.8f, 0.7f);
 
-	Math::Vector2 enemyPosition = Math::Vector2(460.0f, 70.0f);
-	Math::Vector4 enemyColor = Math::Vector4(1.0f, 0.2f, 0.2f, 1.0f);
-	Math::Vector2 playerPosition = Math::Vector2(460.0f, 100.0f);
-	Math::Vector4 playerColor = Math::Vector4(0.2f, 0.2f, 1.0f, 1.0f);
+	D3DXVECTOR2 enemyPosition = D3DXVECTOR2(460.0f, 70.0f);
+	D3DXVECTOR4 enemyColor = D3DXVECTOR4(1.0f, 0.2f, 0.2f, 1.0f);
+	D3DXVECTOR2 playerPosition = D3DXVECTOR2(460.0f, 100.0f);
+	D3DXVECTOR4 playerColor = D3DXVECTOR4(0.2f, 0.2f, 1.0f, 1.0f);
 
 	// MAXó‘Ô
 	m_Render->Draw(1000.0f, enemyPosition, frameColor);

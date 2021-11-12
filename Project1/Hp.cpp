@@ -50,11 +50,11 @@ void GameBg::Hp::Event()
 void GameBg::Hp::Draw()
 {
 	// 描画位置を設定
-	Math::Vector2 pos = Math::Vector2(1450.0f, 900.0f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(1450.0f, 900.0f);
 	
 	// MAX状態のHPバー
-	m_Render->Draw(m_MaxDrawSize, pos, Math::Vector4(0.35f, 0.35f, 0.35f, 0.75f));
+	m_Render->Draw(m_MaxDrawSize, pos, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
 
 	// 現在のHPバー
-	m_Render->Draw(m_DrawSize, pos, Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_Render->Draw(m_DrawSize, pos, D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 }

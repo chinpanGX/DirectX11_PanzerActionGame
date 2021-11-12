@@ -35,7 +35,7 @@ void PanzerContainer::Begin()
 	m_Number = std::make_unique<Cost>();
 	Factory::FVehicle f;
 	m_Map[m_PanzerName[0]] = f.Create(m_PanzerName[0]);
-	m_Map[m_PanzerName[0]]->SetStartPosition(Math::Vector3(0.0f, 0.0f, 20.0f), Math::Vector3(0.0f, Math::ToRadians(180.0f), 0.0f));
+	m_Map[m_PanzerName[0]]->SetStartPosition(D3DXVECTOR3(0.0f, 0.0f, 20.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	m_PlayerofSelectedPanzer = "Tiger";
 }
 
@@ -49,7 +49,7 @@ void PanzerContainer::Update()
 		// ŽŸ‚ÌíŽÔ‚ðƒZƒbƒg
 		Factory::FVehicle f;
 		m_Map[m_PanzerName[m_Choose]] = f.Create(m_PanzerName[m_Choose]);
-		m_Map[m_PanzerName[m_Choose]]->SetStartPosition(Math::Vector3(0.0f, 0.0f, 20.0f), Math::Vector3(0.0f, Math::ToRadians(180.0f), 0.0f));
+		m_Map[m_PanzerName[m_Choose]]->SetStartPosition(D3DXVECTOR3(0.0f, 0.0f, 20.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	}
 
 	// “o˜^ó‘Ô‚ðXV‚·‚é
@@ -74,15 +74,15 @@ void PanzerContainer::Draw()
 	// ƒRƒXƒg
 	m_Number->Draw((int32_t)m_Cost);
 	// HP
-	m_Parameters->Draw(m_Hp * 0.1f, Math::Vector2(1500.0f, 290.0f));
+	m_Parameters->Draw(m_Hp * 0.1f, D3DXVECTOR2(1500.0f, 290.0f));
 	// UŒ‚—Í
-	m_Parameters->Draw(m_Attack, Math::Vector2(1500.0f, 360.0f));
+	m_Parameters->Draw(m_Attack, D3DXVECTOR2(1500.0f, 360.0f));
 	// ‘•b
-	m_Parameters->Draw(m_Defence, Math::Vector2(1500.0f, 430.0f));
+	m_Parameters->Draw(m_Defence, D3DXVECTOR2(1500.0f, 430.0f));
 	// ‘¬“x
-	m_Parameters->Draw(m_Speed, Math::Vector2(1500.0f, 500.0f));
+	m_Parameters->Draw(m_Speed, D3DXVECTOR2(1500.0f, 500.0f));
 	// ‘•“U‘¬“x
-	m_Parameters->Draw(m_Reload, Math::Vector2(1500.0f, 570.0f));
+	m_Parameters->Draw(m_Reload, D3DXVECTOR2(1500.0f, 570.0f));
 }
 
 void PanzerContainer::SetChooseUp()

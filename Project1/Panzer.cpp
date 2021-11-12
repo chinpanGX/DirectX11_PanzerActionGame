@@ -52,13 +52,12 @@ void Panzer::Draw()
 {
 	m_Resource.SetShader("Default");
 	// マトリクスの計算
-	DirectX::XMFLOAT4X4 world;
+	D3DXMATRIX world;
 	m_Body->UpdateMatrix(world);
 	m_Turret->UpdateMatrix(m_Body->GetWorldMatrix());
 	m_Gun->UpdateMatrix(m_Turret->GetWorldMatrix());
 	world = m_Gun->GetWorldMatrix();
-	auto m = DirectX::XMLoadFloat4x4(&world);
-	m_Graphics.SetWorldMatrix(m);
+	m_Graphics.SetWorldMatrix(world);
 
 	m_Body->Draw();
 	m_Turret->Draw();

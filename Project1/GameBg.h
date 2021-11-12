@@ -44,9 +44,9 @@ namespace GameBg
 	private:
 		// 描画
 		void DrawPanzerName();	// 戦車の名前
-		void DrawGameRule(Math::Vector2 pos, Math::Vector2 size);	// ゲーム説明	
+		void DrawGameRule(D3DXVECTOR2 pos, D3DXVECTOR2 size);	// ゲーム説明	
 
-		std::vector<Math::Vector2> m_TexCoord;
+		std::vector<D3DXVECTOR2> m_TexCoord;
 		std::unique_ptr<Renderer2D> m_List; // 戦車のリスト
 		std::unique_ptr<Renderer2D> m_Operation; // 操作方法UI
 		int32_t m_Page;
@@ -66,8 +66,8 @@ namespace GameBg
 		bool SetMode(bool f); 
 	private:		
 		// 描画
-		void DrawFrame(Math::Vector2 pos, float size_y);	// 背景枠の点滅
-		void DrawModeName(Math::Vector2 pos, float size_y);	// ゲームモード
+		void DrawFrame(D3DXVECTOR2 pos, float size_y);	// 背景枠の点滅
+		void DrawModeName(D3DXVECTOR2 pos, float size_y);	// ゲームモード
 
 		std::unique_ptr<Renderer2D> m_Renderer;
 		bool m_Mode; // trueでチュートリアル、falseでゲーム

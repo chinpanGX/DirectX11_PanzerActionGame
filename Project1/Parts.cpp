@@ -13,7 +13,7 @@ Parts::Parts(const std::string & Tag) : m_Tagname(Tag), m_Resource(*Engine::Get(
 {
 }
 
-const DirectX::XMFLOAT4X4 & Parts::GetWorldMatrix() const
+const D3DXMATRIX & Parts::GetWorldMatrix() const
 {
 	return m_WorldMatrix;
 }

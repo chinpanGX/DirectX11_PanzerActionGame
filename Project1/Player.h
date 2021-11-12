@@ -17,7 +17,7 @@ public:
 	void Event()override;
 	void Draw()override;
 	void ChangeState(std::unique_ptr<class PanzerState> State)override;
-	void Respawn(const Math::Vector3& pos)override;
+	void Respawn(const D3DXVECTOR3& pos)override;
 private:
 	void OnCollision()override;
 	void OnSound(); //	ƒTƒEƒ“ƒh‚Ìİ’è

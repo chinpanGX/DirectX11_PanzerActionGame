@@ -41,9 +41,9 @@ Tiger::Tiger() : Vehicle("Tiger")
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
 	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 3.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 7.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Tiger::~Tiger()
@@ -99,9 +99,9 @@ Centurion::Centurion() : Vehicle("Centurion")
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
 	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 3.0f, 8.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Centurion::~Centurion()
@@ -157,9 +157,9 @@ Patton::Patton() : Vehicle("Patton")
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
 	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 3.0f, 8.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Patton::~Patton()
@@ -217,10 +217,10 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
 	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 4.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(3.0f, 2.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 T_34_85::~T_34_85()
@@ -280,10 +280,10 @@ IV_H::IV_H() : Vehicle("IV-H")
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
 	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 4.0f, 6.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(0.5f, 0.5f, 1.0f));
+	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 IV_H::~IV_H()
@@ -338,10 +338,10 @@ Sherman::Sherman() : Vehicle("Sherman")
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
 	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(4.0f, 3.0f, 5.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), Math::Vector3(0.5f, 0.5f, 1.0f));
+	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 Sherman::~Sherman()

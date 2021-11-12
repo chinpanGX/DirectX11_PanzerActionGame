@@ -40,7 +40,7 @@ Player::~Player()
 
 void Player::Begin()
 {
-	Pawn::SetStartPosition(this, Math::Vector3(0.0f, 0.0f, -150.0f), Math::Vector3(0.0f, 0.0f, 0.0f));
+	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -150.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 }
 
 void Player::Update()
@@ -68,12 +68,12 @@ void Player::Event()
 
 void Player::Draw()
 {
-	///auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	///if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
-	///{
-	///	OutputDebugString("Player NoRendering\n");
-	///	return;
-	///}
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
+	{
+		OutputDebugString("Player NoRendering\n");
+		return;
+	}
 	vehicle().Draw();
 }
 
@@ -82,9 +82,9 @@ void Player::ChangeState(std::unique_ptr<PanzerState> State)
 	
 }
 
-void Player::Respawn(const Math::Vector3& pos)
+void Player::Respawn(const D3DXVECTOR3& pos)
 {
-	Pawn::SetStartPosition(this, pos, Math::Vector3(0.0f, 0.0f, 0.0f));
+	Pawn::SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	Pawn::RespawnSetMaxHP();
 	Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->Update();
 	this->Update();

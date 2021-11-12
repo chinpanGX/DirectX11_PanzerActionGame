@@ -22,12 +22,12 @@ public:
 	void Draw()override;
 private:
 	// çsóÒ
-	DirectX::XMFLOAT4X4 m_View;
-	DirectX::XMFLOAT4X4 m_Projection;
+	D3DXMATRIX m_View;
+	D3DXMATRIX m_Projection;
 
 	// ÉJÉÅÉâÇÃê›íË
-	Math::Vector3 m_Position;
-	Math::Vector3 m_Target;
+	D3DXVECTOR3 m_Position;
+	D3DXVECTOR3 m_Target;
 
 	class Graphics& m_Graphics;
 };

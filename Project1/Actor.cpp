@@ -60,10 +60,10 @@ void Actor::UpdateCollision(BoxComponent & BoxComponent)
 
 void Actor::UpdateMatrix(Transform & Transform)
 {
-	DirectX::XMMATRIX world, scale, rot, trans;
-	scale = Math::Matrix::MatrixScaling(m_Transform->scale());
-	rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->rotation());
-	trans = Math::Matrix::MatrixTranslation(m_Transform->position());
+	D3DXMATRIX world, scale, rot, trans;
+	Math::Matrix::MatrixScaling(&scale, Transform.scale());
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, Transform.rotation());
+	Math::Matrix::MatrixTranslation(&trans, Transform.position());
 	world = scale * rot * trans;
 	Engine::Get().graphics()->SetWorldMatrix(world);
 }

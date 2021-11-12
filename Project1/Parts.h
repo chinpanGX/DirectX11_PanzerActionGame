@@ -19,11 +19,11 @@ public:
 	void Update()override {}
 	void Event()override {}
 	void Draw()override{}
-	virtual void UpdateMatrix(const DirectX::XMFLOAT4X4& ParentMatirx) = 0;
-	const DirectX::XMFLOAT4X4& GetWorldMatrix() const;
+	virtual void UpdateMatrix(const D3DXMATRIX& ParentMatirx) = 0;
+	const D3DXMATRIX& GetWorldMatrix() const;
 protected:
 	const std::string& GetTag() const;
-	DirectX::XMFLOAT4X4 m_WorldMatrix;
+	D3DXMATRIX m_WorldMatrix;
 	class Resource& resource() const;
 	class Graphics& graphics() const;
 private:

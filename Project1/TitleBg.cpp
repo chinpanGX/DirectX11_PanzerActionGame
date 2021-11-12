@@ -43,11 +43,11 @@ void GameBg::TitleBg::Draw()
 	if (m_TitleSystem->EState::SETTING_SELECT == state || m_TitleSystem->EState::CHECK_INPUT == state)
 	{
 		// Setting‰æ–Ê
-		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), Math::Vector2(0.5f, 0.0f), Math::Vector2(1.0f, 1.0f));
+		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	}
 	else
 	{
-		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), Math::Vector2(0.0f, 0.0f), Math::Vector2(0.49f, 1.0f));
+		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.49f, 1.0f));
 	}
 }
 #pragma endregion TitleBgƒƒ\ƒbƒh

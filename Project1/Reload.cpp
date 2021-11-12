@@ -53,16 +53,14 @@ void Reload::Draw()
 	// マトリクスの設定
 	// カメラの情報を取得
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	DirectX::XMFLOAT4X4 tmp = camera->view();
-	// 変換
-	DirectX::XMMATRIX view = DirectX::XMLoadFloat4x4(&tmp);
+	D3DXMATRIX view = camera->view();
 
-	// Viewの逆行列
-	DirectX::XMMATRIX inverseViewMatrix = DirectX::XMMatrixIdentity();
-	inverseViewMatrix = DirectX::XMMatrixInverse(nullptr, inverseViewMatrix);
-	inverseViewMatrix.r[3].m128_f32[0] = 0.0f;
-	inverseViewMatrix.r[3].m128_f32[1] = 0.0f;
-	inverseViewMatrix.r[3].m128_f32[2] = 0.0f;
+	// ビューの逆行列
+	D3DXMATRIX invView;
+	D3DXMatrixInverse(&invView, nullptr, &view);//逆行列
+	invView._41 = 0.0f;
+	invView._42 = 0.0f;
+	invView._43 = 0.0f;
 
 	// 戦車の情報を取得
 	auto& pilot = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->pivot();
@@ -71,15 +69,16 @@ void Reload::Draw()
 	m_Transform->position().z = pilot.transform().position().z;
 
 	// 座標変換
-	DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->scale());
-	DirectX::XMMATRIX rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->rotation());
-	DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->position());
-	DirectX::XMMATRIX world = scale * rot * inverseViewMatrix * trans;
+	D3DXMATRIX scale, rot, trans;
+	Math::Matrix::MatrixScaling(&scale, m_Transform->scale());
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
+	Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
+	D3DXMATRIX world = scale * rot * invView * trans;
 	m_Graphics.SetWorldMatrix(world);
-
+	
 	// マテリアル
 	Material m;
-	m.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	m.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Graphics.SetMaterial(m);
 
 	// テクスチャの設定

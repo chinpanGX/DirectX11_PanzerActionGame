@@ -18,7 +18,7 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void Create(const Math::Vector3& Position, const Math::Vector3& Vector)override;
+	void Create(const D3DXVECTOR3& Position, const D3DXVECTOR3& Vector)override;
 	void ChangeState(std::unique_ptr<BulletState> State)override;
 	void OnCollision()override;
 private:

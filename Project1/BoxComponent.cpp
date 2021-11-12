@@ -28,7 +28,7 @@ BoxComponent::~BoxComponent()
 }
 
 // à íuÇÃçXêV
-void BoxComponent::Update(const Math::Vector3& Position, const Transform & t)
+void BoxComponent::Update(const D3DXVECTOR3& Position, const Transform & t)
 {
 	if (m_sphere)
 	{
@@ -72,7 +72,7 @@ const Sphere3 & BoxComponent::GetSphere3() const
 	return *m_sphere;
 }
 
-void BoxComponent::SetAABB3(const Transform& t, const Math::Vector3 & Size)
+void BoxComponent::SetAABB3(const Transform& t, const D3DXVECTOR3 & Size)
 {
 	auto transform = t;
 	m_aabb = std::make_unique<AABB3>(transform.position(), Size);
@@ -87,7 +87,7 @@ const AABB3& BoxComponent::GetAABB3() const
 	return *m_aabb;
 }
 
-void BoxComponent::SetOBB3(const Transform& t, const Math::Vector3 & Size)
+void BoxComponent::SetOBB3(const Transform& t, const D3DXVECTOR3 & Size)
 {
 	m_obb = std::make_unique<OBB3>(t, Size);
 }

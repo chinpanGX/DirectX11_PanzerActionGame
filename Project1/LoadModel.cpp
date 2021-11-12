@@ -105,9 +105,9 @@ void Model::LoadObj(const std::string& FileName, ModelInfo * Model)
 	strcpy(dir, FileName.c_str());
 	PathRemoveFileSpec(dir);
 
-	DirectX::XMFLOAT3	*positionArray;
-	DirectX::XMFLOAT3	*normalArray;
-	DirectX::XMFLOAT2	*texcoordArray;
+	D3DXVECTOR3	*positionArray;
+	D3DXVECTOR3	*normalArray;
+	D3DXVECTOR2	*texcoordArray;
 
 	uint32_t positionNum = 0;
 	uint32_t normalNum = 0;
@@ -178,9 +178,9 @@ void Model::LoadObj(const std::string& FileName, ModelInfo * Model)
 	}
 
 	//ƒƒ‚ƒŠŠm•Û
-	positionArray = new DirectX::XMFLOAT3[positionNum];
-	normalArray = new DirectX::XMFLOAT3[normalNum];
-	texcoordArray = new DirectX::XMFLOAT2[texcoordNum];
+	positionArray = new D3DXVECTOR3[positionNum];
+	normalArray = new D3DXVECTOR3[normalNum];
+	texcoordArray = new D3DXVECTOR2[texcoordNum];
 	Model->VertexArray = new Vertex3D[vertexNum];
 	Model->VertexNum = vertexNum;
 	Model->IndexArray = new uint32_t[indexNum];
@@ -189,9 +189,9 @@ void Model::LoadObj(const std::string& FileName, ModelInfo * Model)
 	Model->SubsetNum = subsetNum;
 
 	//—v‘f“Çž
-	DirectX::XMFLOAT3 *position = positionArray;
-	DirectX::XMFLOAT3 *normal = normalArray;
-	DirectX::XMFLOAT2 *texcoord = texcoordArray;
+	D3DXVECTOR3 *position = positionArray;
+	D3DXVECTOR3 *normal = normalArray;
+	D3DXVECTOR2 *texcoord = texcoordArray;
 
 	uint32_t vc = 0;
 	uint32_t ic = 0;
@@ -292,7 +292,7 @@ void Model::LoadObj(const std::string& FileName, ModelInfo * Model)
 				s = strtok(NULL, "/");
 				Model->VertexArray[vc].Normal = normalArray[atoi(s) - 1];
 
-				Model->VertexArray[vc].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+				Model->VertexArray[vc].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 
 				Model->IndexArray[ic] = vc;
 				ic++;

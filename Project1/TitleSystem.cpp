@@ -55,7 +55,7 @@ void TitleSystem::Draw()
 	{
 		// Press Any Buttonの表示
 		case EState::BEGIN:
-			m_Render->Draw(Math::Vector2(960.0f, 600.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.0f), Math::Vector2(0.25f, 0.125f), m_Color);
+			m_Render->Draw(D3DXVECTOR2(960.0f, 600.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.25f, 0.125f), m_Color);
 			break;
 		// GameStartorSetting
 		case EState::SELECT:
@@ -148,40 +148,40 @@ void TitleSystem::UpdateColorChenge()
 void TitleSystem::DrawSelect()
 {
 	// 共通変数
-	Math::Vector4 beginColor = Math::Vector4(0.0f, 1.0f, 0.0f, 1.0f);
-	Math::Vector4 alpha = Math::Vector4(1.0f, 1.0f, 1.0f, m_Alpha);
-	Math::Vector2 size = Math::Vector2(512.0f, 128.0f);
+	D3DXVECTOR4 beginColor = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 1.0f);
+	D3DXVECTOR4 alpha = D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha);
+	D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
 	float px = 960.0f;
 
 	// 上を選んだ時はゲームスタートを選択、下を選んだときはSettingを選択している
 	if (m_ToporButtom)
 	{
-		m_Render->Draw(Math::Vector2(px, 600.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), alpha);
-		m_Render->Draw(Math::Vector2(px, 600.0f), size, Math::Vector2(0.25f, 0.0f), Math::Vector2(0.5f, 0.125f), m_Color);
-		m_Render->Draw(Math::Vector2(px, 750.0f), size, Math::Vector2(0.0f, 0.125f), Math::Vector2(0.25f, 0.245f), beginColor);
+		m_Render->Draw(D3DXVECTOR2(px, 600.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), alpha);
+		m_Render->Draw(D3DXVECTOR2(px, 600.0f), size, D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.125f), m_Color);
+		m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.125f), D3DXVECTOR2(0.25f, 0.245f), beginColor);
 	}
 	else
 	{
-		m_Render->Draw(Math::Vector2(px, 750.0f), size, Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), alpha);
-		m_Render->Draw(Math::Vector2(px, 600.0f), size, Math::Vector2(0.25f, 0.0f), Math::Vector2(0.5f, 0.125f), beginColor);
-		m_Render->Draw(Math::Vector2(px, 750.0f), size, Math::Vector2(0.0f, 0.125f), Math::Vector2(0.25f, 0.245f), m_Color);
+		m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), alpha);
+		m_Render->Draw(D3DXVECTOR2(px, 600.0f), size, D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.125f), beginColor);
+		m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.125f), D3DXVECTOR2(0.25f, 0.245f), m_Color);
 	}
 }
 
 void TitleSystem::DrawSetting()
 {
-	Math::Vector4 clearColor = Math::Vector4(1.0f, 1.0f, 1.0f, 0.5f);
+	D3DXVECTOR4 clearColor = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 0.5f);
 	if (m_InputGamePad == false)
 	{
-		m_Render->Draw(Math::Vector2(660.0f, 400.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.25f), Math::Vector2(0.5f, 0.375f));
-		m_Render->Draw(Math::Vector2(1260.0f, 400.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.25f), Math::Vector2(0.25f, 0.3745f), clearColor);
-		m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(1024.0f, 512.f), Math::Vector2(0.5f, 0.0f), Math::Vector2(1.0f, 0.5f));
+		m_Render->Draw(D3DXVECTOR2(660.0f, 400.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.25f), D3DXVECTOR2(0.5f, 0.375f));
+		m_Render->Draw(D3DXVECTOR2(1260.0f, 400.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.0f, 0.25f), D3DXVECTOR2(0.25f, 0.3745f), clearColor);
+		m_Render->Draw(D3DXVECTOR2(960.0f, 750.0f), D3DXVECTOR2(1024.0f, 512.f), D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 	}
 	else if (m_InputGamePad == true)
 	{
-		m_Render->Draw(Math::Vector2(660.0f, 400.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.25f, 0.25f), Math::Vector2(0.5f, 0.375f), clearColor);
-		m_Render->Draw(Math::Vector2(1260.0f, 400.0f), Math::Vector2(512.0f, 128.0f), Math::Vector2(0.0f, 0.25f), Math::Vector2(0.25f, 0.3745f));
-		m_Render->Draw(Math::Vector2(960.0f, 750.0f), Math::Vector2(1024.0f, 512.f), Math::Vector2(0.5f, 0.5f), Math::Vector2(1.0f, 1.0f));
+		m_Render->Draw(D3DXVECTOR2(660.0f, 400.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.25f), D3DXVECTOR2(0.5f, 0.375f), clearColor);
+		m_Render->Draw(D3DXVECTOR2(1260.0f, 400.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.0f, 0.25f), D3DXVECTOR2(0.25f, 0.3745f));
+		m_Render->Draw(D3DXVECTOR2(960.0f, 750.0f), D3DXVECTOR2(1024.0f, 512.f), D3DXVECTOR2(0.5f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	}
 }
 
@@ -195,17 +195,17 @@ void TitleSystem::DrawInput()
 	{
 		if (m_InputCheck == false)
 		{
-			m_Render->Draw(Math::Vector2(px, 750.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f));
-			m_Render->Draw(Math::Vector2(px, 600.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
-			m_Render->Draw(Math::Vector2(px, 750.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
-			m_Render->Draw(Math::Vector2(px, 450.0f), Math::Vector2(1024.0f, sy), Math::Vector2(0.0f, 0.75f), Math::Vector2(0.5f, 0.875f), m_Color);
+			m_Render->Draw(D3DXVECTOR2(px, 750.0f), D3DXVECTOR2(512.0f, sy), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f));
+			m_Render->Draw(D3DXVECTOR2(px, 600.0f), D3DXVECTOR2(512.0f, sy), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR2(0.5f, 0.625f));
+			m_Render->Draw(D3DXVECTOR2(px, 750.0f), D3DXVECTOR2(512.0f, sy), D3DXVECTOR2(0.25f, 0.625f), D3DXVECTOR2(0.5f, 0.75f));
+			m_Render->Draw(D3DXVECTOR2(px, 450.0f), D3DXVECTOR2(1024.0f, sy), D3DXVECTOR2(0.0f, 0.75f), D3DXVECTOR2(0.5f, 0.875f), m_Color);
 		}
 		else if (m_InputCheck == true)
 		{
-			m_Render->Draw(Math::Vector2(px, 600.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f));
-			m_Render->Draw(Math::Vector2(px, 600.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.5f), Math::Vector2(0.5f, 0.625f));
-			m_Render->Draw(Math::Vector2(px, 750.0f), Math::Vector2(512.0f, sy), Math::Vector2(0.25f, 0.625f), Math::Vector2(0.5f, 0.75f));
-			m_Render->Draw(Math::Vector2(px, 450.0f), Math::Vector2(1024.0f, sy), Math::Vector2(0.0f, 0.75f), Math::Vector2(0.5f, 0.875f), m_Color);
+			m_Render->Draw(D3DXVECTOR2(px, 600.0f), D3DXVECTOR2(512.0f, sy), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f));
+			m_Render->Draw(D3DXVECTOR2(px, 600.0f), D3DXVECTOR2(512.0f, sy), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR2(0.5f, 0.625f));
+			m_Render->Draw(D3DXVECTOR2(px, 750.0f), D3DXVECTOR2(512.0f, sy), D3DXVECTOR2(0.25f, 0.625f), D3DXVECTOR2(0.5f, 0.75f));
+			m_Render->Draw(D3DXVECTOR2(px, 450.0f), D3DXVECTOR2(1024.0f, sy), D3DXVECTOR2(0.0f, 0.75f), D3DXVECTOR2(0.5f, 0.875f), m_Color);
 		}
 	}
 }

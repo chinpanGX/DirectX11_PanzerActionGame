@@ -58,7 +58,7 @@ void NormalBullet::Draw()
 	//m_BoxComponent->SystemDraw();
 }
 
-void NormalBullet::Create(const Math::Vector3& Position, const Math::Vector3 & Vector)
+void NormalBullet::Create(const D3DXVECTOR3& Position, const D3DXVECTOR3 & Vector)
 {
 	// インスタンス生成
 	Bullet::SetProperty(Vector, 300.0f, 240);
@@ -68,7 +68,7 @@ void NormalBullet::Create(const Math::Vector3& Position, const Math::Vector3 & V
 
 	// コンポーネントの設定
 	m_BoxComponent = Actor::AddComponent<BoxComponent>();
-	Math::Vector3 scale = m_Transform->scale() * 0.5f;
+	D3DXVECTOR3 scale = m_Transform->scale() * 0.5f;
 	m_BoxComponent->SetSphere3(*m_Transform, 1.0f);
 	m_BoxComponent->SetAABB3(*m_Transform, scale);
 	m_BoxComponent->SetOBB3(*m_Transform, scale);

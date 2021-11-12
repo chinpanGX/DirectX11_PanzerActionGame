@@ -52,15 +52,17 @@ void Skydome::UpdateMatrix()
 {
 	// カメラの情報を取得する
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	Math::Vector3 pos = camera->position();
+	D3DXVECTOR3 pos = camera->position();
 
-	// マトリクス計算
 	// 錯覚維持のためにスカイドームがカメラの中心に来るようにする
-	DirectX::XMMATRIX world, scale, rot, trans;
-	scale = DirectX::XMMatrixScaling(m_Transform->scale().x, m_Transform->scale().y, m_Transform->scale().z);
-	rot = DirectX::XMMatrixRotationRollPitchYaw(m_Transform->rotation().x, m_Transform->rotation().y, m_Transform->rotation().z);
-	trans = DirectX::XMMatrixTranslation(pos.x, pos.y, pos.z);
-	world = scale * rot * trans;
+	// マトリクス設定
+
+	// 座標変換
+	D3DXMATRIX scale, rot, trans;
+	Math::Matrix::MatrixScaling(&scale, m_Transform->scale());
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
+	Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
+	D3DXMATRIX world = scale * rot * trans;
 	m_Graphics.SetWorldMatrix(world);
 }
 #pragma endregion privateメンバ関数

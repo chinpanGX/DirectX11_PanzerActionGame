@@ -12,7 +12,7 @@
 #include "Pivot.h"
 
 #pragma region CameCamera_method
-GameCamera::GameCamera() : m_Position(Math::Vector3(0.0f, 5.0f, -8.0f)), m_Target(Math::Vector3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().graphics()), m_EnableFpsMode(false)
+GameCamera::GameCamera() : m_Position(D3DXVECTOR3(0.0f, 5.0f, -8.0f)), m_Target(D3DXVECTOR3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().graphics()), m_EnableFpsMode(false)
 {
 	
 }
@@ -34,15 +34,15 @@ void GameCamera::Update()
 	// FPSモード
 	if (m_EnableFpsMode)
 	{
-		m_Position = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Forward) * pivot.GetFpsOffset());
-		m_Target = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Forward) * pivot.GetTargetOffset());
+		m_Position = pivot.transform().position() + (pivot.transform().forward() * pivot.GetFpsOffset());
+		m_Target = pivot.transform().position() + (pivot.transform().forward() * pivot.GetTargetOffset());
 	}
 	// TPSモード	
 	else
 	{
-		auto offset = Math::Vector3(0.0f, 5.0f, 0.0f);
-		m_Position = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Backward) * pivot.GetTpsOffset()) + offset;
-		m_Target = pivot.transform().position() + (pivot.transform().GetVector(Transform::Vector::Forward) * pivot.GetTargetOffset());
+		auto offset = D3DXVECTOR3(0.0f, 5.0f, 0.0f);
+		m_Position = pivot.transform().position() + (-pivot.transform().forward() * pivot.GetTpsOffset()) + offset;
+		m_Target = pivot.transform().position() + (pivot.transform().forward() * pivot.GetTargetOffset());
 	}
 
 }
@@ -60,85 +60,105 @@ void GameCamera::Draw()
 	SetProjectionMatrix();
 }
 
-bool GameCamera::IsDrawObject(const Math::Vector3& TargetPosition, float Raduis)
+bool GameCamera::IsDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 {
-	// マトリクス計算に使う変数
-	DirectX::XMMATRIX view, proj, matViewProj, matInvViewProj;
+	D3DXMATRIX vp, invvp;
 
-	// 計算用に変換
-	view = DirectX::XMLoadFloat4x4(&m_View);
-	proj = DirectX::XMLoadFloat4x4(&m_Projection);
+	vp = m_View * m_Projection;
+	D3DXMatrixInverse(&invvp, NULL, &vp);
 
-	// ビューマトリクスとプロジェクションマトリクスをかける
-	matViewProj = view * proj;
-	// 逆行列を求める
-	matInvViewProj = DirectX::XMMatrixInverse(nullptr, matViewProj);
+	D3DXVECTOR3 vpos[4];
+	D3DXVECTOR3 wpos[4];
 
-	// Far面の座標を求める
-	DirectX::XMVECTOR farVecPos[4];
-	DirectX::XMVECTOR farPos[4];
-
-	//ベクトルのセット
-	farVecPos[0] = DirectX::XMVectorSet(-1.0f, 1.0f, 1.0f, 1.0f);	// 左上
-	farVecPos[1] = DirectX::XMVectorSet(1.0f, 1.0f, 1.0f, 1.0f);	// 右上	
-	farVecPos[2] = DirectX::XMVectorSet(-1.0f, -1.0f, 1.0f, 1.0f);	// 左下
-	farVecPos[3] = DirectX::XMVectorSet(1.0f, -1.0f, 1.0f, 1.0f);	// 右下
+	// far面の座標
+	vpos[0] = D3DXVECTOR3(-1.0f, 1.0f, 1.0f);
+	vpos[1] = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	vpos[2] = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
+	vpos[3] = D3DXVECTOR3(1.0f, -1.0f, 1.0f);
 
 	// 座標変換
-	farPos[0] = DirectX::XMVector3TransformCoord(farVecPos[0], matInvViewProj); // 左上
-	farPos[1] = DirectX::XMVector3TransformCoord(farVecPos[1], matInvViewProj); // 右上
-	farPos[2] = DirectX::XMVector3TransformCoord(farVecPos[2], matInvViewProj); // 左下
-	farPos[3] = DirectX::XMVector3TransformCoord(farVecPos[3], matInvViewProj); // 右下
+	D3DXVec3TransformCoord(&wpos[0], &vpos[0], &invvp);
+	D3DXVec3TransformCoord(&wpos[1], &vpos[1], &invvp);
+	D3DXVec3TransformCoord(&wpos[2], &vpos[2], &invvp);
+	D3DXVec3TransformCoord(&wpos[3], &vpos[3], &invvp);
 
-	// ベクトルの計算に使う変数
-	DirectX::XMVECTOR toTarget, normal, v1, v2;
+	D3DXVECTOR3 v, v1, v2, n;
 	float dot;
 
-	// 計算用に変換
-	DirectX::XMVECTOR c = Math::Vector3::CastXMVECTOR(m_Position); // カメラの位置
-	DirectX::XMVECTOR t = Math::Vector3::CastXMVECTOR(TargetPosition); // ターゲットの位置
-	// カメラとターゲットのオブジェクトのベクトルを計算
-	toTarget = DirectX::XMVectorSubtract(c, t);
-
-	// 指数台と当たり判定のチェック
-	
 	// 左側
-	v1 = DirectX::XMVectorSubtract(farPos[0], c); // カメラから左上のベクトル
-	v2 = DirectX::XMVectorSubtract(farPos[2], c); // カメラから左下のベクトル		
-	// 外積から法線ベクトルを求める
-	normal = DirectX::XMVector3Cross(v1, v2);
-	// 法線ベクトルを正規化する
-	normal = DirectX::XMVector3Normalize(normal);
-	// 法線ベクトルと対象のオブジェクトの内積を取る
-	dot = DirectX::XMVectorGetX(DirectX::XMVector3Dot(normal, toTarget));
-	if (dot < -Raduis)
+	// カメラと対象のオブジェクトのベクトル
+	v = TargetPosition - m_Position;
+
+	// 法線ベクトルを求める 
+	v1 = wpos[0] - m_Position;
+	v2 = wpos[2] - m_Position;
+	D3DXVec3Cross(&n, &v1, &v2);
+	D3DXVec3Normalize(&n, &n);
+	dot = D3DXVec3Dot(&n, &v);
+	if (dot < -Radius)
 	{
+		OutputDebugString("左側で消えている\n");
 		return false;
 	}
 
 	// 右側
-	v1 = DirectX::XMVectorSubtract(farPos[0], c); // カメラから右上のベクトル
-	v2 = DirectX::XMVectorSubtract(farPos[1], c); // カメラから右下のベクトル		
-	// 外積から法線ベクトルを求める
-	normal = DirectX::XMVector3Cross(v1, v2);
-	// 法線ベクトルを正規化する
-	normal = DirectX::XMVector3Normalize(normal);
-	// 法線ベクトルと対象のオブジェクトの内積を取る
-	dot = DirectX::XMVectorGetX(DirectX::XMVector3Dot(normal, toTarget));
-	if (dot > Raduis)
+	v1 = wpos[1] - m_Position;
+	v2 = wpos[3] - m_Position;
+	D3DXVec3Cross(&n, &v1, &v2);
+	D3DXVec3Normalize(&n, &n);
+	dot = D3DXVec3Dot(&n, &v);
+	if (dot > Radius)
 	{
+		OutputDebugString("右側で消えている\n");
 		return false;
 	}
 
+	// 上側
+	v1 = wpos[0] - m_Position;
+	v2 = wpos[1] - m_Position;
+	D3DXVec3Cross(&n, &v1, &v2);
+	D3DXVec3Normalize(&n, &n);
+	dot = D3DXVec3Dot(&n, &v);
+	if (dot > Radius)
+	{
+		OutputDebugString("上側で消える\n");
+		return false;
+	}
+
+	// 下側
+	v1 = wpos[2] - m_Position;
+	v2 = wpos[3] - m_Position;
+	D3DXVec3Cross(&n, &v1, &v2);
+	D3DXVec3Normalize(&n, &n);
+	dot = D3DXVec3Dot(&n, &v);
+	if (dot < -Radius)
+	{
+		OutputDebugString("下側で消える\n");
+		return false;
+	}
+
+	// Near面は除外する
+
+	// Far面
+	v1 = wpos[1] - wpos[0];
+	v2 = wpos[2] = wpos[0];
+	D3DXVec3Cross(&n, &v1, &v2);
+	D3DXVec3Normalize(&n, &n);
+	dot = D3DXVec3Dot(&n, &v);
+	if (dot < -Radius)
+	{
+		OutputDebugString("Far面で消えている\n");
+		return false;
+	}
 	return true;
 }
 
-DirectX::XMFLOAT4X4 GameCamera::view() const
+D3DXMATRIX GameCamera::view() const
 {
 	return m_View;
 }
 
-const Math::Vector3 GameCamera::position() const
+const D3DXVECTOR3 GameCamera::position() const
 {
 	return m_Position;
 }
@@ -156,35 +176,19 @@ void GameCamera::EnableFpsMode(bool Enable)
 // GameCamera_HelperFunction
 void GameCamera::SetViewMatrix()
 {
-	// 変換
-	DirectX::XMVECTOR eye = Math::Vector3::CastXMVECTOR(m_Position);
-	DirectX::XMVECTOR force = Math::Vector3::CastXMVECTOR(m_Target);
-	DirectX::XMVECTOR up = DirectX::XMVectorSet(0.0f, 1.0f, 0.0f, 1.0f);
-	DirectX::XMMATRIX view = DirectX::XMLoadFloat4x4(&m_View);
-
 	// ビューマトリクスの設定
-	view = DirectX::XMMatrixLookAtLH(eye, force, up);
-	m_Graphics.SetViewMatrix(view);
-
-	// 計算結果を保存する
-	m_Position = Math::Vector3(eye);
-	m_Target = Math::Vector3(force);
-	DirectX::XMStoreFloat4x4(&m_View, view);
+	D3DXMatrixLookAtLH(&m_View, &m_Position, &m_Target, &D3DXVECTOR3(0.0f, 1.0f, 0.0f));
+	m_Graphics.SetViewMatrix(m_View);
 }
 
 void GameCamera::SetProjectionMatrix()
 {
 	// アスペクト比の計算	
 	float aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
-	// 変換
-	auto proj = DirectX::XMLoadFloat4x4(&m_Projection);
-
+	
 	// プロジェクションマトリクスの設定
-	proj = DirectX::XMMatrixPerspectiveFovLH(1.0f, aspect, 1.0f, 2000.0f);
-	m_Graphics.SetProjectionMatrix(proj);
-	m_Graphics.SetCameraPosition(Math::Vector3::CastXMFloat3(m_Position));
-
-	// 計算結果を保存
-	DirectX::XMStoreFloat4x4(&m_Projection, proj);
+	D3DXMatrixPerspectiveFovLH(&m_Projection, 1.0f, aspect, 1.0f, 2000.0f);
+	m_Graphics.SetProjectionMatrix(m_Projection);
+	m_Graphics.SetCameraPosition(m_Position);
 }
 #pragma endregion GameCameraのメソッド

@@ -7,7 +7,7 @@
 #include "Graphics.h"
 #include "Renderer3D.h"
 
-Renderer3D::Renderer3D(Graphics& graphics, Math::Vector3 pos, Math::Vector3 rot, Math::Vector3 scale) 
+Renderer3D::Renderer3D(Graphics& graphics, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale) 
 	: m_Graphics(graphics), m_VertexBuffer(nullptr), m_Position(pos), m_Rotation(rot), m_Scale(scale)
 {
 	
@@ -17,7 +17,7 @@ Renderer3D::~Renderer3D()
 {
 }
 
-void Renderer3D::Update(Math::Vector3 pos, Math::Vector3 rot, Math::Vector3 scale)
+void Renderer3D::Update(D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale)
 {
 	m_Position = pos;
 	m_Rotation = rot;
@@ -33,7 +33,7 @@ void Renderer3D::Draw()
 	m_Graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &stride, &offset);
 	// マテリアル設定
 	Material material;
-	material.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	material.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Graphics.SetMaterial(material);
 
 	// プリミティブトポロジ設定
@@ -43,31 +43,31 @@ void Renderer3D::Draw()
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
 
-void Renderer3D::CreatePlane(float distance, int uvtiling, DirectX::XMFLOAT2 tex)
+void Renderer3D::CreatePlane(float distance, int uvtiling, D3DXVECTOR2 tex)
 {
 	float pos = distance;
 	float w = tex.x * (float)uvtiling;
 	float h = tex.y * (float)uvtiling;
 	Vertex3D Vertex[4];
-	Vertex[0].Position = DirectX::XMFLOAT3(-pos, 0.0f, pos);
-	Vertex[0].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[0].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[0].TexCoord = DirectX::XMFLOAT2(0.0f, 0.0f);
+	Vertex[0].Position = D3DXVECTOR3(-pos, 0.0f, pos);
+	Vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
 
-	Vertex[1].Position = DirectX::XMFLOAT3(pos, 0.0f, pos);
-	Vertex[1].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[1].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[1].TexCoord = DirectX::XMFLOAT2(w, 0.0f);
+	Vertex[1].Position = D3DXVECTOR3(pos, 0.0f, pos);
+	Vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[1].TexCoord = D3DXVECTOR2(w, 0.0f);
 
-	Vertex[2].Position = DirectX::XMFLOAT3(-pos, 0.0f, -pos);
-	Vertex[2].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[2].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[2].TexCoord = DirectX::XMFLOAT2(0.0f, h);
+	Vertex[2].Position = D3DXVECTOR3(-pos, 0.0f, -pos);
+	Vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[2].TexCoord = D3DXVECTOR2(0.0f, h);
 
-	Vertex[3].Position = DirectX::XMFLOAT3(pos, 0.0f, -pos);
-	Vertex[3].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[3].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[3].TexCoord = DirectX::XMFLOAT2(w, h);
+	Vertex[3].Position = D3DXVECTOR3(pos, 0.0f, -pos);
+	Vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[3].TexCoord = D3DXVECTOR2(w, h);
 
 	// 頂点バッファ生成
 	D3D11_BUFFER_DESC bd;
@@ -82,31 +82,31 @@ void Renderer3D::CreatePlane(float distance, int uvtiling, DirectX::XMFLOAT2 tex
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
 }
 
-void Renderer3D::CreateWall(float distance, int uvtiling, DirectX::XMFLOAT2 tex)
+void Renderer3D::CreateWall(float distance, int uvtiling, D3DXVECTOR2 tex)
 {
 	float pos = distance;
 	float w = tex.x * (float)uvtiling;
 	float h = tex.y * (float)uvtiling;
 	Vertex3D Vertex[4];
-	Vertex[0].Position = DirectX::XMFLOAT3(-pos, pos, 0.0f);
-	Vertex[0].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[0].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[0].TexCoord = DirectX::XMFLOAT2(0.0f, 0.0f);
+	Vertex[0].Position = D3DXVECTOR3(-pos, pos, 0.0f);
+	Vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
 
-	Vertex[1].Position = DirectX::XMFLOAT3(pos, pos, 0.0f);
-	Vertex[1].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[1].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[1].TexCoord = DirectX::XMFLOAT2(w, 0.0f);
+	Vertex[1].Position = D3DXVECTOR3(pos, pos, 0.0f);
+	Vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[1].TexCoord = D3DXVECTOR2(w, 0.0f);
 
-	Vertex[2].Position = DirectX::XMFLOAT3(-pos, -pos, 0.0f);
-	Vertex[2].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[2].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[2].TexCoord = DirectX::XMFLOAT2(0.0f, h);
+	Vertex[2].Position = D3DXVECTOR3(-pos, -pos, 0.0f);
+	Vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[2].TexCoord = D3DXVECTOR2(0.0f, h);
 
-	Vertex[3].Position = DirectX::XMFLOAT3(pos, -pos, 0.0f);
-	Vertex[3].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	Vertex[3].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	Vertex[3].TexCoord = DirectX::XMFLOAT2(w, h);
+	Vertex[3].Position = D3DXVECTOR3(pos, -pos, 0.0f);
+	Vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	Vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Vertex[3].TexCoord = D3DXVECTOR2(w, h);
 
 	// 頂点バッファ生成
 	D3D11_BUFFER_DESC bd;
@@ -124,10 +124,10 @@ void Renderer3D::CreateWall(float distance, int uvtiling, DirectX::XMFLOAT2 tex)
 void Renderer3D::UpdeteMatrix()
 {
 	// マトリクス設定
-	DirectX::XMMATRIX world, scale, rot, trans;
-	scale = Math::Matrix::MatrixScaling(m_Scale);
-	rot = Math::Matrix::MatrixRotationRollPitchYaw(m_Rotation);
-	trans = Math::Matrix::MatrixTranslation(m_Position);
+	D3DXMATRIX world, scale, rot, trans;
+	D3DXMatrixScaling(&scale, m_Scale.x, m_Scale.y, m_Scale.z);
+	D3DXMatrixRotationYawPitchRoll(&rot, m_Rotation.y, m_Rotation.x, m_Rotation.z);
+	D3DXMatrixTranslation(&trans, m_Position.x, m_Position.y, m_Position.z);
 	world = scale * rot * trans;
 	m_Graphics.SetWorldMatrix(world);
 }

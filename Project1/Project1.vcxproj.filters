@@ -648,9 +648,6 @@
     <ClInclude Include="Shadow.h">
       <Filter>Actor\2D\Effect</Filter>
     </ClInclude>
-    <ClInclude Include="Target.h">
-      <Filter>Actor\2D\Effect</Filter>
-    </ClInclude>
     <ClInclude Include="TitleScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -669,6 +666,9 @@
     </ClInclude>
     <ClInclude Include="Pivot.h">
       <Filter>Actor\Panzer\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Target.h">
+      <Filter>Actor\2D\Effect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

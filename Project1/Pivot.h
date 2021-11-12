@@ -21,7 +21,7 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void SetStartPosition(Math::Vector3 Position, Math::Vector3 Rot);
+	void SetStartPosition(D3DXVECTOR3 Position, D3DXVECTOR3 Rot);
   
 	const float GetTpsOffset() const;
 	const float GetFpsOffset() const;
@@ -34,7 +34,7 @@ public:
 private:
 	std::unique_ptr<MoveComponent> m_MoveComponent;
 	// 補正をかける値
-	Math::Vector3	m_PositionOffset;
+	D3DXVECTOR3	m_PositionOffset;
 	const float m_TspOffset = 20.0f;
 	const float m_FpsOffset = 13.0f;
 	const float m_TargetOffset = 50.0f;

@@ -28,9 +28,9 @@ BulletStateMove::~BulletStateMove()
 void BulletStateMove::Update(Bullet * Bullet, float deltaTime)
 {
 	// 弾の移動
-	Math::Vector3& BulletPosition = Bullet->transform().position();
+	D3DXVECTOR3& BulletPosition = Bullet->transform().position();
 	// 飛んでいく方向を出す
-	Math::Vector3 vector = Bullet->GetDirectionVector();
+	D3DXVECTOR3 vector = Bullet->GetDirectionVector();
 	// 方向ベクトルを足していく
 	BulletPosition += vector * Bullet->GetSpeed() * deltaTime;
 	//　当たり判定

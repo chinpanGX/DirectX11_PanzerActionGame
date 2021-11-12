@@ -51,13 +51,13 @@ void Vehicle::Draw()
 }
 
 // スタート位置を決める
-void Vehicle::SetStartPosition(Math::Vector3 pos, Math::Vector3 rot)
+void Vehicle::SetStartPosition(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
 	this->bodyTransform().position(pos);
 	this->bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
-void Vehicle::SetStartPosition(Pawn* pawn, Math::Vector3 pos, Math::Vector3 rot)
+void Vehicle::SetStartPosition(Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
 	m_Panzer->Begin();
 	pawn->vehicle().bodyTransform().position(pos);
@@ -87,9 +87,9 @@ void Vehicle::Shot(const Transform & transform)
 	float offset = 10.0f; // 補正値
 	auto t = transform;
 	// 発射位置
-	Math::Vector3 pos = t.position() + t.GetVector(Transform::Vector::Forward) * offset;
+	D3DXVECTOR3 pos = t.position() + t.forward() * offset;
 	// 飛んでいく方向ベクトル
-	Math::Vector3 vector = t.GetVector(Transform::Vector::Forward);
+	D3DXVECTOR3 vector = t.forward();
 	
 	// Bulletのインスタンスを生成する
 	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
@@ -111,7 +111,7 @@ void Vehicle::CalculateHp(float AttackPoint)
 #pragma endregion Panzerのアクション
 
 // コリジョンの位置を更新
-void Vehicle::ColiisionUpdate(int32_t Element, const Math::Vector3 & Position, const Transform & t)
+void Vehicle::ColiisionUpdate(int32_t Element, const D3DXVECTOR3 & Position, const Transform & t)
 {
 	m_BoxComponent[Element]->Update(Position, t);
 }

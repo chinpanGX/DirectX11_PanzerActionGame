@@ -42,7 +42,7 @@ void Pivot::Draw()
 	
 }
 
-void Pivot::SetStartPosition(Math::Vector3 Position, Math::Vector3 Rot)
+void Pivot::SetStartPosition(D3DXVECTOR3 Position, D3DXVECTOR3 Rot)
 {
 	auto tmp = Position;
 	tmp.y += 5.0f;
@@ -68,8 +68,8 @@ const float Pivot::GetTargetOffset() const
 void Pivot::Move()
 {
 	// 移動はボディの位置に合わせる
-	Math::Vector3& pos = m_Transform->position();
-	Math::Vector3 body = m_Vehicle.bodyTransform().position();
+	D3DXVECTOR3& pos = m_Transform->position();
+	D3DXVECTOR3 body = m_Vehicle.bodyTransform().position();
 	pos.x = body.x;
 	pos.z = body.z;
 }

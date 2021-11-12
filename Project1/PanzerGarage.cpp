@@ -39,10 +39,10 @@ void PanzerGarage::Draw()
 {
 	Light light;
 	light.Enable = true;
-	light.Direction = DirectX::XMFLOAT4(-1.0f, -1.0f, 1.0f, 0.0f);
-	DirectX::XMVector4Normalize(DirectX::XMLoadFloat4(&light.Direction));
-	light.Ambient = DirectX::XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-	light.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	light.Direction = D3DXVECTOR4(-1.0f, -1.0f, 1.0f, 0.0f);
+	D3DXVec4Normalize(&light.Direction, &light.Direction);
+	light.Ambient = D3DXVECTOR4(0.2f, 0.2f, 0.2f, 1.0f);
+	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Graphics.SetLight(light);
 
 	resource().SetShader("Default");

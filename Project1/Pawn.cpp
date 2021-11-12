@@ -39,7 +39,7 @@ void Pawn::Update()
 	m_MoveComponent->Update();
 	m_Vehicle->ColiisionUpdate(0, m_Vehicle->bodyTransform().position(), m_Vehicle->bodyTransform());
 	m_Vehicle->ColiisionUpdate(1, m_Pivot->transform().position(), m_Pivot->transform());
-	m_Vehicle->ColiisionUpdate(2, Math::Vector3(m_Pivot->transform().position().x, m_Pivot->transform().position().y,
+	m_Vehicle->ColiisionUpdate(2, D3DXVECTOR3(m_Pivot->transform().position().x, m_Pivot->transform().position().y,
 		m_Pivot->transform().position().z + 3.0f), m_Pivot->transform());
 }
 
@@ -93,7 +93,7 @@ void Pawn::RespawnSetMaxHP()
 	m_Vehicle->GetStatus().SetHp(m_Vehicle->GetStatus().GetMaxHp());
 }
 
-void Pawn::SetStartPosition(Pawn * pawn, const Math::Vector3& pos, const Math::Vector3& rot)
+void Pawn::SetStartPosition(Pawn * pawn, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
 {
 	m_Vehicle->SetStartPosition(pawn, pos, rot);
 	m_Pivot->SetStartPosition(pos, rot);

@@ -26,6 +26,6 @@ void Cost::Draw(int32_t n)
 	{
 		int num = n % 10;
 		n /= 10;
-		NumberDraw(Math::Vector2(1650.0f + ((GetSize() - 20.0f) * (Getdigit() - (i + 1))), 200.0f), num);
+		NumberDraw(D3DXVECTOR2(1650.0f + ((GetSize() - 20.0f) * (Getdigit() - (i + 1))), 200.0f), num);
 	}
 }

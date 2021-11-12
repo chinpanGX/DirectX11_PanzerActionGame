@@ -49,9 +49,9 @@ void GameBg::DrawSkill::Event()
 
 void GameBg::DrawSkill::Draw()
 {
-	Math::Vector2 pos = Math::Vector2(1450.0f, 940.0f);
-	m_Render->Draw(m_MaxDrawSize, pos, Math::Vector4(0.35f, 0.35f, 0.35f, 0.75f));
-	m_Render->Draw(m_DrawSize, pos, Math::Vector4(0.7f, 0.7f, 0.1f, 1.0f));
+	D3DXVECTOR2 pos = D3DXVECTOR2(1450.0f, 940.0f);
+	m_Render->Draw(m_MaxDrawSize, pos, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
+	m_Render->Draw(m_DrawSize, pos, D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f));
 }
 
 void GameBg::DrawSkill::Reset()

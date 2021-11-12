@@ -22,11 +22,11 @@ public:
 
 	// 視錐台でView内にTargetObjectがあるか調べる
 	// 描画できるかをbool変数で返す
-	bool IsDrawObject(const Math::Vector3& TargetPosition, float Raduis);
+	bool IsDrawObject(const D3DXVECTOR3& TargetPosition, float Radius);
 
 	// Getter
-	DirectX::XMFLOAT4X4 view() const;
-	const Math::Vector3 position() const;
+	D3DXMATRIX view() const;
+	const D3DXVECTOR3 position() const;
 
 	// FPSモードの設定
 	const bool FpsModeNow() const;
@@ -37,12 +37,12 @@ private:
 	void SetProjectionMatrix();	// プロジェクションマトリクスの設定
 
 	// 行列
-	DirectX::XMFLOAT4X4 m_View;
-	DirectX::XMFLOAT4X4 m_Projection;
+	D3DXMATRIX m_View;
+	D3DXMATRIX m_Projection;
 
 	// カメラの設定
-	Math::Vector3 m_Position;
-	Math::Vector3 m_Target;
+	D3DXVECTOR3 m_Position;
+	D3DXVECTOR3 m_Target;
 	
 	class Graphics& m_Graphics;
 	bool m_EnableFpsMode; // カメラのモードを切り替える trueのときFPSカメラにする

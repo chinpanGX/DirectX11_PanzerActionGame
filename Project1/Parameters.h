@@ -16,7 +16,7 @@ class Parameters final
 public:
 	Parameters();
 	~Parameters();
-	void Draw(float Param, const Math::Vector2& pos);
+	void Draw(float Param, const D3DXVECTOR2& pos);
 private:
 	std::unique_ptr<class Render> m_Render;
 	std::unique_ptr<class Renderer2D> m_Bg;

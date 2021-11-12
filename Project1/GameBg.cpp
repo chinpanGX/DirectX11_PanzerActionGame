@@ -22,7 +22,7 @@
 #pragma region Scope_method
 GameBg::Scope::Scope()
 {
-	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Bg", Bg::GetSize() * 0.5f, Bg::GetSize(), Math::Vector2(0.0f, 0.0f), Math::Vector2(0.5f, 0.5f));
+	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Bg", Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.5f, 0.5f));
 }
 
 GameBg::Scope::~Scope()
@@ -61,12 +61,12 @@ GameBg::PanzerSelectUi::PanzerSelectUi()
 	// íÔ–¼‚ÌTextureÀ•W
 	m_TexCoord = 
 	{ 
-		Math::Vector2(0.0f, 0.25f), 
-		Math::Vector2(0.0f, 0.5f), 
-		Math::Vector2(0.0f, 0.75f), 
-		Math::Vector2(0.25f, 0.5f), 
-		Math::Vector2(0.25f, 0.75f), 
-		Math::Vector2(0.5f, 0.0f) 
+		D3DXVECTOR2(0.0f, 0.25f), 
+		D3DXVECTOR2(0.0f, 0.5f), 
+		D3DXVECTOR2(0.0f, 0.75f), 
+		D3DXVECTOR2(0.25f, 0.5f), 
+		D3DXVECTOR2(0.25f, 0.75f), 
+		D3DXVECTOR2(0.5f, 0.0f) 
 	};
 }
 
@@ -102,20 +102,20 @@ void GameBg::PanzerSelectUi::Event()
 
 void GameBg::PanzerSelectUi::Draw()
 {
-	Math::Vector2 pos = Bg::GetSize() * 0.5f;
-	Math::Vector2 size = Bg::GetSize();
+	D3DXVECTOR2 pos = Bg::GetSize() * 0.5f;
+	D3DXVECTOR2 size = Bg::GetSize();
 
 	// ”wŒi
-	m_Renderer2D->Draw(pos, size, Math::Vector2(0.5f, 0.5f), Math::Vector2(1.0f, 1.0f));
+	m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.5f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	
 	// ‘€ì•û–@‚Ìà–¾
 	if (g_IsInputGamePad == false)
 	{
-		m_Operation->Draw(Math::Vector2(960.0f, 960.0f), Math::Vector2(500.0f, 70.0f), Math::Vector2(0.0f, 0.0f), Math::Vector2(1.0f, 0.5f));
+		m_Operation->Draw(D3DXVECTOR2(960.0f, 960.0f), D3DXVECTOR2(500.0f, 70.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 	}
 	else
 	{
-		m_Operation->Draw(Math::Vector2(960.0f, 960.0f), Math::Vector2(500.0f, 70.0f), Math::Vector2(0.0f, 0.5f), Math::Vector2(1.0f, 1.0f));
+		m_Operation->Draw(D3DXVECTOR2(960.0f, 960.0f), D3DXVECTOR2(500.0f, 70.0f), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	}
 	
 	// íÔ‚Ì–¼‘O
@@ -172,21 +172,21 @@ void GameBg::PanzerSelectUi::DrawPanzerName()
 
 	// íÔ‚ÌƒŠƒXƒg
 	// ”z—ñ‚Ìæ“ª‚©‚ç3‚Â
-	auto offset = Math::Vector2(0.25f, 0.25f);
+	auto offset = D3DXVECTOR2(0.25f, 0.25f);
 	for (int32_t i = 0; i < 3; ++i)
 	{
-		m_List->Draw(Math::Vector2(x, y * position[i]), Math::Vector2(432.0f, 128.0f), m_TexCoord[i], m_TexCoord[i] + offset);
+		m_List->Draw(D3DXVECTOR2(x, y * position[i]), D3DXVECTOR2(432.0f, 128.0f), m_TexCoord[i], m_TexCoord[i] + offset);
 	}
 
 	// ”z—ñ‚Ìˆê”ÔÅŒã	
-	Math::Vector2 end = m_TexCoord.back();
-	m_List->Draw(Math::Vector2(x, y * position[3]), Math::Vector2(432.0f, 128.0f), end, end + offset);
+	D3DXVECTOR2 end = m_TexCoord.back();
+	m_List->Draw(D3DXVECTOR2(x, y * position[3]), D3DXVECTOR2(432.0f, 128.0f), end, end + offset);
 
 	// ˜g‚Ì•`‰æ
-	m_List->Draw(Math::Vector2(x, y), Math::Vector2(432.0f, 128.0f), Math::Vector2(0.0f, 0.0f), Math::Vector2(0.25f, 0.25f));
+	m_List->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(432.0f, 128.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.25f, 0.25f));
 }
 
-void GameBg::PanzerSelectUi::DrawGameRule(Math::Vector2 pos, Math::Vector2 size)
+void GameBg::PanzerSelectUi::DrawGameRule(D3DXVECTOR2 pos, D3DXVECTOR2 size)
 {
 	// ƒQ[ƒ€‚Ìà–¾
 	if (m_DrawFlag)
@@ -194,13 +194,13 @@ void GameBg::PanzerSelectUi::DrawGameRule(Math::Vector2 pos, Math::Vector2 size)
 		switch (m_Page)
 		{
 		case 0:
-			m_Renderer2D->Draw(pos, size, Math::Vector2(0.0f, 0.02f), Math::Vector2(0.5f, 0.52f));
+			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.0f, 0.02f), D3DXVECTOR2(0.5f, 0.52f));
 			break;
 		case 1:
-			m_Renderer2D->Draw(pos, size, Math::Vector2(0.5f, 0.0f), Math::Vector2(1.0f, 0.5f));
+			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 			break;
 		case 2:
-			m_Renderer2D->Draw(pos, size, Math::Vector2(0.0f, 0.5f), Math::Vector2(0.5f, 1.0f));
+			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f));
 			break;
 		}
 	}
@@ -243,7 +243,7 @@ void GameBg::Mode::Event()
 
 void GameBg::Mode::Draw()
 {
-	Math::Vector2 pos = Math::Vector2(1600.0f, 900.0f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(1600.0f, 900.0f);
 	float size_y = 128.0f;
 	// ”wŒi˜g
 	DrawFrame(pos, size_y);
@@ -257,27 +257,27 @@ bool GameBg::Mode::SetMode(bool f)
 	return m_Mode;
 }
 
-void GameBg::Mode::DrawFrame(Math::Vector2 pos, float size_y)
+void GameBg::Mode::DrawFrame(D3DXVECTOR2 pos, float size_y)
 {
 	if (Engine::Get().application()->GetScene()->GetGameObject<SelectCommand>(ELayer::LAYER_SYSTEM)->GetSelect() == false)
 	{
-		m_Renderer->Draw(pos, Math::Vector2(512.0f, size_y), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f), Math::Vector4(1.0f, 1.0f, 1.0f, m_Alpha));
+		m_Renderer->Draw(pos, D3DXVECTOR2(512.0f, size_y), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
 	}
 	else
 	{
-		m_Renderer->Draw(pos, Math::Vector2(512.0f, size_y), Math::Vector2(0.0f, 0.375f), Math::Vector2(0.25f, 0.5f));
+		m_Renderer->Draw(pos, D3DXVECTOR2(512.0f, size_y), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f));
 	}
 }
 
-void GameBg::Mode::DrawModeName(Math::Vector2 pos, float size_y)
+void GameBg::Mode::DrawModeName(D3DXVECTOR2 pos, float size_y)
 {
 	if (m_Mode)
 	{
-		m_Renderer2D->Draw(pos, Math::Vector2(432.0f, size_y), Math::Vector2(0.25f, 0.25f), Math::Vector2(0.5f, 0.5f));
+		m_Renderer2D->Draw(pos, D3DXVECTOR2(432.0f, size_y), D3DXVECTOR2(0.25f, 0.25f), D3DXVECTOR2(0.5f, 0.5f));
 	}
 	else
 	{
-		m_Renderer2D->Draw(pos, Math::Vector2(432.0f, size_y), Math::Vector2(0.25f, 0.0f), Math::Vector2(0.5f, 0.25f));
+		m_Renderer2D->Draw(pos, D3DXVECTOR2(432.0f, size_y), D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.25f));
 	}
 }
 #pragma endregion Mode_method
@@ -305,14 +305,14 @@ void GameBg::TutorialUi::Event()
 
 void GameBg::TutorialUi::Draw()
 {
-	Math::Vector2 pos = Math::Vector2(1700.0f, 600.0f);
-	Math::Vector2 size = Math::Vector2(256.0f, 256.0f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(1700.0f, 600.0f);
+	D3DXVECTOR2 size = D3DXVECTOR2(256.0f, 256.0f);
 	if (g_IsInputGamePad == false)
 	{
-		m_Renderer2D->Draw(pos, size, Math::Vector2(0.0f, 0.0f), Math::Vector2(0.5f, 1.0f));
+		m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.5f, 1.0f));
 	}
 	else 
 	{
-		m_Renderer2D->Draw(pos, size, Math::Vector2(0.5f, 0.0f), Math::Vector2(1.0f, 1.0f));
+		m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	}
 }

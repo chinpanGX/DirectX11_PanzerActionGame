@@ -23,7 +23,7 @@ public:
 	void Event()override;
 	void Draw()override;
 	
-	virtual void Respawn(const Math::Vector3& pos) = 0;
+	virtual void Respawn(const D3DXVECTOR3& pos) = 0;
 	virtual void ChangeState(std::unique_ptr<class PanzerState> State) = 0;
 	Vehicle& vehicle() const;
 	Pivot& pivot()const;
@@ -36,7 +36,7 @@ protected:
 	// リスポーンするときにHpを設定する
 	void RespawnSetMaxHP();
 	// 位置の設定
-	void SetStartPosition(Pawn* pawn, const Math::Vector3& pos, const Math::Vector3& rot);
+	void SetStartPosition(Pawn* pawn, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot);
 	// 生成
 	void Create();
 	

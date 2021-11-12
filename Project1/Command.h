@@ -53,8 +53,8 @@ private:
 	// true‚È‚ç“ü—Í‚µ‚Ä‚¢‚é/false‚È‚ç“ü—Í‚µ‚Ä‚¢‚È‚¢
 	std::unique_ptr<Controller> m_Controller;
 	class Player* m_Player;
-	Math::Vector2 m_OldMouse;
-	Math::Vector2 m_Mouse;
+	D3DXVECTOR2 m_OldMouse;
+	D3DXVECTOR2 m_Mouse;
 	std::array<bool, 10> m_NowInput;
 };
 

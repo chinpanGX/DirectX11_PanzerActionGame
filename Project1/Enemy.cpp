@@ -37,7 +37,7 @@ Enemy::~Enemy()
 void Enemy::Begin()
 {
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
-	Pawn::SetStartPosition(this, Math::Vector3(rand_x, 0.0f, 100.0f), Math::Vector3(0.0f, Math::ToRadians(180.0f), 0.0f));
+	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 100.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	m_State = std::make_unique<State::Stay>();
 }
 
@@ -66,12 +66,12 @@ void Enemy::Event()
 
 void Enemy::Draw()
 {
-	//auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	//if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
-	//{
-	//	OutputDebugString("Enemy NoRendering\n");
-	//	return;
-	//}
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
+	{
+		OutputDebugString("Enemy NoRendering\n");
+		return;
+	}
 	vehicle().Draw();
 }
 
@@ -80,9 +80,9 @@ void Enemy::ChangeState(std::unique_ptr<PanzerState> State)
 	m_State = std::move(State);
 }
 
-void Enemy::Respawn(const Math::Vector3 & pos)
+void Enemy::Respawn(const D3DXVECTOR3 & pos)
 {
-	Pawn::SetStartPosition(this, pos, Math::Vector3(0.0f, Math::ToRadians(180.0f), 0.0f));
+	Pawn::SetStartPosition(this, pos, D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	Pawn::RespawnSetMaxHP();
 	this->ChangeState(std::make_unique<State::Stay>());
 	this->Update();

@@ -77,15 +77,24 @@ void Target::Draw()
 	{
 		// マトリクスの設定
 		auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+		D3DXMATRIX view = camera->view();
 
-		DirectX::XMMATRIX scale = Math::Matrix::MatrixScaling(m_Transform->scale());
-		DirectX::XMMATRIX trans = Math::Matrix::MatrixTranslation(m_Transform->position());
-		DirectX::XMMATRIX world = scale * trans;
+		// ビューの逆行列
+		D3DXMATRIX invView;
+		D3DXMatrixInverse(&invView, NULL, &view);//逆行列
+		invView._41 = 0.0f;
+		invView._42 = 0.0f;
+		invView._43 = 0.0f;
+
+		D3DXMATRIX scale, trans;
+		Math::Matrix::MatrixScaling(&scale, m_Transform->scale());
+		Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
+		D3DXMATRIX world = scale * trans;
 		m_Graphics.SetWorldMatrix(world);
 
 		// マテリアル
 		Material m;
-		m.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+		m.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 		m_Graphics.SetMaterial(m);
 
 		// テクスチャの設定

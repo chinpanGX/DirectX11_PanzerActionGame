@@ -12,7 +12,7 @@
 
 Bg::Bg() : m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
-	m_Size = Math::Vector2(static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT));
+	m_Size = D3DXVECTOR2(static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT));
 }
 
 Bg::~Bg()
@@ -35,7 +35,7 @@ void Bg::Draw()
 {
 }
 
-const Math::Vector2& Bg::GetSize() const
+const D3DXVECTOR2& Bg::GetSize() const
 {
 	return m_Size;
 }

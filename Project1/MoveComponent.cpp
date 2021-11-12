@@ -48,37 +48,37 @@ void MoveComponent::Update()
 
 void MoveComponent::MoveForward(Transform & transform, float deltaTime)
 {
-	Math::Vector3 position = transform.position();
-	position.x += transform.GetVector(Transform::Vector::Forward).x * m_Speed * deltaTime;
-	position.z += transform.GetVector(Transform::Vector::Forward).z * m_Speed * deltaTime;
+	D3DXVECTOR3 position = transform.position();
+	position.x += transform.forward().x * m_Speed * deltaTime;
+	position.z += transform.forward().z * m_Speed * deltaTime;
 	transform.position(position);
 }
 
 void MoveComponent::MoveBackward(Transform & transform, float deltaTime)
 {
-	Math::Vector3 position = transform.position();
-	position.x += transform.GetVector(Transform::Vector::Backward).x * m_Speed * deltaTime;
-	position.z += transform.GetVector(Transform::Vector::Backward).z * m_Speed * deltaTime;
+	D3DXVECTOR3 position = transform.position();
+	position.x += -transform.forward().x * m_Speed * deltaTime;
+	position.z += -transform.forward().z * m_Speed * deltaTime;
 	transform.position(position);
 }
 
 void MoveComponent::RotRight(Transform & transform, float deltaTime)
 {
-	Math::Quaternion Rotation = transform.rotation();
+	D3DXVECTOR3 Rotation = transform.rotation();
 	Rotation.y += m_Status.GetRotSpeed() * deltaTime;
 	transform.rotation(Rotation);
 }
 
 void MoveComponent::RotLeft(Transform & transform, float deltaTime)
 {
-	Math::Quaternion Rotation = transform.rotation();
+	D3DXVECTOR3 Rotation = transform.rotation();
 	Rotation.y -= m_Status.GetRotSpeed() * deltaTime;
 	transform.rotation(Rotation);
 }
 
 void MoveComponent::GunUp(Transform & transform, float deltaTime)
 {
-	Math::Quaternion GunRotation = transform.rotation();
+	D3DXVECTOR3 GunRotation = transform.rotation();
 	GunRotation.x -= m_Status.GetRotSpeed() * 0.9f * deltaTime;
 	if (GunRotation.x <= -m_Status.GetGunAngleUpMax())
 	{
@@ -89,7 +89,7 @@ void MoveComponent::GunUp(Transform & transform, float deltaTime)
 
 void MoveComponent::GunDown(Transform & transform, float deltaTime)
 {
-	Math::Quaternion GunRotation = transform.rotation();
+	D3DXVECTOR3 GunRotation = transform.rotation();
 	GunRotation.x += m_Status.GetRotSpeed() * 0.9f * deltaTime;
 	if (GunRotation.x >= m_Status.GetGunAngleDownMax())
 	{

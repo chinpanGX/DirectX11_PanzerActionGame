@@ -17,8 +17,8 @@ PanzerState::PanzerState()
 }
 
 // 現在のプレイヤーの位置
-const Math::Vector3& PanzerState::SearchPlayer() const
+const D3DXVECTOR3& PanzerState::SearchPlayer() const
 {
-	Math::Vector3& playerPosition = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->vehicle().bodyTransform().position();
+	D3DXVECTOR3& playerPosition = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->vehicle().bodyTransform().position();
 	return playerPosition;
 }

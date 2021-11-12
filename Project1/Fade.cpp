@@ -15,7 +15,7 @@ Scene* Fade::m_Next = nullptr;
 
 Fade::Fade(Application & app, Resource & res, Fps & fps) : m_App(app), m_Resource(res), m_Fps(fps), m_Time(0.5f)
 {
-	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Bg", Bg::GetSize() * 0.5f, Bg::GetSize(), Math::Vector2(0.0f, 0.5f), Math::Vector2(0.5f,1.0f));
+	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Bg", Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f,1.0f));
 }
 
 Fade::~Fade()
