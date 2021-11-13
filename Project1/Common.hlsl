@@ -3,15 +3,15 @@
 //マトリクスバッファ
 cbuffer WorldBuffer : register(b0)
 {
-	matrix World;
+	matrix _World;
 }
 cbuffer ViewBuffer : register(b1)
 {
-	matrix View;
+	matrix _View;
 }
 cbuffer ProjectionBuffer : register(b2)
 {
-	matrix Projection;
+	matrix _Projection;
 }
 
 
@@ -56,6 +56,8 @@ struct LIGHT
     float4 Direction;
     float4 Diffuse;
     float4 Ambient;
+    float4 Position;
+    float4 Angle;
 };
 
 cbuffer LightBuffer : register(b4)
@@ -66,23 +68,10 @@ cbuffer LightBuffer : register(b4)
 
 cbuffer CameraBuffer : register(b5)
 {
-    float4 CameraPosition;
+    float4 _CameraPosition;
 }
 
 cbuffer ParameterBuffer : register(b6)
 {
-    float4 Parameter;
+    float4 _Parameter;
 }
-
-
-cbuffer cbPerObject
-{
-    float4x4 WVP;
-    float4x4 world;
-};
-
-struct SkyMapVS_Output
-{
-    float4 pos : SV_Position;
-    float3 texcoord : TEXCOORD;
-};

@@ -49,6 +49,8 @@ struct Light
 	D3DXVECTOR4 Direction;
 	D3DXVECTOR4 Diffuse;
 	D3DXVECTOR4 Ambient;
+	D3DXVECTOR4 Position;
+	D3DXVECTOR4 Angle;
 };
 
 class Graphics final

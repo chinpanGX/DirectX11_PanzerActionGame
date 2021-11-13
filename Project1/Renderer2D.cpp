@@ -165,9 +165,7 @@ void Renderer2D::Draw()
 void Renderer2D::Draw(float alpha)
 {
 	// シェーダーの設定
-	m_Resource.SetInputLayout("Default");
-	m_Resource.SetVertexShader("Default");
-	m_Resource.SetPixelShader("Default");
+	m_Resource.SetShader("Default");
 
 	//マトリクス設定
 	m_Graphics.SetWorldViewProjection2D();
@@ -195,9 +193,7 @@ void Renderer2D::Draw(float alpha)
 void Renderer2D::Draw(const D3DXVECTOR4& color)
 {
 	// シェーダーの設定
-	m_Resource.SetInputLayout("Default");
-	m_Resource.SetVertexShader("Default");
-	m_Resource.SetPixelShader("Default");
+	m_Resource.SetShader("Defualt");
 
 	//マトリクス設定
 	m_Graphics.SetWorldViewProjection2D();
@@ -225,9 +221,7 @@ void Renderer2D::Draw(const D3DXVECTOR4& color)
 void Renderer2D::Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3DXVECTOR2& ul, const D3DXVECTOR2& lr, const D3DXVECTOR4& color)
 {
 	// シェーダーの設定
-	m_Resource.SetInputLayout("Default");
-	m_Resource.SetVertexShader("Default");
-	m_Resource.SetPixelShader("Default");
+	m_Resource.SetShader("NoLighting");
 
 	D3D11_MAPPED_SUBRESOURCE msr;
 	m_Graphics.GetDeviceContext()->Map(m_VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
@@ -236,22 +230,22 @@ void Renderer2D::Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3D
 
 	vertex[0].Position = D3DXVECTOR3(pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0.0f);
 	vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[0].Diffuse = color;
 	vertex[0].TexCoord = D3DXVECTOR2(ul.x, ul.y);
 
 	vertex[1].Position = D3DXVECTOR3(pos.x + size.x * 0.5f, pos.y - size.y * 0.5f, 0.0f);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[1].Diffuse = color;
 	vertex[1].TexCoord = D3DXVECTOR2(lr.x, ul.y);
 
 	vertex[2].Position = D3DXVECTOR3(pos.x - size.x * 0.5f, pos.y + size.y * 0.5f, 0.0f);
 	vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[2].Diffuse = color;
 	vertex[2].TexCoord = D3DXVECTOR2(ul.x, lr.y);
 
 	vertex[3].Position = D3DXVECTOR3(pos.x + size.x * 0.5f, pos.y + size.y * 0.5f, 0.0f);
 	vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[3].Diffuse = color;
 	vertex[3].TexCoord = D3DXVECTOR2(lr.x, lr.y);
 
 	m_Graphics.GetDeviceContext()->Unmap(m_VertexBuffer.Get(), 0);
@@ -264,10 +258,6 @@ void Renderer2D::Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3D
 	UINT offset = 0;
 	m_Graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &stride, &offset);
 
-	//マテリアル設定
-	Material material;
-	material.Diffuse = D3DXVECTOR4(color);
-	m_Graphics.SetMaterial(material);
 
 	//テクスチャ設定
 	m_Resource.SetTexture(0, m_Texture);
@@ -329,30 +319,28 @@ void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & colo
 
 	vertex[0].Position = D3DXVECTOR3(pos.x, pos.y - 10.0f, 0.0f);
 	vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[0].Diffuse = color;
 	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
 
 	vertex[1].Position = D3DXVECTOR3(pos.x + Param, pos.y - 10.0f, 0.0f);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[1].Diffuse = color;
 	vertex[1].TexCoord = D3DXVECTOR2(1.0f, 0.0f);
 
 	vertex[2].Position = D3DXVECTOR3(pos.x, pos.y + 10.0f, 0.0f);
 	vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[2].Diffuse = color;
 	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 1.0f);
 
 	vertex[3].Position = D3DXVECTOR3(pos.x + Param, pos.y + 10.0f, 0.0f);
 	vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[3].Diffuse = color;
 	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
 
 	m_Graphics.GetDeviceContext()->Unmap(m_VertexBuffer.Get(), 0);
 
 	// シェーダーの設定
-	m_Resource.SetInputLayout("Default");
-	m_Resource.SetVertexShader("Default");
-	m_Resource.SetPixelShader("Default");
+	m_Resource.SetShader("NoLighting");
 
 	//マトリクス設定
 	m_Graphics.SetWorldViewProjection2D();
@@ -361,11 +349,6 @@ void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & colo
 	UINT stride = sizeof(Vertex3D);
 	UINT offset = 0;
 	m_Graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &stride, &offset);
-
-	//マテリアル設定
-	Material material;
-	material.Diffuse = D3DXVECTOR4(color);
-	m_Graphics.SetMaterial(material);
 
 	//テクスチャ設定
 	m_Resource.SetTexture(0, "Gage");

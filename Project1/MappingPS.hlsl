@@ -34,7 +34,7 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 	outDiffuse.a *= In.Diffuse.a;
 
 	//スペキュラ(フォン)
-	float3 eyev = In.WorldPosition.xyz - CameraPosition.xyz;
+	float3 eyev = In.WorldPosition.xyz - _CameraPosition.xyz;
 	eyev = normalize(eyev);
 
 	float3 refv = reflect(_Light.Direction.xyz, normal.xyz);

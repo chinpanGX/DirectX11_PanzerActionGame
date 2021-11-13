@@ -70,9 +70,8 @@ void Shadow::Event()
 void Shadow::Draw()
 {
 	// ライティングなし
-	m_Resource.SetVertexShader("NoLighting");
-	m_Resource.SetInputLayout("NoLighting");
-	m_Resource.SetPixelShader("NoLighting");
+	m_Resource.SetShader("NoLighting");
+
 	Actor::UpdateMatrix(*m_Transform);
 
 	m_Resource.SetTexture(0,"Effect");

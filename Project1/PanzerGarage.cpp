@@ -43,9 +43,12 @@ void PanzerGarage::Draw()
 	D3DXVec4Normalize(&light.Direction, &light.Direction);
 	light.Ambient = D3DXVECTOR4(0.2f, 0.2f, 0.2f, 1.0f);
 	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	light.Position = D3DXVECTOR4(0.0f, 5.0f, 0.0f, 1.0f);
+	light.Position = D3DXVECTOR4(3.14159f / 180.0f * 5.0f, 1.0f, 1.0f, 1.0f);
+
 	m_Graphics.SetLight(light);
 
-	resource().SetShader("Default");
+	resource().SetShader("SpotLight");
 	UpdateMatrix(*m_Transform);
 	resource().SetStaticModel("PanzerGarage");
 

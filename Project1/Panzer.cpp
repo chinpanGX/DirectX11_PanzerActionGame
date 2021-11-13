@@ -50,7 +50,6 @@ void Panzer::Event()
 
 void Panzer::Draw()
 {
-	m_Resource.SetShader("Default");
 	// マトリクスの計算
 	D3DXMATRIX world;
 	m_Body->UpdateMatrix(world);

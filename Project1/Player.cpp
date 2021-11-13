@@ -74,6 +74,7 @@ void Player::Draw()
 		OutputDebugString("Player NoRendering\n");
 		return;
 	}
+	m_Resource.SetShader("SpotLight");
 	vehicle().Draw();
 }
 
