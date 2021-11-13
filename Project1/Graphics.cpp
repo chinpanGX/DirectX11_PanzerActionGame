@@ -304,7 +304,7 @@ const Microsoft::WRL::ComPtr<ID3D11DeviceContext> Graphics::GetDeviceContext() c
 	return m_DeviceContext;
 }
 
-//
+// コンスタントバッファ
 template<typename T>
 void Graphics::UpdateConstantBuffer(Microsoft::WRL::ComPtr<ID3D11Buffer>  buffer, const T & src)
 {

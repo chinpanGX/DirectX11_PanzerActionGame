@@ -122,7 +122,6 @@ namespace Math
 #pragma endregion 計算関数
 
 #pragma region Matrix
-
 	class Matrix final
 	{
 	public:
@@ -136,14 +135,6 @@ namespace Math
 // 便利なやつ
 namespace myLib 
 {
-#pragma region TexCoord_List
-	//namespace Texcoord
-	//{
-	//		const float div8[9] = { 0.0f, 0.125f, 0.25f, 0.375f, 0.5f, 0.625f, 0.75f, 0.875f, 1.0f };
-	//		const float div4[5] = { 0.0f, 0.25f, 0.5f, 0.75f, 1.0f };
-	//		const float div2[3] = { 0.0f, 0.5f, 1.0f };
-	//};
-#pragma endregion テクスチャ座標
 #pragma region Random&inlineMethod
 	// XorShiftを使ったランダム生成クラス
 	class Random final

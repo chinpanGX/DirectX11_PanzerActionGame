@@ -5,7 +5,6 @@
 
 ------------------------------------------------------------*/
 #pragma once
-#include "xaudio2.h"
 #include "Loader.h"
 
 namespace Prefabs
@@ -36,27 +35,6 @@ namespace Prefabs
 	};
 
 }
-
-class LoadAudio final
-{
-public:
-	LoadAudio();
-	~LoadAudio();
-	void Load(const std::string& name, bool loop, IXAudio2* xaudio2);
-	void Unload();
-	void Play();
-	void Stop();
-	void SetVolume(float volume);
-private:
-	HRESULT CheckChunk(HANDLE hFile, DWORD format, DWORD* pChunkSize, DWORD* pChunkDataPosition);
-	HRESULT ReadChunkData(HANDLE hFile, void* pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset);
-
-	std::string m_Filename;	// ファイル名
-	DWORD m_sizeAudio;
-	IXAudio2SourceVoice* m_sourceVoice;
-	BYTE* m_dataAudio;
-	bool m_Loop;		// true　ループ / false 1回
-};
 
 class Audio final
 {

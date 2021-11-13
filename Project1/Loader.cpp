@@ -1,15 +1,18 @@
-/*------------------------------------------------------------
-	
-	[LoadModel.cpp]
+/*-------------------------------------------------------------
+
+	[Loader.cpp]
 	Author : 出合翔太
 
 --------------------------------------------------------------*/
 #define _CRT_SECURE_NO_WARNINGS
 #include "Engine.h"
-#include "LoadModel.h"
+#include "Loader.h"
+#include "Utility.h"
+#include <io.h>
 #include <shlwapi.h>
 #pragma comment(lib, "shlwapi.lib")
 
+#pragma region _Model_
 Model::Model(Graphics & graphics) : m_Graphics(graphics), m_VertexBuffer(nullptr), m_IndexBuffer(nullptr)
 {
 
@@ -17,7 +20,7 @@ Model::Model(Graphics & graphics) : m_Graphics(graphics), m_VertexBuffer(nullptr
 
 Model::~Model()
 {
-	
+
 }
 
 void Model::Load(const std::string& name)
@@ -36,7 +39,7 @@ void Model::Load(const std::string& name)
 	ZeroMemory(&vsd, sizeof(vsd));
 	vsd.pSysMem = model.VertexArray;
 	m_Graphics.GetDevice()->CreateBuffer(&vbd, &vsd, m_VertexBuffer.GetAddressOf());
-	
+
 	// インデックスバッファ生成
 	D3D11_BUFFER_DESC ibd;
 	ZeroMemory(&ibd, sizeof(ibd));
@@ -48,7 +51,7 @@ void Model::Load(const std::string& name)
 	ZeroMemory(&isd, sizeof(isd));
 	isd.pSysMem = model.IndexArray;
 	m_Graphics.GetDevice()->CreateBuffer(&ibd, &isd, m_IndexBuffer.GetAddressOf());
-	
+
 	// サブセット設定
 	m_SubsetArray = new Sebset[model.SubsetNum];
 	m_SubsetNum = model.SubsetNum;
@@ -62,7 +65,7 @@ void Model::Load(const std::string& name)
 			NULL, NULL, m_SubsetArray[i].Material.Texture.GetAddressOf(), NULL);
 		assert(m_SubsetArray[i].Material.Texture);
 	}
-	
+
 	delete[] model.VertexArray;
 	delete[] model.IndexArray;
 	delete[] model.SubsetArray;
@@ -198,7 +201,7 @@ void Model::LoadObj(const std::string& FileName, ModelInfo * Model)
 	uint32_t sc = 0;
 
 	fseek(file, 0, SEEK_SET);
-	
+
 	while (true)
 	{
 		fscanf(file, "%s", str);
@@ -352,7 +355,7 @@ void Model::LoadMaterial(const std::string& FileName, ModelMaterial ** MaterialA
 		{
 			materialNum++;
 		}
-	
+
 	}
 	//メモリ確保
 	materialArray = new ModelMaterial[materialNum];
@@ -424,9 +427,340 @@ void Model::LoadMaterial(const std::string& FileName, ModelMaterial ** MaterialA
 			strcat(path, str);
 			strcat(materialArray[mc].TextureName, path);
 		}
-	
+
 	}
 	fclose(file);
 	*MaterialArray = materialArray;
 	*MaterialNum = materialNum;
 }
+#pragma endregion _Model_
+
+#pragma region _VertexShader_
+LoadVertexShader::LoadVertexShader(Graphics & graphics) : m_Graphics(graphics), m_VertexShader(nullptr), m_InputLayout(nullptr)
+{
+
+}
+
+LoadVertexShader::~LoadVertexShader()
+{
+
+}
+
+void LoadVertexShader::Load(const std::string& name)
+{
+	FILE* file;
+	long int fsize;
+	file = fopen(name.c_str(), "rb");
+	fsize = _filelength(_fileno(file));
+	unsigned char* buffer = new unsigned char[fsize];
+	fread(buffer, fsize, 1, file);
+	fclose(file);
+	auto hr = m_Graphics.GetDevice()->CreateVertexShader(buffer, fsize, nullptr, m_VertexShader.GetAddressOf());
+	ThrowIfFailed(hr, "CreateVertexShader Failed");
+
+	// 入力レイアウト生成
+	D3D11_INPUT_ELEMENT_DESC layout[] =
+	{
+		{ "POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "NORMAL",   0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 4 * 3, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "COLOR",    0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 4 * 6, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+		{ "TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 4 * 10, D3D11_INPUT_PER_VERTEX_DATA, 0 }
+	};
+	UINT numElements = ARRAYSIZE(layout);
+	hr = m_Graphics.GetDevice()->CreateInputLayout(layout, numElements, buffer, fsize, m_InputLayout.GetAddressOf());
+	ThrowIfFailed(hr, "CreateInputLayout Failed");
+	delete[] buffer;
+}
+
+Microsoft::WRL::ComPtr<ID3D11VertexShader> LoadVertexShader::GetVertexShader() const
+{
+	return m_VertexShader;
+}
+
+Microsoft::WRL::ComPtr<ID3D11InputLayout> LoadVertexShader::GetInputLayout() const
+{
+	return m_InputLayout;
+}
+#pragma endregion _VertexShader_
+
+#pragma region _PixelShader_
+LoadPixelShader::LoadPixelShader(Graphics & graphics) : m_Graphics(graphics), m_PixelShader(nullptr)
+{
+}
+
+LoadPixelShader::~LoadPixelShader()
+{
+
+}
+
+void LoadPixelShader::Load(const std::string& name)
+{
+	FILE* file;
+	long int fsize;
+	file = fopen(name.c_str(), "rb");
+	fsize = _filelength(_fileno(file));
+	unsigned char* buffer = new unsigned char[fsize];
+	fread(buffer, fsize, 1, file);
+	fclose(file);
+	auto hr = m_Graphics.GetDevice()->CreatePixelShader(buffer, fsize, nullptr, m_PixelShader.GetAddressOf());
+	ThrowIfFailed(hr, "CreatePixelShader Failed");
+	delete[] buffer;
+}
+
+Microsoft::WRL::ComPtr<ID3D11PixelShader> LoadPixelShader::GetPixelShader() const
+{
+	return m_PixelShader;
+}
+#pragma endregion _PixelShader_
+
+#pragma region _LoadAudio_
+LoadAudio::LoadAudio()
+{
+
+}
+
+LoadAudio::~LoadAudio()
+{
+
+}
+
+void LoadAudio::Load(const std::string & name, bool loop, IXAudio2* xaudio2)
+{
+	// サウンドファイルの登録
+	m_Filename = name;
+	m_Loop = loop;
+
+	HRESULT hr = S_OK;;
+	HANDLE hFile;
+	DWORD dwChunkSize = 0;
+	DWORD dwChunkPosition = 0;
+	DWORD dwFiletype;
+	WAVEFORMATEXTENSIBLE wfx;
+	XAUDIO2_BUFFER buffer;
+
+	// バッファのクリア
+	memset(&wfx, 0, sizeof(WAVEFORMATEXTENSIBLE));
+	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
+
+	// サウンドデータファイルの生成
+	hFile = CreateFile(m_Filename.c_str(), GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL);
+	if (hFile == INVALID_HANDLE_VALUE)
+	{
+		ThrowIfFailed(hr, "サウンドデータファイルの生成に失敗(1)");
+		return;
+	}
+	if (SetFilePointer(hFile, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
+	{// ファイルポインタを先頭に移動
+		ThrowIfFailed(hr, "サウンドデータファイルの生成に失敗(2)");
+		return;
+	}
+
+	// WAVEファイルのチェック
+	hr = CheckChunk(hFile, 'FFIR', &dwChunkSize, &dwChunkPosition);
+	if (FAILED(hr))
+	{
+		ThrowIfFailed(hr, "WAVEファイルのチェックに失敗！(1)");
+		return;
+	}
+	hr = ReadChunkData(hFile, &dwFiletype, sizeof(DWORD), dwChunkPosition);
+	if (FAILED(hr))
+	{
+		ThrowIfFailed(hr, "WAVEファイルのチェックに失敗！(2)");
+		return;
+	}
+	if (dwFiletype != 'EVAW')
+	{
+		ThrowIfFailed(hr, "WAVEファイルのチェックに失敗！(3)");
+		return;
+	}
+
+	// フォーマットチェック
+	hr = CheckChunk(hFile, ' tmf', &dwChunkSize, &dwChunkPosition);
+	if (FAILED(hr))
+	{
+		ThrowIfFailed(hr, "フォーマットチェックに失敗！(1)");
+		return;
+	}
+	hr = ReadChunkData(hFile, &wfx, dwChunkSize, dwChunkPosition);
+	if (FAILED(hr))
+	{
+		ThrowIfFailed(hr, "フォーマットチェックに失敗！(2)");
+		return;
+	}
+
+	// オーディオデータ読み込み
+	hr = CheckChunk(hFile, 'atad', &m_sizeAudio, &dwChunkPosition);
+	if (FAILED(hr))
+	{
+		ThrowIfFailed(hr, "オーディオデータ読み込みに失敗！(1)");
+		return;
+	}
+	m_dataAudio = (BYTE*)malloc(m_sizeAudio);
+	hr = ReadChunkData(hFile, m_dataAudio, m_sizeAudio, dwChunkPosition);
+	if (FAILED(hr))
+	{
+		ThrowIfFailed(hr, "オーディオデータ読み込みに失敗！(2)");
+		return;
+	}
+
+	// ソースボイスの生成
+	hr = xaudio2->CreateSourceVoice(&m_sourceVoice, &(wfx.Format));
+	if (FAILED(hr))
+	{
+		ThrowIfFailed(hr, "ソースボイスの生成に失敗！");
+		return;
+	}
+
+	// バッファの値設定
+	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
+	buffer.AudioBytes = m_sizeAudio;
+	buffer.pAudioData = m_dataAudio;
+	buffer.Flags = XAUDIO2_END_OF_STREAM;
+	m_Loop ? buffer.LoopCount = -1 : buffer.LoopCount = 0;
+
+	// オーディオバッファの登録
+	m_sourceVoice->SubmitSourceBuffer(&buffer);
+}
+
+void LoadAudio::Unload()
+{
+	if (m_sourceVoice)
+	{
+		// 一時停止
+		m_sourceVoice->Stop(0);
+
+		// ソースボイスの破棄
+		m_sourceVoice->DestroyVoice();
+		m_sourceVoice = NULL;
+
+		// オーディオデータの開放
+		free(m_dataAudio);
+		m_dataAudio = NULL;
+	}
+}
+
+void LoadAudio::Play()
+{
+	XAUDIO2_VOICE_STATE xa2state;
+	XAUDIO2_BUFFER buffer;
+
+	// バッファの値設定
+	memset(&buffer, 0, sizeof(XAUDIO2_BUFFER));
+	buffer.AudioBytes = m_sizeAudio;
+	buffer.pAudioData = m_dataAudio;
+	buffer.Flags = XAUDIO2_END_OF_STREAM;
+	m_Loop ? buffer.LoopCount = -1 : buffer.LoopCount = 0;
+
+	// 状態取得
+	m_sourceVoice->GetState(&xa2state);
+	if (xa2state.BuffersQueued != 0)
+	{// 再生中
+	 // 一時停止
+		m_sourceVoice->Stop(0);
+
+		// オーディオバッファの削除
+		m_sourceVoice->FlushSourceBuffers();
+	}
+
+	// オーディオバッファの登録
+	m_sourceVoice->SubmitSourceBuffer(&buffer);
+
+	// 再生
+	m_sourceVoice->Start(0);
+}
+
+void LoadAudio::Stop()
+{
+	if (m_sourceVoice)
+	{
+		// 一時停止
+		m_sourceVoice->Stop(0);
+	}
+}
+
+void LoadAudio::SetVolume(float volume)
+{
+	// ボリュームが1.0fより大きくならないようにする
+	float v = Math::Min(volume, 1.0f);
+	m_sourceVoice->SetVolume(v);
+}
+
+HRESULT LoadAudio::CheckChunk(HANDLE hFile, DWORD format, DWORD * pChunkSize, DWORD * pChunkDataPosition)
+{
+	HRESULT hr = S_OK;
+	DWORD dwRead;
+	DWORD dwChunkType;
+	DWORD dwChunkDataSize;
+	DWORD dwRIFFDataSize = 0;
+	DWORD dwFileType;
+	DWORD dwBytesRead = 0;
+	DWORD dwOffset = 0;
+
+	if (SetFilePointer(hFile, 0, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
+	{// ファイルポインタを先頭に移動
+		return HRESULT_FROM_WIN32(GetLastError());
+	}
+
+	while (hr == S_OK)
+	{
+		if (ReadFile(hFile, &dwChunkType, sizeof(DWORD), &dwRead, NULL) == 0)
+		{// チャンクの読み込み
+			hr = HRESULT_FROM_WIN32(GetLastError());
+		}
+
+		if (ReadFile(hFile, &dwChunkDataSize, sizeof(DWORD), &dwRead, NULL) == 0)
+		{// チャンクデータの読み込み
+			hr = HRESULT_FROM_WIN32(GetLastError());
+		}
+
+		switch (dwChunkType)
+		{
+		case 'FFIR':
+			dwRIFFDataSize = dwChunkDataSize;
+			dwChunkDataSize = 4;
+			if (ReadFile(hFile, &dwFileType, sizeof(DWORD), &dwRead, NULL) == 0)
+			{// ファイルタイプの読み込み
+				hr = HRESULT_FROM_WIN32(GetLastError());
+			}
+			break;
+
+		default:
+			if (SetFilePointer(hFile, dwChunkDataSize, NULL, FILE_CURRENT) == INVALID_SET_FILE_POINTER)
+			{// ファイルポインタをチャンクデータ分移動
+				return HRESULT_FROM_WIN32(GetLastError());
+			}
+		}
+
+		dwOffset += sizeof(DWORD) * 2;
+		if (dwChunkType == format)
+		{
+			*pChunkSize = dwChunkDataSize;
+			*pChunkDataPosition = dwOffset;
+
+			return S_OK;
+		}
+
+		dwOffset += dwChunkDataSize;
+		if (dwBytesRead >= dwRIFFDataSize)
+		{
+			return S_FALSE;
+		}
+	}
+
+	return S_OK;
+}
+
+HRESULT LoadAudio::ReadChunkData(HANDLE hFile, void * pBuffer, DWORD dwBuffersize, DWORD dwBufferoffset)
+{
+	DWORD dwRead;
+	if (SetFilePointer(hFile, dwBufferoffset, NULL, FILE_BEGIN) == INVALID_SET_FILE_POINTER)
+	{// ファイルポインタを指定位置まで移動
+		return HRESULT_FROM_WIN32(GetLastError());
+	}
+	if (ReadFile(hFile, pBuffer, dwBuffersize, &dwRead, NULL) == 0)
+	{// データの読み込み
+		return HRESULT_FROM_WIN32(GetLastError());
+	}
+	return S_OK;
+}
+#pragma endregion _LoadAudio_

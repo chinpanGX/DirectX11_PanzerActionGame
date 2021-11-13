@@ -5,7 +5,7 @@
 
 ---------------------------------------------------------------*/
 #pragma once
-#include "LoadShader.h"
+#include "Loader.h"
 
 class VertexShader final
 {

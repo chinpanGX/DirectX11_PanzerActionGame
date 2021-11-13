@@ -6,7 +6,7 @@
 
 -------------------------------------------------------------*/
 #pragma once
-#include "LoadModel.h"
+#include "Loader.h"
 #include <vector>
 
 namespace Prefabs

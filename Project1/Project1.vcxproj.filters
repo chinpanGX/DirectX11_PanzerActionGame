@@ -121,12 +121,6 @@
     <ClCompile Include="Model.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
-    <ClCompile Include="LoadModel.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="LoadShader.cpp">
-      <Filter>Resource</Filter>
-    </ClCompile>
     <ClCompile Include="Shader.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
@@ -256,9 +250,6 @@
     <ClCompile Include="Spawn.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="PanzerGarage.cpp">
-      <Filter>Actor\Stage\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Parts.cpp">
       <Filter>Actor\Panzer\Object</Filter>
     </ClCompile>
@@ -353,6 +344,12 @@
     <ClCompile Include="Pivot.cpp">
       <Filter>Actor\Panzer\Object</Filter>
     </ClCompile>
+    <ClCompile Include="Loader.cpp">
+      <Filter>Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="PanzerGarage.cpp">
+      <Filter>Actor\Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -405,12 +402,6 @@
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Model.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadModel.h">
-      <Filter>Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="LoadShader.h">
       <Filter>Resource</Filter>
     </ClInclude>
     <ClInclude Include="Loader.h">
@@ -566,9 +557,6 @@
     <ClInclude Include="ISetterObject.h">
       <Filter>Actor\Stage\Object</Filter>
     </ClInclude>
-    <ClInclude Include="PanzerGarage.h">
-      <Filter>Actor\Stage\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Stage.h">
       <Filter>Actor\Stage\Object</Filter>
     </ClInclude>
@@ -670,6 +658,9 @@
     <ClInclude Include="Target.h">
       <Filter>Actor\2D\Effect</Filter>
     </ClInclude>
+    <ClInclude Include="PanzerGarage.h">
+      <Filter>Actor\Stage</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Common.hlsl">
@@ -697,6 +688,12 @@
       <Filter>シェーダー</Filter>
     </FxCompile>
     <FxCompile Include="SpotLightPS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelLightingVS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="PixelLightingPS.hlsl">
       <Filter>シェーダー</Filter>
     </FxCompile>
   </ItemGroup>
