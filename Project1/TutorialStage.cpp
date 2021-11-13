@@ -14,7 +14,7 @@
 #pragma region TutorialStage_method
 TutorialStage::TutorialStage()
 {
-	m_Scene = Engine::Get().GetApplication()->GetScene();
+	m_Scene = Engine::Get().application()->GetScene();
 	Stage::AddObject<StageSetterSkydome>();
 	Stage::AddObject<StageSetterPlane>();
 	Stage::AddObject<TutorialStageSetterTarget>();

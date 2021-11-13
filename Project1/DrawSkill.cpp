@@ -20,7 +20,7 @@
 #pragma region DrawSkill_method
 GameBg::DrawSkill::DrawSkill()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
 }
 
 GameBg::DrawSkill::~DrawSkill()
@@ -29,15 +29,15 @@ GameBg::DrawSkill::~DrawSkill()
 
 void GameBg::DrawSkill::Begin()
 {
-	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	float t = m_Player->GetVehicle().GetSkill().GetEnableTime();
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	float t = m_Player->vehicle().GetSkill().GetEnableTime();
 	m_Add = m_MaxDrawSize / t * Fps::Get().deltaTime;
 }
 
 void GameBg::DrawSkill::Update()
 {
 	// ‚Ü‚¾ƒXƒLƒ‹‚ªŽg‚¦‚éó‘Ô‚¶‚á‚È‚¢
-	if (m_Player->GetVehicle().GetSkill().GetAlreadyUseble() == false)
+	if (m_Player->vehicle().GetSkill().GetAlreadyUseble() == false)
 	{
 		m_DrawSize += m_Add;
 	}
@@ -49,9 +49,9 @@ void GameBg::DrawSkill::Event()
 
 void GameBg::DrawSkill::Draw()
 {
-	Math::Vector2 pos = Math::Vector2(1450.0f, 940.0f);
-	m_Render->Draw(m_MaxDrawSize, pos, Math::Vector4(0.35f, 0.35f, 0.35f, 0.75f));
-	m_Render->Draw(m_DrawSize, pos, Math::Vector4(0.7f, 0.7f, 0.1f, 1.0f));
+	D3DXVECTOR2 pos = D3DXVECTOR2(1450.0f, 940.0f);
+	m_Render->Draw(m_MaxDrawSize, pos, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
+	m_Render->Draw(m_DrawSize, pos, D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f));
 }
 
 void GameBg::DrawSkill::Reset()

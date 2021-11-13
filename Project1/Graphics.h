@@ -16,10 +16,10 @@
 // 頂点構造体
 struct Vertex3D
 {
-	DirectX::XMFLOAT3 Position;
-	DirectX::XMFLOAT3 Normal;
-	DirectX::XMFLOAT4 Diffuse;
-	DirectX::XMFLOAT2 TexCoord;
+	D3DXVECTOR3 Position;
+	D3DXVECTOR3 Normal;
+	D3DXVECTOR4 Diffuse;
+	D3DXVECTOR2 TexCoord;
 };
 
 // マテリアル構造体
@@ -29,10 +29,10 @@ struct Material
 	{
 		ZeroMemory(this, sizeof(Material));
 	}
-	DirectX::XMFLOAT4	Ambient;
-	DirectX::XMFLOAT4	Diffuse;
-	DirectX::XMFLOAT4	Specular;
-	DirectX::XMFLOAT4	Emission;
+	D3DXVECTOR4	Ambient;
+	D3DXVECTOR4	Diffuse;
+	D3DXVECTOR4	Specular;
+	D3DXVECTOR4	Emission;
 	float		Shininess;
 	float		Dummy[3];//16byte境界用
 };
@@ -46,20 +46,11 @@ struct Light
 	}
 	BOOL		Enable;
 	BOOL		Dummy[3];//16byte境界用
-	DirectX::XMFLOAT4 Direction;
-	DirectX::XMFLOAT4 Diffuse;
-	DirectX::XMFLOAT4 Ambient;
-};
-
-// エフェクト用コンスタントバッファー
-struct cbPerObject
-{
-	cbPerObject()
-	{
-		ZeroMemory(this, sizeof(cbPerObject));
-	}
-	DirectX::XMMATRIX wvp;
-	DirectX::XMMATRIX world;
+	D3DXVECTOR4 Direction;
+	D3DXVECTOR4 Diffuse;
+	D3DXVECTOR4 Ambient;
+	D3DXVECTOR4 Position;
+	D3DXVECTOR4 Angle;
 };
 
 class Graphics final
@@ -73,14 +64,15 @@ public:
 	void End();
 	void SetDepthEnable(bool Enable);
 	void SetWorldViewProjection2D();
-	void SetWorldMatrix(DirectX::XMMATRIX & WorldMatrix);
-	void SetViewMatrix(DirectX::XMMATRIX & ViewMatrix);
-	void SetProjectionMatrix(DirectX::XMMATRIX & ProjectionMatrix);
+	void SetWorldMatrix(D3DXMATRIX & WorldMatrix);
+	void SetViewMatrix(D3DXMATRIX & ViewMatrix);
+	void SetProjectionMatrix(D3DXMATRIX & ProjectionMatrix);
 	void SetMaterial(Material Material);
 	void SetLight(Light Light);
-	void SetCameraPosition(DirectX::XMFLOAT3 CameraPosition);
-	void SetParameter(DirectX::XMFLOAT4 Parameter);
-	void SetEffectParameter(cbPerObject obj);
+	void SetCameraPosition(D3DXVECTOR3 CameraPosition);
+	void SetParameter(D3DXVECTOR4 Parameter);
+
+	// ブレンドステート
 	void SetBlendStateDefault();
 	void SetBlendStateSub();
 
@@ -89,7 +81,7 @@ public:
 private:
 	// コンスタントバッファの更新
 	template<typename T>
-	void UpdateCBuffer(ComPtr<ID3D11Buffer> buffer, const T& src);
+	void UpdateConstantBuffer(ComPtr<ID3D11Buffer> buffer, const T& src);
 	
 	ComPtr<ID3D11Device>			m_Device;
 	ComPtr<ID3D11DeviceContext>		m_DeviceContext;
@@ -109,7 +101,6 @@ private:
 		CONSTANT_BUFFER_LIGHT,
 		CONSTANT_BUFFER_CAMERA,
 		CONSTANT_BUFFER_PARAMETER,
-		CONSTANT_BUFFER_EFFECT,
 		NUM_MAX
 	};
 	std::array<ComPtr<ID3D11Buffer>, EBuffer::NUM_MAX> m_Buffer;

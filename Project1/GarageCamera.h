@@ -7,9 +7,11 @@
 
 ------------------------------------------------------------*/
 #pragma once
-#include "Camera.h"
+#include "DefaultObject.h"
+#include "myLib.h"
 
-class GarageCamera final : public Camera
+
+class GarageCamera final : public DefaultObject
 {
 public:
 	GarageCamera();
@@ -18,5 +20,15 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
+private:
+	// s—ñ
+	D3DXMATRIX m_View;
+	D3DXMATRIX m_Projection;
+
+	// ƒJƒƒ‰‚Ìİ’è
+	D3DXVECTOR3 m_Position;
+	D3DXVECTOR3 m_Target;
+
+	class Graphics& m_Graphics;
 };
 

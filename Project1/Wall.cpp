@@ -20,8 +20,8 @@ Wall::~Wall()
 
 void Wall::Begin()
 {
-	m_Transform->SetPosition(0.0f, 30.0f, 0.0f);
-	m_Transform->SetScale(500.0f, 30.0f, 500.0f);
+	m_Transform->position(0.0f, 30.0f, 0.0f);
+	m_Transform->scale(500.0f, 30.0f, 500.0f);
 }
 
 void Wall::Update()

@@ -21,8 +21,8 @@ WallBox::~WallBox()
 
 void WallBox::Begin()
 {
-	m_BoxComponent->SetOBB3(*m_Transform, m_Transform->GetScale());
-	m_BoxComponent->SetAABB3(*m_Transform, m_Transform->GetScale());
+	m_BoxComponent->SetOBB3(*m_Transform, m_Transform->scale());
+	m_BoxComponent->SetAABB3(*m_Transform, m_Transform->scale());
 }
 
 void WallBox::Update()
@@ -36,7 +36,7 @@ void WallBox::Event()
 
 void WallBox::Draw()
 {
-	GetResource().SetShader("Default");
+	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	GetResource().SetStaticModel("WallFence");
+	resource().SetStaticModel("WallFence");
 }

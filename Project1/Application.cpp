@@ -17,7 +17,7 @@
 
 Application::Application(Graphics & graphics) : m_Graphics(graphics), m_Fade(nullptr), m_Scene(nullptr)
 {
-	m_Fade = std::make_unique<Fade>(*this, *Engine::Get().GetResource(), Fps::Get());
+	m_Fade = std::make_unique<Fade>(*this, *Engine::Get().resource(), Fps::Get());
 	
 	PanzerNameList::Get().Register(); // êÌé‘ÇÃñºëOÇìoò^
 	
@@ -51,10 +51,10 @@ void Application::Draw()
 	// ÉâÉCÉgÇÃê›íË
 	Light light;
 	light.Enable = true;
-	light.Direction = DirectX::XMFLOAT4(1.0f, -1.0f, 1.0f, 0.0f);
-	DirectX::XMVector4Normalize(DirectX::XMLoadFloat4(&light.Direction));
-	light.Ambient = DirectX::XMFLOAT4(0.2f, 0.2f, 0.2f, 1.0f);
-	light.Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
+	light.Direction = D3DXVECTOR4(1.0f, -1.0f, 1.0f, 0.0f);
+	D3DXVec4Normalize(&light.Direction, &light.Direction);
+	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
+	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	m_Graphics.SetLight(light);
 
 	// ÉQÅ[ÉÄ

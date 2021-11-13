@@ -30,7 +30,7 @@ void MuzzleFlash::Begin()
 
 void MuzzleFlash::Update()
 {
-	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
 	if (pause) { return; }
 	Effect::Update();
 	// フレーム数が16になったら消去
@@ -54,12 +54,23 @@ void MuzzleFlash::Draw()
 	Effect::MapAndUnmap(x, y);
 
 	// マトリクスの設定
-	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	DirectX::XMMATRIX view = camera->GetInverseView(); // Viewの逆行列
+	// カメラの情報を取得する
+// マトリクスの設定
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	D3DXMATRIX view = camera->view();
 
-	DirectX::XMMATRIX scale = DirectX::XMMatrixScaling(m_Transform->GetScale().x, m_Transform->GetScale().y, m_Transform->GetScale().z);
-	DirectX::XMMATRIX trans = DirectX::XMMatrixTranslation(m_Transform->GetPosition().x, m_Transform->GetPosition().y, m_Transform->GetPosition().z);
-	DirectX::XMMATRIX world = scale * view * trans;
+	// ビューの逆行列
+	D3DXMATRIX invView;
+	D3DXMatrixInverse(&invView, NULL, &view);//逆行列
+	invView._41 = 0.0f;
+	invView._42 = 0.0f;
+	invView._43 = 0.0f;
+
+	// 座標変換
+	D3DXMATRIX world, scale, rot, trans;
+	Math::Matrix::MatrixScaling(&scale, transform().scale());
+	Math::Matrix::MatrixTranslation(&trans, transform().position());
+	world = scale * invView * trans;
 	m_Graphics.SetWorldMatrix(world);
 
 	// テクスチャの設定

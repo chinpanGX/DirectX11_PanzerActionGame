@@ -28,14 +28,14 @@ BulletStateMove::~BulletStateMove()
 void BulletStateMove::Update(Bullet * Bullet, float deltaTime)
 {
 	// 弾の移動
-	Math::Vector3& BulletPosition = Bullet->GetTransform().GetPosition();
+	D3DXVECTOR3& BulletPosition = Bullet->transform().position();
 	// 飛んでいく方向を出す
-	Math::Vector3 vector = Bullet->GetDirectionVector();
+	D3DXVECTOR3 vector = Bullet->GetDirectionVector();
 	// 方向ベクトルを足していく
 	BulletPosition += vector * Bullet->GetSpeed() * deltaTime;
 	//　当たり判定
 	Bullet->OnCollision();
-	// 当たり判定以外のインスタンス削除
+	// 当たっていないオブジェクトのインスタンス削除
 	Destory(Bullet);
 	// 威力の補正値を下げる
 	Bullet->DownDDE();
@@ -45,8 +45,8 @@ void BulletStateMove::Update(Bullet * Bullet, float deltaTime)
 void BulletStateMove::Destory(Bullet* Bullet)
 {
 	Bullet->FrameCountDown();
-	// フレーム数が０になる　AND　0.0fより低くなるとき
-	if (Bullet->GetFrameZeroFlag() == true || Bullet->GetTransform().GetPosition().y <= 0.0f)
+	// フレーム数が０になる　OR　0.0fより低くなるとき
+	if (Bullet->GetFrameZeroFlag() == true || Bullet->transform().position().y <= 0.0f)
 	{
 		if (Bullet != nullptr)
 		{

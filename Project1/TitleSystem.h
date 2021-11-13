@@ -56,7 +56,7 @@ private:
 	void DrawInput();
 
 	std::unique_ptr<class Renderer2D> m_Render;
-	Math::Vector4 m_Color = Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+	D3DXVECTOR4 m_Color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	float m_Alpha = 1.0f;
 	uint32_t m_State;
 	// コントローラを使うかどうか

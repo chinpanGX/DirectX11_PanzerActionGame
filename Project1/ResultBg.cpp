@@ -41,13 +41,13 @@ void GameBg::ResultBg::Draw()
 {
 	if (m_flag)
 	{
-		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), Math::Vector2(0.0f, 0.0f), Math::Vector2(1.0f, 0.5f));
+		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 	}
 	else
 	{
-		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), Math::Vector2(0.0f, 0.5f), Math::Vector2(1.0f, 1.0f));
+		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	}
-	m_Fade->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), Math::Vector2(0.0f, 0.5f), Math::Vector2(0.5f, 1.0f), Math::Vector4(1.0f, 1.0f, 1.0f, m_State->GetAlpha()));
+	m_Fade->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_State->GetAlpha()));
 }
 
 // ç≈èâÇ…åƒÇ—èoÇ∑
@@ -64,7 +64,7 @@ ResultState & GameBg::ResultBg::GetState() const
 
 GameBg::ResultUi::ResultUi()
 {
-	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui02", Bg::GetSize() * 0.5f, Math::Vector2(512.0f, 384.0f));
+	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui02", Bg::GetSize() * 0.5f, D3DXVECTOR2(512.0f, 384.0f));
 	m_Marker = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui");
 }
 
@@ -87,23 +87,23 @@ void GameBg::ResultUi::Event()
 
 void GameBg::ResultUi::Draw()
 {
-	auto& state = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	auto& state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
 	float x = 1920.0f * 0.5f;
-	Math::Vector2 size = Math::Vector2(512.0f, 128.0f);
-	Math::Vector2 texMin = Math::Vector2(0.0f, 0.375f);
-	Math::Vector2 texMax = Math::Vector2(0.25f, 0.5f);
-	Math::Vector4 color = Math::Vector4(1.0f, 1.0f, 1.0f, state.GetAlpha());
+	D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
+	D3DXVECTOR2 texMin = D3DXVECTOR2(0.0f, 0.375f);
+	D3DXVECTOR2 texMax = D3DXVECTOR2(0.25f, 0.5f);
+	D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, state.GetAlpha());
 
 	switch (state.GetSelect())
 	{
 	case 0:
-		m_Marker->Draw(Math::Vector2(x, 410.0f), size, texMin, texMax, color);
+		m_Marker->Draw(D3DXVECTOR2(x, 410.0f), size, texMin, texMax, color);
 		break;
 	case 1:
-		m_Marker->Draw(Math::Vector2(x, 550.0f), size, texMin, texMax, color);
+		m_Marker->Draw(D3DXVECTOR2(x, 550.0f), size, texMin, texMax, color);
 		break;
 	case 2:
-		m_Marker->Draw(Math::Vector2(x, 680.0f), size, texMin, texMax, color);
+		m_Marker->Draw(D3DXVECTOR2(x, 680.0f), size, texMin, texMax, color);
 		break;
 	}
 	m_Renderer2D->Draw(state.GetAlpha());

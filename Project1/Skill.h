@@ -10,6 +10,7 @@
 #include <memory>
 #include <vector>
 
+class Pawn;
 class Status;
 class IUseSkill;
 class Skill
@@ -25,11 +26,14 @@ public:
 
 	// スキルゲージがたまる時間
 	void SetTime(float time); //　進める時間
-	void Enable();
+	void Enable(Pawn* pawn);
 	const int32_t GetPhase() const;
 	const float GetEnableTime() const;
 	const bool GetAlreadyUseble() const;
 private:
+	// エフェクトの再生
+	void PlayEffect(Pawn* pawn);
+
 	std::vector<std::unique_ptr<IUseSkill>> m_UseSkill;
 	int32_t m_Phase = 0;	// フェーズ
 	float m_EnableTime = 30.0f;		// スキルを有効にする時間

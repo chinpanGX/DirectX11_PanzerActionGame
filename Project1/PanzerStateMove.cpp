@@ -9,7 +9,7 @@
 #include "Enemy.h"
 #include "PanzerStateMove.h"
 #include "PanzerStateStay.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "Reload.h"
 #include "Body.h"
 #include "Turret.h"
@@ -34,13 +34,13 @@ void State::Forward::Update(Pawn * pPawn, float deltaTime)
 	{
 		pPawn->ChangeState(std::make_unique<State::Stay>());
 	}
-	pPawn->GetMoveComponent().MoveForward(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-	pPawn->GetPilot().Move();
-	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	if (Intersect(pPawn->GetVehicle().GetBoxComponent(0).GetSphere3(), player->GetVehicle().GetBoxComponent(0).GetSphere3()))
+	pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), deltaTime);
+	pPawn->pivot().Move();
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	if (Intersect(pPawn->vehicle().GetBoxComponent(0).GetSphere3(), player->vehicle().GetBoxComponent(0).GetSphere3()))
 	{
-		pPawn->GetMoveComponent().MoveBackward(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-		pPawn->GetPilot().Move();
+		pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), deltaTime);
+		pPawn->pivot().Move();
 		pPawn->ChangeState(std::make_unique<State::Stay>());
 	}
 }
@@ -60,13 +60,13 @@ void State::Backward::Update(Pawn * pPawn, float deltaTime)
 	{
 		pPawn->ChangeState(std::make_unique<State::Stay>());
 	}
-	pPawn->GetMoveComponent().MoveBackward(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-	pPawn->GetPilot().Move();
-	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	if (Intersect(pPawn->GetVehicle().GetBoxComponent(0).GetSphere3(), player->GetVehicle().GetBoxComponent(0).GetSphere3()))
+	pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), deltaTime);
+	pPawn->pivot().Move();
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	if (Intersect(pPawn->vehicle().GetBoxComponent(0).GetSphere3(), player->vehicle().GetBoxComponent(0).GetSphere3()))
 	{
-		pPawn->GetMoveComponent().MoveForward(pPawn->GetVehicle().GetBodyTransform(), deltaTime);
-		pPawn->GetPilot().Move();
+		pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), deltaTime);
+		pPawn->pivot().Move();
 		pPawn->ChangeState(std::make_unique<State::Stay>());
 	}
 }

@@ -12,166 +12,9 @@
 #include "Graphics.h"
 #include "Resource.h"
 
-#pragma region Line_method
-Line::Line(const Math::Vector3 start, const Math::Vector3 end) : m_Start(start), m_End(end)
-{
-}
-
-void Line::Update(const Math::Vector3 & pos, const Math::Vector3& vec, float distance)
-{
-	Math::Vector3 dir = Math::Vector3::Normalize(vec);
-	m_Start = pos;
-	m_End = dir * distance;
-}
-
-Math::Vector3 Line::PointOnSegment(float t) const
-{
-	return m_Start + (m_End - m_Start) * t;
-}
-
-float Line::MinDistSq(const Math::Vector3 & point) const
-{
-	// Construct vectors
-	Math::Vector3 ab = m_End - m_Start;
-	Math::Vector3 ba = -1.0f * ab;
-	Math::Vector3 ac = point - m_Start;
-	Math::Vector3 bc = point - m_End;
-
-	// Case 1: C projects prior to A
-	if (Math::Vector3::Dot(ab, ac) < 0.0f)
-	{
-		return ac.LengthSq();
-	}
-	// Case 2: C projects after B
-	else if (Math::Vector3::Dot(ba, bc) < 0.0f)
-	{
-		return bc.LengthSq();
-	}
-	// Case 3: C projects onto line
-	else
-	{
-		// Compute p
-		float scalar = Math::Vector3::Dot(ac, ab) / Math::Vector3::Dot(ab, ab);
-		Math::Vector3 p = scalar * ab;
-		// Compute length squared of ac - p
-		return (ac - p).LengthSq();
-	}
-}
-
-float Line::MinDistSq(const Line & s1, const Line & s2)
-{
-	Math::Vector3   u = s1.m_End - s1.m_Start;
-	Math::Vector3   v = s2.m_End - s2.m_Start;
-	Math::Vector3   w = s1.m_Start - s2.m_Start;
-	float    a = Math::Vector3::Dot(u, u);         // always >= 0
-	float    b = Math::Vector3::Dot(u, v);
-	float    c = Math::Vector3::Dot(v, v);         // always >= 0
-	float    d = Math::Vector3::Dot(u, w);
-	float    e = Math::Vector3::Dot(v, w);
-	float    D = a * c - b * b;        // always >= 0
-	float    sc, sN, sD = D;       // sc = sN / sD, default sD = D >= 0
-	float    tc, tN, tD = D;       // tc = tN / tD, default tD = D >= 0
-
-								   // compute the line parameters of the two closest points
-	if (Math::NearZero(D)) 
-	{ // the lines are almost parallel
-		sN = 0.0;         // force using point P0 on segment S1
-		sD = 1.0;         // to prevent possible division by 0.0 later
-		tN = e;
-		tD = c;
-	}
-	else
-	{                 // get the closest points on the infinite lines
-		sN = (b*e - c * d);
-		tN = (a*e - b * d);
-		if (sN < 0.0) 
-		{        // sc < 0 => the s=0 edge is visible
-			sN = 0.0;
-			tN = e;
-			tD = c;
-		}
-		else if (sN > sD) 
-		{  // sc > 1  => the s=1 edge is visible
-			sN = sD;
-			tN = e + b;
-			tD = c;
-		}
-	}
-
-	if (tN < 0.0) 
-	{            // tc < 0 => the t=0 edge is visible
-		tN = 0.0;
-		// recompute sc for this edge
-		if (-d < 0.0)
-		{
-			sN = 0.0;
-		}
-		else if (-d > a)
-		{
-			sN = sD;
-		}
-		else 
-		{
-			sN = -d;
-			sD = a;
-		}
-	}
-	else if (tN > tD) 
-	{      // tc > 1  => the t=1 edge is visible
-		tN = tD;
-		// recompute sc for this edge
-		if ((-d + b) < 0.0)
-		{
-			sN = 0;
-		}
-		else if ((-d + b) > a)
-		{
-			sN = sD;
-		}
-		else 
-		{
-			sN = (-d + b);
-			sD = a;
-		}
-	}
-	// finally do the division to get sc and tc
-	sc = (Math::NearZero(sN) ? 0.0f : sN / sD);
-	tc = (Math::NearZero(tN) ? 0.0f : tN / tD);
-
-	// get the difference of the two closest points
-	Math::Vector3 dP = w + (sc * u) - (tc * v);  // =  S1(sc) - S2(tc)
-
-	return dP.LengthSq();   // return the closest distance squared
-}
-
-const Math::Vector3 & Line::GetStart() const
-{
-	return m_Start;
-}
-
-const Math::Vector3 & Line::GetEnd() const
-{
-	return m_End;
-}
-#pragma endregion Line_method
-
-// Plane
-#pragma region class_Plane3_method
-Plane3::Plane3(const Math::Vector3 & a, const Math::Vector3 & b, const Math::Vector3 & c)
-{
-	//　ベクトル計算
-	Math::Vector3 vab = b - a;
-	Math::Vector3 vac = c - a;
-	// 外積と正規化で法線をだす
-	m_Normal = Math::Vector3::Cross(vab, vac);
-	m_Normal.Normalize();
-	m_Distance = -Math::Vector3::Dot(a, m_Normal);
-}
-#pragma endregion Plane3メソッド
-
 // Sphere3
 #pragma region class_Sphere3_method
-Sphere3::Sphere3(const Math::Vector3 & Position, float Radius) : m_Center(Position), m_Radius(Radius)
+Sphere3::Sphere3(const D3DXVECTOR3 & Position, float Radius) : m_Center(Position), m_Radius(Radius)
 {
 	
 }
@@ -180,7 +23,7 @@ Sphere3::~Sphere3()
 {
 }
 
-void Sphere3::Update(const Math::Vector3 & Position)
+void Sphere3::Update(const D3DXVECTOR3 & Position)
 {
 	m_Center = Position;
 }
@@ -190,11 +33,11 @@ void Sphere3::Update()
 	m_oldCenter = m_Center;
 }
 
-const Math::Vector3 & Sphere3::GetCenter() const
+const D3DXVECTOR3 & Sphere3::GetCenter() const
 {
 	return m_Center;
 }
-const Math::Vector3 & Sphere3::GetOldCenter() const
+const D3DXVECTOR3 & Sphere3::GetOldCenter() const
 {
 	return m_oldCenter;
 }
@@ -210,13 +53,13 @@ namespace Debug
 {
 	struct LineVertex
 	{
-		Math::Vector3 position;
-		Math::Vector3 normal;
-		Math::Vector4 color;
+		D3DXVECTOR3 position;
+		D3DXVECTOR3 normal;
+		D3DXVECTOR4 color;
 	};
 }
 
-AABB3::AABB3(const Math::Vector3 & Center, const Math::Vector3 & Size) : m_Center(Center), m_Size(Size)
+AABB3::AABB3(const D3DXVECTOR3 & Center, const D3DXVECTOR3 & Size) : m_Center(Center), m_Size(Size)
 {
 	m_Min = m_Center - m_Size;
 	m_Max = m_Center + m_Size;
@@ -227,39 +70,39 @@ AABB3::~AABB3() {}
 #pragma region Setting_SystemDebug
 void AABB3::SystemDraw()
 {
-#if 0
-	auto& graphics = Engine::Get().GetGraphics();
-	auto& resource = Engine::Get().GetResource();
+#if 1
+	auto& graphics = Engine::Get().graphics();
+	auto& resource = Engine::Get().resource();
 	resource->SetShader("NoLighting");
 	
 	m_Min = GetMin();
 	m_Max = GetMax();
 	
 	Debug::LineVertex v[8];
-	v[0].position = Math::Vector3(m_Min.x, m_Max.y, m_Min.z);
-	v[0].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[0].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-	v[1].position = Math::Vector3(m_Max.x, m_Max.y, m_Min.z);
-	v[1].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[1].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-	v[2].position = Math::Vector3(m_Min.x, m_Min.y, m_Min.z);
-	v[2].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[2].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-	v[3].position = Math::Vector3(m_Max.x, m_Min.y, m_Min.z);
-	v[3].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[3].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-	v[4].position = Math::Vector3(m_Min.x, m_Max.y, m_Max.z);
-	v[4].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[4].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-	v[5].position = Math::Vector3(m_Max.x, m_Max.y, m_Max.z);
-	v[5].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[5].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-	v[6].position = Math::Vector3(m_Min.x, m_Min.y, m_Max.z);
-	v[6].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[6].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
-	v[7].position = Math::Vector3(m_Max.x, m_Min.y, m_Max.z);
-	v[7].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[7].color = Math::Vector4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[0].position = D3DXVECTOR3(m_Min.x, m_Max.y, m_Min.z);
+	v[0].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[0].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[1].position = D3DXVECTOR3(m_Max.x, m_Max.y, m_Min.z);
+	v[1].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[1].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[2].position = D3DXVECTOR3(m_Min.x, m_Min.y, m_Min.z);
+	v[2].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[2].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[3].position = D3DXVECTOR3(m_Max.x, m_Min.y, m_Min.z);
+	v[3].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[3].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[4].position = D3DXVECTOR3(m_Min.x, m_Max.y, m_Max.z);
+	v[4].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[4].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[5].position = D3DXVECTOR3(m_Max.x, m_Max.y, m_Max.z);
+	v[5].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[5].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[6].position = D3DXVECTOR3(m_Min.x, m_Min.y, m_Max.z);
+	v[6].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[6].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
+	v[7].position = D3DXVECTOR3(m_Max.x, m_Min.y, m_Max.z);
+	v[7].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[7].color = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0f);
 	
 	int* index = new int[24];
 	index[0] = 0;
@@ -323,8 +166,8 @@ void AABB3::SystemDraw()
 	
 	graphics->GetDevice()->CreateBuffer(&bd2, &sd2, &pIB);
 	
-	DirectX::XMMATRIX world;
-	world = DirectX::XMMatrixIdentity();
+	D3DXMATRIX world;
+	D3DXMatrixIsIdentity(&world);
 	graphics->SetWorldMatrix(world);
 	
 	UINT stride = sizeof(Debug::LineVertex);
@@ -345,7 +188,7 @@ void AABB3::SystemDraw()
 #endif
 }
 
-void AABB3::Update(const Math::Vector3 & Position)
+void AABB3::Update(const D3DXVECTOR3 & Position)
 {
 	m_Center = Position;
 	m_Min = m_Center - m_Size;
@@ -354,22 +197,21 @@ void AABB3::Update(const Math::Vector3 & Position)
 
 #pragma endregion デバッグ用の設定
 
-void AABB3::Update(const Math::Vector3 & Position, const Math::Quaternion& Rot)
+void AABB3::Update(const D3DXVECTOR3 & Position, const D3DXVECTOR3& Rot)
 {
 	m_Center = Position;
 	m_Min = m_Center - m_Size;
 	m_Max = m_Center + m_Size;
-	UpdateRotate(Rot);
 }
 
-bool AABB3::Contains(const Math::Vector3 & point) const
+bool AABB3::Contains(const D3DXVECTOR3 & point) const
 {
 	bool outside = point.x < m_Min.x || point.y < m_Min.y || point.z < m_Min.z || point.x > m_Max.x || point.y > m_Max.y || point.z > m_Max.z;
 	// pointはBoxの中にある
 	return !outside;
 }
 
-float AABB3::MinDistSq(const Math::Vector3 & Position) const
+float AABB3::MinDistSq(const D3DXVECTOR3 & Position) const
 {
 	float dx = Math::Max(m_Min.x - Position.x, 0.0f);
 	dx = Math::Max(dx, Position.x - m_Max.x);
@@ -380,42 +222,17 @@ float AABB3::MinDistSq(const Math::Vector3 & Position) const
 	return dx * dx + dy * dy + dz * dz;
 }
 
-const Math::Vector3& AABB3::GetMin() const
+const D3DXVECTOR3& AABB3::GetMin() const
 {
 	return m_Min;
 }
 
-const Math::Vector3& AABB3::GetMax() const
+const D3DXVECTOR3& AABB3::GetMax() const
 {
 	return m_Max;
 }
-void AABB3::UpdateRotate(const Math::Quaternion & Rot)
-{
-	m_Min = m_Center - m_Size;
-	m_Max = m_Center + m_Size;
-	std::array<Math::Vector3, 8> points;
-	points[0] = m_Min;
-	points[1] = Math::Vector3(m_Max.x, m_Min.y, m_Min.z);
-	points[2] = Math::Vector3(m_Min.x, m_Max.y, m_Min.z);
-	points[3] = Math::Vector3(m_Min.x, m_Min.y, m_Max.z);
-	points[4] = Math::Vector3(m_Min.x, m_Max.y, m_Max.z);
-	points[5] = Math::Vector3(m_Max.x, m_Min.y, m_Max.z);
-	points[6] = Math::Vector3(m_Max.x, m_Max.y, m_Min.z);
-	points[7] = Math::Vector3(m_Max);
 
-	//　点をリセット
-	Math::Vector3 p = Math::Vector3::Transform(points[0], Rot);
-	m_Min = p;
-	m_Max = p;
-	// 回転した点からBoxの大きさを更新
-	for (size_t i = 1; i < points.size(); i++)
-	{
-		p = Math::Vector3::Transform(points[i], Rot);
-		UpdateMinMax(p);
-	}
-}
-
-void AABB3::UpdateMinMax(const Math::Vector3 & Point)
+void AABB3::UpdateMinMax(const D3DXVECTOR3 & Point)
 {
 	m_Min.x = Math::Min(m_Min.x, Point.x);
 	m_Min.y = Math::Min(m_Min.y, Point.y);
@@ -428,16 +245,16 @@ void AABB3::UpdateMinMax(const Math::Vector3 & Point)
 
 // OBB3
 #pragma region OBB3_method
-OBB3::OBB3(const Transform & t, const Math::Vector3 & Size)
+OBB3::OBB3(const Transform & t, const D3DXVECTOR3 & Size)
 {
 	auto transform = t;
-	m_Position = transform.GetPosition();
+	m_Position = transform.position();
 	m_Size = Size;
 
 	// 0,1,2 = x,y,z
-	m_Dir[0] = transform.GetVector(Transform::Vector::Right);
-	m_Dir[1] = transform.GetVector(Transform::Vector::Up);
-	m_Dir[2] = transform.GetVector(Transform::Vector::Forward);
+	m_Dir[0] = transform.right();
+	m_Dir[1] = transform.up();
+	m_Dir[2] = transform.forward();
 
 	m_Min = m_Position - m_Size;
 	m_Max = m_Position + m_Size;
@@ -450,14 +267,14 @@ OBB3::~OBB3()
 {
 }
 
-void OBB3::Update(const Math::Vector3& Position, const Transform & t)
+void OBB3::Update(const D3DXVECTOR3& Position, const Transform & t)
 {
 	auto transform = t;
 	m_Position = Position;
 	// 0,1,2 = x,y,z
-	m_Dir[0] = transform.GetVector(Transform::Vector::Right);
-	m_Dir[1] = transform.GetVector(Transform::Vector::Up);
-	m_Dir[2] = transform.GetVector(Transform::Vector::Forward);
+	m_Dir[0] = transform.right();
+	m_Dir[1] = transform.up();
+	m_Dir[2] = transform.forward();
 	m_Min = m_Position - m_Size;
 	m_Max = m_Position + m_Size;
 	m_Length.x = Math::Abs(m_Max.x - m_Min.x) * 0.5f;
@@ -467,9 +284,9 @@ void OBB3::Update(const Math::Vector3& Position, const Transform & t)
 
 void OBB3::SystemDraw()
 {
-#if 0
-	auto& graphics = Engine::Get().GetGraphics();
-	auto& resource = Engine::Get().GetResource();
+#if 1
+	auto& graphics = Engine::Get().graphics();
+	auto& resource = Engine::Get().resource();
 	resource->SetShader("NoLighting");
 
 	// 端の点を求める
@@ -477,30 +294,30 @@ void OBB3::SystemDraw()
 	m_Max = m_Position + m_Size;
 	
 	Debug::LineVertex v[8];
-	v[0].position = Math::Vector3(m_Min.x, m_Max.y, m_Min.z);
-	v[0].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[0].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[1].position = Math::Vector3(m_Max.x, m_Max.y, m_Min.z);
-	v[1].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[1].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[2].position = Math::Vector3(m_Min.x, m_Min.y, m_Min.z);
-	v[2].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[2].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[3].position = Math::Vector3(m_Max.x, m_Min.y, m_Min.z);
-	v[3].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[3].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[4].position = Math::Vector3(m_Min.x, m_Max.y, m_Max.z);
-	v[4].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[4].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[5].position = Math::Vector3(m_Max.x, m_Max.y, m_Max.z);
-	v[5].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[5].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[6].position = Math::Vector3(m_Min.x, m_Min.y, m_Max.z);
-	v[6].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[6].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[7].position = Math::Vector3(m_Max.x, m_Min.y, m_Max.z);
-	v[7].normal = Math::Vector3(0.0f, 1.0f, 0.0f);
-	v[7].color = Math::Vector4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[0].position = D3DXVECTOR3(m_Min.x, m_Max.y, m_Min.z);
+	v[0].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[0].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[1].position = D3DXVECTOR3(m_Max.x, m_Max.y, m_Min.z);
+	v[1].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[1].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[2].position = D3DXVECTOR3(m_Min.x, m_Min.y, m_Min.z);
+	v[2].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[2].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[3].position = D3DXVECTOR3(m_Max.x, m_Min.y, m_Min.z);
+	v[3].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[3].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[4].position = D3DXVECTOR3(m_Min.x, m_Max.y, m_Max.z);
+	v[4].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[4].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[5].position = D3DXVECTOR3(m_Max.x, m_Max.y, m_Max.z);
+	v[5].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[5].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[6].position = D3DXVECTOR3(m_Min.x, m_Min.y, m_Max.z);
+	v[6].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[6].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
+	v[7].position = D3DXVECTOR3(m_Max.x, m_Min.y, m_Max.z);
+	v[7].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	v[7].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
 
 	int* index = new int[24];
 	index[0] = 0;
@@ -564,8 +381,8 @@ void OBB3::SystemDraw()
 
 	graphics->GetDevice()->CreateBuffer(&bd2, &sd2, &pIB);
 
-	DirectX::XMMATRIX world;
-	world = DirectX::XMMatrixIdentity();
+	D3DXMATRIX world;
+	D3DXMatrixIdentity(&world);
 	graphics->SetWorldMatrix(world);
 
 	UINT stride = sizeof(Debug::LineVertex);
@@ -586,17 +403,17 @@ void OBB3::SystemDraw()
 #endif
 }
 
-const Math::Vector3 & OBB3::GetPosition() const
+const D3DXVECTOR3 & OBB3::position() const
 {
 	return m_Position;
 }
 
-const Math::Vector3 & OBB3::GetDirection(int32_t Element)
+const D3DXVECTOR3 & OBB3::GetDirection(int32_t Element)
 {
 	return m_Dir[Element];
 }
 
-const Math::Vector3 & OBB3::GetLength() const
+const D3DXVECTOR3 & OBB3::GetLength() const
 {
 	return m_Length;
 }
@@ -609,15 +426,15 @@ namespace
 {
 	// OBB3のヘルパー関数
 	// 分離軸に投影された軸成分から投影線分長を算出
-	float LengthSeparateAxis(const Math::Vector3& Sep, const Math::Vector3& E1, const Math::Vector3& E2, const Math::Vector3& E3 = Math::Vector3(0.0f, 0.0f, 0.0f))
+	float LengthSeparateAxis(const D3DXVECTOR3& Sep, const D3DXVECTOR3& E1, const D3DXVECTOR3& E2, const D3DXVECTOR3& E3 = D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 	{
-		float r1 = Math::Abs(Math::Vector3::Dot(Sep, E1));
-		float r2 = Math::Abs(Math::Vector3::Dot(Sep, E2));
-		float r3 = Math::Abs(Math::Vector3::Dot(Sep, E3));
+		float r1 = Math::Abs(D3DXVec3Dot(&Sep, &E1));
+		float r2 = Math::Abs(D3DXVec3Dot(&Sep, &E2));
+		float r3 = Math::Abs(D3DXVec3Dot(&Sep, &E3));
 		return r1 + r2 + r3;
 	}
 
-	bool TestSidePlane(float start, float end, float negd, const Math::Vector3& norm, std::vector<std::pair<float, Math::Vector3>>& out)
+	bool TestSidePlane(float start, float end, float negd, const D3DXVECTOR3& norm, std::vector<std::pair<float, D3DXVECTOR3>>& out)
 	{
 		float denom = end - start;
 		if (Math::NearZero(denom))
@@ -643,74 +460,10 @@ namespace
 
 }
 
-bool Intersect(const Line & l, const AABB3 & b)
-{
-	// Vector to save all possible t values, and normals for those sides
-	std::vector<std::pair<float, Math::Vector3>> tValues;
-	TestSidePlane(l.GetStart().x, l.GetEnd().x, b.GetMin().x, Math::Vector3::NegUnitX, tValues);
-	TestSidePlane(l.GetStart().x, l.GetEnd().x, b.GetMax().x, Math::Vector3::UnitX, tValues);
-	TestSidePlane(l.GetStart().y, l.GetEnd().y, b.GetMin().y, Math::Vector3::NegUnitY, tValues);
-	TestSidePlane(l.GetStart().y, l.GetEnd().y, b.GetMax().y, Math::Vector3::UnitY, tValues);
-	TestSidePlane(l.GetStart().z, l.GetEnd().z, b.GetMin().z, Math::Vector3::NegUnitZ, tValues);
-	TestSidePlane(l.GetStart().z, l.GetEnd().z, b.GetMax().z, Math::Vector3::UnitZ, tValues);
-
-	// Sort the t values in ascending order
-	std::sort(tValues.begin(), tValues.end(), [](
-		const std::pair<float, Math::Vector3>& a,
-		const std::pair<float, Math::Vector3>& b) {
-			return a.first < b.first;
-		});
-	// Test if the box contains any of these points of intersection
-	Math::Vector3 point;
-	for (auto& t : tValues)
-	{
-		point = l.PointOnSegment(t.first);
-		if (b.Contains(point))
-		{
-			return true;
-		}
-	}
-
-	//None of the intersections are within bounds of box
-	return false;
-}
-
-bool Intersect(const AABB3 & b, const Line & l)
-{
-	// Vector to save all possible t values, and normals for those sides
-	std::vector<std::pair<float, Math::Vector3>> tValues;
-	TestSidePlane(l.GetStart().x, l.GetEnd().x, b.GetMin().x, Math::Vector3::NegUnitX, tValues);
-	TestSidePlane(l.GetStart().x, l.GetEnd().x, b.GetMax().x, Math::Vector3::UnitX, tValues);
-	TestSidePlane(l.GetStart().y, l.GetEnd().y, b.GetMin().y, Math::Vector3::NegUnitY, tValues);
-	TestSidePlane(l.GetStart().y, l.GetEnd().y, b.GetMax().y, Math::Vector3::UnitY, tValues);
-	TestSidePlane(l.GetStart().z, l.GetEnd().z, b.GetMin().z, Math::Vector3::NegUnitZ, tValues);
-	TestSidePlane(l.GetStart().z, l.GetEnd().z, b.GetMax().z, Math::Vector3::UnitZ, tValues);
-
-	// Sort the t values in ascending order
-	std::sort(tValues.begin(), tValues.end(), []( 
-		const std::pair<float, Math::Vector3>& a,
-		const std::pair<float, Math::Vector3>& b) {
-			return a.first < b.first;
-		});
-	// Test if the box contains any of these points of intersection
-	Math::Vector3 point;
-	for (auto& t : tValues)
-	{
-		point = l.PointOnSegment(t.first);
-		if (b.Contains(point))
-		{
-			return true;
-		}
-	}
-
-	//None of the intersections are within bounds of box
-	return false;
-}
-
 bool Intersect(const Sphere3 & a, const Sphere3 & b)
 {
-	Math::Vector3 vec = a.GetCenter() - b.GetCenter();
- 	float distsq = vec.LengthSq();
+	D3DXVECTOR3 vec = a.GetCenter() - b.GetCenter();
+ 	float distsq = D3DXVec3LengthSq(&vec);
 	float sumRadius = a.GetRadius() + b.GetRadius();
 	if(distsq <= (sumRadius * sumRadius))
 	{
@@ -721,7 +474,7 @@ bool Intersect(const Sphere3 & a, const Sphere3 & b)
 
 bool Intersect(const AABB3 & a, const AABB3 & b)
 {
-	Math::Vector3 minA, maxA, minB, maxB;
+	D3DXVECTOR3 minA, maxA, minB, maxB;
 	// Aの最小点と最大点
 	minA = a.GetMin();
 	maxA = a.GetMax();
@@ -747,8 +500,8 @@ bool Intersect(const AABB3 & a, const AABB3 & b)
 
 bool Intersect(const Sphere3 & s, const OBB3 & b)
 {
-	Math::Vector3 dist = b.GetPosition() - s.GetCenter();
-	float dot = Math::Vector3::Dot(dist, dist);
+	D3DXVECTOR3 dist = b.position() - s.GetCenter();
+	float dot = D3DXVec3Dot(&dist, &dist);
 	if (dot <= s.GetRadius() * s.GetRadius())
 	{
 		return true;
@@ -780,149 +533,149 @@ bool Intersect(const OBB3 & a, const OBB3 & b)
 {
 	OBB3 obj_a = a;
 	OBB3 obj_b = b;
-	Math::Vector3 Nae1 = obj_a.GetDirection(0);
-	Math::Vector3 ae1 = Nae1 * obj_a.GetLength().x;
-	Math::Vector3 Nae2 = obj_a.GetDirection(1);
-	Math::Vector3 ae2 = Nae2 * obj_a.GetLength().y;
-	Math::Vector3 Nae3 = obj_a.GetDirection(2);
-	Math::Vector3 ae3 = Nae3 * obj_a.GetLength().z;
+	D3DXVECTOR3 Nae1 = obj_a.GetDirection(0);
+	D3DXVECTOR3 ae1 = Nae1 * obj_a.GetLength().x;
+	D3DXVECTOR3 Nae2 = obj_a.GetDirection(1);
+	D3DXVECTOR3 ae2 = Nae2 * obj_a.GetLength().y;
+	D3DXVECTOR3 Nae3 = obj_a.GetDirection(2);
+	D3DXVECTOR3 ae3 = Nae3 * obj_a.GetLength().z;
 
-	Math::Vector3 Nbe1 = obj_b.GetDirection(0);
-	Math::Vector3 be1 = Nae1 * obj_b.GetLength().x;
-	Math::Vector3 Nbe2 = obj_b.GetDirection(1);
-	Math::Vector3 be2 = Nae2 * obj_b.GetLength().y;
-	Math::Vector3 Nbe3 = obj_b.GetDirection(2);
-	Math::Vector3 be3 = Nae3 * obj_b.GetLength().z;
+	D3DXVECTOR3 Nbe1 = obj_b.GetDirection(0);
+	D3DXVECTOR3 be1 = Nae1 * obj_b.GetLength().x;
+	D3DXVECTOR3 Nbe2 = obj_b.GetDirection(1);
+	D3DXVECTOR3 be2 = Nae2 * obj_b.GetLength().y;
+	D3DXVECTOR3 Nbe3 = obj_b.GetDirection(2);
+	D3DXVECTOR3 be3 = Nae3 * obj_b.GetLength().z;
 
-	Math::Vector3 Interval = obj_a.GetPosition() - obj_b.GetPosition();
+	D3DXVECTOR3 Interval = obj_a.position() - obj_b.position();
 
 	// 分離軸 : ae1
-	float rA = ae1.Length();
+	float rA = D3DXVec3Length(&ae1);
 	float rB = LengthSeparateAxis(Nae1, be1, be2, be3);
-	float L = Math::Abs(Math::Vector3::Dot(Interval, Nae1));
+	float L = Math::Abs(D3DXVec3Dot(&Interval, &Nae1));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	 // 分離軸 : ae2
-	rA = ae2.Length();
+	rA = D3DXVec3Length(&ae2);
 	rB = LengthSeparateAxis(Nae2, be1, be2, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, Nae2));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &Nae2));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : ae3
-	rA = ae3.Length();
+	rA = D3DXVec3Length(&ae3);
 	rB = LengthSeparateAxis(Nae3, be1, be2, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, Nae3));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &Nae3));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : be1
 	rA = LengthSeparateAxis(Nbe1, ae1, ae2, ae3);
-	rB = be1.Length();
-	L = Math::Abs(Math::Vector3::Dot(Interval, Nbe1));
+	rB = D3DXVec3Length(&be1);
+	L = Math::Abs(D3DXVec3Dot(&Interval, &Nbe1));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : be2
 	rA = LengthSeparateAxis(Nbe2, ae1, ae2, ae3);
-	rB = be2.Length();
-	L = Math::Abs(Math::Vector3::Dot(Interval, Nbe2));
+	rB = D3DXVec3Length(&be2);
+	L = Math::Abs(D3DXVec3Dot(&Interval, &Nbe2));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : be3
 	rA = LengthSeparateAxis(Nbe3, ae1, ae2, ae3);
-	rB = be3.Length();
-	L = Math::Abs(Math::Vector3::Dot(Interval, Nbe3));
+	rB = D3DXVec3Length(&be3);
+	L = Math::Abs(D3DXVec3Dot(&Interval, &Nbe3));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 
 	// 分離軸 : C11
-	Math::Vector3 cross;
-	cross = Math::Vector3::Cross(Nae1, Nbe1);
+	D3DXVECTOR3 cross;
+	D3DXVec3Cross(&cross, &Nae1, &Nbe1);
 	rA = LengthSeparateAxis(cross, ae2, ae3);
 	rB = LengthSeparateAxis(cross, be2, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C12
-	cross = Math::Vector3::Cross(Nae1, Nbe2);
+	D3DXVec3Cross(&cross, &Nae1, &Nbe2);
 	rA = LengthSeparateAxis(cross, ae2, ae3);
 	rB = LengthSeparateAxis(cross, be1, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C13
-	cross = Math::Vector3::Cross(Nae1, Nbe3);
+	D3DXVec3Cross(&cross, &Nae1, &Nbe3);
 	rA = LengthSeparateAxis(cross, ae2, ae3);
 	rB = LengthSeparateAxis(cross, be1, be2);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C21
-	cross = Math::Vector3::Cross(Nae2, Nbe1);
+	D3DXVec3Cross(&cross, &Nae2, &Nbe1);
 	rA = LengthSeparateAxis(cross, ae1, ae3);
 	rB = LengthSeparateAxis(cross, be2, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C22
-	cross = Math::Vector3::Cross(Nae2, Nbe2);
+	D3DXVec3Cross(&cross, &Nae2, &Nbe2);
 	rA = LengthSeparateAxis(cross, ae1, ae3);
 	rB = LengthSeparateAxis(cross, be1, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C23
-	cross = Math::Vector3::Cross(Nae2, Nbe3);
+	D3DXVec3Cross(&cross, &Nae2, &Nbe3);
 	rA = LengthSeparateAxis(cross, ae1, ae3);
 	rB = LengthSeparateAxis(cross, be1, be2);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C31
-	cross = Math::Vector3::Cross(Nae3, Nbe1);
+	D3DXVec3Cross(&cross, &Nae3, &Nbe1);
 	rA = LengthSeparateAxis(cross, ae1, ae2);
 	rB = LengthSeparateAxis(cross, be2, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C32
-	cross = Math::Vector3::Cross(Nae3, Nbe2);
+	D3DXVec3Cross(&cross, &Nae3, &Nbe2);
 	rA = LengthSeparateAxis(cross, ae1, ae2);
 	rB = LengthSeparateAxis(cross, be1, be3);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
 	}
 	// 分離軸 : C33
-	cross = Math::Vector3::Cross(Nae3, Nbe3);
+	D3DXVec3Cross(&cross, &Nae3, &Nbe3);
 	rA = LengthSeparateAxis(cross, ae1, ae2);
 	rB = LengthSeparateAxis(cross, be1, be2);
-	L = Math::Abs(Math::Vector3::Dot(Interval, cross));
+	L = Math::Abs(D3DXVec3Dot(&Interval, &cross));
 	if (L > rA + rB)
 	{
 		return false;
@@ -935,12 +688,12 @@ bool Intersect(const OBB3 & a, const OBB3 & b)
 // 連続衝突検知
 bool CCD(const Sphere3 & p, const Sphere3 & q, float & t)
 {
-	Math::Vector3 x = p.GetOldCenter() - q.GetOldCenter();
-	Math::Vector3 y = p.GetCenter() - p.GetOldCenter() - (q.GetCenter() - q.GetOldCenter());
-	float a = Math::Vector3::Dot(y, y);
-	float b = 2.0f * Math::Vector3::Dot(x, y);
+	D3DXVECTOR3 x = p.GetOldCenter() - q.GetOldCenter();
+	D3DXVECTOR3 y = p.GetCenter() - p.GetOldCenter() - (q.GetCenter() - q.GetOldCenter());
+	float a = D3DXVec3Dot(&y, &y);
+	float b = 2.0f * D3DXVec3Dot(&x, &y);
 	float sumRadius = p.GetRadius() + q.GetRadius();
-	float c = Math::Vector3::Dot(x, x) - sumRadius * sumRadius;
+	float c = D3DXVec3Dot(&x, &x) - sumRadius * sumRadius;
 	// 判別式
 	float dist = b * b - 4.0f * a * c;
 	if (dist < 0.0f)

@@ -27,23 +27,24 @@ Fence::~Fence()
 
 void Fence::Begin()
 {
-	m_BoxComponent->SetAABB3(*m_Transform, Math::Vector3(8.0f, 6.0f, 2.0f));
+	m_BoxComponent->SetAABB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
+	m_BoxComponent->SetOBB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 }
 
 void Fence::Update()
 {
 	Actor::UpdateCollision(*m_BoxComponent);
 	// プレイヤー
-	auto player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
-		OnCollisionToVehicle(player->GetVehicle());
+		OnCollisionToVehicle(player->vehicle());
 	}
 	// エネミー
-	auto enemy_1 = Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
+	auto enemy_1 = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 	if (enemy_1)
 	{
-		OnCollisionToVehicle(enemy_1->GetVehicle());
+		OnCollisionToVehicle(enemy_1->vehicle());
 	}
 }
 
@@ -57,14 +58,14 @@ void Fence::Event()
 
 void Fence::Draw()
 {
-	GetResource().SetShader("Default");
+	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	GetResource().SetStaticModel("Fence");
+	resource().SetStaticModel("Fence");
 }
 
 void Fence::OnCollisionToVehicle(const Vehicle & Vehicle)
 {
-	if (Intersect(m_BoxComponent->GetAABB3(), Vehicle.GetBoxComponent(0).GetAABB3()))
+	if (Intersect(m_BoxComponent->GetOBB3(), Vehicle.GetBoxComponent(0).GetOBB3()))
 	{
 		OnCollisionEnter();
 	}

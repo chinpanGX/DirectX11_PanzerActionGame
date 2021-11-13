@@ -19,8 +19,8 @@ BulletStateDestory::~BulletStateDestory()
 void BulletStateDestory::Update(Bullet * Bullet, float deltaTime)
 {
 	// エフェクトを再生する
-	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<Explosion>(ELayer::LAYER_2D_EFFECT);
-	effect->GetTransform().SetPosition(Bullet->GetTransform().GetPosition());
+	auto effect = Engine::Get().application()->GetScene()->AddGameObject<Explosion>(ELayer::LAYER_2D_EFFECT);
+	effect->transform().position(Bullet->transform().position());
 	
 	// インスタンスの削除
 	Bullet->OnDestroy();

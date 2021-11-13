@@ -50,7 +50,7 @@ void GameManager::Update()
 	// ƒQ[ƒ€‚ªI—¹‚µ‚½‚çAƒŠƒUƒ‹ƒgƒV[ƒ“‚Ö‘JˆÚ
 	if (m_GameEnd)
 	{
-		Engine::Get().GetApplication()->SetScene<GameScene::Result>();
+		Engine::Get().application()->SetScene<GameScene::Result>();
 	}
 }
 
@@ -104,7 +104,7 @@ ResultManager::ResultManager()
 	audio->Begin(g_PlayerWinner);
 	
 	// ”wŒi‚Ì’Ç‰Á
-	Engine::Get().GetApplication()->GetScene()->AddGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->Begin(g_PlayerWinner);
+	Engine::Get().application()->GetScene()->AddGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->Begin(g_PlayerWinner);
 }
 
 void ResultManager::Begin()

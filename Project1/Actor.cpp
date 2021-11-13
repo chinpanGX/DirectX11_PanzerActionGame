@@ -34,7 +34,7 @@ void Actor::Draw()
 {
 }
 
-Transform & Actor::GetTransform() const
+Transform & Actor::transform() const
 {
 	if (!m_Transform)
 	{
@@ -55,16 +55,16 @@ BoxComponent & Actor::GetBoxComponent() const
 #pragma region proteced_method
 void Actor::UpdateCollision(BoxComponent & BoxComponent)
 {
-	BoxComponent.Update(m_Transform->GetPosition(), *m_Transform);
+	BoxComponent.Update(m_Transform->position(), *m_Transform);
 }
 
 void Actor::UpdateMatrix(Transform & Transform)
 {
-	DirectX::XMMATRIX world, scale, rot, trans;
-	scale = Math::Matrix::MatrixScaling(m_Transform->GetScale());
-	rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->GetRotation());
-	trans = Math::Matrix::MatrixTranslation(m_Transform->GetPosition());
+	D3DXMATRIX world, scale, rot, trans;
+	Math::Matrix::MatrixScaling(&scale, Transform.scale());
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, Transform.rotation());
+	Math::Matrix::MatrixTranslation(&trans, Transform.position());
 	world = scale * rot * trans;
-	Engine::Get().GetGraphics()->SetWorldMatrix(world);
+	Engine::Get().graphics()->SetWorldMatrix(world);
 }
 #pragma endregion protecedƒƒ\ƒbƒh

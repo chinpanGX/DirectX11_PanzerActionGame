@@ -21,7 +21,7 @@ LoadTexture::~LoadTexture()
 
 void LoadTexture::Load(const std::string& name)
 { 
-	D3DX11CreateShaderResourceViewFromFile(Engine::Get().GetGraphics()->GetDevice().Get(), (LPSTR)name.c_str(), NULL, NULL, m_Texture.GetAddressOf(), NULL);
+	D3DX11CreateShaderResourceViewFromFile(Engine::Get().graphics()->GetDevice().Get(), (LPSTR)name.c_str(), NULL, NULL, m_Texture.GetAddressOf(), NULL);
 	assert(m_Texture);
 }
 

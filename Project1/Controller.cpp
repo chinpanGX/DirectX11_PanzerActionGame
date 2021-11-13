@@ -7,7 +7,7 @@
 
 ---------------------------------------------------------------*/
 #include "MoveComponent.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "Skill.h"
 #include "Vehicle.h"
 #include "Pawn.h"
@@ -18,7 +18,7 @@
 #include "Resource.h"
 #include "Reload.h"
 
-Controller::Controller(Pawn * pPawn, GameCamera * pCamera, PanzerPilot* pPanzerPilot) : m_Pawn(pPawn), m_Camera(pCamera), m_Panzerpilot(pPanzerPilot)
+Controller::Controller(Pawn * pPawn, GameCamera * pCamera, Pivot* pPivot) : m_Pawn(pPawn), m_Camera(pCamera), m_Pivot(pPivot)
 {
 	
 }
@@ -27,72 +27,77 @@ Controller::~Controller()
 {
 }
 
-void Controller::ChangeCameraMode(bool Mode)
+void Controller::FpsCameraMode(bool fpsMode)
 {
-	m_Camera->ChangeCameraMode(Mode);
+	m_Camera->EnableFpsMode(fpsMode);
 }
 
 void Controller::MoveForward(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().MoveForward(m_Pawn->GetVehicle().GetBodyTransform(), deltaTime);
-	m_Panzerpilot->Move();
+	m_Pawn->GetMoveComponent().MoveForward(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pivot->Move();
 }
 
 void Controller::MoveBackward(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().MoveBackward(m_Pawn->GetVehicle().GetBodyTransform(), deltaTime);
-	m_Panzerpilot->Move();
+	m_Pawn->GetMoveComponent().MoveBackward(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pivot->Move();
 }
 
 void Controller::RotRight(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotRight(m_Pawn->GetVehicle().GetBodyTransform(), deltaTime);
-	m_Panzerpilot->GetMoveComponent().RotRight(m_Panzerpilot->GetTransform(), deltaTime);
+	m_Pawn->GetMoveComponent().RotRight(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotLeft(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->GetVehicle().GetBodyTransform(), deltaTime);
-	m_Panzerpilot->GetMoveComponent().RotLeft(m_Panzerpilot->GetTransform(), deltaTime);
+	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretRight(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotRight(m_Pawn->GetVehicle().GetTurretTransform(), deltaTime);
-	m_Panzerpilot->GetMoveComponent().RotRight(m_Panzerpilot->GetTransform(), deltaTime);
+	m_Pawn->GetMoveComponent().RotRight(m_Pawn->vehicle().turretTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretLeft(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->GetVehicle().GetTurretTransform(), deltaTime);
-	m_Panzerpilot->GetMoveComponent().RotLeft(m_Panzerpilot->GetTransform(), deltaTime);
+	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->vehicle().turretTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunUp(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().GunUp(m_Pawn->GetVehicle().GetGunTransform(), deltaTime);
-	m_Panzerpilot->GetMoveComponent().GunUp(m_Panzerpilot->GetTransform(), deltaTime);
+	m_Pawn->GetMoveComponent().GunUp(m_Pawn->vehicle().gunTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().GunUp(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunDown(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().GunDown(m_Pawn->GetVehicle().GetGunTransform(), deltaTime);
-	m_Panzerpilot->GetMoveComponent().GunDown(m_Panzerpilot->GetTransform(), deltaTime);
+	m_Pawn->GetMoveComponent().GunDown(m_Pawn->vehicle().gunTransform(), deltaTime);
+	m_Pivot->GetMoveComponent().GunDown(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::Shot()
 {
-	if (m_Pawn->GetVehicle().GetStatus().GetFinishReload() == true)
+	// リロードが完了しているかチェックする
+	if (m_Pawn->vehicle().GetStatus().GetFinishReload() == true)
 	{
-		m_Pawn->GetVehicle().Shot(m_Panzerpilot->GetTransform());
-		Engine::Get().GetResource()->AudioPlay("Shot");
-		auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
-		Math::Vector3 offset = m_Panzerpilot->GetTransform().GetPosition() + Math::Vector3(0.0f, 3.0f, 0.0f);
-		effect->GetTransform().SetPosition(offset);
+		// リロードが完了している
+		// 射撃
+		m_Pawn->vehicle().Shot(m_Pivot->transform());
+		// オーディオ
+		Engine::Get().resource()->AudioPlay("Shot");
+		// リロードエフェクト
+		auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
+		D3DXVECTOR3 offset = m_Pivot->transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f);
+		effect->transform().position(offset);
 	}
 }
 
 void Controller::UseSkill()
 {
-	m_Pawn->GetVehicle().GetSkill().Enable();
+	m_Pawn->vehicle().GetSkill().Enable(m_Pawn);
 }

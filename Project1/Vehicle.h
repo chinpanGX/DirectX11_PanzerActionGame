@@ -25,8 +25,8 @@ public:
 	void Event()override {}
 
 	// 初期位置を決める
-	void SetStartPosition(Math::Vector3 pos, Math::Vector3 rot); // ガレージで使う
-	void SetStartPosition(class Pawn* pawn, Math::Vector3 pos, Math::Vector3 rot);
+	void SetStartPosition(D3DXVECTOR3 pos, D3DXVECTOR3 rot); // ガレージで使う
+	void SetStartPosition(class Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 	
 	// ダメージ計算
 	void CalcuateDamege(class Pawn* Pawn);
@@ -35,12 +35,12 @@ public:
 	void Shot(const Transform& transform);
 	
 	//　当たり判定関係
-	void ColiisionUpdate(int32_t Element, const Math::Vector3& Position, const Transform& t);
+	void ColiisionUpdate(int32_t Element, const D3DXVECTOR3& Position, const Transform& t);
 	BoxComponent& GetBoxComponent(int32_t Element) const;
 	
-	class Transform& GetBodyTransform() const;
-	class Transform& GetTurretTransform() const;
-	class Transform& GetGunTransform() const;
+	class Transform& bodyTransform() const;
+	class Transform& turretTransform() const;
+	class Transform& gunTransform() const;
 	Status& GetStatus() const;
 	Skill& GetSkill() const;
 protected:

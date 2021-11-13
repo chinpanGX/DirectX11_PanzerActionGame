@@ -153,8 +153,6 @@
     <ClCompile Include="BulletComponentEvent.cpp" />
     <ClCompile Include="BulletStateDestory.cpp" />
     <ClCompile Include="BulletStateMove.cpp" />
-    <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="CameraMode.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Controller.cpp" />
@@ -198,7 +196,7 @@
     <ClCompile Include="PanzerGarage.cpp" />
     <ClCompile Include="PanzerList.cpp" />
     <ClCompile Include="PanzerNameList.cpp" />
-    <ClCompile Include="PanzerPilot.cpp" />
+    <ClCompile Include="Pivot.cpp" />
     <ClCompile Include="PanzerState.cpp" />
     <ClCompile Include="PanzerStateMove.cpp" />
     <ClCompile Include="PanzerStateRotation.cpp" />
@@ -252,8 +250,6 @@
     <ClInclude Include="BulletComponentEvent.h" />
     <ClInclude Include="BulletStateDestory.h" />
     <ClInclude Include="BulletStateMove.h" />
-    <ClInclude Include="Camera.h" />
-    <ClInclude Include="CameraMode.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DrawSkill.h" />
     <ClInclude Include="IOnComponentEvent.h" />
@@ -302,7 +298,7 @@
     <ClInclude Include="PanzerGarage.h" />
     <ClInclude Include="PanzerList.h" />
     <ClInclude Include="PanzerNameList.h" />
-    <ClInclude Include="PanzerPilot.h" />
+    <ClInclude Include="Pivot.h" />
     <ClInclude Include="PanzerState.h" />
     <ClInclude Include="PanzerStateMove.h" />
     <ClInclude Include="PanzerStateRotation.h" />
@@ -382,6 +378,26 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="SpotLightPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="SpotLightVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="unlitTexturePS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>

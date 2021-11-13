@@ -30,9 +30,9 @@ public:
 	// ステート
 	enum EState : uint32_t
 	{
-		KEEPON,
-		OPERATION,
-		END
+		KEEPON,		// 続ける
+		OPERATION,	// 操作方法
+		END			// 終了
 	};
 	void SetState(EState State);
 	EState GetState()const
@@ -55,7 +55,7 @@ public:
 
 	void SelectTop();
 	void SelectBottom();
-	bool GetToorBottom();
+	bool GetToporBottom();
 
 private:
 	void ChangeState(std::unique_ptr<class PauseState> State);

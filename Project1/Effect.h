@@ -14,7 +14,7 @@ class Effect : public Actor
 public:
 	Effect();
 	// テクスチャ座標を設定
-	Effect(Math::Vector2 texMin, Math::Vector2 texMax);
+	Effect(D3DXVECTOR2 texMin, D3DXVECTOR2 texMax);
 	virtual ~Effect();
 	void Begin()override;
 	void Update()override;

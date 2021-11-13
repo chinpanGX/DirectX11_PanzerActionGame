@@ -22,9 +22,9 @@
 Tiger::Tiger() : Vehicle("Tiger")
 {
 	// リソースのロード
-	Engine::Get().GetResource()->LoadModel("TigerBody", "Panzer\\TankBody.obj");
-	Engine::Get().GetResource()->LoadModel("TigerTurret", "Panzer\\TankTurret.obj");
-	Engine::Get().GetResource()->LoadModel("TigerGun", "Panzer\\TankMainGun.obj");
+	Engine::Get().resource()->LoadModel("TigerBody", "Panzer\\TankBody.obj");
+	Engine::Get().resource()->LoadModel("TigerTurret", "Panzer\\TankTurret.obj");
+	Engine::Get().resource()->LoadModel("TigerGun", "Panzer\\TankMainGun.obj");
 	// 戦車のパーツを組み立てる
 	SetPanzer();
 	// プロパティ設定
@@ -40,18 +40,17 @@ Tiger::Tiger() : Vehicle("Tiger")
 	m_BoxComponent[0] = std::make_unique<BoxComponent>();
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 3.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 7.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Tiger::~Tiger()
 {
-	Engine::Get().GetResource()->UnloadModel("TigerBody");
-	Engine::Get().GetResource()->UnloadModel("TigerTurret");
-	Engine::Get().GetResource()->UnloadModel("TigerGun");
+	Engine::Get().resource()->UnloadModel("TigerBody");
+	Engine::Get().resource()->UnloadModel("TigerTurret");
+	Engine::Get().resource()->UnloadModel("TigerGun");
 }
 
 void Tiger::Begin()
@@ -70,6 +69,11 @@ void Tiger::Event()
 void Tiger::Draw()
 {
 	Vehicle::Draw();
+#if 0
+	m_BoxComponent[0]->SystemDraw();
+	m_BoxComponent[1]->SystemDraw();
+	m_BoxComponent[2]->SystemDraw();
+#endif
 }
 #pragma endregion ティーガー
 
@@ -77,9 +81,9 @@ void Tiger::Draw()
 Centurion::Centurion() : Vehicle("Centurion")
 {
 	// リソースのロード
-	Engine::Get().GetResource()->LoadModel("CenturionBody", "Panzer\\CenturionBody.obj");
-	Engine::Get().GetResource()->LoadModel("CenturionTurret", "Panzer\\CenturionTurret.obj");
-	Engine::Get().GetResource()->LoadModel("CenturionGun", "Panzer\\CenturionMainGun.obj");
+	Engine::Get().resource()->LoadModel("CenturionBody", "Panzer\\CenturionBody.obj");
+	Engine::Get().resource()->LoadModel("CenturionTurret", "Panzer\\CenturionTurret.obj");
+	Engine::Get().resource()->LoadModel("CenturionGun", "Panzer\\CenturionMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetProperty(Status::Country::UK, 45.0f, 1350.0f, 248.0f, 114.0f, 50.0f, 6.0f, 0.56f);
@@ -94,18 +98,17 @@ Centurion::Centurion() : Vehicle("Centurion")
 	m_BoxComponent[0] = std::make_unique<BoxComponent>();
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 8.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(6.0f, 5.0f, 6.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 3.0f, 8.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Centurion::~Centurion()
 {
-	Engine::Get().GetResource()->UnloadModel("CenturionBody");
-	Engine::Get().GetResource()->UnloadModel("CenturionTurret");
-	Engine::Get().GetResource()->UnloadModel("CenturionGun");
+	Engine::Get().resource()->UnloadModel("CenturionBody");
+	Engine::Get().resource()->UnloadModel("CenturionTurret");
+	Engine::Get().resource()->UnloadModel("CenturionGun");
 }
 
 void Centurion::Begin()
@@ -124,6 +127,11 @@ void Centurion::Event()
 void Centurion::Draw()
 {
 	Vehicle::Draw();
+#if 0
+	m_BoxComponent[0]->SystemDraw();
+	m_BoxComponent[1]->SystemDraw();
+	m_BoxComponent[2]->SystemDraw();
+#endif
 }
 #pragma endregion センチュリオン
 
@@ -131,9 +139,9 @@ void Centurion::Draw()
 Patton::Patton() : Vehicle("Patton")
 {
 	//　リソースのロード
-	Engine::Get().GetResource()->LoadModel("PattonBody", "Panzer\\PattonBody.obj");
-	Engine::Get().GetResource()->LoadModel("PattonTurret", "Panzer\\PattonTurret.obj");
-	Engine::Get().GetResource()->LoadModel("PattonGun", "Panzer\\PattonMainGun.obj");
+	Engine::Get().resource()->LoadModel("PattonBody", "Panzer\\PattonBody.obj");
+	Engine::Get().resource()->LoadModel("PattonTurret", "Panzer\\PattonTurret.obj");
+	Engine::Get().resource()->LoadModel("PattonGun", "Panzer\\PattonMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetProperty(Status::Country::US, 47.0f, 1600.0f, 240.0f, 139.0f, 60.0f, 8.0f, 0.6f);
@@ -148,18 +156,17 @@ Patton::Patton() : Vehicle("Patton")
 	m_BoxComponent[0] = std::make_unique<BoxComponent>();
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 8.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(6.0f, 5.0f, 6.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 3.0f, 8.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Patton::~Patton()
 {
-	Engine::Get().GetResource()->UnloadModel("PattonBody");
-	Engine::Get().GetResource()->UnloadModel("PattonTurret");
-	Engine::Get().GetResource()->UnloadModel("PattonGun");
+	Engine::Get().resource()->UnloadModel("PattonBody");
+	Engine::Get().resource()->UnloadModel("PattonTurret");
+	Engine::Get().resource()->UnloadModel("PattonGun");
 }
 
 void Patton::Begin()
@@ -178,6 +185,11 @@ void Patton::Event()
 void Patton::Draw()
 {
 	Vehicle::Draw();
+#if 0
+	m_BoxComponent[0]->SystemDraw();
+	m_BoxComponent[1]->SystemDraw();
+	m_BoxComponent[2]->SystemDraw();
+#endif
 }
 #pragma endregion パットン
 
@@ -185,9 +197,9 @@ void Patton::Draw()
 T_34_85::T_34_85() : Vehicle("T-34/85")
 {
 	// リソースのロード
-	Engine::Get().GetResource()->LoadModel("T-34/85Body", "Panzer\\T-34Body.obj");
-	Engine::Get().GetResource()->LoadModel("T-34/85Turret", "Panzer\\T-34Turret.obj");
-	Engine::Get().GetResource()->LoadModel("T-34/85Gun", "Panzer\\T-34MainGun.obj");
+	Engine::Get().resource()->LoadModel("T-34/85Body", "Panzer\\T-34Body.obj");
+	Engine::Get().resource()->LoadModel("T-34/85Turret", "Panzer\\T-34Turret.obj");
+	Engine::Get().resource()->LoadModel("T-34/85Gun", "Panzer\\T-34MainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetProperty(Status::Country::RU, 31.0f, 770.0f, 140.0f, 63.0f, 54.0f, 4.0f, 0.6f);
@@ -204,18 +216,18 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	m_BoxComponent[0] = std::make_unique<BoxComponent>();
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 3.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 T_34_85::~T_34_85()
 {
-	Engine::Get().GetResource()->UnloadModel("T-34/85Body");
-	Engine::Get().GetResource()->UnloadModel("T-34/85Turret");
-	Engine::Get().GetResource()->UnloadModel("T-34/85Gun");
+	Engine::Get().resource()->UnloadModel("T-34/85Body");
+	Engine::Get().resource()->UnloadModel("T-34/85Turret");
+	Engine::Get().resource()->UnloadModel("T-34/85Gun");
 }
 
 void T_34_85::Begin()
@@ -234,6 +246,11 @@ void T_34_85::Event()
 void T_34_85::Draw()
 {
 	Vehicle::Draw();
+#if 0 
+	m_BoxComponent[0]->SystemDraw();
+	m_BoxComponent[1]->SystemDraw();
+	m_BoxComponent[2]->SystemDraw();
+#endif
 }
 #pragma endregion T-34-85
 
@@ -241,9 +258,9 @@ void T_34_85::Draw()
 IV_H::IV_H() : Vehicle("IV-H")
 {
 	// リソースのロード
-	Engine::Get().GetResource()->LoadModel("IV-HBody", "Panzer\\IVBody.obj");
-	Engine::Get().GetResource()->LoadModel("IV-HTurret", "Panzer\\IVTurret.obj");
-	Engine::Get().GetResource()->LoadModel("IV-HGun", "Panzer\\IVMainGun.obj");
+	Engine::Get().resource()->LoadModel("IV-HBody", "Panzer\\IVBody.obj");
+	Engine::Get().resource()->LoadModel("IV-HTurret", "Panzer\\IVTurret.obj");
+	Engine::Get().resource()->LoadModel("IV-HGun", "Panzer\\IVMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetProperty(Status::Country::DE, 26.0f, 600.0f, 132.0f, 47.0f, 40.0f, 4.0f, 0.5f);
@@ -262,18 +279,18 @@ IV_H::IV_H() : Vehicle("IV-H")
 	m_BoxComponent[0] = std::make_unique<BoxComponent>();
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 3.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 IV_H::~IV_H()
 {
-	Engine::Get().GetResource()->UnloadModel("IV-HBody");
-	Engine::Get().GetResource()->UnloadModel("IV-HTurret");
-	Engine::Get().GetResource()->UnloadModel("IV-HGun");
+	Engine::Get().resource()->UnloadModel("IV-HBody");
+	Engine::Get().resource()->UnloadModel("IV-HTurret");
+	Engine::Get().resource()->UnloadModel("IV-HGun");
 }
 
 void IV_H::Begin()
@@ -292,14 +309,19 @@ void IV_H::Event()
 void IV_H::Draw()
 {
 	Vehicle::Draw();
+#if 0 
+	m_BoxComponent[0]->SystemDraw();
+	m_BoxComponent[1]->SystemDraw();
+	m_BoxComponent[2]->SystemDraw();
+#endif
 }
 #pragma endregion IV号H型
 
 Sherman::Sherman() : Vehicle("Sherman")
 {
-	Engine::Get().GetResource()->LoadModel("ShermanBody", "Panzer\\ShermanBody.obj");
-	Engine::Get().GetResource()->LoadModel("ShermanTurret", "Panzer\\ShermanTurret.obj");
-	Engine::Get().GetResource()->LoadModel("ShermanGun", "Panzer\\ShermanMainGun.obj");
+	Engine::Get().resource()->LoadModel("ShermanBody", "Panzer\\ShermanBody.obj");
+	Engine::Get().resource()->LoadModel("ShermanTurret", "Panzer\\ShermanTurret.obj");
+	Engine::Get().resource()->LoadModel("ShermanGun", "Panzer\\ShermanMainGun.obj");
 
 	// 戦車の設定
 	Vehicle::SetPanzer();
@@ -315,18 +337,18 @@ Sherman::Sherman() : Vehicle("Sherman")
 	m_BoxComponent[0] = std::make_unique<BoxComponent>();
 	m_BoxComponent[1] = std::make_unique<BoxComponent>();
 	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(4.0f, 3.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().GetTransform(), Math::Vector3(0.5f, 0.5f, 3.0f));
+	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
+	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 Sherman::~Sherman()
 {
-	Engine::Get().GetResource()->UnloadModel("Panzer\\ShermanBody.obj");
-	Engine::Get().GetResource()->UnloadModel("Panzer\\ShermanTurret.obj");
-	Engine::Get().GetResource()->UnloadModel("Panzer\\ShermanMainGun.obj");
+	Engine::Get().resource()->UnloadModel("Panzer\\ShermanBody.obj");
+	Engine::Get().resource()->UnloadModel("Panzer\\ShermanTurret.obj");
+	Engine::Get().resource()->UnloadModel("Panzer\\ShermanMainGun.obj");
 }
 
 void Sherman::Begin()
@@ -345,4 +367,9 @@ void Sherman::Event()
 void Sherman::Draw()
 {
 	Vehicle::Draw();
+#if 0
+	m_BoxComponent[0]->SystemDraw();
+	m_BoxComponent[1]->SystemDraw();
+	m_BoxComponent[2]->SystemDraw();
+#endif
 }

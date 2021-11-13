@@ -42,8 +42,8 @@ void GameScene::PanzerSelect::Init()
 	AddGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG);
 
 	// BGMのロードと再生
-	Engine::Get().GetResource()->AudioLoad("PanzerSelect", true);
-	Engine::Get().GetResource()->AudioPlay("PanzerSelect", 0.6f);
+	Engine::Get().resource()->AudioLoad("PanzerSelect", true);
+	Engine::Get().resource()->AudioPlay("PanzerSelect", 0.6f);
 
 	// リソースのロード
 	Load();
@@ -74,42 +74,42 @@ void GameScene::PanzerSelect::Load()
 
 void GameScene::PanzerSelect::Unload()
 {
-	Engine::Get().GetResource()->UnloadModel("PanzerGarage");
-	Engine::Get().GetResource()->UnloadTexture("Plane");
-	Engine::Get().GetResource()->UnloadTexture("Ui03");
-	Engine::Get().GetResource()->UnloadModel("Param");
-	Engine::Get().GetResource()->UnloadTexture("SelectUi");
-	Engine::Get().GetResource()->UnloadTexture("Waffuru");
-	Engine::Get().GetResource()->UnloadTexture("SelectList");
-	Engine::Get().GetResource()->AudioUnload();
+	Engine::Get().resource()->UnloadModel("PanzerGarage");
+	Engine::Get().resource()->UnloadTexture("Plane");
+	Engine::Get().resource()->UnloadTexture("Ui03");
+	Engine::Get().resource()->UnloadModel("Param");
+	Engine::Get().resource()->UnloadTexture("SelectUi");
+	Engine::Get().resource()->UnloadTexture("Waffuru");
+	Engine::Get().resource()->UnloadTexture("SelectList");
+	Engine::Get().resource()->AudioUnload();
 }
 
 void GameScene::PanzerSelect::Thread_Audio()
 {
-	Engine::Get().GetResource()->AudioLoad("Select", false);
-	Engine::Get().GetResource()->AudioLoad("Enter", false);
-	Engine::Get().GetResource()->AudioLoad("Cancel", false);
-	Engine::Get().GetResource()->AudioLoad("Button", false);
+	Engine::Get().resource()->AudioLoad("Select", false);
+	Engine::Get().resource()->AudioLoad("Enter", false);
+	Engine::Get().resource()->AudioLoad("Cancel", false);
+	Engine::Get().resource()->AudioLoad("Button", false);
 }
 
 void GameScene::PanzerSelect::Thread_Texture_A()
 {
-	Engine::Get().GetResource()->LoadTexture("SelectUi", "SelectUi.png");
-	Engine::Get().GetResource()->LoadTexture("Param", "Parameters.png");
-	Engine::Get().GetResource()->LoadTexture("Waffuru", "waffuru.tif");
+	Engine::Get().resource()->LoadTexture("SelectUi", "SelectUi.png");
+	Engine::Get().resource()->LoadTexture("Param", "Parameters.png");
+	Engine::Get().resource()->LoadTexture("Waffuru", "waffuru.tif");
 }
 
 void GameScene::PanzerSelect::Thread_Texture_B()
 {
-	Engine::Get().GetResource()->LoadTexture("Ui03", "Ui03.png");
-	Engine::Get().GetResource()->LoadTexture("Plane", "Plane.png");	
-	Engine::Get().GetResource()->LoadTexture("SelectList", "psUI.png");
+	Engine::Get().resource()->LoadTexture("Ui03", "Ui03.png");
+	Engine::Get().resource()->LoadTexture("Plane", "Plane.png");	
+	Engine::Get().resource()->LoadTexture("SelectList", "psUI.png");
 }
 
 void GameScene::PanzerSelect::Thread_Model()
 {
 	// モデル
-	Engine::Get().GetResource()->LoadModel("PanzerGarage", "Other\\souko.obj");
+	Engine::Get().resource()->LoadModel("PanzerGarage", "Other\\souko.obj");
 }
 
 #pragma endregion GameScene::PanzerSelectメソッド
@@ -141,19 +141,21 @@ void GameScene::Tutorial::Uninit()
 void GameScene::Tutorial::Load()
 {
 	// オーディオのロード
-	Engine::Get().GetResource()->AudioLoad("Select", false);
-	Engine::Get().GetResource()->AudioLoad("Shot", false);
-	Engine::Get().GetResource()->AudioLoad("Idel", true);
+	Engine::Get().resource()->AudioLoad("Select", false);
+	Engine::Get().resource()->AudioLoad("Shot", false);
+	Engine::Get().resource()->AudioLoad("Idel", true);
 	// テクスチャのロード
-	Engine::Get().GetResource()->LoadTexture("Target", "Target.png");
-	Engine::Get().GetResource()->LoadTexture("Ui04", "Ui04.png");
+	Engine::Get().resource()->LoadTexture("Target", "Target.png");
+	Engine::Get().resource()->LoadTexture("Ui04", "Ui04.png");
+	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
 }
 
 void GameScene::Tutorial::Unload()
 {
-	Engine::Get().GetResource()->UnloadTexture("Ui04");
-	Engine::Get().GetResource()->UnloadTexture("Target");
-	Engine::Get().GetResource()->AudioUnload();
+	Engine::Get().resource()->UnloadTexture("SkillEffect");
+	Engine::Get().resource()->UnloadTexture("Ui04");
+	Engine::Get().resource()->UnloadTexture("Target");
+	Engine::Get().resource()->AudioUnload();
 }
 #pragma endregion private関数
 #pragma endregion GameScene::Tutorialメソッド
@@ -187,14 +189,17 @@ void GameScene::Game::Uninit()
 void GameScene::Game::Load()
 {
 	// オーディオのロード
-	Engine::Get().GetResource()->AudioLoad("Select", false);
-	Engine::Get().GetResource()->AudioLoad("Idel", true);
-	Engine::Get().GetResource()->AudioLoad("Shot", false);
+	Engine::Get().resource()->AudioLoad("Select", false);
+	Engine::Get().resource()->AudioLoad("Idel", true);
+	Engine::Get().resource()->AudioLoad("Shot", false);
+	// テクスチャのロード
+	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
 }
 
 void GameScene::Game::Unload()
 {
-	Engine::Get().GetResource()->AudioUnload();
+	Engine::Get().resource()->AudioUnload();
+	Engine::Get().resource()->UnloadTexture("SkillEffect");
 }
 
 #pragma endregion GameScene::Gameメソッド

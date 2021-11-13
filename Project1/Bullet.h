@@ -25,7 +25,7 @@ public:
 	inline void Draw()override {}
 
 	// 弾の生成
-	virtual void Create(const Math::Vector3& Position, const Math::Vector3& Vector) = 0;
+	virtual void Create(const D3DXVECTOR3& Position, const D3DXVECTOR3& Vector) = 0;
 	virtual void ChangeState(std::unique_ptr<class BulletState> State) = 0;
 	virtual void OnCollision() = 0;
 
@@ -39,8 +39,8 @@ public:
 		}
 	}
 	
-	// Math::Vector3の方法ベクトル
-	inline const Math::Vector3& GetDirectionVector() const
+	// D3DXVECTOR3の方法ベクトル
+	inline const D3DXVECTOR3& GetDirectionVector() const
 	{
 		return m_DirectionVector;
 	}
@@ -72,7 +72,7 @@ public:
 	}
 protected:
 	// プロパティの設定 (Vector = 飛んでいく方向ベクトル, Frame = フレーム数)
-	inline void SetProperty(const Math::Vector3& Vector, const float& Speed = 10.0f, const uint32_t& Frame = 60)
+	inline void SetProperty(const D3DXVECTOR3& Vector, const float& Speed = 10.0f, const uint32_t& Frame = 60)
 	{
 		m_DirectionVector = Vector;
 		m_Speed = Speed;
@@ -94,7 +94,7 @@ protected:
 	}
 private:
 	std::vector<std::unique_ptr<IOnComponentEventToActor>> m_ComponentEvent;
-	Math::Vector3 m_DirectionVector;	// 飛んでいく方向
+	D3DXVECTOR3 m_DirectionVector;	// 飛んでいく方向
 	uint32_t m_Frame;			// フレーム数
 	float m_Speed;				// 速度
 	float m_Distdecay = 1.2f;	// 距離による威力減衰

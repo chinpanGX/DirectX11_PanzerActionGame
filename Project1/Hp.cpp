@@ -14,7 +14,7 @@
 
 GameBg::Hp::Hp()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
 }
 
 GameBg::Hp::~Hp()
@@ -23,15 +23,15 @@ GameBg::Hp::~Hp()
 
 void GameBg::Hp::Begin()
 {
-	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	// 実際のHPとMAXのサイズから描画する比率を求める
-	m_DrawRatio = m_MaxDrawSize / m_Player->GetVehicle().GetStatus().GetMaxHp();
+	m_DrawRatio = m_MaxDrawSize / m_Player->vehicle().GetStatus().GetMaxHp();
 }
 
 void GameBg::Hp::Update()
 {
 	// 現在のHP
-	m_NowHp = m_Player->GetVehicle().GetStatus().GetHp();
+	m_NowHp = m_Player->vehicle().GetStatus().GetHp();
 	// 更新前のHPと比較する
 	if (m_OldHp != m_NowHp)
 	{
@@ -50,11 +50,11 @@ void GameBg::Hp::Event()
 void GameBg::Hp::Draw()
 {
 	// 描画位置を設定
-	Math::Vector2 pos = Math::Vector2(1450.0f, 900.0f);
+	D3DXVECTOR2 pos = D3DXVECTOR2(1450.0f, 900.0f);
 	
 	// MAX状態のHPバー
-	m_Render->Draw(m_MaxDrawSize, pos, Math::Vector4(0.35f, 0.35f, 0.35f, 0.75f));
+	m_Render->Draw(m_MaxDrawSize, pos, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
 
 	// 現在のHPバー
-	m_Render->Draw(m_DrawSize, pos, Math::Vector4(1.0f, 1.0f, 1.0f, 1.0f));
+	m_Render->Draw(m_DrawSize, pos, D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 }

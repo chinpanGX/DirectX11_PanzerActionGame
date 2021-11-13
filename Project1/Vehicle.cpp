@@ -16,6 +16,7 @@
 #include "Pawn.h"
 #include "GameManager.h"
 #include "Factory.h"
+#include "Utility.h"
 
 Vehicle::Vehicle(std::string Tag) : m_Tag(Tag)
 {
@@ -34,42 +35,45 @@ void Vehicle::Update()
 {
 	m_Status->Update();
 	m_Panzer->Update();
+	m_Shadow->transform().position(m_Panzer->GetBody().transform().position());
+	m_Shadow->transform().position().y = 0.01f;
+	m_Shadow->transform().scale(8.0f, 0.0f, 10.0f);
 	m_Skill->Update(*m_Status);
 }
 
 void Vehicle::Draw()
 {
-	m_Shadow->GetTransform().SetPosition(m_Panzer->GetBody().GetTransform().GetPosition());
-	m_Shadow->GetTransform().GetPosition().y = 0.01f;
-	m_Shadow->GetTransform().SetScale(8.0f, 0.0f, 10.0f);
-	m_Shadow->Draw();
+	// 戦車の描画
 	m_Panzer->Draw();
+
+	// 影の描画
+	m_Shadow->Draw();
 }
 
 // スタート位置を決める
-void Vehicle::SetStartPosition(Math::Vector3 pos, Math::Vector3 rot)
+void Vehicle::SetStartPosition(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
-	this->GetBodyTransform().SetPosition(pos);
-	this->GetBodyTransform().SetRotation(rot.x, rot.y, rot.z, 1.0f);
+	this->bodyTransform().position(pos);
+	this->bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
-void Vehicle::SetStartPosition(Pawn* pawn, Math::Vector3 pos, Math::Vector3 rot)
+void Vehicle::SetStartPosition(Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 {
 	m_Panzer->Begin();
-	pawn->GetVehicle().GetBodyTransform().SetPosition(pos);
-	pawn->GetVehicle().GetBodyTransform().SetRotation(rot.x, rot.y, rot.z, 1.0f);
+	pawn->vehicle().bodyTransform().position(pos);
+	pawn->vehicle().bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
 // ダメージ計算
 void Vehicle::CalcuateDamege(Pawn * Pawn)
 {
 	float attackpt = 0.0f; // 与えるダメージ
-	auto bullet = Engine::Get().GetApplication()->GetScene()->GetGameObjects<NormalBullet>(ELayer::LAYER_3D_ACTOR);
+	auto bullet = Engine::Get().application()->GetScene()->GetGameObjects<NormalBullet>(ELayer::LAYER_3D_ACTOR);
 	for (auto b : bullet)
 	{
 		// 乱数生成(50 ～ 100)の補正をする
 		int r = myLib::Random::Rand_R(50, 100);
-		attackpt = Pawn->GetVehicle().GetStatus().GetAttack() + r * b->GetDDE() - m_Status->GetDefence();
+		attackpt = Pawn->vehicle().GetStatus().GetAttack() + r * b->GetDDE() - m_Status->GetDefence();
 		CalculateHp(attackpt);
 	}
 }
@@ -83,12 +87,12 @@ void Vehicle::Shot(const Transform & transform)
 	float offset = 10.0f; // 補正値
 	auto t = transform;
 	// 発射位置
-	Math::Vector3 pos = t.GetPosition() + t.GetVector(Transform::Vector::Forward) * offset;
+	D3DXVECTOR3 pos = t.position() + t.forward() * offset;
 	// 飛んでいく方向ベクトル
-	Math::Vector3 vector = t.GetVector(Transform::Vector::Forward);
+	D3DXVECTOR3 vector = t.forward();
 	
 	// Bulletのインスタンスを生成する
-	auto normalBullet = Engine::Get().GetApplication()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
+	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
 	normalBullet->Create(pos, vector);
 
 	m_Status->ResetReloadTime();
@@ -107,7 +111,7 @@ void Vehicle::CalculateHp(float AttackPoint)
 #pragma endregion Panzerのアクション
 
 // コリジョンの位置を更新
-void Vehicle::ColiisionUpdate(int32_t Element, const Math::Vector3 & Position, const Transform & t)
+void Vehicle::ColiisionUpdate(int32_t Element, const D3DXVECTOR3 & Position, const Transform & t)
 {
 	m_BoxComponent[Element]->Update(Position, t);
 }
@@ -121,36 +125,32 @@ BoxComponent & Vehicle::GetBoxComponent(int32_t Element) const
 	return *m_BoxComponent[Element];
 }
 
-Transform & Vehicle::GetBodyTransform() const
+Transform & Vehicle::bodyTransform() const
 {
-	return m_Panzer->GetBody().GetTransform();
+	return m_Panzer->GetBody().transform();
 }
 
-Transform & Vehicle::GetTurretTransform() const
+Transform & Vehicle::turretTransform() const
 {
-	return m_Panzer->GetTurret().GetTransform();
+	return m_Panzer->GetTurret().transform();
 }
 
-Transform & Vehicle::GetGunTransform() const
+Transform & Vehicle::gunTransform() const
 {
-	return m_Panzer->GetMainGun().GetTransform();
+	return m_Panzer->GetMainGun().transform();
 }
 
 Status & Vehicle::GetStatus() const
 {
-	if (!m_Status)
-	{
-		std::domain_error("null");
-	}
+	// nullcheck
+	if (!m_Status) { OutputDebugString("m_Status is NullPtr\n"); }
 	return *m_Status;
 }
 
 Skill & Vehicle::GetSkill() const
 {
-	if (!m_Skill)
-	{
-		std::domain_error("null");
-	}
+	// nullcheck
+	if (!m_Skill) { OutputDebugString("m_Skill is NullPtr\n"); }
 	return *m_Skill;
 }
 
@@ -162,6 +162,7 @@ void Vehicle::SetPanzer()
 	Factory::FPanzer fpanzer;
 	m_Panzer = fpanzer.Create(m_Tag);
 	m_Panzer->Begin();
+
 	// 影を生成
 	Factory::FShadow fshadow;
 	m_Shadow = fshadow.Create();
@@ -178,10 +179,8 @@ void Vehicle::SetProperty(Status::Country Country, float Cost, float Hp, float A
 
 Panzer & Vehicle::GetPanzer() const
 {
-	if (!m_Panzer)
-	{
-		std::domain_error("null");
-	}
+	// nullcheck
+	if (!m_Panzer) { OutputDebugString("m_Panzer is NullPtr\n"); }
 	return *m_Panzer;
 }
 

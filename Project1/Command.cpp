@@ -15,7 +15,7 @@
 #include "Resource.h"
 #include "GameScene.h"
 #include "Player.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "NormalBullet.h"
 #include "GameCamera.h"
 #include "Fps.h"
@@ -38,7 +38,7 @@ void TitleCommand::Begin() {}
 
 void TitleCommand::Update()
 {
-	m_TitleSystem = Engine::Get().GetApplication()->GetScene()->GetGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
+	m_TitleSystem = Engine::Get().application()->GetScene()->GetGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
 	uint32_t state = m_TitleSystem->GetState();
 	// 初めの画面
 	if (m_TitleSystem->EState::BEGIN == state)
@@ -72,6 +72,8 @@ void TitleCommand::Draw() {}
 
 void TitleCommand::BeginInput()
 {
+	// Any Pressで入力できるようにする
+
 	// キーボード
 	for (int32_t i = 0; i < 256; ++i)
 	{
@@ -115,12 +117,12 @@ void TitleCommand::InputKeyBoard()
 		// 選択
 		if (KeyBoard::IsTrigger(DIK_W))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->SelectTop();
 		}
 		else if (KeyBoard::IsTrigger(DIK_S))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->SelectButtom();
 		}
 		// 決定
@@ -130,20 +132,20 @@ void TitleCommand::InputKeyBoard()
 			if (m_TitleSystem->GetSelect())
 			{
 				//　シーンチェンジ
-				Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>();
-				Engine::Get().GetResource()->AudioPlay("Enter", 1.0f);
+				Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
+				Engine::Get().resource()->AudioPlay("Enter", 1.0f);
 			}
 			// 設定画面へ
 			else if (!m_TitleSystem->GetSelect())
 			{
-				Engine::Get().GetResource()->AudioPlay("Button", 1.0f);
+				Engine::Get().resource()->AudioPlay("Button", 1.0f);
 				m_TitleSystem->SetState(m_TitleSystem->EState::SETTING_SELECT);
 			}
 		}
 		// 戻る
 		if (KeyBoard::IsTrigger(DIK_Q))
 		{
-			Engine::Get().GetResource()->AudioPlay("Cancel", 1.0f);
+			Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 			m_TitleSystem->SetState(m_TitleSystem->EState::BEGIN);
 		}
 
@@ -154,12 +156,12 @@ void TitleCommand::InputKeyBoard()
 	{
 		if (KeyBoard::IsTrigger(DIK_A))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->DisableGamePad();
 		}
 		else if (KeyBoard::IsTrigger(DIK_D))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->EnableGamePad();
 		}
 		// 決定
@@ -167,32 +169,33 @@ void TitleCommand::InputKeyBoard()
 		{
 			if (m_TitleSystem->GetInputGamePad())
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_TitleSystem->SetState(m_TitleSystem->EState::CHECK_INPUT);
 			}
 			else
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_TitleSystem->SetState(m_TitleSystem->EState::SELECT);
 			}
 		}
 	}
 
+	// ゲームパッドに変更するかチェックする
 	if (m_TitleSystem->EState::CHECK_INPUT == state)
 	{
 		if (KeyBoard::IsTrigger(DIK_W))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->EnableCheckInput();
 		}
 		else if (KeyBoard::IsTrigger(DIK_S))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->DisableCheckInput();
 		}
 		else if (KeyBoard::IsTrigger(DIK_SPACE))
 		{
-			Engine::Get().GetResource()->AudioPlay("Button", 1.0f);
+			Engine::Get().resource()->AudioPlay("Button", 1.0f);
 			g_IsInputGamePad = m_TitleSystem->GetCheckInput();
 			m_TitleSystem->SetState(m_TitleSystem->EState::SELECT);
 			g_EndSetting = true;
@@ -210,12 +213,12 @@ void TitleCommand::InputGamePad()
 		// 選択
 		if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->SelectTop();
 		}
 		else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->SelectButtom();
 		}
 		// 決定
@@ -223,21 +226,21 @@ void TitleCommand::InputGamePad()
 		{
 			if (m_TitleSystem->GetSelect())
 			{
-				Engine::Get().GetResource()->AudioPlay("Enter", 1.0f);
+				Engine::Get().resource()->AudioPlay("Enter", 1.0f);
 				//　シーンチェンジ
-				Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>();
+				Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
 			}
 			// 設定画面へ
 			else if (!m_TitleSystem->GetSelect())
 			{
-				Engine::Get().GetResource()->AudioPlay("Cancel", 1.0f);
+				Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 				m_TitleSystem->SetState(m_TitleSystem->EState::SETTING_SELECT);
 			}
 		}
 		// 戻る
 		if (GamePad::IsTrigger(0, BUTTON_3))
 		{
-			Engine::Get().GetResource()->AudioPlay("Cancel", 1.0f);
+			Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 			m_TitleSystem->SetState(m_TitleSystem->EState::BEGIN);
 		}
 
@@ -247,12 +250,12 @@ void TitleCommand::InputGamePad()
 	{
 		if (GamePad::IsTrigger(0, LEFTSTICK_LEFT) || GamePad::IsTrigger(0, BUTTON_LEFT))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->DisableGamePad();
 		}
 		else if (GamePad::IsTrigger(0, LEFTSTICK_RIGHT) || GamePad::IsTrigger(0, BUTTON_LEFT))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->EnableGamePad();
 		}
 		// 決定
@@ -267,22 +270,23 @@ void TitleCommand::InputGamePad()
 				}
 				else
 				{
-					Engine::Get().GetResource()->AudioPlay("Cancel", 1.0f);
+					Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 					m_TitleSystem->SetState(m_TitleSystem->EState::SELECT);
 				}
 			}	
 		}
 	}
+
 	if (m_TitleSystem->EState::CHECK_INPUT == state)
 	{
 		if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->EnableCheckInput();
 		}
 		else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->DisableCheckInput();
 		}
 		else if (GamePad::IsTrigger(0, BUTTON_2))
@@ -299,29 +303,29 @@ void TitleCommand::InputGamePad()
 GameCommand::GameCommand()
 {
 	// カメラの操作
-	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	// プレイヤーの操作
-	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	// 戦車の操縦
-	auto& panzerPilot = m_Player->GetPilot();
-	m_Controller = std::make_unique<Controller>(m_Player, camera, &panzerPilot);
+	auto& Pivot = m_Player->pivot();
+	m_Controller = std::make_unique<Controller>(m_Player, camera, &Pivot);
 }
 GameCommand::~GameCommand() {}
 void GameCommand::Begin() {}
 
 void GameCommand::Update()
 {
-	auto pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG);
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG);
 	float deltaTime = Fps::Get().deltaTime;
 
 	// デバッグ用
 	if (KeyBoard::IsTrigger(DIK_T))
 	{
-		Engine::Get().GetApplication()->SetScene <GameScene::Title>();
+		Engine::Get().application()->SetScene <GameScene::Title>();
 	}
 	//if (KeyBoard::IsTrigger(DIK_Y))
 	//{
-	//	Engine::Get().GetApplication()->SetScene<GameScene::Result>();
+	//	Engine::Get().application()->SetScene<GameScene::Result>();
 	//}
 
 	if (!g_IsInputGamePad)
@@ -347,11 +351,12 @@ bool GameCommand::GetNowInput(int32_t i) const { return m_NowInput[i]; }
 // キーボード入力
 void GameCommand::InputKeyboard(float deltaTime)
 {
+	// 入力状態をリセット
 	for (int32_t i = 0; i < 10; i++)
 	{
 		m_NowInput[i] = false;
 	}
-	m_Controller->ChangeCameraMode(false);
+	m_Controller->FpsCameraMode(false);
 
 	// 現在のマウスポインタ
 	m_Mouse.y = (Mouse::GetMouseY() - m_OldMouse.y) * 0.08f;
@@ -361,7 +366,7 @@ void GameCommand::InputKeyboard(float deltaTime)
 	if (Mouse::RightPress())
 	{
 		m_NowInput[9] = true;
-		m_Controller->ChangeCameraMode(true);
+		m_Controller->FpsCameraMode(true);
 	}
 
 	// 戦車（ボディ）の移動
@@ -429,15 +434,18 @@ void GameCommand::InputKeyboard(float deltaTime)
 // ゲームパッドの入力
 void GameCommand::InputGamePad(float deltaTime)
 {
+	// 入力状態をリセット
 	for (int32_t i = 0; i < 9; i++)
 	{
 		m_NowInput[i] = false;
 	}
-	m_Controller->ChangeCameraMode(false);
+	m_Controller->FpsCameraMode(false);
+
 	// カメラモードをFPSにする
 	if (GamePad::IsPress(0, TRIGGER_L2))
 	{
-		m_Controller->ChangeCameraMode(true);
+		m_NowInput[9] = true;
+		m_Controller->FpsCameraMode(true);
 	}
 
 	// 戦車（ボディ）の移動
@@ -504,7 +512,7 @@ void GameCommand::InputGamePad(float deltaTime)
 #pragma endregion GameCommandメソッド
 
 #pragma region SelectCommand_method
-SelectCommand::SelectCommand() { m_Container = Engine::Get().GetApplication()->GetScene()->GetGameObject<PanzerContainer>(LAYER_3D_ACTOR); }
+SelectCommand::SelectCommand() { m_Container = Engine::Get().application()->GetScene()->GetGameObject<PanzerContainer>(LAYER_3D_ACTOR); }
 SelectCommand::~SelectCommand() {}
 void SelectCommand::Begin() {}
 void SelectCommand::Update() { g_IsInputGamePad ? InputGamePad() : InputKeyBoard(); }
@@ -515,7 +523,7 @@ const bool SelectCommand::GetSelect() const { return m_Select; }
 // キーボード入力
 void SelectCommand::InputKeyBoard()
 {
-	auto explain = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
+	auto explain = Engine::Get().application()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
 	// ゲーム説明を表示する
 	if(explain->GetDrawFlag())
 	{
@@ -540,27 +548,27 @@ void SelectCommand::InputKeyBoard()
 		{
 			if (KeyBoard::IsTrigger(DIK_W))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Container->SetChooseUp();
 			}
 			else if (KeyBoard::IsTrigger(DIK_S))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Container->SetChooseDown();
 			}
 			else if (KeyBoard::IsTrigger(DIK_Q))
 			{
-				Engine::Get().GetApplication()->SetScene<GameScene::Title>();
+				Engine::Get().application()->SetScene<GameScene::Title>();
 			}
 			else if (KeyBoard::IsTrigger(DIK_D))
 			{
 				explain->Enable();
-				Engine::Get().GetResource()->AudioPlay("Button", 1.0f);
+				Engine::Get().resource()->AudioPlay("Button", 1.0f);
 			}
 			else if (KeyBoard::IsTrigger(DIK_SPACE))
 			{
 				m_Select = false;
-				Engine::Get().GetResource()->AudioPlay("Button", 1.0f);
+				Engine::Get().resource()->AudioPlay("Button", 1.0f);
 			}
 		}
 		// ゲームモードの選択
@@ -568,24 +576,24 @@ void SelectCommand::InputKeyBoard()
 		{
 			if (KeyBoard::IsTrigger(DIK_W))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
-				m_Mode = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(false);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
+				m_Mode = Engine::Get().application()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(false);
 			}
 			else if (KeyBoard::IsTrigger(DIK_S))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
-				m_Mode = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(true);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
+				m_Mode = Engine::Get().application()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(true);
 			}
 			else if (KeyBoard::IsTrigger(DIK_Q))
 			{
 				m_Select = true;
-				Engine::Get().GetResource()->AudioPlay("Cancel", 1.0f);
+				Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 			}
 			else if (KeyBoard::IsTrigger(DIK_SPACE))
 			{
 				// シーンのロード
-				Engine::Get().GetResource()->AudioPlay("Enter", 1.0f);
-				m_Mode ? Engine::Get().GetApplication()->SetScene<GameScene::Game>() : Engine::Get().GetApplication()->SetScene<GameScene::Tutorial>();
+				Engine::Get().resource()->AudioPlay("Enter", 1.0f);
+				m_Mode ? Engine::Get().application()->SetScene<GameScene::Game>() : Engine::Get().application()->SetScene<GameScene::Tutorial>();
 			}
 		}
 	}
@@ -594,7 +602,7 @@ void SelectCommand::InputKeyBoard()
 // ゲームパッドの入力
 void SelectCommand::InputGamePad()
 {
-	auto explain = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
+	auto explain = Engine::Get().application()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
 	// ゲーム説明を表示する
 	if (explain->GetDrawFlag())
 	{
@@ -618,42 +626,42 @@ void SelectCommand::InputGamePad()
 		{
 			if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Container->SetChooseUp();
 			}
 			else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Container->SetChooseDown();
 			}
 			else if (GamePad::IsTrigger(0, BUTTON_2))
 			{
 				m_Select = false;
-				Engine::Get().GetResource()->AudioPlay("Button", 1.0f);
+				Engine::Get().resource()->AudioPlay("Button", 1.0f);
 			}
 		}
 		else
 		{
 			if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
-				m_Mode = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(false);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
+				m_Mode = Engine::Get().application()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(false);
 			}
 			else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
-				m_Mode = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(true);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
+				m_Mode = Engine::Get().application()->GetScene()->GetGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG)->SetMode(true);
 			}
 			else if (GamePad::IsTrigger(0, BUTTON_3))
 			{
 				m_Select = true;
-				Engine::Get().GetResource()->AudioPlay("Cancel", 1.0f);
+				Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 			}
 			else if (GamePad::IsTrigger(0, BUTTON_2))
 			{
-				Engine::Get().GetResource()->AudioPlay("Enter", 1.0f);
+				Engine::Get().resource()->AudioPlay("Enter", 1.0f);
 				// シーンのロード
-				m_Mode ? Engine::Get().GetApplication()->SetScene<GameScene::Game>() : Engine::Get().GetApplication()->SetScene<GameScene::Tutorial>();
+				m_Mode ? Engine::Get().application()->SetScene<GameScene::Game>() : Engine::Get().application()->SetScene<GameScene::Tutorial>();
 			}
 		}
 	}
@@ -662,7 +670,7 @@ void SelectCommand::InputGamePad()
 #pragma endregion SelectCommandメソッド
 
 #pragma region PauseCommnad_method
-PauseCommand::PauseCommand() { m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG); }
+PauseCommand::PauseCommand() { m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG); }
 PauseCommand::~PauseCommand(){}
 void PauseCommand::Begin() {}
 void PauseCommand::Update() { g_IsInputGamePad ? InputGamePad() : InputKeyBoard(); }
@@ -684,76 +692,91 @@ void PauseCommand::InputKeyBoard()
 	{
 		switch (m_Pause->GetState())
 		{
+		// ゲームに戻るを選択
 		case 0:
+			// 下を選択
 			if (KeyBoard::IsTrigger(DIK_S))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Pause->SetState(m_Pause->OPERATION);
 			}
+			// 決定
 			else if (KeyBoard::IsTrigger(DIK_SPACE))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Pause->Disable();
 			}
 			break;
+		// 操作方法を選択
 		case 1:
 			if (!m_Pause->GetOperation())
 			{
+				// 他のメニューを選択する
 				if (KeyBoard::IsTrigger(DIK_W))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->KEEPON);
 				}
 				else if (KeyBoard::IsTrigger(DIK_S))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->END);
 				}
+				// 操作方法の表示する
 				else if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->OperationEnable();
 				}
 			}
+			// 操作方法を選択中
 			else
 			{
+				// 操作方法の表示を終了
 				if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->OperationDisable();
 				}
 			}
 			break;
+		// ゲーム終了を選択
 		case 2:
 			if (!m_Pause->GetEnd())
 			{
+				// 上を選択
 				if (KeyBoard::IsTrigger(DIK_W))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->OPERATION);
 				}
+				// ポーズ終了
 				else if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->EndEnable();
 				}
 			}
+			// ゲーム終了を選択したとき
 			else
 			{
+				// 上下選択
 				if (KeyBoard::IsTrigger(DIK_W))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SelectTop();
 				}
 				else if (KeyBoard::IsTrigger(DIK_S))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SelectBottom();
 				}
+				// 決定
 				else if (KeyBoard::IsTrigger(DIK_SPACE))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
-					m_Pause->GetToorBottom() ? Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
+					// 上→ゲーム終了、下→キャンセル
+					m_Pause->GetToporBottom() ? Engine::Get().application()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
 				}
 			}
 			break;
@@ -767,7 +790,7 @@ void PauseCommand::InputGamePad()
 	{
 		if (GamePad::IsTrigger(0, BUTTON_OPTION))
 		{
-			Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_Pause->Enable();
 		}
 	}
@@ -775,39 +798,39 @@ void PauseCommand::InputGamePad()
 	{
 		switch (m_Pause->GetState())
 		{
-			//続ける
+		//続ける
 		case 0:
 			if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Pause->SetState(m_Pause->OPERATION);
 			}
 			// ボーズ終了
 			else if (GamePad::IsTrigger(0, BUTTON_2))
 			{
-				Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+				Engine::Get().resource()->AudioPlay("Select", 1.0f);
 				m_Pause->Disable();
 			}
 			break;
-			// 操作方法
+		// 操作方法
 		case 1:
 			if (!m_Pause->GetOperation())
 			{
 				// 上下選択
 				if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->KEEPON);
 				}
 				else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->END);
 				}
 				// 操作方法の表示
 				else if (GamePad::IsTrigger(0, BUTTON_2))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->OperationEnable();
 				}
 			}
@@ -816,42 +839,45 @@ void PauseCommand::InputGamePad()
 				// 表示終了
 				if (GamePad::IsTrigger(0, BUTTON_3))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->OperationDisable();
 				}
 			}
 			break;
-			// やめる
+		// ゲーム終了
 		case 2:
 			if (!m_Pause->GetEnd())
 			{
 				if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SetState(m_Pause->OPERATION);
 				}
 				else if (GamePad::IsTrigger(0, BUTTON_2))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->EndEnable();
 				}
 			}
 			else
 			{
+				// 上下選択
 				if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SelectTop();
 				}
 				else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
 					m_Pause->SelectBottom();
 				}
+				// 決定
 				else if (GamePad::IsTrigger(0, BUTTON_2))
 				{
-					Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
-					m_Pause->GetToorBottom() ? Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
+					Engine::Get().resource()->AudioPlay("Select", 1.0f);
+					// 上→ゲーム終了、下→キャンセル
+					m_Pause->GetToporBottom() ? Engine::Get().application()->SetScene<GameScene::PanzerSelect>() : m_Pause->EndDisable();
 				}
 			}
 			break;
@@ -867,7 +893,7 @@ void ResultCommand::Begin() {}
 
 void ResultCommand::Update() 
 { 
-	// 60フレーム待つ
+	// 60フレーム待つまで、入力できないようにする
 	m_Frame++; 
 	if (m_Frame > 60)
 	{
@@ -879,30 +905,33 @@ void ResultCommand::Event() {}
 void ResultCommand::Draw() {}
 void ResultCommand::InputKeyBoard()
 {
-	auto& state = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	auto& state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	// 次のシーンを選択
 	if (KeyBoard::IsTrigger(DIK_W))
 	{
-		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		Engine::Get().resource()->AudioPlay("Select", 1.0f);
 		state.SelectTop();
 		
 	}
 	else if (KeyBoard::IsTrigger(DIK_S))
 	{
-		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		Engine::Get().resource()->AudioPlay("Select", 1.0f);
 		state.SelectDown();
 	}
+	// 決定
 	else if (KeyBoard::IsTrigger(DIK_SPACE))
 	{
+		// 選択したシーンへ遷移
 		switch (state.GetSelect())
 		{
 		case 0:
-			Engine::Get().GetApplication()->SetScene<GameScene::Game>();
+			Engine::Get().application()->SetScene<GameScene::Game>();
 			break;
 		case 1:
-			Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>();
+			Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
 			break;
 		case 2:
-			Engine::Get().GetApplication()->SetScene<GameScene::Title>();
+			Engine::Get().application()->SetScene<GameScene::Title>();
 			break;
 		}
 	}
@@ -910,31 +939,34 @@ void ResultCommand::InputKeyBoard()
 
 void ResultCommand::InputGamePad()
 {
-	auto state = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	auto state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	// 次のシーンを選択
 	if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 	{
-		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		Engine::Get().resource()->AudioPlay("Select", 1.0f);
 		state.SelectTop();
 
 	}
 	else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 	{
-		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		Engine::Get().resource()->AudioPlay("Select", 1.0f);
 		state.SelectDown();
 
 	}
+	// 決定
 	else if (GamePad::IsTrigger(0, BUTTON_2))
 	{
+		// 選択したシーンへ遷移
 		switch (state.GetSelect())
 		{
 		case 0:
-			Engine::Get().GetApplication()->SetScene<GameScene::Game>();
+			Engine::Get().application()->SetScene<GameScene::Game>();
 			break;
 		case 1:
-			Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>();
+			Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
 			break;
 		case 2:
-			Engine::Get().GetApplication()->SetScene<GameScene::Title>();
+			Engine::Get().application()->SetScene<GameScene::Title>();
 			break;
 		}
 	}

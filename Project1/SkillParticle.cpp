@@ -8,47 +8,15 @@
 #include "Engine.h"
 #include "Graphics.h"
 #include "Resource.h"
+#include "Application.h"
+#include "GameCamera.h"
+#include "Pause.h"
 #include "SkillParticle.h"
 
-SkillParticle::SkillParticle() : m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
+SkillParticle::SkillParticle() : Effect()
 {
-	// 頂点作成
-	Vertex3D vertex[4];
-
-	vertex[0].Position = DirectX::XMFLOAT3(-1.0f, 0.01f, 1.0f);
-	vertex[0].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertex[0].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[0].TexCoord = DirectX::XMFLOAT2(0.0f, 0.0f);
-
-	vertex[1].Position = DirectX::XMFLOAT3(1.0f, 0.01f, 1.0f);
-	vertex[1].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertex[1].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[1].TexCoord = DirectX::XMFLOAT2(1.0f, 0.0f);
-
-	vertex[2].Position = DirectX::XMFLOAT3(-1.0f, 0.01f, -1.0f);
-	vertex[2].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertex[2].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[2].TexCoord = DirectX::XMFLOAT2(0.0f, 1.0f);
-
-	vertex[3].Position = DirectX::XMFLOAT3(1.0f, 0.01f, -1.0f);
-	vertex[3].Normal = DirectX::XMFLOAT3(0.0f, 1.0f, 0.0f);
-	vertex[3].Diffuse = DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f);
-	vertex[3].TexCoord = DirectX::XMFLOAT2(1.0f, 1.0f);
-
-	//頂点バッファ生成
-	D3D11_BUFFER_DESC bd;
-	ZeroMemory(&bd, sizeof(bd));
-	bd.Usage = D3D11_USAGE_DYNAMIC;
-	bd.ByteWidth = sizeof(Vertex3D) * 4;
-	bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
-	bd.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-
-	D3D11_SUBRESOURCE_DATA sd;
-	ZeroMemory(&sd, sizeof(sd));
-	sd.pSysMem = vertex;
-	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
-
 	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform->scale(10.0f);
 }
 
 SkillParticle::~SkillParticle()
@@ -57,11 +25,22 @@ SkillParticle::~SkillParticle()
 
 void SkillParticle::Begin()
 {
-	m_Transform->Begin();
+	
 }
 
 void SkillParticle::Update()
 {
+	// ポーズ中かどうか
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
+	if (pause) { return; }
+
+	Effect::Update();
+
+	// フレーム数が16になったら消去
+	if (Effect::GetFrame() >= 16)
+	{
+		OnDestroy();
+	}
 }
 
 void SkillParticle::Event()
@@ -70,33 +49,38 @@ void SkillParticle::Event()
 
 void SkillParticle::Draw()
 {
-	if (m_Life != 0)
-	{
-		// ライティングなし
-		m_Resource.SetShader("Defualt");
-		Actor::UpdateMatrix(*m_Transform);
+	// テクスチャ座標を計算
+	float x = Effect::GetFrame() % 2 * (1.0f / 2.0f);
+	float y = Effect::GetFrame() / 8 * (1.0f / 8.0f);
 
-		m_Resource.SetTexture(0, "Effect");
+	// map&unmap
+	Effect::MapAndUnmap(x, y);
 
-		// ブレンドステートは減算
-		m_Graphics.SetBlendStateSub();
+	// マトリクスの設定
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	D3DXMATRIX view = camera->view();
 
-		// 頂点バッファ
-		UINT stride = sizeof(Vertex3D);
-		UINT offset = 0;
-		m_Graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &stride, &offset);
+	// ビューの逆行列
+	D3DXMATRIX invView;
+	D3DXMatrixInverse(&invView, NULL, &view);//逆行列
+	invView._41 = 0.0f;
+	invView._42 = 0.0f;
+	invView._43 = 0.0f;
 
-		//プリミティブトポロジ設定
-		m_Graphics.GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+	// 座標変換
+	D3DXMATRIX world, scale, rot, trans;
+	Math::Matrix::MatrixScaling(&scale, transform().scale());
+	Math::Matrix::MatrixTranslation(&trans, transform().position());
+	world = scale * invView * trans;
+	m_Graphics.SetWorldMatrix(world);
 
-		//ポリゴン描画
-		m_Graphics.GetDeviceContext()->Draw(4, 0);
+	// マテリアル
+	Material m;
+	m.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_Graphics.SetMaterial(m);
 
-		// ブレンドステートを元に戻す
-		m_Graphics.SetBlendStateDefault();
-	}
-}
+	// テクスチャの設定
+	m_Resource.SetTexture(0, "SkillEffect");
 
-void SkillParticle::Create(unsigned int life, Math::Vector3 position, Math::Vector4 color)
-{
+	Effect::Draw();
 }

@@ -10,15 +10,15 @@
 
 class Pawn;
 class GameCamera;
-class PanzerPilot;
+class Pivot;
 class Controller final
 {
 public:
 	Controller() = delete;
-	Controller(Pawn* pPawn, GameCamera* pCamera, PanzerPilot* pPanzerPilot);
+	Controller(Pawn* pPawn, GameCamera* pCamera, Pivot* pPivot);
 	~Controller();
 
-	void ChangeCameraMode(bool Mode);	// カメラモード
+	void FpsCameraMode(bool fpsMode);	// カメラモード
 	//　移動
 	void MoveForward(float deltaTime);
 	void MoveBackward(float deltaTime);
@@ -35,6 +35,6 @@ public:
 private:
 	Pawn* m_Pawn = nullptr;
 	GameCamera* m_Camera = nullptr;
-	PanzerPilot* m_Panzerpilot = nullptr;
+	Pivot* m_Pivot = nullptr;
 };
 

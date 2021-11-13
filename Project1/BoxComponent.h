@@ -16,16 +16,16 @@ class BoxComponent final
 public:
 	BoxComponent();
 	~BoxComponent();
-	void Update(const Math::Vector3& Position, const class Transform& t);
+	void Update(const D3DXVECTOR3& Position, const class Transform& t);
 	void SystemDraw();
 	// Sphere3
 	void SetSphere3(const Transform& t, const float& Radius);
 	const Sphere3& GetSphere3()const;
 	// AABB3
-	void SetAABB3(const Transform& t, const Math::Vector3& Size);
+	void SetAABB3(const Transform& t, const D3DXVECTOR3& Size);
 	const AABB3& GetAABB3() const;
 	// OBB3
-	void SetOBB3(const Transform& t, const Math::Vector3& Size);
+	void SetOBB3(const Transform& t, const D3DXVECTOR3& Size);
 	const OBB3& GetOBB3()const;
 private:
 	std::unique_ptr<Sphere3> m_sphere;

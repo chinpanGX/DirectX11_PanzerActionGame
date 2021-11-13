@@ -6,12 +6,12 @@ void main(in VS_IN In, out PS_IN Out)
 {
 
 	matrix wvp;
-	wvp = mul(World, View);
-	wvp = mul(wvp, Projection);
+	wvp = mul(_World, _View);
+	wvp = mul(wvp, _Projection);
 	
 	float4 worldNormal, normal;
 	normal = float4(In.Normal.xyz, 0.0);
-	worldNormal = mul(normal, World);
+	worldNormal = mul(normal, _World);
 	worldNormal = normalize(worldNormal);
 
 	float light = -dot(_Light.Direction.xyz, worldNormal.xyz);

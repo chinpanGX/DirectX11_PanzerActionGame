@@ -40,10 +40,10 @@ namespace Factory
 	};
 
 	// パイロット
-	class FPilot final
+	class FPivot final
 	{
 	public:
-		std::unique_ptr<class PanzerPilot> Create(class Vehicle& vehicle);
+		std::unique_ptr<class Pivot> Create(class Vehicle& vehicle);
 	};
 
 	// 影

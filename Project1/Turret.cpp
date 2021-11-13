@@ -19,8 +19,7 @@ Turret::~Turret()
 
 void Turret::Begin()
 {
-	m_Transform->SetPosition(Math::Vector3::Zero);
-	m_Transform->SetRotation(Math::Quaternion::Identity);
+	m_Transform->Begin();
 }
 
 void Turret::Update()
@@ -35,17 +34,15 @@ void Turret::Event()
 void Turret::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
-	auto m = DirectX::XMLoadFloat4x4(&m_WorldMatrix);
-	GetGraphics().SetWorldMatrix(m);
-	GetResource().SetStaticModel(Parts::GetTag() + "Turret");
+	graphics().SetWorldMatrix(m_WorldMatrix);
+	resource().SetStaticModel(Parts::GetTag() + "Turret");
 }
 
-void Turret::UpdateMatrix(const DirectX::XMFLOAT4X4 & ParentMatirx)
+void Turret::UpdateMatrix(const D3DXMATRIX & ParentMatirx)
 {
-	DirectX::XMMATRIX rot, trans;
-	rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->GetRotation());
-	trans = Math::Matrix::MatrixTranslation(m_Transform->GetPosition());
+	D3DXMATRIX rot, trans;
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
+	Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
 	auto local = rot * trans;
-	auto m = local * DirectX::XMLoadFloat4x4(&ParentMatirx);
-	DirectX::XMStoreFloat4x4(&m_WorldMatrix, m);
+	m_WorldMatrix = local * ParentMatirx;
 }

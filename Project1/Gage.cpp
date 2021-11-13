@@ -28,7 +28,7 @@ RemainGage::~RemainGage()
 
 void RemainGage::Update(GameManager* manager, Pawn * pawn, int32_t type)
 {
-	float cost = pawn->GetVehicle().GetStatus().GetCost();
+	float cost = pawn->vehicle().GetStatus().GetCost();
 	float nowgage = GetGage(type) - (cost * 10.0f);
 	// ゲージが残っていないので、リスポーンできない
 	if (nowgage <= 0.0f)
@@ -48,14 +48,14 @@ void RemainGage::SetGage(float gage, int32_t type)
 	case 0:
 	//case 1:
 		m_PlayerGage = gage;
-		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetPlayerGage(m_PlayerGage);
+		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetPlayerGage(m_PlayerGage);
 		break;
 		// 敵側
 	//case 2:
 	//case 3:
 	case 1:
 		m_EmenyGage = gage;
-		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetEnemyGage(m_EmenyGage);
+		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetEnemyGage(m_EmenyGage);
 		break;
 	}
 }
@@ -77,7 +77,7 @@ const float RemainGage::GetGage(int32_t type) const
 
 GameBg::DrawGage::DrawGage()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
 }
 
 GameBg::DrawGage::~DrawGage()
@@ -95,12 +95,12 @@ void GameBg::DrawGage::Event()
 void GameBg::DrawGage::Draw()
 {
 	// 背景のカラー
-	Math::Vector4 frameColor = Math::Vector4(0.3f, 0.8f, 0.8f, 0.7f);
+	D3DXVECTOR4 frameColor = D3DXVECTOR4(0.3f, 0.8f, 0.8f, 0.7f);
 
-	Math::Vector2 enemyPosition = Math::Vector2(460.0f, 70.0f);
-	Math::Vector4 enemyColor = Math::Vector4(1.0f, 0.2f, 0.2f, 1.0f);
-	Math::Vector2 playerPosition = Math::Vector2(460.0f, 100.0f);
-	Math::Vector4 playerColor = Math::Vector4(0.2f, 0.2f, 1.0f, 1.0f);
+	D3DXVECTOR2 enemyPosition = D3DXVECTOR2(460.0f, 70.0f);
+	D3DXVECTOR4 enemyColor = D3DXVECTOR4(1.0f, 0.2f, 0.2f, 1.0f);
+	D3DXVECTOR2 playerPosition = D3DXVECTOR2(460.0f, 100.0f);
+	D3DXVECTOR4 playerColor = D3DXVECTOR4(0.2f, 0.2f, 1.0f, 1.0f);
 
 	// MAX状態
 	m_Render->Draw(1000.0f, enemyPosition, frameColor);

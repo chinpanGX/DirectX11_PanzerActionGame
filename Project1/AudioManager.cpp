@@ -18,12 +18,12 @@
 
 GameAudio::GameAudio()
 {
-	Player* player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	Player* player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
 		std::string name;
-		auto resource = Engine::Get().GetResource();
-		int32_t Country = player->GetVehicle().GetStatus().GetCountry();
+		auto resource = Engine::Get().resource();
+		int32_t Country = player->vehicle().GetStatus().GetCountry();
 		int32_t r = 0; // 乱数
 		// 戦車のステータスの国によって、BGMを変える
 		switch (Country)
@@ -103,6 +103,6 @@ void ResultAudio::Begin(bool IsPlayerWin)
 		name = "Lose";
 	}
 	// 登録したオーディオを再生
-	Engine::Get().GetResource()->AudioLoad(name, true);
-	Engine::Get().GetResource()->AudioPlay(name, 0.3f);
+	Engine::Get().resource()->AudioLoad(name, true);
+	Engine::Get().resource()->AudioPlay(name, 0.3f);
 }

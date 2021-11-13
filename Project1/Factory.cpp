@@ -8,7 +8,7 @@
 ---------------------------------------------------------------*/
 #include "Vehicle.h"
 #include "vehicle.h"
-#include "PanzerPilot.h"
+#include "Pivot.h"
 #include "Shadow.h"
 #include "Factory.h"
 #include "PanzerContainer.h"
@@ -85,16 +85,16 @@ std::unique_ptr<class Panzer> Factory::FPanzer::Create(const std::string & Panze
 }
 
 // 戦車
-std::unique_ptr<class PanzerPilot> Factory::FPilot::Create(Vehicle & vehicle)
+std::unique_ptr<class Pivot> Factory::FPivot::Create(Vehicle & vehicle)
 {
 	//　パイロットの設定
-	std::unique_ptr<PanzerPilot> tmp = std::make_unique<PanzerPilot>(vehicle);
-	auto pos = vehicle.GetBodyTransform().GetPosition();
+	std::unique_ptr<Pivot> tmp = std::make_unique<Pivot>(vehicle);
+	auto pos = vehicle.bodyTransform().position();
 	pos.y += 5.0f;
 	
 	// 初期位置の設定
-	tmp->GetTransform().SetPosition(pos);
-	tmp->GetTransform().SetRotation(vehicle.GetBodyTransform().GetRotation());
+	tmp->transform().position(pos);
+	tmp->transform().rotation(vehicle.bodyTransform().rotation());
 	return tmp;
 }
 

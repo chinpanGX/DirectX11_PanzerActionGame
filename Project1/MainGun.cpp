@@ -21,8 +21,7 @@ MainGun::~MainGun()
 
 void MainGun::Begin()
 {
-	m_Transform->SetPosition(Math::Vector3::Zero);
-	m_Transform->SetRotation(Math::Quaternion::Identity);
+	m_Transform->Begin();
 }
 
 void MainGun::Update()
@@ -37,17 +36,15 @@ void MainGun::Event()
 void MainGun::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
-	auto m = DirectX::XMLoadFloat4x4(&m_WorldMatrix);
-	GetGraphics().SetWorldMatrix(m);
-	GetResource().SetStaticModel(Parts::GetTag() + "Gun");
+	graphics().SetWorldMatrix(m_WorldMatrix);
+	resource().SetStaticModel(Parts::GetTag() + "Gun");
 }
 
-void MainGun::UpdateMatrix(const DirectX::XMFLOAT4X4 & ParentMatirx)
+void MainGun::UpdateMatrix(const D3DXMATRIX & ParentMatirx)
 {
-	DirectX::XMMATRIX rot, trans;
-	rot = Math::Matrix::MatrixRotationQuatrnionRollPitchYaw(m_Transform->GetRotation());
-	trans = Math::Matrix::MatrixTranslation(m_Transform->GetPosition());
+	D3DXMATRIX rot, trans;
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
+	Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
 	auto local = rot * trans;
-	auto m = local * DirectX::XMLoadFloat4x4(&ParentMatirx);
-	DirectX::XMStoreFloat4x4(&m_WorldMatrix, m);
+	m_WorldMatrix = local * ParentMatirx;
 }

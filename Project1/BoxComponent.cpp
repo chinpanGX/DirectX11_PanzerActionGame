@@ -28,7 +28,7 @@ BoxComponent::~BoxComponent()
 }
 
 // 位置の更新
-void BoxComponent::Update(const Math::Vector3& Position, const Transform & t)
+void BoxComponent::Update(const D3DXVECTOR3& Position, const Transform & t)
 {
 	if (m_sphere)
 	{
@@ -60,7 +60,7 @@ void BoxComponent::SystemDraw()
 void BoxComponent::SetSphere3(const Transform & t, const float & Radius)
 {
 	auto transform = t;
-	m_sphere = std::make_unique<Sphere3>(transform.GetPosition(), Radius);
+	m_sphere = std::make_unique<Sphere3>(transform.position(), Radius);
 }
 
 const Sphere3 & BoxComponent::GetSphere3() const
@@ -72,10 +72,10 @@ const Sphere3 & BoxComponent::GetSphere3() const
 	return *m_sphere;
 }
 
-void BoxComponent::SetAABB3(const Transform& t, const Math::Vector3 & Size)
+void BoxComponent::SetAABB3(const Transform& t, const D3DXVECTOR3 & Size)
 {
 	auto transform = t;
-	m_aabb = std::make_unique<AABB3>(transform.GetPosition(), Size);
+	m_aabb = std::make_unique<AABB3>(transform.position(), Size);
 }
 
 const AABB3& BoxComponent::GetAABB3() const
@@ -87,7 +87,7 @@ const AABB3& BoxComponent::GetAABB3() const
 	return *m_aabb;
 }
 
-void BoxComponent::SetOBB3(const Transform& t, const Math::Vector3 & Size)
+void BoxComponent::SetOBB3(const Transform& t, const D3DXVECTOR3 & Size)
 {
 	m_obb = std::make_unique<OBB3>(t, Size);
 }
@@ -103,7 +103,7 @@ const OBB3 & BoxComponent::GetOBB3() const
 
 void CollisionTriggerEvent()
 {
-	auto scene = Engine::Get().GetApplication()->GetScene();
+	auto scene = Engine::Get().application()->GetScene();
 	auto player = scene->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	auto enemys = scene->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
 	auto wallboxs = scene->GetGameObjects<WallBox>(ELayer::LAYER_3D_STAGE);
@@ -115,9 +115,9 @@ void CollisionTriggerEvent()
 	for (auto e : enemys)
 	{
 		// 戦車同士の当たり判定
-		if (Intersect(player->GetVehicle().GetBoxComponent(0).GetSphere3(), e->GetVehicle().GetBoxComponent(0).GetSphere3()))
+		if (Intersect(player->vehicle().GetBoxComponent(0).GetSphere3(), e->vehicle().GetBoxComponent(0).GetSphere3()))
 		{
-			if (Intersect(player->GetVehicle().GetBoxComponent(0).GetOBB3(), e->GetVehicle().GetBoxComponent(0).GetOBB3()))
+			if (Intersect(player->vehicle().GetBoxComponent(0).GetOBB3(), e->vehicle().GetBoxComponent(0).GetOBB3()))
 			{
 				player->OnTriggerEvent();
 				e->OnTriggerEvent();
@@ -129,11 +129,11 @@ void CollisionTriggerEvent()
 	for (auto b : bullets)
 	{
 		//　弾とプレイヤー
-		if (Intersect(b->GetBoxComponent().GetSphere3(), player->GetVehicle().GetBoxComponent(0).GetSphere3()))
+		if (Intersect(b->GetBoxComponent().GetSphere3(), player->vehicle().GetBoxComponent(0).GetSphere3()))
 		{
 			for (int i = 0; i < 3; i++)
 			{
-				if (Intersect(b->GetBoxComponent().GetOBB3(), player->GetVehicle().GetBoxComponent(i).GetOBB3()))
+				if (Intersect(b->GetBoxComponent().GetOBB3(), player->vehicle().GetBoxComponent(i).GetOBB3()))
 				{
 					b->OnCollisionEnter();
 					player->OnCollisionEnter();
@@ -144,11 +144,11 @@ void CollisionTriggerEvent()
 		// 弾とエネミー
 		for (auto e : enemys)
 		{
-			if (Intersect(b->GetBoxComponent().GetSphere3(), e->GetVehicle().GetBoxComponent(0).GetSphere3()))
+			if (Intersect(b->GetBoxComponent().GetSphere3(), e->vehicle().GetBoxComponent(0).GetSphere3()))
 			{
 				for (int i = 0; i < 3; i++)
 				{
-					if (Intersect(b->GetBoxComponent().GetOBB3(), e->GetVehicle().GetBoxComponent(i).GetOBB3()))
+					if (Intersect(b->GetBoxComponent().GetOBB3(), e->vehicle().GetBoxComponent(i).GetOBB3()))
 					{
 						b->OnCollisionEnter();
 						e->OnCollisionEnter();
