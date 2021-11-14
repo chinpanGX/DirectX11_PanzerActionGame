@@ -50,8 +50,8 @@ void SkillParticle::Event()
 void SkillParticle::Draw()
 {
 	// テクスチャ座標を計算
-	float x = Effect::GetFrame() % 2 * (1.0f / 2.0f);
-	float y = Effect::GetFrame() / 8 * (1.0f / 8.0f);
+	float x = Effect::GetFrame() % 4 * (1.0f / 4.0f);
+	float y = Effect::GetFrame() / 4 * (1.0f / 4.0f);
 
 	// map&unmap
 	Effect::MapAndUnmap(x, y);

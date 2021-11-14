@@ -666,12 +666,6 @@
     <FxCompile Include="MappingVS.hlsl">
       <Filter>シェーダー</Filter>
     </FxCompile>
-    <FxCompile Include="unlitTexturePS.hlsl">
-      <Filter>シェーダー</Filter>
-    </FxCompile>
-    <FxCompile Include="unlitTextureVS.hlsl">
-      <Filter>シェーダー</Filter>
-    </FxCompile>
     <FxCompile Include="vertexLightingPS.hlsl">
       <Filter>シェーダー</Filter>
     </FxCompile>
@@ -688,6 +682,12 @@
       <Filter>シェーダー</Filter>
     </FxCompile>
     <FxCompile Include="PixelLightingPS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="unlitTexturePS.hlsl">
+      <Filter>シェーダー</Filter>
+    </FxCompile>
+    <FxCompile Include="unlitTextureVS.hlsl">
       <Filter>シェーダー</Filter>
     </FxCompile>
   </ItemGroup>

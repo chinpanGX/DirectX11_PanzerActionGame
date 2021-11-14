@@ -7,17 +7,6 @@
 #include "Shader.h"
 #include <vector>
 
-namespace
-{
-	enum ShaderID : int32_t
-	{
-		DEFAULT,
-		NOLIGHTING, // ライティングなし
-		MAPPING,
-		SHADERMAX
-	};
-}
-
 VertexShader::VertexShader(Graphics & graphics)
 {
 	std::string assetname = "Asset/Shader/";
