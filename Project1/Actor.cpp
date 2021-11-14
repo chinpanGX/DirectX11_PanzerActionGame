@@ -43,19 +43,19 @@ Transform & Actor::transform() const
 	return *m_Transform;
 }
 
-BoxComponent & Actor::GetBoxComponent() const
+Collider & Actor::collider() const
 {
-	if (!m_BoxComponent)
+	if (!m_Collider)
 	{
 		throw std::domain_error("null pointer"); // nullptr‚Ì‚Æ‚«—áŠOƒGƒ‰[
 	}
-	return *m_BoxComponent;
+	return *m_Collider;
 }
 
 #pragma region proteced_method
-void Actor::UpdateCollision(BoxComponent & BoxComponent)
+void Actor::UpdateCollision(Collider & Collider)
 {
-	BoxComponent.Update(m_Transform->position(), *m_Transform);
+	Collider.Update(m_Transform->position(), *m_Transform);
 }
 
 void Actor::UpdateMatrix(Transform & Transform)

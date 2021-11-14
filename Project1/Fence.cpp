@@ -17,7 +17,7 @@
 Fence::Fence()
 {
 	m_Transform = AddComponent<Transform>();
-	m_BoxComponent = AddComponent<BoxComponent>();
+	m_Collider = AddComponent<Collider>();
 }
 
 Fence::~Fence()
@@ -27,13 +27,13 @@ Fence::~Fence()
 
 void Fence::Begin()
 {
-	m_BoxComponent->SetAABB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
-	m_BoxComponent->SetOBB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
+	m_Collider->SetAABB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
+	m_Collider->SetOBB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 }
 
 void Fence::Update()
 {
-	Actor::UpdateCollision(*m_BoxComponent);
+	Actor::UpdateCollision(*m_Collider);
 	// ƒvƒŒƒCƒ„[
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
@@ -65,7 +65,7 @@ void Fence::Draw()
 
 void Fence::OnCollisionToVehicle(const Vehicle & Vehicle)
 {
-	if (Intersect(m_BoxComponent->GetOBB3(), Vehicle.GetBoxComponent(0).GetOBB3()))
+	if (Intersect(m_Collider->GetOBB3(), Vehicle.collider(0).GetOBB3()))
 	{
 		OnCollisionEnter();
 	}

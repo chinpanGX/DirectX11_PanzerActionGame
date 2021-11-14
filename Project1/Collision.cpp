@@ -267,9 +267,9 @@ OBB3::~OBB3()
 {
 }
 
-void OBB3::Update(const D3DXVECTOR3& Position, const Transform & t)
+void OBB3::Update(const D3DXVECTOR3& Position, Transform & t)
 {
-	auto transform = t;
+	auto& transform = t;
 	m_Position = Position;
 	// 0,1,2 = x,y,z
 	m_Dir[0] = transform.right();

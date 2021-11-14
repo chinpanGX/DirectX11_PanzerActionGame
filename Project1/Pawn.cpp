@@ -11,12 +11,15 @@
 #include "Engine.h"
 #include "Application.h"
 #include "GameManager.h"
-#include "OnComponentEvent.h"
 #include "GameCamera.h"
+#include "WallBox.h"
+#include "Fps.h"
+#include "Command.h"
 #include "Pawn.h"
 
 Pawn::Pawn()
 {
+	
 }
 
 Pawn::Pawn(int32_t Type) : m_Type(Type)
@@ -26,7 +29,7 @@ Pawn::Pawn(int32_t Type) : m_Type(Type)
 
 Pawn::~Pawn()
 {
-	m_ComponentEvent.clear();
+	
 }
 
 void Pawn::Begin()
@@ -110,8 +113,22 @@ void Pawn::Create()
 
 void Pawn::BeginOverlap(Pawn* pPawn)
 {
-	for (size_t i = 0; i < m_ComponentEvent.size(); ++i)
+	// •Ç‚Æ‚Ì“–‚½‚è”»’è
+	auto wallFence = Engine::Get().application()->GetScene()->GetGameObjects<WallBox>(ELayer::LAYER_3D_STAGE);
+	for (auto w : wallFence)
 	{
-		m_ComponentEvent[i]->BeginOverlap(pPawn);
+		if (Intersect(pPawn->vehicle().collider(0).GetOBB3(), w->collider().GetOBB3()))
+		{
+			// ‘Oi
+			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+			{
+				pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
+			}
+			// Œã‘Þ
+			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
+			{
+				pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
+			}
+		}		
 	}
 }

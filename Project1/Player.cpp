@@ -24,13 +24,11 @@
 #include "Enemy.h"
 #include "GameCamera.h"
 #include "Pivot.h"
-#include "OnComponentEvent.h"
 #include "Player.h"
 
 Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().resource())
 {
 	Pawn::Create();
-	AddComponentEvent<OnComponentEventWallBox>();
 }
 
 Player::~Player()
@@ -69,12 +67,12 @@ void Player::Event()
 void Player::Draw()
 {
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
+	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
 	{
 		OutputDebugString("Player NoRendering\n");
 		return;
 	}
-	m_Resource.SetShader("SpotLight");
+	m_Resource.SetShader("PixelLighting");
 	vehicle().Draw();
 }
 
@@ -94,15 +92,19 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 void Player::OnCollision()
 {
 	// 敵との当たり判定
-	if(TrigerEvent())
+	auto enemy = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
+	if (Intersect(vehicle().collider(0).GetSphere3(), enemy->vehicle().collider(0).GetSphere3()))
 	{
-		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+		if(Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
 		{
-			GetMoveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
-		}
-		if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
-		{
-			GetMoveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+			{
+				GetMoveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+			}
+			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
+			{
+				GetMoveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+			}
 		}
 	}
 	BeginOverlap(this);

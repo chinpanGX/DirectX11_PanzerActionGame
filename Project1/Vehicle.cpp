@@ -111,18 +111,18 @@ void Vehicle::CalculateHp(float AttackPoint)
 #pragma endregion Panzerのアクション
 
 // コリジョンの位置を更新
-void Vehicle::ColiisionUpdate(int32_t Element, const D3DXVECTOR3 & Position, const Transform & t)
+void Vehicle::ColiisionUpdate(int32_t Element, const D3DXVECTOR3 & Position, Transform & t)
 {
-	m_BoxComponent[Element]->Update(Position, t);
+	m_Collider[Element]->Update(Position, t);
 }
 
-BoxComponent & Vehicle::GetBoxComponent(int32_t Element) const
+Collider & Vehicle::collider(int32_t Element) const
 {
-	if (!m_BoxComponent[Element])
+	if (!m_Collider[Element])
 	{
 		std::domain_error("null");
 	}
-	return *m_BoxComponent[Element];
+	return *m_Collider[Element];
 }
 
 Transform & Vehicle::bodyTransform() const

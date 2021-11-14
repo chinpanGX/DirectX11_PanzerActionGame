@@ -8,6 +8,7 @@
 #include "PanzerContainer.h"
 #include "Engine.h"
 #include "Application.h"
+#include "Resource.h"
 #include "Pivot.h"
 #include "Fps.h"
 #include "Body.h"
@@ -20,14 +21,12 @@
 #include "Vehicle.h"
 #include "Command.h"
 #include "MoveComponent.h"
-#include "OnComponentEvent.h"
 #include "GameCamera.h"
 #include "Enemy.h"
 
-Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU)
+Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU), m_Resource(*Engine::Get().resource())
 {
-	Pawn::Create();
-	AddComponentEvent<OnComponentEventWallBox>();
+	Pawn::Create();	
 }
 
 Enemy::~Enemy()
@@ -67,11 +66,12 @@ void Enemy::Event()
 void Enemy::Draw()
 {
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().GetBoxComponent(0).GetSphere3().GetRadius()))
+	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
 	{
 		OutputDebugString("Enemy NoRendering\n");
 		return;
 	}
+	m_Resource.SetShader("PixelLighting");
 	vehicle().Draw();
 }
 

@@ -149,7 +149,7 @@
     <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Bg.cpp" />
     <ClCompile Include="Body.cpp" />
-    <ClCompile Include="BoxComponent.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="BulletComponentEvent.cpp" />
     <ClCompile Include="BulletStateDestory.cpp" />
     <ClCompile Include="BulletStateMove.cpp" />
@@ -189,7 +189,6 @@
     <ClCompile Include="MuzzleFlash.cpp" />
     <ClCompile Include="myLib.cpp" />
     <ClCompile Include="NormalBullet.cpp" />
-    <ClCompile Include="OnComponentEvent.cpp" />
     <ClCompile Include="Panzer.cpp" />
     <ClCompile Include="PanzerContainer.cpp" />
     <ClCompile Include="PanzerGarage.cpp" />
@@ -244,7 +243,7 @@
     <ClInclude Include="Audio.h" />
     <ClInclude Include="Bg.h" />
     <ClInclude Include="Body.h" />
-    <ClInclude Include="BoxComponent.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletComponentEvent.h" />
     <ClInclude Include="BulletStateDestory.h" />
@@ -289,7 +288,6 @@
     <ClInclude Include="MuzzleFlash.h" />
     <ClInclude Include="myLib.h" />
     <ClInclude Include="NormalBullet.h" />
-    <ClInclude Include="OnComponentEvent.h" />
     <ClInclude Include="Panzer.h" />
     <ClInclude Include="PanzerContainer.h" />
     <ClInclude Include="PanzerGarage.h" />

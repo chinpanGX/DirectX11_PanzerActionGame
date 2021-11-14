@@ -40,16 +40,8 @@ protected:
 	// ¶¬
 	void Create();
 	
-	// “–‚½‚è”»’èŒã‚ÌƒCƒxƒ“ƒg‚ğ’Ç‰Á
-	template<typename T>
-	void AddComponentEvent()
-	{
-		m_ComponentEvent.emplace_back(std::make_unique<T>());
-	}
-
 	void BeginOverlap(Pawn* pPawn);
 private:
-	std::vector<std::unique_ptr<IOnComponentEventToPawn>> m_ComponentEvent;
 	std::unique_ptr<Vehicle> m_Vehicle = nullptr;
 	std::unique_ptr<MoveComponent> m_MoveComponent = nullptr;
 	std::unique_ptr<Pivot> m_Pivot = nullptr;

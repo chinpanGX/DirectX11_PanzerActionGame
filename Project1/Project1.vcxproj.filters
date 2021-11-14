@@ -130,9 +130,6 @@
     <ClCompile Include="Engine.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="BoxComponent.cpp">
-      <Filter>Component</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Component</Filter>
     </ClCompile>
@@ -259,9 +256,6 @@
     <ClCompile Include="WallBox.cpp">
       <Filter>Actor\Stage\Object</Filter>
     </ClCompile>
-    <ClCompile Include="OnComponentEvent.cpp">
-      <Filter>Actor\Pawn</Filter>
-    </ClCompile>
     <ClCompile Include="UnitStageSetter.cpp">
       <Filter>Actor\Stage</Filter>
     </ClCompile>
@@ -350,6 +344,9 @@
     <ClCompile Include="PanzerGarage.cpp">
       <Filter>Actor\Stage</Filter>
     </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -417,9 +414,6 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>Component</Filter>
-    </ClInclude>
-    <ClInclude Include="BoxComponent.h">
       <Filter>Component</Filter>
     </ClInclude>
     <ClInclude Include="Renderer3D.h">
@@ -566,9 +560,6 @@
     <ClInclude Include="WallBox.h">
       <Filter>Actor\Stage\Object</Filter>
     </ClInclude>
-    <ClInclude Include="OnComponentEvent.h">
-      <Filter>Actor\Pawn</Filter>
-    </ClInclude>
     <ClInclude Include="UnitStageSetter.h">
       <Filter>Actor\Stage</Filter>
     </ClInclude>
@@ -660,6 +651,9 @@
     </ClInclude>
     <ClInclude Include="PanzerGarage.h">
       <Filter>Actor\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

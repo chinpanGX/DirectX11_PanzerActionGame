@@ -27,11 +27,11 @@ void GameStageSetterWallBox::Set(Scene * scene)
 	{
 		float random = (float)myLib::Random::Rand_R(3, 10);
 		D3DXVECTOR3 size = D3DXVECTOR3(random, random, random);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(30.0f * i, 0.0f, 150.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(-30.0f * i, 0.0f, 150.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(150.0f, 0.0f, -30.0f * i), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(-150.0f, 0.0f, -30.0f * i), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(30.0f * i, 0.0f, -150.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, 150.0f));
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, 150.0f));
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(150.0f, 0.0f, -30.0f * i));
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-150.0f, 0.0f, -30.0f * i));
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, -150.0f));
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f));
 	}
 }

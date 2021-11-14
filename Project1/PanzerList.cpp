@@ -36,14 +36,14 @@ Tiger::Tiger() : Vehicle("Tiger")
 	// 攻撃力UP
 	GetSkill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
 
-	// BoxComponentの設定
-	m_BoxComponent[0] = std::make_unique<BoxComponent>();
-	m_BoxComponent[1] = std::make_unique<BoxComponent>();
-	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	// Colliderの設定
+	m_Collider[0] = std::make_unique<Collider>();
+	m_Collider[1] = std::make_unique<Collider>();
+	m_Collider[2] = std::make_unique<Collider>();
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(5.0f, 3.0f, 7.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Tiger::~Tiger()
@@ -70,9 +70,9 @@ void Tiger::Draw()
 {
 	Vehicle::Draw();
 #if 0
-	m_BoxComponent[0]->SystemDraw();
-	m_BoxComponent[1]->SystemDraw();
-	m_BoxComponent[2]->SystemDraw();
+	m_Collider[0]->SystemDraw();
+	m_Collider[1]->SystemDraw();
+	m_Collider[2]->SystemDraw();
 #endif
 }
 #pragma endregion ティーガー
@@ -95,13 +95,13 @@ Centurion::Centurion() : Vehicle("Centurion")
 	GetSkill().SetSkill(std::make_unique<UseSkill::SpeedUp>(1.5f));
 
 	// コリジョンの設定
-	m_BoxComponent[0] = std::make_unique<BoxComponent>();
-	m_BoxComponent[1] = std::make_unique<BoxComponent>();
-	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	m_Collider[0] = std::make_unique<Collider>();
+	m_Collider[1] = std::make_unique<Collider>();
+	m_Collider[2] = std::make_unique<Collider>();
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(5.0f, 3.0f, 8.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Centurion::~Centurion()
@@ -128,9 +128,9 @@ void Centurion::Draw()
 {
 	Vehicle::Draw();
 #if 0
-	m_BoxComponent[0]->SystemDraw();
-	m_BoxComponent[1]->SystemDraw();
-	m_BoxComponent[2]->SystemDraw();
+	m_Collider[0]->SystemDraw();
+	m_Collider[1]->SystemDraw();
+	m_Collider[2]->SystemDraw();
 #endif
 }
 #pragma endregion センチュリオン
@@ -153,13 +153,13 @@ Patton::Patton() : Vehicle("Patton")
 	GetSkill().SetSkill(std::make_unique<UseSkill::DefenceUp>(1.5f));
 
 	// コリジョンの設定
-	m_BoxComponent[0] = std::make_unique<BoxComponent>();
-	m_BoxComponent[1] = std::make_unique<BoxComponent>();
-	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	m_Collider[0] = std::make_unique<Collider>();
+	m_Collider[1] = std::make_unique<Collider>();
+	m_Collider[2] = std::make_unique<Collider>();
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Patton::~Patton()
@@ -186,9 +186,9 @@ void Patton::Draw()
 {
 	Vehicle::Draw();
 #if 0
-	m_BoxComponent[0]->SystemDraw();
-	m_BoxComponent[1]->SystemDraw();
-	m_BoxComponent[2]->SystemDraw();
+	m_Collider[0]->SystemDraw();
+	m_Collider[1]->SystemDraw();
+	m_Collider[2]->SystemDraw();
 #endif
 }
 #pragma endregion パットン
@@ -213,14 +213,14 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	GetSkill().SetSkill(std::make_unique<UseSkill::DefenceUp>(2.0f));
 
 	// コリジョンの設定
-	m_BoxComponent[0] = std::make_unique<BoxComponent>();
-	m_BoxComponent[1] = std::make_unique<BoxComponent>();
-	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	m_Collider[0] = std::make_unique<Collider>();
+	m_Collider[1] = std::make_unique<Collider>();
+	m_Collider[2] = std::make_unique<Collider>();
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
+	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 T_34_85::~T_34_85()
@@ -247,9 +247,9 @@ void T_34_85::Draw()
 {
 	Vehicle::Draw();
 #if 0 
-	m_BoxComponent[0]->SystemDraw();
-	m_BoxComponent[1]->SystemDraw();
-	m_BoxComponent[2]->SystemDraw();
+	m_Collider[0]->SystemDraw();
+	m_Collider[1]->SystemDraw();
+	m_Collider[2]->SystemDraw();
 #endif
 }
 #pragma endregion T-34-85
@@ -276,14 +276,14 @@ IV_H::IV_H() : Vehicle("IV-H")
 	GetSkill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
 	
 	// コリジョンの設定
-	m_BoxComponent[0] = std::make_unique<BoxComponent>();
-	m_BoxComponent[1] = std::make_unique<BoxComponent>();
-	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
+	m_Collider[0] = std::make_unique<Collider>();
+	m_Collider[1] = std::make_unique<Collider>();
+	m_Collider[2] = std::make_unique<Collider>();
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 IV_H::~IV_H()
@@ -310,9 +310,9 @@ void IV_H::Draw()
 {
 	Vehicle::Draw();
 #if 0 
-	m_BoxComponent[0]->SystemDraw();
-	m_BoxComponent[1]->SystemDraw();
-	m_BoxComponent[2]->SystemDraw();
+	m_Collider[0]->SystemDraw();
+	m_Collider[1]->SystemDraw();
+	m_Collider[2]->SystemDraw();
 #endif
 }
 #pragma endregion IV号H型
@@ -334,14 +334,14 @@ Sherman::Sherman() : Vehicle("Sherman")
 	GetSkill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.3f));
 
 	// コリジョンの設定
-	m_BoxComponent[0] = std::make_unique<BoxComponent>();
-	m_BoxComponent[1] = std::make_unique<BoxComponent>();
-	m_BoxComponent[2] = std::make_unique<BoxComponent>();
-	m_BoxComponent[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_BoxComponent[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_BoxComponent[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
-	m_BoxComponent[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_BoxComponent[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
+	m_Collider[0] = std::make_unique<Collider>();
+	m_Collider[1] = std::make_unique<Collider>();
+	m_Collider[2] = std::make_unique<Collider>();
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 Sherman::~Sherman()
@@ -368,8 +368,8 @@ void Sherman::Draw()
 {
 	Vehicle::Draw();
 #if 0
-	m_BoxComponent[0]->SystemDraw();
-	m_BoxComponent[1]->SystemDraw();
-	m_BoxComponent[2]->SystemDraw();
+	m_Collider[0]->SystemDraw();
+	m_Collider[1]->SystemDraw();
+	m_Collider[2]->SystemDraw();
 #endif
 }

@@ -35,8 +35,8 @@ public:
 	void Shot(const Transform& transform);
 	
 	//　当たり判定関係
-	void ColiisionUpdate(int32_t Element, const D3DXVECTOR3& Position, const Transform& t);
-	BoxComponent& GetBoxComponent(int32_t Element) const;
+	void ColiisionUpdate(int32_t Element, const D3DXVECTOR3& Position, Transform& t);
+	Collider& collider(int32_t Element) const;
 	
 	class Transform& bodyTransform() const;
 	class Transform& turretTransform() const;
@@ -44,7 +44,7 @@ public:
 	Status& GetStatus() const;
 	Skill& GetSkill() const;
 protected:
-	std::array<std::unique_ptr<class BoxComponent>, 3> m_BoxComponent;
+	std::array<std::unique_ptr<class Collider>, 3> m_Collider;
 
 	// プロパティの設定
 	void SetPanzer();

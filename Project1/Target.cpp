@@ -16,7 +16,7 @@
 Target::Target()
 {
 	m_Transform = Actor::AddComponent<Transform>();
-	m_BoxComponent = Actor::AddComponent<BoxComponent>();
+	m_Collider = Actor::AddComponent<Collider>();
 }
 
 Target::~Target()
@@ -26,7 +26,7 @@ Target::~Target()
 void Target::Begin()
 {
 	m_Transform->scale(5.0f, 5.0f, 1.0f);
-	m_BoxComponent->SetSphere3(*m_Transform, 5.0f);
+	m_Collider->SetSphere3(*m_Transform, 5.0f);
 }
 
 void Target::Update()
@@ -43,7 +43,7 @@ void Target::Update()
 		if (m_NotDraw == false)
 		{
 			// 衝突検知
-			if (Intersect(Bullet->GetBoxComponent().GetSphere3(), m_BoxComponent->GetSphere3()))
+			if (Intersect(Bullet->collider().GetSphere3(), m_Collider->GetSphere3()))
 			{
 				// 弾のオブジェクトに通知
 				Bullet->OnCollisionEnter();
@@ -63,7 +63,7 @@ void Target::Update()
 			m_NotDraw = false;
 		}
 	}
-	Actor::UpdateCollision(*m_BoxComponent);
+	Actor::UpdateCollision(*m_Collider);
 }
 
 void Target::Event()
@@ -101,6 +101,6 @@ void Target::Draw()
 		m_Resource.SetTexture(0, "Target");
 
 		Effect::Draw();
-		m_BoxComponent->SystemDraw();
+		m_Collider->SystemDraw();
 	}
 }

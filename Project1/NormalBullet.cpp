@@ -18,12 +18,13 @@
 #include "BulletComponentEvent.h"
 #include "Player.h" 
 #include "Enemy.h"
+#include "Fence.h"
+#include "WallBox.h"
 #include "NormalBullet.h"
 
 NormalBullet::NormalBullet() : m_Resource(*Engine::Get().resource())
 {
-	AddComponentEvent<BulletEvent::OnComponentEventFence>();
-	AddComponentEvent<BulletEvent::OnComponentEventWallBox>();
+	
 }
 
 NormalBullet::~NormalBullet()
@@ -37,7 +38,7 @@ void NormalBullet::Begin()
 void NormalBullet::Update()
 {
 	m_State->Update(this, Fps::Get().deltaTime);
-	Actor::UpdateCollision(*m_BoxComponent);
+	Actor::UpdateCollision(*m_Collider);
 }
 
 void NormalBullet::Event()
@@ -55,7 +56,7 @@ void NormalBullet::Draw()
 	// マトリクス設定
 	Actor::UpdateMatrix(*m_Transform);
 	m_Resource.SetStaticModel("Bullet");
-	//m_BoxComponent->SystemDraw();
+	//m_Collider->SystemDraw();
 }
 
 void NormalBullet::Create(const D3DXVECTOR3& Position, const D3DXVECTOR3 & Vector)
@@ -67,11 +68,11 @@ void NormalBullet::Create(const D3DXVECTOR3& Position, const D3DXVECTOR3 & Vecto
 	m_Transform->scale(1.5f);
 
 	// コンポーネントの設定
-	m_BoxComponent = Actor::AddComponent<BoxComponent>();
+	m_Collider = Actor::AddComponent<Collider>();
 	D3DXVECTOR3 scale = m_Transform->scale() * 0.5f;
-	m_BoxComponent->SetSphere3(*m_Transform, 1.0f);
-	m_BoxComponent->SetAABB3(*m_Transform, scale);
-	m_BoxComponent->SetOBB3(*m_Transform, scale);
+	m_Collider->SetSphere3(*m_Transform, 1.0f);
+	m_Collider->SetAABB3(*m_Transform, scale);
+	m_Collider->SetOBB3(*m_Transform, scale);
 	m_State = std::make_unique<BulletStateMove>();
 
 	// リソース
@@ -99,17 +100,38 @@ void NormalBullet::OnCollision()
 	{
 		OnCollisionToPawn(enemy_1);
 	}
-	BeginOverlap(this);
+	
+	// フェンス
+	std::vector<Fence*> fences = Engine::Get().application()->GetScene()->GetGameObjects<Fence>(ELayer::LAYER_3D_STAGE);
+	for (Fence* fence : fences)
+	{
+		if (Intersect(m_Collider->GetAABB3(), fence->collider().GetAABB3()))
+		{
+			Bullet::OnCollisionEnter();
+			fence->OnCollisionEnter();
+		}
+	}
+
+	// 壁
+	auto walls = Engine::Get().application()->GetScene()->GetGameObjects<WallBox>(ELayer::LAYER_3D_STAGE);
+	for (auto i : walls)
+	{
+		if (Intersect(m_Collider->GetAABB3(), i->collider().GetAABB3()))
+		{
+			Bullet::OnCollisionEnter();
+			i->OnCollisionEnter();
+		}
+	}
 }
 
 void NormalBullet::OnCollisionToPawn(Pawn * Pawn)
 {
 	// 球同士の当たり判定を取る
-	if (Intersect(m_BoxComponent->GetSphere3(), Pawn->vehicle().GetBoxComponent(0).GetSphere3()))
+	if (Intersect(m_Collider->GetSphere3(), Pawn->vehicle().collider(0).GetSphere3()))
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			if (Intersect(m_BoxComponent->GetOBB3(), Pawn->vehicle().GetBoxComponent(i).GetOBB3()))
+			if (Intersect(m_Collider->GetOBB3(), Pawn->vehicle().collider(i).GetOBB3()))
 			{
 				Bullet::OnCollisionEnter();
 				Pawn->OnCollisionEnter();

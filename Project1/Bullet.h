@@ -78,22 +78,7 @@ protected:
 		m_Speed = Speed;
 		m_Frame = Frame;
 	}
-	// 当たり判定後のイベントを追加
-	template<typename T>
-	void AddComponentEvent()
-	{
-		m_ComponentEvent.emplace_back(std::make_unique<T>());
-	}
-
-	void BeginOverlap(Bullet* pBullet)
-	{
-		for (size_t i = 0; i < m_ComponentEvent.size(); ++i)
-		{
-			m_ComponentEvent[i]->BeginOverlap(pBullet);
-		}
-	}
 private:
-	std::vector<std::unique_ptr<IOnComponentEventToActor>> m_ComponentEvent;
 	D3DXVECTOR3 m_DirectionVector;	// 飛んでいく方向
 	uint32_t m_Frame;			// フレーム数
 	float m_Speed;				// 速度

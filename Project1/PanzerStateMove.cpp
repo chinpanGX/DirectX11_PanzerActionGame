@@ -37,7 +37,7 @@ void State::Forward::Update(Pawn * pPawn, float deltaTime)
 	pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), deltaTime);
 	pPawn->pivot().Move();
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	if (Intersect(pPawn->vehicle().GetBoxComponent(0).GetSphere3(), player->vehicle().GetBoxComponent(0).GetSphere3()))
+	if (Intersect(pPawn->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
 	{
 		pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), deltaTime);
 		pPawn->pivot().Move();
@@ -63,7 +63,7 @@ void State::Backward::Update(Pawn * pPawn, float deltaTime)
 	pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), deltaTime);
 	pPawn->pivot().Move();
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	if (Intersect(pPawn->vehicle().GetBoxComponent(0).GetSphere3(), player->vehicle().GetBoxComponent(0).GetSphere3()))
+	if (Intersect(pPawn->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
 	{
 		pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), deltaTime);
 		pPawn->pivot().Move();

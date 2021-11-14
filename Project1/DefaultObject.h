@@ -59,29 +59,8 @@ public:
 			return false;
 		}
 	}
-	inline void OnTriggerEvent()
-	{
-		m_OnTrigerEvent = true;
-	}
-	inline void ResetTriggerEvent()
-	{
-		m_OnTrigerEvent = false;
-	}
-	const bool TrigerEvent() const
-	{
-		if (m_OnTrigerEvent == true)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
 private:
 	bool m_OnDestroy;	// trueでインスタンスを削除
 	bool m_OnCollision;	// trueで当たり判定を検知
-	bool m_OnTrigerEvent; // trueで衝突イベント
 };
 

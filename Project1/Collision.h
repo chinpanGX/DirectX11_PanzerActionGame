@@ -62,7 +62,7 @@ public:
 	OBB3() = delete;
 	OBB3(const class Transform& t, const D3DXVECTOR3& Size);
 	~OBB3();
-	void Update(const D3DXVECTOR3& Position, const class Transform& t);
+	void Update(const D3DXVECTOR3& Position, class Transform& t);
 	void SystemDraw();
 	const D3DXVECTOR3& position()const;
 	const D3DXVECTOR3& GetDirection(int32_t Element);

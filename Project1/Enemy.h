@@ -22,4 +22,5 @@ public:
 private:
 	void OnCollision()override;
 	std::unique_ptr<PanzerState> m_State;
+	class Resource& m_Resource;
 };
