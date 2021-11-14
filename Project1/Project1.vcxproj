@@ -150,7 +150,6 @@
     <ClCompile Include="Bg.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="BulletComponentEvent.cpp" />
     <ClCompile Include="BulletStateDestory.cpp" />
     <ClCompile Include="BulletStateMove.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -245,12 +244,10 @@
     <ClInclude Include="Body.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="Bullet.h" />
-    <ClInclude Include="BulletComponentEvent.h" />
     <ClInclude Include="BulletStateDestory.h" />
     <ClInclude Include="BulletStateMove.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="DrawSkill.h" />
-    <ClInclude Include="IOnComponentEvent.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Cost.h" />

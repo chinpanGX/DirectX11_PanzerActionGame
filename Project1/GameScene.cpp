@@ -8,6 +8,7 @@
 --------------------------------------------------------------*/
 #include "Engine.h"
 #include "Resource.h"
+#include "Graphics.h"
 #include "Application.h"
 #include "GameBg.h"
 #include "GameCamera.h"
@@ -54,6 +55,23 @@ void GameScene::PanzerSelect::Uninit()
 {
 	Unload();
 	Scene::Uninit();
+}
+
+void GameScene::PanzerSelect::Draw()
+{
+	// ライトの設定
+	Light light;
+	light.Enable = true;
+	light.Direction = D3DXVECTOR4(-1.0f, -1.0f, -1.0f, 0.0f);
+	D3DXVec4Normalize(&light.Direction, &light.Direction);
+	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
+	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Engine::Get().graphics()->SetLight(light);
+
+	Scene::Draw();
+
+	light.Enable = false;
+	Engine::Get().graphics()->SetLight(light);
 }
 
 #pragma region private_Fuc
@@ -138,6 +156,23 @@ void GameScene::Tutorial::Uninit()
 	Scene::Uninit();
 }
 
+void GameScene::Tutorial::Draw()
+{
+	// ライトの設定
+	Light light;
+	light.Enable = true;
+	light.Direction = D3DXVECTOR4(1.0f, -1.0f, 1.0f, 0.0f);
+	D3DXVec4Normalize(&light.Direction, &light.Direction);
+	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
+	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Engine::Get().graphics()->SetLight(light);
+
+	Scene::Draw();
+
+	light.Enable = false;
+	Engine::Get().graphics()->SetLight(light);
+}
+
 void GameScene::Tutorial::Load()
 {
 	// オーディオのロード
@@ -184,6 +219,23 @@ void GameScene::Game::Uninit()
 {
 	Unload();
 	Scene::Uninit();
+}
+
+void GameScene::Game::Draw()
+{
+	// ライトの設定
+	Light light;
+	light.Enable = true;
+	light.Direction = D3DXVECTOR4(1.0f, -1.0f, 1.0f, 0.0f);
+	D3DXVec4Normalize(&light.Direction, &light.Direction);
+	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
+	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	Engine::Get().graphics()->SetLight(light);
+
+	Scene::Draw();
+
+	light.Enable = false;
+	Engine::Get().graphics()->SetLight(light);
 }
 
 void GameScene::Game::Load()

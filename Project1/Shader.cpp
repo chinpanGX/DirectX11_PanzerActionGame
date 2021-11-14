@@ -22,7 +22,7 @@ VertexShader::VertexShader(Graphics & graphics)
 	m_Map["NoLighting"]->Load(assetname + "unlitTextureVS.cso");
 	m_Map["Mapping"]->Load(assetname + "MappingVS.cso");	
 	m_Map["PixelLighting"]->Load(assetname + "PixelLightingVS.cso");
-	m_Map["SpotLight"]->Load(assetname + "SpotLightVS.cso");
+	//m_Map["SpotLight"]->Load(assetname + "SpotLightVS.cso");
 }
 
 VertexShader::~VertexShader()

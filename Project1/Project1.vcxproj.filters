@@ -259,9 +259,6 @@
     <ClCompile Include="UnitStageSetter.cpp">
       <Filter>Actor\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="BulletComponentEvent.cpp">
-      <Filter>Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="SkillList.cpp">
       <Filter>Actor\Panzer</Filter>
     </ClCompile>
@@ -562,10 +559,6 @@
     </ClInclude>
     <ClInclude Include="UnitStageSetter.h">
       <Filter>Actor\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="IOnComponentEvent.h" />
-    <ClInclude Include="BulletComponentEvent.h">
-      <Filter>Bullet</Filter>
     </ClInclude>
     <ClInclude Include="SkillList.h">
       <Filter>Actor\Panzer</Filter>

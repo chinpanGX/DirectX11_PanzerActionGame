@@ -6,7 +6,6 @@
 -------------------------------------------------------------*/
 #pragma once
 #include "Actor.h"
-#include "IOnComponentEvent.h"
 
 class Bullet : public Actor
 {

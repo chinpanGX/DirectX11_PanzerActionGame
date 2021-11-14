@@ -13,19 +13,19 @@
 void TutorialStageSetterWall::Set(Scene * scene)
 {
 	D3DXVECTOR3 size = D3DXVECTOR3(3.0f, 3.0f, 3.0f);
-	scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(0.0f, 0.0f, 0.0f), size);
-	scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(0.0f, 0.0f, -80.0f), size);
-	scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(0.0f, 0.0f, -200.0f), size);
+	scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(0.0f, 0.0f, 0.0f), size);
+	scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(0.0f, 0.0f, -80.0f), size);
+	scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(0.0f, 0.0f, -200.0f), size);
 	for (int32_t i = 1; i < 20; ++i)
 	{
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(12.0f * i, 0.0f, 0.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(-12.0f * i, 0.0f, 0.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(12.0f * i, 0.0f, -120.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(-12.0f * i, 0.0f, -120.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(150.0f, 0.0f, -12.0f * i), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(-150.0f, 0.0f, -12.0f * i), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(12.0f * i, 0.0f, -200.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->transform().Set(D3DXVECTOR3(-12.0f * i, 0.0f, -200.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(12.0f * i, 0.0f, 0.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-12.0f * i, 0.0f, 0.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(12.0f * i, 0.0f, -120.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-12.0f * i, 0.0f, -120.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(150.0f, 0.0f, -12.0f * i), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-150.0f, 0.0f, -12.0f * i), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(12.0f * i, 0.0f, -200.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-12.0f * i, 0.0f, -200.0f), size);
 	}
 }
 

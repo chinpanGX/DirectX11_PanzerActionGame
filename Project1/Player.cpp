@@ -93,17 +93,20 @@ void Player::OnCollision()
 {
 	// 敵との当たり判定
 	auto enemy = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
-	if (Intersect(vehicle().collider(0).GetSphere3(), enemy->vehicle().collider(0).GetSphere3()))
+	if (enemy)
 	{
-		if(Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
+		if (Intersect(vehicle().collider(0).GetSphere3(), enemy->vehicle().collider(0).GetSphere3()))
 		{
-			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
 			{
-				GetMoveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
-			}
-			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
-			{
-				GetMoveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+				{
+					GetMoveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+				}
+				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
+				{
+					GetMoveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+				}
 			}
 		}
 	}

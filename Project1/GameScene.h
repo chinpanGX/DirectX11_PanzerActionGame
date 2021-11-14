@@ -7,6 +7,8 @@
 #pragma once
 #include "Scene.h"
 #include "GameBg.h"
+#include "Engine.h"
+#include "Graphics.h"
 
 namespace GameScene
 {
@@ -20,10 +22,7 @@ namespace GameScene
 		{
 			Scene::Update();
 		}
-		void Draw()override
-		{
-			Scene::Draw();
-		}
+		void Draw()override;
 	private:
 		void Load()override;
 		void Unload()override;
@@ -43,10 +42,7 @@ namespace GameScene
 		{
 			Scene::Update();
 		}
-		void Draw()override
-		{
-			Scene::Draw();
-		}
+		void Draw()override;
 	private:
 		void Load()override;
 		void Unload()override;
@@ -62,10 +58,7 @@ namespace GameScene
 		{
 			Scene::Update();
 		}
-		void Draw()override
-		{
-			Scene::Draw();
-		}
+		void Draw()override;
 	private:
 		void Load()override;
 		void Unload()override;
