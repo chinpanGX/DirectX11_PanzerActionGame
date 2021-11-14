@@ -630,9 +630,6 @@
     <ClInclude Include="AudioManager.h">
       <Filter>GameManager</Filter>
     </ClInclude>
-    <ClInclude Include="Manager.h">
-      <Filter>GameManager</Filter>
-    </ClInclude>
     <ClInclude Include="SkillParticle.h">
       <Filter>Actor\2D\Effect</Filter>
     </ClInclude>
@@ -647,6 +644,9 @@
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>GameManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

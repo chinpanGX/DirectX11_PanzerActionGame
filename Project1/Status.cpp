@@ -53,7 +53,13 @@ const float Status::GetMaxHp() const
 
 void Status::SetHp(float Hp)
 {
-	m_Hp = Hp;
+	float tmp = Hp;
+	// マックスより多くならないようにする
+	if (m_MaxHp < tmp)
+	{
+		tmp = m_MaxHp;
+	}
+	m_Hp = tmp;
 }
 
 const float Status::GetHp() const

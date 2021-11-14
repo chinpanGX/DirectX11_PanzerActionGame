@@ -38,7 +38,7 @@ void Vehicle::Update()
 	m_Shadow->transform().position(m_Panzer->GetBody().transform().position());
 	m_Shadow->transform().position().y = 0.01f;
 	m_Shadow->transform().scale(8.0f, 0.0f, 10.0f);
-	m_Skill->Update(*m_Status);
+	m_Skill->Update(*m_Status, m_Panzer->GetBody().transform().position());
 }
 
 void Vehicle::Draw()

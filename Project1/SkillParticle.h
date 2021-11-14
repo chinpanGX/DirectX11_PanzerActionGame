@@ -17,5 +17,7 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
+private:
+	float m_Time; // ŽžŠÔŒv‘ª
 };
 

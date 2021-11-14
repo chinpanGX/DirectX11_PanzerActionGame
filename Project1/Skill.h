@@ -22,7 +22,7 @@ public:
 	void SetSkill(std::unique_ptr<IUseSkill> useSkill);
 	// スキル発動(発動するまでの時間)
 	void Begin(float enableTime); 
-	void Update(Status& status);
+	void Update(Status& status, const D3DXVECTOR3& position);
 
 	// スキルゲージがたまる時間
 	void SetTime(float time); //　進める時間
@@ -40,4 +40,6 @@ private:
 	float m_Time = 1.0f;	// 進める時間
 	float m_NowTime = 0.0f;
 	bool m_AlreadyUseble = false; // スキルが使える状態かどうか
+
+	class SkillParticle* m_SkillEffect;
 };

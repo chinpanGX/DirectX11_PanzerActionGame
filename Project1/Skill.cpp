@@ -39,7 +39,7 @@ void Skill::Begin(float enableTime)
 	m_EnableTime = enableTime;
 }
 
-void Skill::Update(Status& status)
+void Skill::Update(Status& status, const D3DXVECTOR3& position)
 {
 	switch (m_Phase)
 	{
@@ -53,22 +53,31 @@ void Skill::Update(Status& status)
 			// たまったら有効にする
 			if (m_EnableTime < m_NowTime)
 			{
-				m_AlreadyUseble = true;
-				m_NowTime = 0.0f;
+				m_Phase = 1;
 			}
 		}
 		break;
-	// スキルを使う
+	// スキルが溜まって、準備完了
 	case 1:
+		// 準備完了
+		m_AlreadyUseble = true;
+		m_NowTime = 0;
+		break;
+	// スキルを使う
+	case 2:
 		for (size_t i = 0; i < m_UseSkill.size(); ++i)
 		{
 			m_UseSkill[i]->Use(status);
 		}
-		m_Phase = 2;
+		m_Phase = 3;
 		break;
 	// スキルを使っている間
-	case 2:
-		m_NowTime++;
+	case 3:
+		m_NowTime += Fps::Get().deltaTime;
+		if (m_SkillEffect)
+		{
+			m_SkillEffect->transform().position(position);
+		}
 		// ５秒間有効
 		if (m_NowTime > 5.0f)
 		{
@@ -78,6 +87,9 @@ void Skill::Update(Status& status)
 			}
 			m_AlreadyUseble = false;
 			m_NowTime = 0.0f;
+			m_Phase = 0;
+			m_SkillEffect->OnDestroy();
+			m_SkillEffect = nullptr;
 		}
 		break;
 	}
@@ -93,7 +105,7 @@ void Skill::Enable(Pawn* pawn)
 	// すでにスキルが使える状態
 	if (m_AlreadyUseble)
 	{
-		m_Phase = 1;
+		m_Phase = 2;
 		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
 		// エフェクトを発生
 		PlayEffect(pawn);
@@ -121,7 +133,7 @@ void Skill::PlayEffect(Pawn* pawn)
 	// エフェクトを発生する位置を戦車の位置にする
 	auto pos = pawn->vehicle().bodyTransform().position();
 	// エフェクトを再生する
-	auto effect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
-	effect->transform().position(pos);
+	m_SkillEffect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
+	m_SkillEffect->transform().position(pos);
 }
 #pragma endregion スキル

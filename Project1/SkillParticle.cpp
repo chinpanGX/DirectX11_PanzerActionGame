@@ -12,11 +12,13 @@
 #include "GameCamera.h"
 #include "Pause.h"
 #include "SkillParticle.h"
+#include "Fps.h"
 
 SkillParticle::SkillParticle() : Effect()
 {
 	m_Transform = Actor::AddComponent<Transform>();
 	m_Transform->scale(10.0f);
+	m_Time = 0.0;
 }
 
 SkillParticle::~SkillParticle()
@@ -35,12 +37,6 @@ void SkillParticle::Update()
 	if (pause) { return; }
 
 	Effect::Update();
-
-	// ƒtƒŒ[ƒ€”‚ª16‚É‚È‚Á‚½‚çÁ‹Ž
-	if (Effect::GetFrame() >= 16)
-	{
-		OnDestroy();
-	}
 }
 
 void SkillParticle::Event()
