@@ -11,7 +11,6 @@
 #include "Engine.h"
 #include "Renderer3D.h"
 #include "Skydome.h"
-#include "Pause.h"
 
 Skydome::Skydome() : m_RotationSpeed(0.05f), m_Graphics(*Engine::Get().graphics())
 {
@@ -30,8 +29,6 @@ void Skydome::Begin()
 
 void Skydome::Update()
 {
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
-	if (pause) { return; }
 	m_Transform->rotation().y += Math::ToRadians(m_RotationSpeed);
 }
 
@@ -61,7 +58,7 @@ void Skydome::UpdateMatrix()
 	D3DXMATRIX scale, rot, trans;
 	Math::Matrix::MatrixScaling(&scale, m_Transform->scale());
 	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
-	Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
+	Math::Matrix::MatrixTranslation(&trans, pos);
 	D3DXMATRIX world = scale * rot * trans;
 	m_Graphics.SetWorldMatrix(world);
 }

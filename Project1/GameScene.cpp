@@ -156,6 +156,10 @@ void GameScene::Tutorial::Uninit()
 	Scene::Uninit();
 }
 
+void GameScene::Tutorial::Update()
+{
+}
+
 void GameScene::Tutorial::Draw()
 {
 	// ÉâÉCÉgÇÃê›íË
@@ -219,6 +223,11 @@ void GameScene::Game::Uninit()
 {
 	Unload();
 	Scene::Uninit();
+}
+
+void GameScene::Game::Update()
+{
+	Scene::Update();
 }
 
 void GameScene::Game::Draw()

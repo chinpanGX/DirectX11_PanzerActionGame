@@ -12,6 +12,7 @@
 #include "GameCamera.h"
 #include "Pause.h"
 #include "NormalBullet.h"
+#include "Fps.h"
 
 Target::Target()
 {
@@ -49,14 +50,15 @@ void Target::Update()
 				Bullet->OnCollisionEnter();
 				// 当たったら描画しない
 				m_NotDraw = true;
-				m_CoolTime = 100; // 時間
+				m_CoolTime = 10.0f; // 時間
 			}
 		}
 	}
 
+	// 描画していない間の処理
 	if (m_NotDraw)
 	{
-		m_CoolTime--;
+		m_CoolTime -= Fps::Get().deltaTime;
 		// クールタイムが0なら描画する
 		if (m_CoolTime <= 0)
 		{
@@ -73,6 +75,7 @@ void Target::Event()
 
 void Target::Draw()
 {
+	// 描画が可能なら
 	if (!m_NotDraw) 
 	{
 		// マトリクスの設定

@@ -10,6 +10,7 @@
 #include "IDrawNumber.h"
 #include "DefaultObject.h"
 
+// •ª
 class DrawTimerMinute final : public IDrawNumber
 {
 public:
@@ -18,6 +19,7 @@ public:
 	void Draw(int32_t n)override;
 };
 
+// •b
 class DrawTimerSecond final : public IDrawNumber
 {
 public:

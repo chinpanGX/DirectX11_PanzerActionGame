@@ -37,6 +37,7 @@ void PlaneGarage::Event()
 
 void PlaneGarage::Draw()
 {
+	// バンプマッピングの設定
 	resource().SetShader("Mapping");
 	resource().SetTexture(0, "Plane");
 	resource().SetTexture(1, "Waffuru");

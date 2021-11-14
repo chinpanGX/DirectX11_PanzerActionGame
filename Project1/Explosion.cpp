@@ -32,8 +32,8 @@ void Explosion::Begin()
 void Explosion::Update()
 {
 	// ポーズ中かどうか
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
-	if (pause) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	
 
 	Effect::Update();
 	// フレーム数が16になったら消去

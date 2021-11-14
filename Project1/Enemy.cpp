@@ -42,8 +42,7 @@ void Enemy::Begin()
 
 void Enemy::Update()
 {
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
-	if (pause) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
 	m_State->Update(this, Fps::Get().deltaTime);
 	Pawn::Update();
 	OnCollision();
@@ -56,6 +55,7 @@ void Enemy::Event()
 		auto player = Engine::Get().application()->GetScene()->GetGameObjects<Player>(ELayer::LAYER_3D_ACTOR);
 		for (auto p : player)
 		{
+
 			vehicle().CalcuateDamege(p);
 			ResetCollisionEnter();
 		}

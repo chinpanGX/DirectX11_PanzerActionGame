@@ -36,6 +36,7 @@ void Status::ResetReloadTime()
 	m_FinishReload = false;
 }
 
+#pragma region _Getter&Setter_function_
 const Status::Country & Status::GetCountry() const
 {
 	return m_Country;
@@ -136,3 +137,4 @@ const bool Status::GetFinishReload() const
 {
 	return m_FinishReload;
 }
+#pragma endregion _Getter/Setter‚ÌŠÖ”_

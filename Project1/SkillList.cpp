@@ -10,6 +10,7 @@
 #include "Status.h"
 #include "SkillList.h"
 
+// ”{—¦‚ðƒZƒbƒg
 UseSkill::AttackUp::AttackUp(float mag) : m_Mag(mag)
 {
 

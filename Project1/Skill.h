@@ -35,11 +35,12 @@ private:
 	void PlayEffect(Pawn* pawn);
 
 	std::vector<std::unique_ptr<IUseSkill>> m_UseSkill;
+	class SkillParticle* m_SkillEffect;
+
 	int32_t m_Phase = 0;	// フェーズ
 	float m_EnableTime = 30.0f;		// スキルを有効にする時間
 	float m_Time = 1.0f;	// 進める時間
 	float m_NowTime = 0.0f;
 	bool m_AlreadyUseble = false; // スキルが使える状態かどうか
 
-	class SkillParticle* m_SkillEffect;
 };

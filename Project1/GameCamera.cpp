@@ -153,12 +153,12 @@ bool GameCamera::IsDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 	return true;
 }
 
-D3DXMATRIX GameCamera::view() const
+const D3DXMATRIX& GameCamera::view() const
 {
 	return m_View;
 }
 
-const D3DXVECTOR3 GameCamera::position() const
+const D3DXVECTOR3& GameCamera::position() const
 {
 	return m_Position;
 }

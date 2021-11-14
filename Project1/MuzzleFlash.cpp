@@ -30,8 +30,8 @@ void MuzzleFlash::Begin()
 
 void MuzzleFlash::Update()
 {
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
-	if (pause) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	
 	Effect::Update();
 	// ƒtƒŒ[ƒ€”‚ª16‚É‚È‚Á‚½‚çÁ‹Ž
 	if (Effect::GetFrame() >= 16)

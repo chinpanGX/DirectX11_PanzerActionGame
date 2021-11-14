@@ -28,6 +28,7 @@ private:
 	int32_t m_digit; // 桁数
 	float m_Size; // 描画サイズ
 	std::unique_ptr<Renderer2D> m_Render;
+	// テクスチャのx座標のリスト
 	std::array<float, 11> m_Numbers;
 };
 

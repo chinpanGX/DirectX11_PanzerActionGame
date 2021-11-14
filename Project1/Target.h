@@ -20,6 +20,6 @@ public:
 	void Draw()override;
 private:
 	bool m_NotDraw = false; // true‚Å•`‰æ‚µ‚È‚¢
-	int32_t m_CoolTime = 100; // •`‰æ‚µ‚È‚¢ŽžŠÔ
+	float m_CoolTime = 100.0f; // •`‰æ‚µ‚È‚¢ŽžŠÔ
 };
 

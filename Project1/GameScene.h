@@ -38,10 +38,7 @@ namespace GameScene
 	public:
 		void Init()override;
 		void Uninit()override;
-		void Update()override
-		{
-			Scene::Update();
-		}
+		void Update()override;
 		void Draw()override;
 	private:
 		void Load()override;
@@ -54,10 +51,7 @@ namespace GameScene
 	public:
 		void Init()override;
 		void Uninit()override;
-		void Update()override
-		{
-			Scene::Update();
-		}
+		void Update()override;
 		void Draw()override;
 	private:
 		void Load()override;

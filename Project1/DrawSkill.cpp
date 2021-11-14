@@ -16,6 +16,7 @@
 #include "Player.h"
 #include "DrawSkill.h"
 #include "Fps.h"
+#include "Pause.h"
 
 #pragma region DrawSkill_method
 GameBg::DrawSkill::DrawSkill()
@@ -30,16 +31,21 @@ GameBg::DrawSkill::~DrawSkill()
 void GameBg::DrawSkill::Begin()
 {
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+
+	// ゲージを増加する量を計算
 	float t = m_Player->vehicle().GetSkill().GetEnableTime();
 	m_Add = m_MaxDrawSize / t * Fps::Get().deltaTime;
 }
 
 void GameBg::DrawSkill::Update()
 {
+	if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+
 	// まだスキルが使える状態じゃない
 	if (m_Player->vehicle().GetSkill().GetAlreadyUseble() == false)
 	{
-		m_DrawSize += m_Add;
+		// ゲージを増やす
+		m_DrawSize += m_Add; 
 	}
 }
 
@@ -56,6 +62,7 @@ void GameBg::DrawSkill::Draw()
 
 void GameBg::DrawSkill::Reset()
 {
+	// 描画サイズを０にする
 	m_DrawSize = 0.0f;
 }
 #pragma endregion スキルゲージを描画する

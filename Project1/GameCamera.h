@@ -25,8 +25,8 @@ public:
 	bool IsDrawObject(const D3DXVECTOR3& TargetPosition, float Radius);
 
 	// Getter
-	D3DXMATRIX view() const;
-	const D3DXVECTOR3 position() const;
+	const D3DXMATRIX& view() const;
+	const D3DXVECTOR3& position() const;
 
 	// FPSÉÇÅ[ÉhÇÃê›íË
 	const bool FpsModeNow() const;

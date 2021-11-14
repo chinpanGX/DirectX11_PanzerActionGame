@@ -70,8 +70,8 @@ void GameBg::Timer::Begin()
 void GameBg::Timer::Update()
 {
 	// ボーズ中なら、タイマーをストップ
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
-	if (pause) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	
 
 	m_NowTime -= Fps::Get().deltaTime;
 	// 残り１分になったら黄色くする

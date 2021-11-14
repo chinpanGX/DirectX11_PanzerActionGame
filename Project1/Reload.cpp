@@ -34,11 +34,12 @@ void Reload::Begin()
 
 void Reload::Update()
 {
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
-	if (pause) { return; }
-	auto& panzer = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->vehicle();
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	m_Transform->rotation().z += 0.05f;
-	if (panzer.GetStatus().GetFinishReload() == true)
+	// プレイヤーのリロードが完了すれば削除
+	if (player->vehicle().GetStatus().GetFinishReload() == true)
 	{
 		OnDestroy();
 	}

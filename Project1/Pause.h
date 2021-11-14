@@ -34,6 +34,7 @@ public:
 		OPERATION,	// 操作方法
 		END			// 終了
 	};
+
 	void SetState(EState State);
 	EState GetState()const
 	{
@@ -42,17 +43,23 @@ public:
 	// a値
 	float GetAlpha()const;
 
+	// 有効・無効の切り替え
+
+	// ゲーム続行
 	void KeeponEnable();
 	void KeeponDisable();
 
+	// ゲーム操作方法
 	void OperationEnable();
 	void OperationDisable();
 	bool GetOperation() const;
 
+	// ゲーム終了
 	void EndEnable();
 	void EndDisable();
 	bool GetEnd()const;
 
+	// 選択
 	void SelectTop();
 	void SelectBottom();
 	bool GetToporBottom();
@@ -77,7 +84,7 @@ private:
 	bool m_TopToBottom = true;
 };
 
-
+#pragma region _PauseState_
 // State
 class PauseState
 {
@@ -114,3 +121,5 @@ public:
 	GameEnd();
 	void Draw(Pause* Pause)override;
 };
+
+#pragma endregion _ポーズ中のステート_

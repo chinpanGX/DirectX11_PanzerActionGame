@@ -33,8 +33,8 @@ void SkillParticle::Begin()
 void SkillParticle::Update()
 {
 	// ƒ|[ƒY’†‚©‚Ç‚¤‚©
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable();
-	if (pause) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	
 
 	Effect::Update();
 }

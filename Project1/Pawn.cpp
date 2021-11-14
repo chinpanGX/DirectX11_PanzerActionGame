@@ -104,10 +104,13 @@ void Pawn::SetStartPosition(Pawn * pawn, const D3DXVECTOR3& pos, const D3DXVECTO
 
 void Pawn::Create()
 {
+	// Vehicleを作成
 	Factory::FVehicle fvehicle;
 	m_Vehicle = fvehicle.Create(m_Type);
+	// Pivotを作成
 	Factory::FPivot fPivot;
 	m_Pivot = fPivot.Create(*m_Vehicle);
+	// 移動用コンポーネント
 	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->GetStatus());	
 }
 

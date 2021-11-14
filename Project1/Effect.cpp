@@ -46,6 +46,8 @@ Effect::Effect() : m_VertexBuffer(nullptr), m_Frame(0), m_Resource(*Engine::Get(
 	ZeroMemory(&sd, sizeof(sd));
 	sd.pSysMem = vertex;
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
+
+	m_Frame = 0;
 }
 
 Effect::Effect(D3DXVECTOR2 texMin, D3DXVECTOR2 texMax) : m_VertexBuffer(nullptr), m_Frame(0), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
@@ -85,6 +87,8 @@ Effect::Effect(D3DXVECTOR2 texMin, D3DXVECTOR2 texMax) : m_VertexBuffer(nullptr)
 	ZeroMemory(&sd, sizeof(sd));
 	sd.pSysMem = vertex;
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
+
+	m_Frame = 0;
 }
 
 Effect::~Effect()
@@ -124,6 +128,7 @@ void Effect::Draw()
 #pragma region protected_method
 void Effect::MapAndUnmap(float x, float y)
 {
+	// map/unmap
 	D3D11_MAPPED_SUBRESOURCE msr;
 	m_Graphics.GetDeviceContext()->Map(m_VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
