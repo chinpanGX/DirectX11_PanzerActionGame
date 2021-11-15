@@ -79,6 +79,21 @@ void GameBg::ResultUi::Begin()
 
 void GameBg::ResultUi::Update()
 {
+	auto& state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	m_Alpha = state.GetAlpha();
+	//	‘I‘ð‚µ‚Ä‚¢‚éˆÊ’u‚ÉˆÚ“®‚µ‚Ä•`‰æ
+	switch (state.GetSelect())
+	{
+	case 0:
+		m_Draw_y = 410.0f;
+		break;
+	case 1:
+		m_Draw_y = 550.0f;
+		break;
+	case 2:
+		m_Draw_y = 680.0f;
+		break;
+	}
 }
 
 void GameBg::ResultUi::Event()
@@ -86,25 +101,19 @@ void GameBg::ResultUi::Event()
 }
 
 void GameBg::ResultUi::Draw()
-{
-	auto& state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+{	
+	// •Ï”
 	float x = 1920.0f * 0.5f;
 	D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
 	D3DXVECTOR2 texMin = D3DXVECTOR2(0.0f, 0.375f);
 	D3DXVECTOR2 texMax = D3DXVECTOR2(0.25f, 0.5f);
-	D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, state.GetAlpha());
+	D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha);
 
-	switch (state.GetSelect())
+	m_Marker->Draw(D3DXVECTOR2(x, m_Draw_y), size, texMin, texMax, color);
+
+	// ”wŒi‚ªˆÃ‚­‚È‚Á‚½‚çA•\Ž¦‚·‚é
+	if (m_Alpha >= 0.7f)
 	{
-	case 0:
-		m_Marker->Draw(D3DXVECTOR2(x, 410.0f), size, texMin, texMax, color);
-		break;
-	case 1:
-		m_Marker->Draw(D3DXVECTOR2(x, 550.0f), size, texMin, texMax, color);
-		break;
-	case 2:
-		m_Marker->Draw(D3DXVECTOR2(x, 680.0f), size, texMin, texMax, color);
-		break;
+		m_Renderer2D->Draw();
 	}
-	m_Renderer2D->Draw(state.GetAlpha());
 }

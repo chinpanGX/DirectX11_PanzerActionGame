@@ -42,5 +42,7 @@ namespace GameBg
 		void Draw()override;
 	private:
 		std::unique_ptr<Renderer2D> m_Marker; // 選択マーカー
+		float m_Draw_y;
+		float m_Alpha;
 	};
 }

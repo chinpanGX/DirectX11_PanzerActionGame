@@ -25,6 +25,7 @@
 #include "ResultBg.h"
 #include "Pause.h"
 #include "Command.h"
+#include "ResultScene.h"
 
 namespace
 {
@@ -323,10 +324,10 @@ void GameCommand::Update()
 	{
 		Engine::Get().application()->SetScene <GameScene::Title>();
 	}
-	//if (KeyBoard::IsTrigger(DIK_Y))
-	//{
-	//	Engine::Get().application()->SetScene<GameScene::Result>();
-	//}
+	if (KeyBoard::IsTrigger(DIK_Y))
+	{
+		Engine::Get().application()->SetScene<GameScene::Result>();
+	}
 
 	if (!g_IsInputGamePad)
 	{
