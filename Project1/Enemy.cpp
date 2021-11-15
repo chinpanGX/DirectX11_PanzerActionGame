@@ -42,7 +42,7 @@ void Enemy::Begin()
 
 void Enemy::Update()
 {
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
 	m_State->Update(this, Fps::Get().deltaTime);
 	Pawn::Update();
 	OnCollision();

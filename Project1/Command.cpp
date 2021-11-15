@@ -330,14 +330,14 @@ void GameCommand::Update()
 
 	if (!g_IsInputGamePad)
 	{
-		if (!pause->GetEnable())
+		if (!pause->NowPausing())
 		{
 			InputKeyboard(deltaTime);
 		}
 	}
 	else if (g_IsInputGamePad)
 	{
-		if (!pause->GetEnable())
+		if (!pause->NowPausing())
 		{
 			InputGamePad(deltaTime);
 		}
@@ -680,7 +680,7 @@ void PauseCommand::Draw() { }
 void PauseCommand::InputKeyBoard()
 {
 	// NotPause
-	if (!m_Pause->GetEnable())
+	if (!m_Pause->NowPausing())
 	{
 		if (KeyBoard::IsTrigger(DIK_SPACE))
 		{
@@ -688,7 +688,7 @@ void PauseCommand::InputKeyBoard()
 		}
 	}
 	// ƒ|[ƒY‰æ–Ê
-	else if (m_Pause->GetEnable())
+	else if (m_Pause->NowPausing())
 	{
 		switch (m_Pause->GetState())
 		{
@@ -786,7 +786,7 @@ void PauseCommand::InputKeyBoard()
 
 void PauseCommand::InputGamePad()
 {
-	if (!m_Pause->GetEnable())
+	if (!m_Pause->NowPausing())
 	{
 		if (GamePad::IsTrigger(0, BUTTON_OPTION))
 		{
@@ -794,7 +794,7 @@ void PauseCommand::InputGamePad()
 			m_Pause->Enable();
 		}
 	}
-	else if (m_Pause->GetEnable())
+	else if (m_Pause->NowPausing())
 	{
 		switch (m_Pause->GetState())
 		{

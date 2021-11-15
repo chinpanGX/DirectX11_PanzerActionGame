@@ -29,11 +29,14 @@ public:
 	Transform& transform() const;
 	Collider& collider() const;
 protected:
+
 	template<typename T>
 	std::unique_ptr<T> AddComponent()
 	{
+		// コライダーコンポーネントをAddしたら
 		if (typeid(Collider) == typeid(T))
 		{
+			// コライダーを持っていることを通知
 			m_HasCollider = true;
 		}
 		return std::make_unique<T>();
@@ -46,5 +49,6 @@ protected:
 
 	std::unique_ptr<Transform> m_Transform;
 	std::unique_ptr<Collider> m_Collider;
+	// コライダーを持っているかどうか
 	bool m_HasCollider = false;
 };

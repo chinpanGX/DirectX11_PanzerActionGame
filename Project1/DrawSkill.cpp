@@ -39,7 +39,7 @@ void GameBg::DrawSkill::Begin()
 
 void GameBg::DrawSkill::Update()
 {
-	if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
 
 	// ‚Ü‚¾ƒXƒLƒ‹‚ªŽg‚¦‚éó‘Ô‚¶‚á‚È‚¢
 	if (m_Player->vehicle().GetSkill().GetAlreadyUseble() == false)

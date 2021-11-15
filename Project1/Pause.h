@@ -25,7 +25,8 @@ public:
 	// ポーズ
 	void Enable();
 	void Disable();
-	bool GetEnable()const;
+	// ポーズ中か
+	bool NowPausing()const;
 
 	// ステート
 	enum EState : uint32_t

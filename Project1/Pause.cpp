@@ -84,7 +84,7 @@ void Pause::Disable()
 	m_Enable = false;
 }
 
-bool Pause::GetEnable() const
+bool Pause::NowPausing() const
 {
 	return m_Enable;
 }

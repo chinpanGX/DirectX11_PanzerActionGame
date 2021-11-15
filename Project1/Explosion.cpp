@@ -32,7 +32,7 @@ void Explosion::Begin()
 void Explosion::Update()
 {
 	// ƒ|[ƒY’†‚©‚Ç‚¤‚©
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
 	
 
 	Effect::Update();

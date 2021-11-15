@@ -33,8 +33,7 @@ void Target::Begin()
 void Target::Update()
 {
 	// ƒ|[ƒY’†
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG);
-	if (pause->GetEnable()) { return; }
+	if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
 	
 	// ’e
 	auto Bullet = Engine::Get().application()->GetScene()->GetGameObject<NormalBullet>(ELayer::LAYER_3D_ACTOR);

@@ -30,7 +30,7 @@ void MuzzleFlash::Begin()
 
 void MuzzleFlash::Update()
 {
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->GetEnable()) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
 	
 	Effect::Update();
 	// ƒtƒŒ[ƒ€”‚ª16‚É‚È‚Á‚½‚çÁ‹
