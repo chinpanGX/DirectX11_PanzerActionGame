@@ -43,7 +43,7 @@ namespace GameBg
 		std::array<std::unique_ptr<IDrawNumber>, 2> m_DrawTimer;
 		const float m_TimeLimit_min; // タイムリミット（分）
 		int32_t m_Minute; // 分
-		float m_Second;	  // 秒
+		int32_t m_Second;	  // 秒
 		float m_NowTime;  // 今の時間
 		// 設定済みかどうかのフラグ
 		bool m_Is1minSetColor = false;

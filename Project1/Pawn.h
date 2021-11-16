@@ -11,7 +11,6 @@
 class Vehicle;
 class Pivot;
 class MoveComponent;
-class IOnComponentEventToPawn;
 class Pawn : public Actor
 {
 public:
@@ -24,7 +23,6 @@ public:
 	void Draw()override;
 	
 	virtual void Respawn(const D3DXVECTOR3& pos) = 0;
-	virtual void ChangeState(std::unique_ptr<class PanzerState> State) = 0;
 	Vehicle& vehicle() const;
 	Pivot& pivot()const;
 	MoveComponent& GetMoveComponent()const;

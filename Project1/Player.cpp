@@ -76,11 +76,6 @@ void Player::Draw()
 	vehicle().Draw();
 }
 
-void Player::ChangeState(std::unique_ptr<PanzerState> State)
-{
-	
-}
-
 void Player::Respawn(const D3DXVECTOR3& pos)
 {
 	Pawn::SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));

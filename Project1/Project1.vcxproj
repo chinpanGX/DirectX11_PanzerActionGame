@@ -156,6 +156,8 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Cost.cpp" />
+    <ClCompile Include="Cpu.cpp" />
+    <ClCompile Include="CpuStateRule.cpp" />
     <ClCompile Include="DrawSkill.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -194,7 +196,6 @@
     <ClCompile Include="PanzerList.cpp" />
     <ClCompile Include="PanzerNameList.cpp" />
     <ClCompile Include="Pivot.cpp" />
-    <ClCompile Include="PanzerState.cpp" />
     <ClCompile Include="PanzerStateMove.cpp" />
     <ClCompile Include="PanzerStateRotation.cpp" />
     <ClCompile Include="PanzerStateShot.cpp" />
@@ -247,6 +248,8 @@
     <ClInclude Include="BulletStateDestory.h" />
     <ClInclude Include="BulletStateMove.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="Cpu.h" />
+    <ClInclude Include="CpuStateRule.h" />
     <ClInclude Include="DrawSkill.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Controller.h" />

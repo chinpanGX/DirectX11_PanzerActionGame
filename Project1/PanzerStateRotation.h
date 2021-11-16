@@ -17,9 +17,9 @@ namespace State
 	public:
 		Rotation(){}
 		virtual ~Rotation(){}
-		void Update(Pawn* pPawn, float deltaTime)override{}
+		void Update(Cpu* pCpu, float deltaTime)override{}
 	protected:
-		float GetRightDirection(Pawn* pPawn); // ターゲットの位置が自身より右にいるか
+		float GetRightDirection(Cpu* pCpu); // ターゲットの位置が自身より右にいるか
 	};
 
 	// ボディの旋回
@@ -28,7 +28,7 @@ namespace State
 	public:
 		BodyRotation();
 		~BodyRotation();
-		void Update(Pawn* pPawn, float deltaTime)override;
+		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
 		int32_t m_Random;
 	};
@@ -39,7 +39,7 @@ namespace State
 	public:
 		TurretRotation();
 		~TurretRotation();
-		void Update(Pawn* pPawn, float deltaTime)override;
+		void Update(Cpu* pCpu, float deltaTime)override;
 	};
 
 	// 主砲の上下
@@ -48,6 +48,6 @@ namespace State
 	public:
 		GunRotation();
 		~GunRotation();
-		void Update(Pawn* pPawn, float deltaTime)override;
+		void Update(Cpu* pCpu, float deltaTime)override;
 	};
 }

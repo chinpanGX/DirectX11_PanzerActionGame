@@ -5,10 +5,10 @@
 
 ---------------------------------------------------------------*/
 #pragma once
-#include "Pawn.h"
+#include "Cpu.h"
 
 class PanzerState;
-class Enemy final : public Pawn
+class Enemy final : public Cpu
 {
 public:
 	Enemy();
@@ -21,6 +21,5 @@ public:
 	void Respawn(const D3DXVECTOR3& pos)override;
 private:
 	void OnCollision()override;
-	std::unique_ptr<PanzerState> m_State;
 	class Resource& m_Resource;
 };

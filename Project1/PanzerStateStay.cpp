@@ -7,7 +7,7 @@
 
 --------------------------------------------------------------*/
 #include "Enemy.h"
-#include "Pawn.h"
+#include "Cpu.h"
 #include "Vehicle.h"
 #include "PanzerStateStay.h"
 #include "PanzerStateMove.h"
@@ -16,28 +16,29 @@
 
 State::Stay::Stay()
 {
+
 }
 
 State::Stay::~Stay()
 {
 }
 
-void State::Stay::Update(Pawn * pPawn, float deltaTime)
+void State::Stay::Update(Cpu * pCpu, float deltaTime)
 {
 	auto i = myLib::Random::Rand_R(0, 5);
 	switch (i)
 	{
 	case 0:
-		pPawn->ChangeState(std::make_unique<State::Forward>());
+		pCpu->ChangeState(std::make_unique<State::Forward>());
 		break;
 	case 1:
-		pPawn->ChangeState(std::make_unique<State::Backward>());
+		pCpu->ChangeState(std::make_unique<State::Backward>());
 		break;
 	case 2:
-		pPawn->ChangeState(std::make_unique<State::TurretRotation>());
+		pCpu->ChangeState(std::make_unique<State::TurretRotation>());
 		break;
 	case 3:
 	case 4:
-		pPawn->ChangeState(std::make_unique<State::BodyRotation>());
+		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
 	}
 }

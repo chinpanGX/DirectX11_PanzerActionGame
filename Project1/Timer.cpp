@@ -98,9 +98,12 @@ void GameBg::Timer::Update()
 		// §ŒÀŠÔ‚É‚È‚Á‚Ä‚àí—ÍƒQ[ƒW‚ª‚O‚É‚È‚Á‚Ä‚¢‚È‚¢‚½‚ßA”s–k
 		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->GameSet();
 	}
+
 	// ŠÔ‚Ìİ’è
-	m_Minute = (int32_t)m_NowTime / 60;
-	m_Second = m_NowTime - m_Minute * 60;
+	float m = m_NowTime / 60.0f;
+	float s = m_NowTime - m_Minute * 60.0f;
+	m_Minute = static_cast<int32_t>(m);
+	m_Second = static_cast<int32_t>(s);
 }
 
 void GameBg::Timer::Event()
@@ -111,6 +114,6 @@ void GameBg::Timer::Draw()
 {
 	m_Renderer2D->Draw(); // ”wŒi˜g
 	m_DrawTimer[0]->Draw(m_Minute);
-	m_DrawTimer[1]->Draw((int32_t)m_Second);
+	m_DrawTimer[1]->Draw(m_Second);
 }
 #pragma endregion GameBg::Timer_ƒƒ\ƒbƒh

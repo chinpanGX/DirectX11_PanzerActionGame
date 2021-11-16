@@ -27,26 +27,26 @@ State::Forward::~Forward()
 {
 }
 
-void State::Forward::Update(Pawn * pPawn, float deltaTime)
+void State::Forward::Update(Cpu * pCpu, float deltaTime)
 {
 	FrameCountDown();
 	if (GetFrameZeroFlag() == true)
 	{
-		pPawn->ChangeState(std::make_unique<State::Stay>());
+		pCpu->ChangeState(std::make_unique<State::Stay>());
 	}
-	pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), deltaTime);
-	pPawn->pivot().Move();
+	pCpu->GetMoveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
+	pCpu->pivot().Move();
 	// プレイヤーとの当たり判定を取る
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
-		if (Intersect(pPawn->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
+		if (Intersect(pCpu->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
 		{
-			if (Intersect(pPawn->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
+			if (Intersect(pCpu->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
 			{
-				pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), deltaTime);
-				pPawn->pivot().Move();
-				pPawn->ChangeState(std::make_unique<State::Stay>());
+				pCpu->GetMoveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
+				pCpu->pivot().Move();
+				pCpu->ChangeState(std::make_unique<State::Stay>());
 			}
 		}
 	}
@@ -60,26 +60,26 @@ State::Backward::~Backward()
 {
 }
 
-void State::Backward::Update(Pawn * pPawn, float deltaTime)
+void State::Backward::Update(Cpu * pCpu, float deltaTime)
 {
 	FrameCountDown();
 	if (GetFrameZeroFlag() == true)
 	{
-		pPawn->ChangeState(std::make_unique<State::Stay>());
+		pCpu->ChangeState(std::make_unique<State::Stay>());
 	}
-	pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), deltaTime);
-	pPawn->pivot().Move();
+	pCpu->GetMoveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
+	pCpu->pivot().Move();
 	// プレイヤーとの当たり判定
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
-		if (Intersect(pPawn->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
+		if (Intersect(pCpu->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
 		{
-			if (Intersect(pPawn->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
+			if (Intersect(pCpu->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
 			{
-				pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), deltaTime);
-				pPawn->pivot().Move();
-				pPawn->ChangeState(std::make_unique<State::Stay>());
+				pCpu->GetMoveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
+				pCpu->pivot().Move();
+				pCpu->ChangeState(std::make_unique<State::Stay>());
 			}
 		}
 	}

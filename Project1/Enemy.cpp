@@ -24,7 +24,7 @@
 #include "GameCamera.h"
 #include "Enemy.h"
 
-Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU), m_Resource(*Engine::Get().resource())
+Enemy::Enemy() : Cpu(), m_Resource(*Engine::Get().resource())
 {
 	Pawn::Create();	
 }
@@ -37,6 +37,7 @@ void Enemy::Begin()
 {
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
 	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 100.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
+	m_CpuRule = std::make_unique<CpuStateRule>();
 	m_State = std::make_unique<State::Stay>();
 }
 
@@ -55,7 +56,6 @@ void Enemy::Event()
 		auto player = Engine::Get().application()->GetScene()->GetGameObjects<Player>(ELayer::LAYER_3D_ACTOR);
 		for (auto p : player)
 		{
-
 			vehicle().CalcuateDamege(p);
 			ResetCollisionEnter();
 		}

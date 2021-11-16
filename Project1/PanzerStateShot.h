@@ -16,8 +16,8 @@ namespace State
 	public:
 		Shot();
 		~Shot();
-		void Update(Pawn* pPawn, float deltaTime)override;
+		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
-		void PlayAudio(Pawn* pPawn);
+		void PlayAudio(Cpu* pCpu);
 	};
 }

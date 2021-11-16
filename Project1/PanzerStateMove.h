@@ -16,7 +16,7 @@ namespace State
 	public:
 		Forward();
 		~Forward();
-		void Update(Pawn* pPawn, float deltaTime)override;
+		void Update(Cpu* pCpu, float deltaTime)override;
 	};
 
 	class Backward final : public PanzerState
@@ -24,6 +24,6 @@ namespace State
 	public:
 		Backward();
 		~Backward();
-		void Update(Pawn* pPawn, float deltaTime)override;
+		void Update(Cpu* pCpu, float deltaTime)override;
 	};
 }

@@ -16,7 +16,6 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void ChangeState(std::unique_ptr<class PanzerState> State)override;
 	void Respawn(const D3DXVECTOR3& pos)override;
 private:
 	void OnCollision()override;

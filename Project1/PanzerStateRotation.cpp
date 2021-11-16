@@ -6,6 +6,7 @@
 	回転
 
 ----------------------------------------------------------------*/
+#include "Cpu.h"
 #include "Vehicle.h"
 #include "MoveComponent.h"
 #include "Pivot.h"
@@ -17,12 +18,12 @@
 #include "Player.h"
 
 #pragma region Rotation_method
-float State::Rotation::GetRightDirection(Pawn * pPawn)
+float State::Rotation::GetRightDirection(Cpu * pCpu)
 {
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	D3DXVECTOR3 dist = pPawn->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
+	D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
 	D3DXVECTOR3 cross;
-	D3DXVec3Cross(&cross, &pPawn->pivot().transform().forward(), &dist);
+	D3DXVec3Cross(&cross, &pCpu->pivot().transform().forward(), &dist);
 	float t = cross.x - cross.y - cross.z;
 	return t;
 }
@@ -38,24 +39,24 @@ State::BodyRotation::~BodyRotation()
 {
 }
 
-void State::BodyRotation::Update(Pawn * pPawn, float deltaTime)
+void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 {
 	FrameCountDown();
 	// 右旋回
 	if (m_Random == 0)
 	{
-		pPawn->GetMoveComponent().RotRight(pPawn->vehicle().bodyTransform(), deltaTime);
-		pPawn->pivot().GetMoveComponent().RotRight(pPawn->pivot().transform(), deltaTime);
+		pCpu->GetMoveComponent().RotRight(pCpu->vehicle().bodyTransform(), deltaTime);
+		pCpu->pivot().GetMoveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else if(m_Random == 1)
 	{
-		pPawn->GetMoveComponent().RotLeft(pPawn->vehicle().bodyTransform(), deltaTime);
-		pPawn->pivot().GetMoveComponent().RotLeft(pPawn->pivot().transform(), deltaTime);
+		pCpu->GetMoveComponent().RotLeft(pCpu->vehicle().bodyTransform(), deltaTime);
+		pCpu->pivot().GetMoveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
 	}
 	if (GetFrameZeroFlag() == true)
 	{
-		pPawn->ChangeState(std::make_unique<State::Stay>());
+		pCpu->ChangeState(std::make_unique<State::Stay>());
 	}
 }
 #pragma endregion BodyRotationメソッド
@@ -69,24 +70,24 @@ State::TurretRotation::~TurretRotation()
 {
 }
 
-void State::TurretRotation::Update(Pawn * pPawn, float deltaTime)
+void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 {
 	// 右旋回
-	if (GetRightDirection(pPawn) > 0.0f)
+	if (GetRightDirection(pCpu) > 0.0f)
 	{
-		pPawn->GetMoveComponent().RotRight(pPawn->vehicle().turretTransform(), deltaTime);
-		pPawn->pivot().GetMoveComponent().RotRight(pPawn->pivot().transform(), deltaTime);
+		pCpu->GetMoveComponent().RotRight(pCpu->vehicle().turretTransform(), deltaTime);
+		pCpu->pivot().GetMoveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pPawn->GetMoveComponent().RotLeft(pPawn->vehicle().turretTransform(), deltaTime);
-		pPawn->pivot().GetMoveComponent().RotLeft(pPawn->pivot().transform(), deltaTime);
+		pCpu->GetMoveComponent().RotLeft(pCpu->vehicle().turretTransform(), deltaTime);
+		pCpu->pivot().GetMoveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
 	}
 	// リロードが完了したら撃つ
-	if (pPawn->vehicle().GetStatus().GetFinishReload() == true)
+	if (pCpu->vehicle().GetStatus().GetFinishReload() == true)
 	{
-		pPawn->ChangeState(std::make_unique<State::Shot>());
+		pCpu->ChangeState(std::make_unique<State::Shot>());
 	}
 }
 #pragma endregion TurretRotationメソッド
@@ -100,7 +101,7 @@ State::GunRotation::~GunRotation()
 {
 }
 
-void State::GunRotation::Update(Pawn * pPawn, float deltaTime)
+void State::GunRotation::Update(Cpu * pCpu, float deltaTime)
 {
 }
 #pragma endregion GunRotationメソッド

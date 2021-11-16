@@ -196,9 +196,6 @@
     <ClCompile Include="Turret.cpp">
       <Filter>Actor\Panzer\Object</Filter>
     </ClCompile>
-    <ClCompile Include="PanzerState.cpp">
-      <Filter>Actor\Panzer\State</Filter>
-    </ClCompile>
     <ClCompile Include="PanzerStateMove.cpp">
       <Filter>Actor\Panzer\State</Filter>
     </ClCompile>
@@ -343,6 +340,12 @@
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CpuStateRule.cpp">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Cpu.cpp">
+      <Filter>Actor\Pawn</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -647,6 +650,12 @@
     </ClInclude>
     <ClInclude Include="Manager.h">
       <Filter>GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CpuStateRule.h">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Cpu.h">
+      <Filter>Actor\Pawn</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

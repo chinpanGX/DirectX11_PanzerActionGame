@@ -7,7 +7,7 @@
 
 ----------------------------------------------------------------*/
 #include "Vehicle.h"
-#include "Pawn.h"
+#include "Cpu.h"
 #include "Pivot.h"
 #include "PanzerStateShot.h"
 #include "Engine.h"
@@ -26,25 +26,25 @@ State::Shot::~Shot()
 {
 }
 
-void State::Shot::Update(Pawn * pPawn, float deltaTime)
+void State::Shot::Update(Cpu * pCpu, float deltaTime)
 {
-	pPawn->vehicle().Shot(pPawn->pivot().transform());
+	pCpu->vehicle().Shot(pCpu->pivot().transform());
 	// オーディオを鳴らす
-	PlayAudio(pPawn);
+	PlayAudio(pCpu);
 	// リロードエフェクトを鳴らす
 	auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
-	D3DXVECTOR3 offset = pPawn->pivot().transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f);
+	D3DXVECTOR3 offset = pCpu->pivot().transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f);
 	effect->transform().position(offset);
-	pPawn->ChangeState(std::make_unique<State::Stay>());
+	pCpu->ChangeState(std::make_unique<State::Stay>());
 }
 
-void State::Shot::PlayAudio(Pawn * pPawn)
+void State::Shot::PlayAudio(Cpu * pCpu)
 {
 	// プレイヤーの位置を取得
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	D3DXVECTOR3 playerPos = player->vehicle().bodyTransform().position();
 	// CPUの位置を取得
-	D3DXVECTOR3 cpuPos = pPawn->vehicle().bodyTransform().position();
+	D3DXVECTOR3 cpuPos = pCpu->vehicle().bodyTransform().position();
 
 	// プレイヤーとCPU間の距離を取り,2倍する
 	float d = 2.0f * (Math::Sqrt((cpuPos.x - playerPos.x) * (cpuPos.x - playerPos.x) + (cpuPos.y - playerPos.y) *  (cpuPos.y - playerPos.y) + (cpuPos.z - playerPos.z) * (cpuPos.z - playerPos.z)));
