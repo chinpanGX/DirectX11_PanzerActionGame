@@ -5,6 +5,7 @@
 	Author : 出合翔太
 
 --------------------------------------------------------------*/
+#include "Cpu.h"
 #include "Player.h"
 #include "Vehicle.h"
 #include "Body.h"
@@ -49,8 +50,8 @@ const int32_t CpuStateRule::behavior() const
 void CpuStateRule::PlayerToDistance(Cpu * Cpu)
 {
 	// エネミーとプレイヤーの距離を求める
-	//const auto& enemyPosition = Cpu->vehicle().bodyTransform().position();
-	//const auto& playerPosition = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->vehicle().bodyTransform().position();
-	//D3DXVECTOR3 length = enemyPosition - playerPosition;
-	//m_PlayerToDistance = D3DXVec3LengthSq(&length);
+	const auto& cpuPosition = Cpu->vehicle().bodyTransform().position();
+	const auto& playerPosition = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->vehicle().bodyTransform().position();
+	D3DXVECTOR3 length = cpuPosition - playerPosition;
+	m_PlayerToDistance = D3DXVec3LengthSq(&length);
 }

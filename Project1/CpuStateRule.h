@@ -17,14 +17,13 @@ public:
 	//　挙動を決める
 	void DecideBehavior();
 
+	// エネミーとプレイヤーの距離を測る
+	void PlayerToDistance(class Cpu* Cpu);
+
 	// 
 	const int32_t behavior() const;
 private:
 	int32_t m_Behavior; // して欲しい挙動を示す
-
-	// エネミーとプレイヤーの距離を測る
-	void PlayerToDistance(class Cpu* Cpu);
-
 	float m_PlayerToDistance; // プレイヤーとの距離
 
 

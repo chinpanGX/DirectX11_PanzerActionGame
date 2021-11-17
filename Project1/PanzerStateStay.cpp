@@ -25,20 +25,33 @@ State::Stay::~Stay()
 
 void State::Stay::Update(Cpu * pCpu, float deltaTime)
 {
-	auto i = myLib::Random::Rand_R(0, 5);
-	switch (i)
+	switch(pCpu->GetCpuRule().behavior())
 	{
+	// ŽË’ö”ÍˆÍ–³‚¢
 	case 0:
-		pCpu->ChangeState(std::make_unique<State::Forward>());
-		break;
-	case 1:
-		pCpu->ChangeState(std::make_unique<State::Backward>());
-		break;
-	case 2:
 		pCpu->ChangeState(std::make_unique<State::TurretRotation>());
 		break;
-	case 3:
-	case 4:
+	// õ“G”ÍˆÍ“à
+	case 1:
 		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
+		break;
+
+	// ƒ‰ƒ“ƒ_ƒ€
+	case 2:
+		auto i = myLib::Random::Rand_R(0, 5);
+		switch (i)
+		{
+		case 0:
+			pCpu->ChangeState(std::make_unique<State::Forward>());
+			break;
+		case 1:
+			pCpu->ChangeState(std::make_unique<State::Backward>());
+			break;
+		case 3:
+		case 4:
+			pCpu->ChangeState(std::make_unique<State::BodyRotation>());
+		}
+		break;
 	}
+
 }

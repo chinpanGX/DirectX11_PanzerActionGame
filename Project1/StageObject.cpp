@@ -36,3 +36,14 @@ Resource & StageObject::resource() const
 {
 	return m_Resource;
 }
+
+// ”¼Œa
+void StageObject::redius(float r)
+{
+	m_Radius = r;
+}
+
+float StageObject::radius() const
+{
+	return m_Radius;
+}

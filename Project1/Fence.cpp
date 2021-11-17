@@ -4,7 +4,6 @@
 	Author : o‡ãÄ‘¾
 
 ------------------------------------------------------------*/
-#include "Fence.h"
 #include "Resource.h"
 #include "Engine.h"
 #include "Application.h"
@@ -13,6 +12,8 @@
 #include "Vehicle.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "GameCamera.h"
+#include "Fence.h"
 
 Fence::Fence()
 {
@@ -27,6 +28,7 @@ Fence::~Fence()
 
 void Fence::Begin()
 {
+	StageObject::redius(8.0f);
 	m_Collider->SetAABB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 	m_Collider->SetOBB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 }
@@ -58,6 +60,12 @@ void Fence::Event()
 
 void Fence::Draw()
 {
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	if (camera->NotDrawObject(m_Transform->position(), StageObject::radius()))
+	{
+		return;
+	}
+
 	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
 	resource().SetStaticModel("Fence");

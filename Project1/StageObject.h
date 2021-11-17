@@ -18,7 +18,11 @@ public:
 	void Draw()override;
 protected:
 	class Resource& resource()const;
+	// ”¼Œa
+	void redius(float r);
+	float radius() const;
 private:
 	class Resource& m_Resource;
+	float m_Radius;
 };
 

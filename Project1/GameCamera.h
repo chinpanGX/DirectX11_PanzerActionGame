@@ -22,7 +22,7 @@ public:
 
 	// ‹‘ä‚ÅView“à‚ÉTargetObject‚ª‚ ‚é‚©’²‚×‚é
 	// •`‰æ‚Å‚«‚é‚©‚ğbool•Ï”‚Å•Ô‚·
-	bool IsDrawObject(const D3DXVECTOR3& TargetPosition, float Radius);
+	bool NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius);
 
 	// Getter
 	const D3DXMATRIX& view() const;

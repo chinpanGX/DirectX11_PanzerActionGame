@@ -44,6 +44,8 @@ void Enemy::Begin()
 void Enemy::Update()
 {
 	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
+	m_CpuRule->PlayerToDistance(this);
+	m_CpuRule->DecideBehavior();
 	m_State->Update(this, Fps::Get().deltaTime);
 	Pawn::Update();
 	OnCollision();
@@ -66,7 +68,7 @@ void Enemy::Event()
 void Enemy::Draw()
 {
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	if (!camera->IsDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
+	if (camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
 	{
 		OutputDebugString("Enemy NoRendering\n");
 		return;
