@@ -158,6 +158,7 @@ void GameScene::Tutorial::Uninit()
 
 void GameScene::Tutorial::Update()
 {
+	Scene::Update();
 }
 
 void GameScene::Tutorial::Draw()
