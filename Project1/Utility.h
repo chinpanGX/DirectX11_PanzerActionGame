@@ -5,17 +5,30 @@
 
 --------------------------------------------------------------*/
 #pragma once
+
 #include <windows.h>
 #include <assert.h> // エラー処理
 #include <iostream>
 #include <typeinfo>
 #include <string>
+#include <cstdio>
 
 // ランタイムエラーマクロ
 #define STRINGFY(s)  #s
 #define TO_STRING(x) STRINGFY(x)
 #define FILE_PREFIX __FILE__ "(" TO_STRING(__LINE__) "): " 
 #define ThrowIfFailed(hr, msg) Utility::CheckResultCode( hr, FILE_PREFIX msg)
+
+#ifdef _DEBUG
+#   define MyOutputDebugString( str, ... ) \
+      { \
+        TCHAR c[256]; \
+        _stprintf( c, str, __VA_ARGS__ ); \
+        OutputDebugString( c ); \
+      }
+#else
+#    define MyOutputDebugString( str, ... ) // 空実装
+#endif
 
 #if 0
 // nullチェック

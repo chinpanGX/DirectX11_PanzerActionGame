@@ -69,7 +69,7 @@ void Player::Draw()
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	if (camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
 	{
-		OutputDebugString("Player NoRendering\n");
+		//OutputDebugString("Player NoRendering\n");
 		return;
 	}
 	m_Resource.SetShader("PixelLighting");

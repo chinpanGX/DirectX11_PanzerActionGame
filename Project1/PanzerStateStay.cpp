@@ -35,22 +35,8 @@ void State::Stay::Update(Cpu * pCpu, float deltaTime)
 	case 1:
 		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
 		break;
-
-	// ƒ‰ƒ“ƒ_ƒ€
+	// ‘Ò‹@
 	case 2:
-		auto i = myLib::Random::Rand_R(0, 5);
-		switch (i)
-		{
-		case 0:
-			pCpu->ChangeState(std::make_unique<State::Forward>());
-			break;
-		case 1:
-			pCpu->ChangeState(std::make_unique<State::Backward>());
-			break;
-		case 3:
-		case 4:
-			pCpu->ChangeState(std::make_unique<State::BodyRotation>());
-		}
 		break;
 	}
 

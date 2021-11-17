@@ -13,7 +13,6 @@
 #include "Application.h"
 #include "CpuStateRule.h"
 
-
 CpuStateRule::CpuStateRule()
 {
 }
@@ -29,16 +28,19 @@ void CpuStateRule::DecideBehavior()
 	if (m_PlayerToDistance <= m_ShotRange)
 	{
 		m_Behavior = 0;
+		OutputDebugString("ŽË’ö”ÍˆÍ“à\n");
 	}
 	// õ“G”ÍˆÍ‚È‚¢‚©H
 	else if (m_PlayerToDistance <= m_SearchRange)
 	{
 		m_Behavior = 1;
+		OutputDebugString("õ“G”ÍˆÍ“à\n");
 	}
 	// ƒ‰ƒ“ƒ_ƒ€‚Å“®‚­
 	else
 	{
 		m_Behavior = 2;
+		OutputDebugString("‘Ò‹@\n");
 	}
 }
 

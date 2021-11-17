@@ -70,7 +70,7 @@ void Enemy::Draw()
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	if (camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
 	{
-		OutputDebugString("Enemy NoRendering\n");
+		//OutputDebugString("Enemy NoRendering\n");
 		return;
 	}
 	m_Resource.SetShader("PixelLighting");

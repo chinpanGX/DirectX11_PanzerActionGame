@@ -97,7 +97,7 @@ bool GameCamera::NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 	dot = D3DXVec3Dot(&n, &v);
 	if (dot < -Radius)
 	{
-		OutputDebugString("ç∂ë§Ç≈è¡Ç¶ÇƒÇ¢ÇÈ\n");
+		//OutputDebugString("ç∂ë§Ç≈è¡Ç¶ÇƒÇ¢ÇÈ\n");
 		return true;
 	}
 
@@ -109,7 +109,7 @@ bool GameCamera::NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 	dot = D3DXVec3Dot(&n, &v);
 	if (dot > Radius)
 	{
-		OutputDebugString("âEë§Ç≈è¡Ç¶ÇƒÇ¢ÇÈ\n");
+		// OutputDebugString("âEë§Ç≈è¡Ç¶ÇƒÇ¢ÇÈ\n");
 		return true;
 	}
 
@@ -121,7 +121,7 @@ bool GameCamera::NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 	dot = D3DXVec3Dot(&n, &v);
 	if (dot > Radius)
 	{
-		OutputDebugString("è„ë§Ç≈è¡Ç¶ÇÈ\n");
+		//OutputDebugString("è„ë§Ç≈è¡Ç¶ÇÈ\n");
 		return true;
 	}
 
@@ -133,7 +133,7 @@ bool GameCamera::NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 	dot = D3DXVec3Dot(&n, &v);
 	if (dot < -Radius)
 	{
-		OutputDebugString("â∫ë§Ç≈è¡Ç¶ÇÈ\n");
+		//OutputDebugString("â∫ë§Ç≈è¡Ç¶ÇÈ\n");
 		return true;
 	}
 
@@ -147,7 +147,7 @@ bool GameCamera::NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 	dot = D3DXVec3Dot(&n, &v);
 	if (dot < -Radius)
 	{
-		OutputDebugString("Farñ Ç≈è¡Ç¶ÇƒÇ¢ÇÈ\n");
+		//OutputDebugString("Farñ Ç≈è¡Ç¶ÇƒÇ¢ÇÈ\n");
 		return true;
 	}
 	return false;

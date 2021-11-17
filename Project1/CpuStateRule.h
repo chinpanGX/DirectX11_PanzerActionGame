@@ -27,7 +27,7 @@ private:
 	float m_PlayerToDistance; // プレイヤーとの距離
 
 
-	const float m_SearchRange = 200.0f; // サーチ範囲
-	const float m_ShotRange = 50.0f;	// 射程範囲
+	const float m_SearchRange = 50000.0f; // サーチ範囲
+	const float m_ShotRange = 10000.0f;	// 射程範囲
 };
 

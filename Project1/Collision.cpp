@@ -70,7 +70,7 @@ AABB3::~AABB3() {}
 #pragma region Setting_SystemDebug
 void AABB3::SystemDraw()
 {
-#if 1
+#if 0
 	auto& graphics = Engine::Get().graphics();
 	auto& resource = Engine::Get().resource();
 	resource->SetShader("NoLighting");
@@ -428,12 +428,18 @@ namespace
 	// •ª—£²‚É“Š‰e‚³‚ê‚½²¬•ª‚©‚ç“Š‰eü•ª’·‚ğZo
 	float LengthSeparateAxis(const D3DXVECTOR3& Sep, const D3DXVECTOR3& E1, const D3DXVECTOR3& E2, const D3DXVECTOR3& E3 = D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 	{
+		/*
+		FLOAT r1 = fabs(D3DXVec3Dot(Sep, e1));
+		FLOAT r2 = fabs(D3DXVec3Dot(Sep, e2));
+		FLOAT r3 = e3 ? (fabs(D3DXVec3Dot(Sep, e3))) : 0;
+		return r1 + r2 + r3;
+		*/
 		float r1 = Math::Abs(D3DXVec3Dot(&Sep, &E1));
 		float r2 = Math::Abs(D3DXVec3Dot(&Sep, &E2));
-		float r3 = Math::Abs(D3DXVec3Dot(&Sep, &E3));
+		float r3 = E3 ? Math::Abs(D3DXVec3Dot(&Sep, &E3)) : 0;
 		return r1 + r2 + r3;
 	}
-
+#if 0
 	bool TestSidePlane(float start, float end, float negd, const D3DXVECTOR3& norm, std::vector<std::pair<float, D3DXVECTOR3>>& out)
 	{
 		float denom = end - start;
@@ -457,7 +463,7 @@ namespace
 			}
 		}
 	}
-
+#endif
 }
 
 bool Intersect(const Sphere3 & a, const Sphere3 & b)

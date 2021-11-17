@@ -4,9 +4,6 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{13490b43-a8f4-4eb3-a9a5-a24f22990aba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Bullet">
-      <UniqueIdentifier>{f1a31d45-9861-4ddf-b775-73f03975f2dd}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor">
       <UniqueIdentifier>{e8c72d42-c037-4919-9d1b-6cf897bd150a}</UniqueIdentifier>
     </Filter>
@@ -55,9 +52,6 @@
     <Filter Include="Actor\Camera">
       <UniqueIdentifier>{6beffdee-0ca4-4648-86fd-5f16515247c9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base">
-      <UniqueIdentifier>{650d7208-b803-4ee3-8e68-03ef5e7e8dc6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Panzer\Object">
       <UniqueIdentifier>{dbaa73f6-88ff-45f6-8e20-e36d5944e807}</UniqueIdentifier>
     </Filter>
@@ -73,6 +67,12 @@
     <Filter Include="Actor\2D\Effect">
       <UniqueIdentifier>{e861a12f-2113-49fb-839d-b1c85c352095}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Bullet">
+      <UniqueIdentifier>{f1a31d45-9861-4ddf-b775-73f03975f2dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Base">
+      <UniqueIdentifier>{650d7208-b803-4ee3-8e68-03ef5e7e8dc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -80,13 +80,13 @@
     </ClCompile>
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="BulletStateDestory.cpp">
-      <Filter>Bullet</Filter>
+      <Filter>Actor\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="BulletStateMove.cpp">
-      <Filter>Bullet</Filter>
+      <Filter>Actor\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="NormalBullet.cpp">
-      <Filter>Bullet</Filter>
+      <Filter>Actor\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Audio.cpp">
       <Filter>Resource</Filter>
@@ -215,7 +215,7 @@
       <Filter>Command</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
-      <Filter>Base</Filter>
+      <Filter>Actor\Base</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Actor\Pawn</Filter>
@@ -354,16 +354,16 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
-      <Filter>Bullet</Filter>
+      <Filter>Actor\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletStateDestory.h">
-      <Filter>Bullet</Filter>
+      <Filter>Actor\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletStateMove.h">
-      <Filter>Bullet</Filter>
+      <Filter>Actor\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="NormalBullet.h">
-      <Filter>Bullet</Filter>
+      <Filter>Actor\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">
       <Filter>Resource</Filter>
@@ -510,13 +510,13 @@
       <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="DefaultObject.h">
-      <Filter>Base</Filter>
+      <Filter>Actor\Base</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
-      <Filter>Base</Filter>
+      <Filter>Actor\Base</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
-      <Filter>Base</Filter>
+      <Filter>Actor\Base</Filter>
     </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Actor\Pawn</Filter>
