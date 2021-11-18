@@ -23,6 +23,6 @@ protected:
 	float radius() const;
 private:
 	class Resource& m_Resource;
-	float m_Radius;
+	float m_Radius; // ‘å‚«‚³‚Ì”¼Œa
 };
 

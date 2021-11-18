@@ -3,6 +3,8 @@
 	[PlaneGarage.h]
 	Author : o‡ãÄ‘¾
 
+	íÔ‘qŒÉ‚Ì’n–Ê
+
 -------------------------------------------------------------*/
 #pragma once
 #include "StageObject.h"

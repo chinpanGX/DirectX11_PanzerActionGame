@@ -31,7 +31,7 @@ namespace GameScene
 		void Thread_Texture_B();
 		void Thread_Model();
 	};
-
+	 
 	// チュートリアル
 	class Tutorial final : public Scene
 	{

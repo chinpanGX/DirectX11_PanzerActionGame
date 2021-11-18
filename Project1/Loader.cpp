@@ -3,6 +3,8 @@
 	[Loader.cpp]
 	Author : 出合翔太
 
+	リソースファイルの読み込み処理をまとめる
+
 --------------------------------------------------------------*/
 #define _CRT_SECURE_NO_WARNINGS
 #include "Engine.h"
@@ -433,7 +435,7 @@ void Model::LoadMaterial(const std::string& FileName, ModelMaterial ** MaterialA
 	*MaterialArray = materialArray;
 	*MaterialNum = materialNum;
 }
-#pragma endregion _Model_
+#pragma endregion _Objファイルの読み込み_
 
 #pragma region _VertexShader_
 LoadVertexShader::LoadVertexShader(Graphics & graphics) : m_Graphics(graphics), m_VertexShader(nullptr), m_InputLayout(nullptr)
@@ -481,7 +483,7 @@ Microsoft::WRL::ComPtr<ID3D11InputLayout> LoadVertexShader::GetInputLayout() con
 {
 	return m_InputLayout;
 }
-#pragma endregion _VertexShader_
+#pragma endregion _VertexShaderの読み込み_
 
 #pragma region _PixelShader_
 LoadPixelShader::LoadPixelShader(Graphics & graphics) : m_Graphics(graphics), m_PixelShader(nullptr)
@@ -511,7 +513,7 @@ Microsoft::WRL::ComPtr<ID3D11PixelShader> LoadPixelShader::GetPixelShader() cons
 {
 	return m_PixelShader;
 }
-#pragma endregion _PixelShader_
+#pragma endregion _PixelShaderの読み込み_
 
 #pragma region _LoadAudio_
 LoadAudio::LoadAudio()
@@ -763,4 +765,4 @@ HRESULT LoadAudio::ReadChunkData(HANDLE hFile, void * pBuffer, DWORD dwBuffersiz
 	}
 	return S_OK;
 }
-#pragma endregion _LoadAudio_
+#pragma endregion _xAudioの読み込み_

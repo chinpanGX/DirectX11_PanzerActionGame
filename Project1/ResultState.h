@@ -27,6 +27,9 @@ public:
 		}
 	}
 
+	/*
+		決定したかどうか
+	*/
 	void SetEnter()
 	{
 		m_Enter = true;
@@ -37,6 +40,7 @@ public:
 		return m_Enter;
 	}
 
+	// 上の選択
 	void SelectTop()
 	{
 		m_Select--;
@@ -45,6 +49,8 @@ public:
 			m_Select = 0;
 		}
 	}
+
+	// 下の選択
 	void SelectDown()
 	{
 		m_Select++;
@@ -53,10 +59,14 @@ public:
 			m_Select = 2;
 		}
 	}
+
+	// 選択しているものを返す
 	const int32_t GetSelect() const
 	{
 		return m_Select;
 	}
+
+	// α値
 	const float GetAlpha() const
 	{
 		return m_Alpha;

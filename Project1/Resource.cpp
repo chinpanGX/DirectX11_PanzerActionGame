@@ -23,7 +23,8 @@ Resource::Resource(Graphics & graphics) : m_Graphics(graphics)
 
 Resource::~Resource()
 {
-
+	m_Texture->Unload();
+	m_StaticModel->Unload();
 }
 
 void Resource::LoadTexture(const std::string & tag, const std::string & filename)

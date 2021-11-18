@@ -175,9 +175,6 @@
     <ClCompile Include="Skydome.cpp">
       <Filter>Actor\Stage\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Actor\Stage\Object</Filter>
-    </ClCompile>
     <ClCompile Include="PanzerContainer.cpp">
       <Filter>Actor\Panzer</Filter>
     </ClCompile>
@@ -462,9 +459,6 @@
       <Filter>Actor\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="Skydome.h">
-      <Filter>Actor\Stage\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
       <Filter>Actor\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="PanzerContainer.h">

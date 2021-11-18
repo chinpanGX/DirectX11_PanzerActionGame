@@ -21,6 +21,7 @@ LoadTexture::~LoadTexture()
 
 void LoadTexture::Load(const std::string& name)
 { 
+	// テクスチャの読み込み
 	D3DX11CreateShaderResourceViewFromFile(Engine::Get().graphics()->GetDevice().Get(), (LPSTR)name.c_str(), NULL, NULL, m_Texture.GetAddressOf(), NULL);
 	assert(m_Texture);
 }
@@ -42,17 +43,21 @@ Texture::~Texture()
 
 ID3D11ShaderResourceView * Texture::GetTexture(const std::string & Tag)
 {
+	// タグからテクスチャを探す
 	auto itr = m_Map.find(Tag);
+	// 見つかれば返す
 	if (itr != m_Map.end())
 	{
 		return itr->second->GetTexture().Get();
 	}
 	else
 	{
+		// 見つからないときはエラー処理
 		throw std::domain_error("Not find Texture");
 	}
 }
 
+// ロード処理
 void Texture::Load(const std::string & Tag, const std::string & FileName)
 {
 	const std::string file = "Asset/Texture/" + FileName;
@@ -60,11 +65,37 @@ void Texture::Load(const std::string & Tag, const std::string & FileName)
 	m_Map[Tag]->Load(file);
 }
 
+// 該当するテクスチャを削除
 void Texture::Unload(const std::string & Tag)
 {
+	// タグから探す
 	auto itr = m_Map.find(Tag);
+	// 見つかれば削除
 	if (itr != m_Map.end())
 	{
 		itr = m_Map.erase(itr);
+	}
+	else
+	{
+		// 見つからないときはエラー処理
+		throw std::domain_error("Not find Texture");
+	}
+}
+
+// すべて削除
+void Texture::Unload()
+{
+	// アンロード
+	for (auto itr = m_Map.begin(); itr != m_Map.end(); ++itr)
+	{
+		itr->second.reset();
+		itr->second = nullptr;
+		itr = m_Map.erase(itr);
+	}
+	// クリア
+	m_Map.clear();
+	if (!m_Map.empty())
+	{
+		throw std::domain_error("m_Map is Not empty");
 	}
 }

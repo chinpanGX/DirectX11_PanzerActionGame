@@ -48,6 +48,24 @@ void Prefabs::ModelPool::Unload(const std::string & Tag)
 	}
 }
 
+void Prefabs::ModelPool::Unload()
+{
+	// アンロード
+	for (auto itr = m_Map.begin(); itr != m_Map.end(); ++itr)
+	{
+		itr->second->Unload();
+		itr->second.reset();
+		itr->second = nullptr;
+		itr = m_Map.erase(itr);
+	}
+	// クリア
+	m_Map.clear();
+	if (!m_Map.empty())
+	{
+		throw std::domain_error("m_Map is Not empty");
+	}
+}
+
 void Prefabs::ModelPool::LoadPanzer(const std::string & Tag)
 {
 	m_Map[Tag + "Body"] = std::make_unique<Model>(m_Graphics);

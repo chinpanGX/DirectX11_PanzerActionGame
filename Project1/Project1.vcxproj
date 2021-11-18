@@ -234,7 +234,6 @@
     <ClCompile Include="TutorialStage.cpp" />
     <ClCompile Include="TutorialStageSetter.cpp" />
     <ClCompile Include="Vehicle.cpp" />
-    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="WallBox.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -340,7 +339,6 @@
     <ClInclude Include="TutorialStageSetter.h" />
     <ClInclude Include="Utility.h" />
     <ClInclude Include="Vehicle.h" />
-    <ClInclude Include="Wall.h" />
     <ClInclude Include="WallBox.h" />
   </ItemGroup>
   <ItemGroup>

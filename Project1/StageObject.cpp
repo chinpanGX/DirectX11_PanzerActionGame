@@ -37,7 +37,9 @@ Resource & StageObject::resource() const
 	return m_Resource;
 }
 
-// ”¼Œa
+/*
+	setter/getter
+*/
 void StageObject::redius(float r)
 {
 	m_Radius = r;

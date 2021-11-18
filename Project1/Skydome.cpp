@@ -29,6 +29,7 @@ void Skydome::Begin()
 
 void Skydome::Update()
 {
+	// スカイドームを回転させて、動いているように見せる
 	m_Transform->rotation().y += Math::ToRadians(m_RotationSpeed);
 }
 

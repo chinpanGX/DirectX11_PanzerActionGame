@@ -7,6 +7,9 @@
 
 ---------------------------------------------------------------*/
 #include "Resource.h"
+#include "Engine.h"
+#include "Application.h"
+#include "GameCamera.h"
 #include "WallBox.h"
 
 WallBox::WallBox()
@@ -35,6 +38,12 @@ void WallBox::Event()
 
 void WallBox::Draw()
 {
+	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	if (camera->NotDrawObject(m_Transform->position(), StageObject::radius()))
+	{
+		return;
+	}
+
 	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
 	resource().SetStaticModel("WallFence");

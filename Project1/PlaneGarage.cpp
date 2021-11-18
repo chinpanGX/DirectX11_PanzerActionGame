@@ -3,6 +3,8 @@
 	[PlaneGarage.cpp]
 	Author : o‡ãÄ‘¾
 
+	íÔ‘qŒÉ‚Ì’n–Ê
+
 -------------------------------------------------------------*/
 #include "Renderer3D.h"
 #include "Engine.h"

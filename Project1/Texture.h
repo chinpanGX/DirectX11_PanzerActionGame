@@ -28,6 +28,7 @@ public:
 	ID3D11ShaderResourceView* GetTexture(const std::string& Tag);
 	void Load(const std::string& Tag, const std::string& FileName);
 	void Unload(const std::string& Tag);
+	void Unload();
 private:
 	std::unordered_map<std::string, std::unique_ptr<LoadTexture>> m_Map;
 };

@@ -8,6 +8,13 @@
 --------------------------------------------------------------*/
 #pragma once
 #include "StageObject.h"
+#include "Graphics.h"
+
+namespace
+{
+	// ÉuÉçÉbÉNÇÃêî
+	const uint32_t g_BlockNum = 100;									
+}
 
 class Plane final : public StageObject
 {
@@ -19,6 +26,9 @@ public:
 	void Event()override;
 	void Draw()override;
 private:	
-	std::unique_ptr<class Renderer3D> m_Renderer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_IndexBuffer;
+	Vertex3D m_Vertex[g_BlockNum + 1][g_BlockNum + 1];
+	Graphics& m_Graphics;
 };
 
