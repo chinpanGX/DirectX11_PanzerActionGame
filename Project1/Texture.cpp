@@ -81,21 +81,3 @@ void Texture::Unload(const std::string & Tag)
 		throw std::domain_error("Not find Texture");
 	}
 }
-
-// すべて削除
-void Texture::Unload()
-{
-	// アンロード
-	for (auto itr = m_Map.begin(); itr != m_Map.end(); ++itr)
-	{
-		itr->second.reset();
-		itr->second = nullptr;
-		itr = m_Map.erase(itr);
-	}
-	// クリア
-	m_Map.clear();
-	if (!m_Map.empty())
-	{
-		throw std::domain_error("m_Map is Not empty");
-	}
-}

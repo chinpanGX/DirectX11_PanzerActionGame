@@ -10,40 +10,31 @@
 #include "PanzerState.h"
 
 namespace State
-{
-
-	class Rotation  : public PanzerState
-	{
-	public:
-		Rotation(){}
-		virtual ~Rotation(){}
-		void Update(Cpu* pCpu, float deltaTime)override{}
-	protected:
-		float GetRightDirection(Cpu* pCpu); // ターゲットの位置が自身より右にいるか
-	};
-
+{	
 	// ボディの旋回
-	class BodyRotation final : public Rotation
+	class BodyRotation final : public PanzerState
 	{
 	public:
 		BodyRotation();
 		~BodyRotation();
 		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
-		int32_t m_Random;
+		float GetDirection(Cpu* pCpu); // Bodyを基準に、プレイヤーのいる方向を求める
 	};
 
 	// タレットの旋回
-	class TurretRotation final : public Rotation
+	class TurretRotation final : public PanzerState
 	{
 	public:
 		TurretRotation();
 		~TurretRotation();
 		void Update(Cpu* pCpu, float deltaTime)override;
+	private:
+		float GetDirection(Cpu* pCpu); // pivotを基準に、プレイヤーがいる方向を求める
 	};
 
 	// 主砲の上下
-	class GunRotation final : public Rotation
+	class GunRotation final : public PanzerState
 	{
 	public:
 		GunRotation();

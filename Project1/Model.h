@@ -19,8 +19,7 @@ namespace Prefabs
 		~ModelPool();
 		void Draw(const std::string& Tag);
 		void Load(const std::string& Tag, const std::string& FileName);
-		void Unload(const std::string& Tag);
-		void Unload();
+		void Unload(const std::string& Tag);		
 	private:
 		void LoadPanzer(const std::string& Tag);
 		std::unordered_map<std::string, std::unique_ptr<Model>> m_Map;

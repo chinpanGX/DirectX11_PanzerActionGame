@@ -24,10 +24,11 @@ public:
 	void LoadTexture(const std::string& tag, const std::string& filename);
 	void UnloadTexture(const std::string& tag);
 
-	// 共通で使うリソースのロード
+	// 共通で使うリソースのロード・アンロード
 	void LoadTexture_ThreadA();
 	void LoadTexture_ThreadB();	
 	void LoadModel_ThreadA();
+	void Unload();
 	
 	// モデルのロード
 	void LoadModel(const std::string& tag, const std::string& filename);

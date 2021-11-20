@@ -23,8 +23,19 @@ Resource::Resource(Graphics & graphics) : m_Graphics(graphics)
 
 Resource::~Resource()
 {
-	m_Texture->Unload();
-	m_StaticModel->Unload();
+	m_Texture->Unload("Bg");
+	m_Texture->Unload("Ui");
+	m_Texture->Unload("Grass");
+	m_Texture->Unload("Explosion");
+	m_Texture->Unload("Reload");
+	m_Texture->Unload("Gage");
+	m_Texture->Unload("Effect");
+	m_Texture->Unload("Number");
+	m_Texture->Unload("Timer");
+	m_StaticModel->Unload("Sky");
+	m_StaticModel->Unload("Fence");
+	m_StaticModel->Unload("Bullet");
+	m_StaticModel->Unload("WallFence");
 }
 
 void Resource::LoadTexture(const std::string & tag, const std::string & filename)

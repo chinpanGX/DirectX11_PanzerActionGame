@@ -27,7 +27,7 @@ void State::Stay::Update(Cpu * pCpu, float deltaTime)
 {
 	switch(pCpu->GetCpuRule().behavior())
 	{
-	// ŽË’ö”ÍˆÍ–³‚¢
+	// ŽË’ö”ÍˆÍ‚È‚¢
 	case 0:
 		pCpu->ChangeState(std::make_unique<State::TurretRotation>());
 		break;

@@ -13,26 +13,17 @@
 #include "PanzerStateRotation.h"
 #include "PanzerStateShot.h"
 #include "PanzerStateStay.h"
+#include "PanzerStateMove.h"
 #include "Engine.h"
 #include "Application.h"
 #include "Player.h"
+#include <cfenv>
 
-#pragma region Rotation_method
-float State::Rotation::GetRightDirection(Cpu * pCpu)
-{
-	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
-	D3DXVECTOR3 cross;
-	D3DXVec3Cross(&cross, &pCpu->pivot().transform().forward(), &dist);
-	float t = cross.x - cross.y - cross.z;
-	return t;
-}
-#pragma endregion Rotationメソッド
 
 #pragma region BodyRotation_method
 State::BodyRotation::BodyRotation()
 {
-	m_Random = myLib::Random::Rand_R(0, 2);
+	
 }
 
 State::BodyRotation::~BodyRotation()
@@ -41,22 +32,40 @@ State::BodyRotation::~BodyRotation()
 
 void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 {
-	FrameCountDown();
+	float dir = GetDirection(pCpu);
+
 	// 右旋回
-	if (m_Random == 0)
+	if (dir > 0.0f)
 	{
 		pCpu->GetMoveComponent().RotRight(pCpu->vehicle().bodyTransform(), deltaTime);
 		pCpu->pivot().GetMoveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
 	}
 	// 左旋回
-	else if(m_Random == 1)
+	else
 	{
 		pCpu->GetMoveComponent().RotLeft(pCpu->vehicle().bodyTransform(), deltaTime);
 		pCpu->pivot().GetMoveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
 	}
-	if (GetFrameZeroFlag() == true)
+
+	// -0.5f ～　0.5fの間になったら、移動ステートへ
+	if (-0.1f < dir && dir < 0.1f)
 	{
-		pCpu->ChangeState(std::make_unique<State::Stay>());
+		pCpu->ChangeState(std::make_unique<State::Forward>());
+	}	
+}
+float State::BodyRotation::GetDirection(Cpu * pCpu)
+{
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	if (player)
+	{
+		// プレイヤーとエネミーの距離を測る
+		D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
+		D3DXVECTOR3 cross;
+		// bodyの前ベクトルとdistの外積を求める
+		D3DXVec3Cross(&cross, &pCpu->vehicle().bodyTransform().forward(), &dist);
+		float t = cross.x - cross.y - cross.z;
+		// t > 0.0fなら右にいる
+		return t;
 	}
 }
 #pragma endregion BodyRotationメソッド
@@ -73,7 +82,7 @@ State::TurretRotation::~TurretRotation()
 void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 {
 	// 右旋回
-	if (GetRightDirection(pCpu) > 0.0f)
+	if (GetDirection(pCpu) > 0.0f)
 	{
 		pCpu->GetMoveComponent().RotRight(pCpu->vehicle().turretTransform(), deltaTime);
 		pCpu->pivot().GetMoveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
@@ -88,6 +97,21 @@ void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 	if (pCpu->vehicle().GetStatus().GetFinishReload() == true)
 	{
 		pCpu->ChangeState(std::make_unique<State::Shot>());
+	}
+}
+float State::TurretRotation::GetDirection(Cpu * pCpu)
+{
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	if (player)
+	{
+		// プレイヤーとエネミーの距離を測る
+		D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
+		D3DXVECTOR3 cross;
+		// pivotの前ベクトルとdistの外積を求める
+		D3DXVec3Cross(&cross, &pCpu->pivot().transform().forward(), &dist);
+		float t = cross.x - cross.y - cross.z;
+		// t > 0.0fなら右にいる
+		return t;
 	}
 }
 #pragma endregion TurretRotationメソッド
