@@ -30,7 +30,7 @@ public:
 	// アクション
 	void Move();
 
-	MoveComponent& GetMoveComponent()const;
+	MoveComponent& moveComponent()const;
 private:
 	std::unique_ptr<MoveComponent> m_MoveComponent;
 	// 補正をかける値

@@ -28,22 +28,22 @@ Tiger::Tiger() : Vehicle("Tiger")
 	// 戦車のパーツを組み立てる
 	SetPanzer();
 	// プロパティ設定
-	SetProperty(Status::Country::DE, 36.0, 1400.0f, 163.0f, 120.0f, 30.0f, 4.0f, 0.4f);
+	SetStatus(Status::Country::DE, 36.0, 1400.0f, 163.0f, 120.0f, 30.0f, 4.0f, 0.4f);
 	
 	// スキルの設定
 	// たまる時間30.0f
-	GetSkill().Begin(30.0f);	
+	skill().Begin(30.0f);	
 	// 攻撃力UP
-	GetSkill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
+	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
 
 	// Colliderの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
 	m_Collider[2] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(5.0f, 3.0f, 7.0f));
-	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	m_Collider[0]->SetSphere3(panzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(5.0f, 3.0f, 7.0f));
+	m_Collider[1]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Tiger::~Tiger()
@@ -86,22 +86,22 @@ Centurion::Centurion() : Vehicle("Centurion")
 	Engine::Get().resource()->LoadModel("CenturionGun", "Panzer\\CenturionMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
-	Vehicle::SetProperty(Status::Country::UK, 45.0f, 1350.0f, 248.0f, 114.0f, 50.0f, 6.0f, 0.56f);
+	Vehicle::SetStatus(Status::Country::UK, 45.0f, 1350.0f, 248.0f, 114.0f, 50.0f, 6.0f, 0.56f);
 
 	// スキルの設定
 	// たまる時間20.0f
-	GetSkill().Begin(20.0f);
+	skill().Begin(20.0f);
 	// 速度UP
-	GetSkill().SetSkill(std::make_unique<UseSkill::SpeedUp>(1.5f));
+	skill().SetSkill(std::make_unique<UseSkill::SpeedUp>(1.5f));
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
 	m_Collider[2] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
-	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(5.0f, 3.0f, 8.0f));
-	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	m_Collider[0]->SetSphere3(panzer().GetBody().transform(), 8.0f);
+	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(5.0f, 3.0f, 8.0f));
+	m_Collider[1]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Centurion::~Centurion()
@@ -144,22 +144,22 @@ Patton::Patton() : Vehicle("Patton")
 	Engine::Get().resource()->LoadModel("PattonGun", "Panzer\\PattonMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
-	Vehicle::SetProperty(Status::Country::US, 47.0f, 1600.0f, 240.0f, 139.0f, 60.0f, 8.0f, 0.6f);
+	Vehicle::SetStatus(Status::Country::US, 47.0f, 1600.0f, 240.0f, 139.0f, 60.0f, 8.0f, 0.6f);
 
 	// スキルの設定
 	// たまる時間40.0f
-	GetSkill().Begin(40.0f);
+	skill().Begin(40.0f);
 	// 防御力UP
-	GetSkill().SetSkill(std::make_unique<UseSkill::DefenceUp>(1.5f));
+	skill().SetSkill(std::make_unique<UseSkill::DefenceUp>(1.5f));
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
 	m_Collider[2] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 8.0f);
-	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
-	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	m_Collider[0]->SetSphere3(panzer().GetBody().transform(), 8.0f);
+	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
+	m_Collider[1]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 Patton::~Patton()
@@ -202,25 +202,25 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	Engine::Get().resource()->LoadModel("T-34/85Gun", "Panzer\\T-34MainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
-	Vehicle::SetProperty(Status::Country::RU, 31.0f, 770.0f, 140.0f, 63.0f, 54.0f, 4.0f, 0.6f);
+	Vehicle::SetStatus(Status::Country::RU, 31.0f, 770.0f, 140.0f, 63.0f, 54.0f, 4.0f, 0.6f);
 
 	// スキルの設定
 	// たまる時間20.0f
-	GetSkill().Begin(20.0f);
+	skill().Begin(20.0f);
 	// HP回復
-	GetSkill().SetSkill(std::make_unique<UseSkill::HealHp>());
+	skill().SetSkill(std::make_unique<UseSkill::HealHp>());
 	// 防御力UP
-	GetSkill().SetSkill(std::make_unique<UseSkill::DefenceUp>(2.0f));
+	skill().SetSkill(std::make_unique<UseSkill::DefenceUp>(2.0f));
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
 	m_Collider[2] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_Collider[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f));
-	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
-	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
+	m_Collider[0]->SetSphere3(panzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetAABB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f));
+	m_Collider[1]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
+	m_Collider[2]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }
 
 T_34_85::~T_34_85()
@@ -263,27 +263,27 @@ IV_H::IV_H() : Vehicle("IV-H")
 	Engine::Get().resource()->LoadModel("IV-HGun", "Panzer\\IVMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
-	Vehicle::SetProperty(Status::Country::DE, 26.0f, 600.0f, 132.0f, 47.0f, 40.0f, 4.0f, 0.5f);
+	Vehicle::SetStatus(Status::Country::DE, 26.0f, 600.0f, 132.0f, 47.0f, 40.0f, 4.0f, 0.5f);
 
 	// スキルの設定
 	// たまる時間40.0f
-	GetSkill().Begin(40.0f);
+	skill().Begin(40.0f);
 	// HP回復
-	GetSkill().SetSkill(std::make_unique<UseSkill::HealHp>());
+	skill().SetSkill(std::make_unique<UseSkill::HealHp>());
 	// 防御力UP
-	GetSkill().SetSkill(std::make_unique<UseSkill::DefenceUp>(1.2f));
+	skill().SetSkill(std::make_unique<UseSkill::DefenceUp>(1.2f));
 	// 攻撃力UP
-	GetSkill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
+	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
 	
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
 	m_Collider[2] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_Collider[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
-	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
+	m_Collider[0]->SetSphere3(panzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetAABB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
+	m_Collider[1]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 IV_H::~IV_H()
@@ -325,23 +325,23 @@ Sherman::Sherman() : Vehicle("Sherman")
 
 	// 戦車の設定
 	Vehicle::SetPanzer();
-	Vehicle::SetProperty(Status::Country::US, 27.0f, 570.0f, 126.0f, 44.0f, 48.0f, 4.0f, 0.6f);
+	Vehicle::SetStatus(Status::Country::US, 27.0f, 570.0f, 126.0f, 44.0f, 48.0f, 4.0f, 0.6f);
 
 	// スキルの設定
 	// たまる時間20.0f
-	GetSkill().Begin(20.0f);	
+	skill().Begin(20.0f);	
 	// 攻撃力UP
-	GetSkill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.3f));
+	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.3f));
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
 	m_Collider[2] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(GetPanzer().GetBody().transform(), 6.0f);
-	m_Collider[0]->SetAABB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_Collider[0]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
-	m_Collider[1]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
-	m_Collider[2]->SetOBB3(GetPanzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
+	m_Collider[0]->SetSphere3(panzer().GetBody().transform(), 6.0f);
+	m_Collider[0]->SetAABB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
+	m_Collider[1]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[2]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 1.0f));
 }
 
 Sherman::~Sherman()

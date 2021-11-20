@@ -32,7 +32,7 @@ void BulletStateMove::Update(Bullet * Bullet, float deltaTime)
 	// 飛んでいく方向を出す
 	D3DXVECTOR3 vector = Bullet->GetDirectionVector();
 	// 方向ベクトルを足していく
-	BulletPosition += vector * Bullet->GetSpeed() * deltaTime;
+	BulletPosition += vector * Bullet->speed() * deltaTime;
 	//　当たり判定
 	Bullet->OnCollision();
 	// 当たっていないオブジェクトのインスタンス削除

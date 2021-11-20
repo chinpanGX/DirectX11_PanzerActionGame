@@ -34,7 +34,7 @@ void State::Forward::Update(Cpu * pCpu, float deltaTime)
 	{
 		pCpu->ChangeState(std::make_unique<State::Stay>());
 	}
-	pCpu->GetMoveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
+	pCpu->moveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
 	pCpu->pivot().Move();
 	// プレイヤーとの当たり判定を取る
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
@@ -44,7 +44,7 @@ void State::Forward::Update(Cpu * pCpu, float deltaTime)
 		{
 			if (Intersect(pCpu->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
 			{
-				pCpu->GetMoveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
+				pCpu->moveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
 				pCpu->pivot().Move();
 				pCpu->ChangeState(std::make_unique<State::Stay>());
 			}
@@ -67,7 +67,7 @@ void State::Backward::Update(Cpu * pCpu, float deltaTime)
 	{
 		pCpu->ChangeState(std::make_unique<State::Stay>());
 	}
-	pCpu->GetMoveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
+	pCpu->moveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
 	pCpu->pivot().Move();
 	// プレイヤーとの当たり判定
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
@@ -77,7 +77,7 @@ void State::Backward::Update(Cpu * pCpu, float deltaTime)
 		{
 			if (Intersect(pCpu->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
 			{
-				pCpu->GetMoveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
+				pCpu->moveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
 				pCpu->pivot().Move();
 				pCpu->ChangeState(std::make_unique<State::Stay>());
 			}

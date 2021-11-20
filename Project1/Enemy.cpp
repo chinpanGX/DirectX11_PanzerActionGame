@@ -36,16 +36,15 @@ Enemy::~Enemy()
 void Enemy::Begin()
 {
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
-	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 100.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
+	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 70.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	m_CpuRule = std::make_unique<CpuStateRule>();
 	m_State = std::make_unique<State::Stay>();
 }
 
 void Enemy::Update()
 {
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
-	m_CpuRule->PlayerToDistance(this);
-	m_CpuRule->DecideBehavior();
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }	
+	m_CpuRule->Update(this);
 	m_State->Update(this, Fps::Get().deltaTime);
 	Pawn::Update();
 	OnCollision();

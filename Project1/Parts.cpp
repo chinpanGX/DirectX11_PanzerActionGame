@@ -18,7 +18,7 @@ const D3DXMATRIX & Parts::GetWorldMatrix() const
 	return m_WorldMatrix;
 }
 
-const std::string & Parts::GetTag() const
+const std::string & Parts::tag() const
 {
 	return m_Tagname;
 }

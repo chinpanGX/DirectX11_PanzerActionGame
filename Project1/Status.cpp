@@ -30,29 +30,29 @@ void Status::Update()
 	}
 }
 
-void Status::ResetReloadTime()
+void Status::RereloadTime()
 {
 	m_NowReloadTime = 0;
 	m_FinishReload = false;
 }
 
 #pragma region _Getter&Setter_function_
-const Status::Country & Status::GetCountry() const
+const Status::Country & Status::country() const
 {
 	return m_Country;
 }
 
-const float Status::GetCost() const
+const float Status::cost() const
 {
 	return m_Cost;
 }
 
-const float Status::GetMaxHp() const
+const float Status::maxHp() const
 {
 	return m_MaxHp;
 }
 
-void Status::SetHp(float Hp)
+void Status::hp(float Hp)
 {
 	float tmp = Hp;
 	// マックスより多くならないようにする
@@ -63,77 +63,77 @@ void Status::SetHp(float Hp)
 	m_Hp = tmp;
 }
 
-const float Status::GetHp() const
+const float Status::hp() const
 {
 	return m_Hp;
 }
 
-void Status::SetAttack(float Attack)
+void Status::attack(float Attack)
 {
 	m_Attack = Attack;
 }
 
-const float Status::GetAttack() const
+const float Status::attack() const
 {
 	return m_Attack;
 }
 
-void Status::SetDefence(float Defence)
+void Status::defence(float Defence)
 {
 	m_Defense = Defence;
 }
 
-const float Status::GetDefence() const
+const float Status::defence() const
 {
 	return m_Defense;
 }
 
-void Status::SetSpeed(float Speed)
+void Status::speed(float Speed)
 {
 	m_Speed = Speed;
 }
 
-const float Status::GetSpeed() const
+const float Status::speed() const
 {
 	return m_Speed;
 }
 
-void Status::SetAddForce(float force)
+void Status::addForce(float force)
 {
 	m_AddForce = force;
 }
 
-const float Status::GetAddForce() const
+const float Status::addForce() const
 {
 	return m_AddForce;
 }
 
-const float Status::GetRotSpeed() const
+const float Status::rotSpeed() const
 {
 	return m_RotSpeed;
 }
 
-const float Status::GetGunAngleUpMax() const
+const float Status::gunAngleUpMax() const
 {
 	return m_GunUpMax;
 }
 
-const float Status::GetGunAngleDownMax() const
+const float Status::gunAngleDownMax() const
 {
 	return m_GunDownMax;
 }
 
-void Status::SetReloadTime(float Time)
+void Status::reloadTime(float Time)
 {
 	m_Time = Time;
 }
 
-const float Status::GetReloadTime() const
+const float Status::reloadTime() const
 {
 	return m_ReloadTime;
 }
 
-const bool Status::GetFinishReload() const
+const bool Status::finishReload() const
 {
 	return m_FinishReload;
 }

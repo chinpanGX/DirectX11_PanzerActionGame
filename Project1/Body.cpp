@@ -36,7 +36,7 @@ void Body::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
 	graphics().SetWorldMatrix(m_WorldMatrix);
-	resource().SetStaticModel(Parts::GetTag() + "Body");
+	resource().SetStaticModel(Parts::tag() + "Body");
 }
 
 void Body::UpdateMatrix(const D3DXMATRIX & ParentMatirx)

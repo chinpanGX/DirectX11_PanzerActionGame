@@ -1,8 +1,9 @@
 /*--------------------------------------------------------
 
-		[PanzerNameList.h]
-		戦車の名前のリスト
+		[PanzerNameList.h]		
 		Author : 出合翔太
+
+		戦車の名前のリスト
 
 ----------------------------------------------------------*/
 #pragma once
@@ -15,7 +16,8 @@ class PanzerNameList final : public Singleton<PanzerNameList>
 	friend Singleton<PanzerNameList>;
 public:
 	void Register(); // 名前の登録
-	const std::vector<std::string>& GetPanzerList() const;
+	// リストの取得
+	const std::vector<std::string>& panzerList() const;
 private:
 	std::vector<std::string> m_PanzerName;
 };

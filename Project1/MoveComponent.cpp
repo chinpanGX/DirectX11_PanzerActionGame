@@ -27,7 +27,7 @@ MoveComponent::~MoveComponent()
 void MoveComponent::Update()
 {
 	bool nowInput = false;
-	myLib::Timeline acc(0.0f, m_Status.GetSpeed(), m_Status.GetAddForce());
+	myLib::Timeline acc(0.0f, m_Status.speed(), m_Status.addForce());
 	for (int32_t i = 0; i < 2; i++)
 	{
 		nowInput = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(i);
@@ -65,24 +65,24 @@ void MoveComponent::MoveBackward(Transform & transform, float deltaTime)
 void MoveComponent::RotRight(Transform & transform, float deltaTime)
 {
 	D3DXVECTOR3 Rotation = transform.rotation();
-	Rotation.y += m_Status.GetRotSpeed() * deltaTime;
+	Rotation.y += m_Status.rotSpeed() * deltaTime;
 	transform.rotation(Rotation);
 }
 
 void MoveComponent::RotLeft(Transform & transform, float deltaTime)
 {
 	D3DXVECTOR3 Rotation = transform.rotation();
-	Rotation.y -= m_Status.GetRotSpeed() * deltaTime;
+	Rotation.y -= m_Status.rotSpeed() * deltaTime;
 	transform.rotation(Rotation);
 }
 
 void MoveComponent::GunUp(Transform & transform, float deltaTime)
 {
 	D3DXVECTOR3 GunRotation = transform.rotation();
-	GunRotation.x -= m_Status.GetRotSpeed() * 0.9f * deltaTime;
-	if (GunRotation.x <= -m_Status.GetGunAngleUpMax())
+	GunRotation.x -= m_Status.rotSpeed() * 0.9f * deltaTime;
+	if (GunRotation.x <= -m_Status.gunAngleUpMax())
 	{
-		GunRotation.x = -m_Status.GetGunAngleUpMax();
+		GunRotation.x = -m_Status.gunAngleUpMax();
 	}
 	transform.rotation(GunRotation);
 }
@@ -90,10 +90,10 @@ void MoveComponent::GunUp(Transform & transform, float deltaTime)
 void MoveComponent::GunDown(Transform & transform, float deltaTime)
 {
 	D3DXVECTOR3 GunRotation = transform.rotation();
-	GunRotation.x += m_Status.GetRotSpeed() * 0.9f * deltaTime;
-	if (GunRotation.x >= m_Status.GetGunAngleDownMax())
+	GunRotation.x += m_Status.rotSpeed() * 0.9f * deltaTime;
+	if (GunRotation.x >= m_Status.gunAngleDownMax())
 	{
-		GunRotation.x = m_Status.GetGunAngleDownMax();
+		GunRotation.x = m_Status.gunAngleDownMax();
 	}
 	transform.rotation(GunRotation);
 }

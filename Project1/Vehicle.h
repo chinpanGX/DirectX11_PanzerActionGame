@@ -41,17 +41,18 @@ public:
 	class Transform& bodyTransform() const;
 	class Transform& turretTransform() const;
 	class Transform& gunTransform() const;
-	Status& GetStatus() const;
-	Skill& GetSkill() const;
+	Status& status() const;
+	Skill& skill() const;
 protected:
 	std::array<std::unique_ptr<class Collider>, 3> m_Collider;
 
-	// プロパティの設定
+	// ステータスの設定
 	void SetPanzer();
-	void SetProperty(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed);
+	void SetStatus(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed);
+	
 	//　戦車
-	class Panzer& GetPanzer() const;
-	const std::string& GetTag() const;
+	class Panzer& panzer() const;
+	const std::string& tag() const;
 private:
 	// HP計算
 	void CalculateHp(float AttackPoint); 

@@ -61,7 +61,7 @@ void NormalBullet::Draw()
 void NormalBullet::Create(const D3DXVECTOR3& Position, const D3DXVECTOR3 & Vector)
 {
 	// インスタンス生成
-	Bullet::SetProperty(Vector, 300.0f, 240);
+	Bullet::SetStatus(Vector, 300.0f, 240);
 	m_Transform = Actor::AddComponent<Transform>();
 	m_Transform->position(Position);
 	m_Transform->scale(1.5f);

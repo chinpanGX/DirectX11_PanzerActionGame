@@ -96,11 +96,11 @@ void Player::OnCollision()
 			{
 				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
 				{
-					GetMoveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
 				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
 				{
-					GetMoveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
 			}
 		}

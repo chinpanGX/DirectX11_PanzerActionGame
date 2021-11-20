@@ -22,7 +22,7 @@ std::string PanzerContainer::m_CpuofSelectedPanzer; // “G‚ª‘I‚ñ‚¾íŽÔ
 
 PanzerContainer::PanzerContainer() : m_Choose(0)
 {
-	m_PanzerName = PanzerNameList().Get().GetPanzerList();
+	m_PanzerName = PanzerNameList().Get().panzerList();
 }
 
 PanzerContainer::~PanzerContainer()
@@ -55,12 +55,12 @@ void PanzerContainer::Update()
 	// “o˜^ó‘Ô‚ðXV‚·‚é
 	m_PlayerofSelectedPanzer = m_PanzerName[m_Choose];
 	// ƒpƒ‰ƒ[ƒ^Žæ“¾
-	m_Cost = m_Map[m_PanzerName[m_Choose]]->GetStatus().GetCost();
-	m_Hp = m_Map[m_PanzerName[m_Choose]]->GetStatus().GetHp();
-	m_Attack = m_Map[m_PanzerName[m_Choose]]->GetStatus().GetAttack();
-	m_Defence = 1.5f * m_Map[m_PanzerName[m_Choose]]->GetStatus().GetDefence();
-	m_Speed = 3.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().GetSpeed();
-	m_Reload = 300.0f - (20.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().GetReloadTime());
+	m_Cost = m_Map[m_PanzerName[m_Choose]]->status().cost();
+	m_Hp = m_Map[m_PanzerName[m_Choose]]->status().hp();
+	m_Attack = m_Map[m_PanzerName[m_Choose]]->status().attack();
+	m_Defence = 1.5f * m_Map[m_PanzerName[m_Choose]]->status().defence();
+	m_Speed = 3.0f * m_Map[m_PanzerName[m_Choose]]->status().speed();
+	m_Reload = 300.0f - (20.0f * m_Map[m_PanzerName[m_Choose]]->status().reloadTime());
 }
 
 void PanzerContainer::Event()

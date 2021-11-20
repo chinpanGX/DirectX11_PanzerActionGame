@@ -16,7 +16,7 @@
 Pivot::Pivot(Vehicle & vehicle) : m_Vehicle(vehicle)
 {
 	m_Transform = Actor::AddComponent<Transform>();
-	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle.GetStatus());
+	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle.status());
 }
 
 Pivot::~Pivot()
@@ -75,7 +75,7 @@ void Pivot::Move()
 	m_Transform->position(pos);
 }
 
-MoveComponent & Pivot::GetMoveComponent() const
+MoveComponent & Pivot::moveComponent() const
 {
 	if (!m_MoveComponent)
 	{

@@ -37,14 +37,14 @@ void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 	// 右旋回
 	if (dir > 0.0f)
 	{
-		pCpu->GetMoveComponent().RotRight(pCpu->vehicle().bodyTransform(), deltaTime);
-		pCpu->pivot().GetMoveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
+		pCpu->moveComponent().RotRight(pCpu->vehicle().bodyTransform(), deltaTime);
+		pCpu->pivot().moveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pCpu->GetMoveComponent().RotLeft(pCpu->vehicle().bodyTransform(), deltaTime);
-		pCpu->pivot().GetMoveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
+		pCpu->moveComponent().RotLeft(pCpu->vehicle().bodyTransform(), deltaTime);
+		pCpu->pivot().moveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
 	}
 
 	// -0.5f ～　0.5fの間になったら、移動ステートへ
@@ -53,6 +53,7 @@ void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 		pCpu->ChangeState(std::make_unique<State::Forward>());
 	}	
 }
+
 float State::BodyRotation::GetDirection(Cpu * pCpu)
 {
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
@@ -84,17 +85,17 @@ void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 	// 右旋回
 	if (GetDirection(pCpu) > 0.0f)
 	{
-		pCpu->GetMoveComponent().RotRight(pCpu->vehicle().turretTransform(), deltaTime);
-		pCpu->pivot().GetMoveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
+		pCpu->moveComponent().RotRight(pCpu->vehicle().turretTransform(), deltaTime);
+		pCpu->pivot().moveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pCpu->GetMoveComponent().RotLeft(pCpu->vehicle().turretTransform(), deltaTime);
-		pCpu->pivot().GetMoveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
+		pCpu->moveComponent().RotLeft(pCpu->vehicle().turretTransform(), deltaTime);
+		pCpu->pivot().moveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
 	}
 	// リロードが完了したら撃つ
-	if (pCpu->vehicle().GetStatus().GetFinishReload() == true)
+	if (pCpu->vehicle().status().finishReload() == true)
 	{
 		pCpu->ChangeState(std::make_unique<State::Shot>());
 	}

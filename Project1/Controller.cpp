@@ -34,56 +34,56 @@ void Controller::FpsCameraMode(bool fpsMode)
 
 void Controller::MoveForward(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().MoveForward(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pawn->moveComponent().MoveForward(m_Pawn->vehicle().bodyTransform(), deltaTime);
 	m_Pivot->Move();
 }
 
 void Controller::MoveBackward(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().MoveBackward(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pawn->moveComponent().MoveBackward(m_Pawn->vehicle().bodyTransform(), deltaTime);
 	m_Pivot->Move();
 }
 
 void Controller::RotRight(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotRight(m_Pawn->vehicle().bodyTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotRight(m_Pivot->transform(), deltaTime);
+	m_Pawn->moveComponent().RotRight(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pivot->moveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotLeft(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->vehicle().bodyTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->transform(), deltaTime);
+	m_Pawn->moveComponent().RotLeft(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Pivot->moveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretRight(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotRight(m_Pawn->vehicle().turretTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotRight(m_Pivot->transform(), deltaTime);
+	m_Pawn->moveComponent().RotRight(m_Pawn->vehicle().turretTransform(), deltaTime);
+	m_Pivot->moveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretLeft(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().RotLeft(m_Pawn->vehicle().turretTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->transform(), deltaTime);
+	m_Pawn->moveComponent().RotLeft(m_Pawn->vehicle().turretTransform(), deltaTime);
+	m_Pivot->moveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunUp(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().GunUp(m_Pawn->vehicle().gunTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().GunUp(m_Pivot->transform(), deltaTime);
+	m_Pawn->moveComponent().GunUp(m_Pawn->vehicle().gunTransform(), deltaTime);
+	m_Pivot->moveComponent().GunUp(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunDown(float deltaTime)
 {
-	m_Pawn->GetMoveComponent().GunDown(m_Pawn->vehicle().gunTransform(), deltaTime);
-	m_Pivot->GetMoveComponent().GunDown(m_Pivot->transform(), deltaTime);
+	m_Pawn->moveComponent().GunDown(m_Pawn->vehicle().gunTransform(), deltaTime);
+	m_Pivot->moveComponent().GunDown(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::Shot()
 {
 	// リロードが完了しているかチェックする
-	if (m_Pawn->vehicle().GetStatus().GetFinishReload() == true)
+	if (m_Pawn->vehicle().status().finishReload() == true)
 	{
 		// リロードが完了している
 		// 射撃
@@ -99,5 +99,5 @@ void Controller::Shot()
 
 void Controller::UseSkill()
 {
-	m_Pawn->vehicle().GetSkill().Enable(m_Pawn);
+	m_Pawn->vehicle().skill().Enable(m_Pawn);
 }

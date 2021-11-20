@@ -25,7 +25,7 @@ State::Stay::~Stay()
 
 void State::Stay::Update(Cpu * pCpu, float deltaTime)
 {
-	switch(pCpu->GetCpuRule().behavior())
+	switch(pCpu->cpuRule().behavior())
 	{
 	// ŽË’ö”ÍˆÍ‚È‚¢
 	case 0:
@@ -34,8 +34,7 @@ void State::Stay::Update(Cpu * pCpu, float deltaTime)
 	// õ“G”ÍˆÍ“à
 	case 1:
 		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
-		break;
-	// ‘Ò‹@
+		break;	
 	case 2:
 		break;
 	}

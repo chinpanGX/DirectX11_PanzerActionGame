@@ -18,7 +18,7 @@
 Factory::FVehicle::FVehicle()
 {	
 	// íÔ‚Ì–¼‘O‚ÌƒŠƒXƒg‚ğæ“¾
-	m_PanzerNameList = PanzerNameList::Get().GetPanzerList();
+	m_PanzerNameList = PanzerNameList::Get().panzerList();
 }
 
 Factory::FVehicle::~FVehicle()

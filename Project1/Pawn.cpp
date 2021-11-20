@@ -73,7 +73,7 @@ Pivot & Pawn::pivot() const
 	return *m_Pivot;
 }
 
-MoveComponent & Pawn::GetMoveComponent() const
+MoveComponent & Pawn::moveComponent() const
 {
 	if (!m_MoveComponent)
 	{
@@ -85,7 +85,7 @@ MoveComponent & Pawn::GetMoveComponent() const
 void Pawn::CheckZeroHp(Pawn* pawn)
 {
 	// 0以下になったら、ゲームマネージャーに知らせる
-	if (m_Vehicle->GetStatus().GetHp() <= 0.0f)
+	if (m_Vehicle->status().hp() <= 0.0f)
 	{
 		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(pawn, m_Type);
 	}
@@ -93,7 +93,7 @@ void Pawn::CheckZeroHp(Pawn* pawn)
 
 void Pawn::RespawnSetMaxHP()
 {
-	m_Vehicle->GetStatus().SetHp(m_Vehicle->GetStatus().GetMaxHp());
+	m_Vehicle->status().hp(m_Vehicle->status().maxHp());
 }
 
 void Pawn::SetStartPosition(Pawn * pawn, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
@@ -111,7 +111,7 @@ void Pawn::Create()
 	Factory::FPivot fPivot;
 	m_Pivot = fPivot.Create(*m_Vehicle);
 	// 移動用コンポーネント
-	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->GetStatus());	
+	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->status());	
 }
 
 void Pawn::BeginOverlap(Pawn* pPawn)
@@ -125,12 +125,12 @@ void Pawn::BeginOverlap(Pawn* pPawn)
 			// 前進
 			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
 			{
-				pPawn->GetMoveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
+				pPawn->moveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
 			}
 			// 後退
 			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
 			{
-				pPawn->GetMoveComponent().MoveForward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
+				pPawn->moveComponent().MoveForward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
 			}
 		}		
 	}

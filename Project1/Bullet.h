@@ -60,7 +60,7 @@ public:
 	}
 
 	// 速度
-	inline const float GetSpeed() const
+	inline const float speed() const
 	{
 		return m_Speed;
 	}
@@ -71,7 +71,7 @@ public:
 	}
 protected:
 	// プロパティの設定 (Vector = 飛んでいく方向ベクトル, Frame = フレーム数)
-	inline void SetProperty(const D3DXVECTOR3& Vector, const float& Speed = 10.0f, const uint32_t& Frame = 60)
+	inline void SetStatus(const D3DXVECTOR3& Vector, const float& Speed = 10.0f, const uint32_t& Frame = 60)
 	{
 		m_DirectionVector = Vector;
 		m_Speed = Speed;

@@ -26,45 +26,46 @@ public:
 	~Status();
 	
 	void Update();
-	void ResetReloadTime();
+	void RereloadTime();
 
 	// 国
-	const Country& GetCountry() const;
+	const Country& country() const;
 
 	// コスト
-	const float GetCost() const;
+	const float cost() const;
 
 	// HP
-	const float GetMaxHp()const;
-	void SetHp(float Hp);
-	const float GetHp() const;
+	const float maxHp()const;
+	void hp(float Hp);
+	const float hp() const;
 
 	// 攻撃力
-	void SetAttack(float Attack);
-	const float GetAttack()const;
+	void attack(float Attack);
+	const float attack()const;
 
 	// 防御力
-	void SetDefence(float Defence);
-	const float GetDefence()const;
+	void defence(float Defence);
+	const float defence()const;
 
 	// 移動速度
-	void SetSpeed(float Speed);
-	const float GetSpeed() const;
+	void speed(float Speed);
+	const float speed() const;
+	
 	// 加速度
-	void SetAddForce(float force);
-	const float GetAddForce() const;
+	void addForce(float force);
+	const float addForce() const;
 
 	// 回転速度
-	const float GetRotSpeed() const;
+	const float rotSpeed() const;
 	
 	// 主砲の最大角度
-	const float GetGunAngleUpMax() const;
-	const float GetGunAngleDownMax() const;
+	const float gunAngleUpMax() const;
+	const float gunAngleDownMax() const;
 
-	void SetReloadTime(float Time);
+	void reloadTime(float Time);
 	// リロードは完了しているか
-	const float GetReloadTime()const;
-	const bool GetFinishReload() const;
+	const float reloadTime()const;
+	const bool finishReload() const;
 private:
 	Country m_Country;
 	const float m_MaxHp; // Max値

@@ -73,7 +73,7 @@ void Vehicle::CalcuateDamege(Pawn * Pawn)
 	{
 		// 乱数生成(50 ～ 100)の補正をする
 		int r = myLib::Random::Rand_R(50, 100);
-		attackpt = Pawn->vehicle().GetStatus().GetAttack() + r * b->GetDDE() - m_Status->GetDefence();
+		attackpt = Pawn->vehicle().status().attack() + r * b->GetDDE() - m_Status->defence();
 		CalculateHp(attackpt);
 	}
 }
@@ -82,7 +82,7 @@ void Vehicle::CalcuateDamege(Pawn * Pawn)
 void Vehicle::Shot(const Transform & transform)
 {
 	// リロードが終わっていないなら撃てない
-	if (m_Status->GetFinishReload() == false) { return; }
+	if (m_Status->finishReload() == false) { return; }
 
 	float offset = 10.0f; // 補正値
 	auto t = transform;
@@ -95,7 +95,7 @@ void Vehicle::Shot(const Transform & transform)
 	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
 	normalBullet->Create(pos, vector);
 
-	m_Status->ResetReloadTime();
+	m_Status->RereloadTime();
 }
 
 // HP計算 
@@ -103,10 +103,10 @@ void Vehicle::Shot(const Transform & transform)
 void Vehicle::CalculateHp(float AttackPoint)
 {
 	// MAX状態のHPを取得する
-	float maxHp = m_Status->GetMaxHp();
+	float maxHp = m_Status->maxHp();
 	// 現在のHPから減算
-	float nowHp = m_Status->GetHp() - AttackPoint;
-	m_Status->SetHp(nowHp);
+	float nowHp = m_Status->hp() - AttackPoint;
+	m_Status->hp(nowHp);
 }
 #pragma endregion Panzerのアクション
 
@@ -140,17 +140,23 @@ Transform & Vehicle::gunTransform() const
 	return m_Panzer->GetMainGun().transform();
 }
 
-Status & Vehicle::GetStatus() const
+Status & Vehicle::status() const
 {
 	// nullcheck
-	if (!m_Status) { OutputDebugString("m_Status is NullPtr\n"); }
+	if (!m_Status)
+	{
+		throw std::domain_error("m_Status is NullPtr");
+	}
 	return *m_Status;
 }
 
-Skill & Vehicle::GetSkill() const
+Skill & Vehicle::skill() const
 {
 	// nullcheck
-	if (!m_Skill) { OutputDebugString("m_Skill is NullPtr\n"); }
+	if (!m_Skill)
+	{
+		throw std::domain_error("m_Skill is NullPtr");
+	}
 	return *m_Skill;
 }
 
@@ -172,19 +178,22 @@ void Vehicle::SetPanzer()
 }
 
 // ステータスを設定
-void Vehicle::SetProperty(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed)
+void Vehicle::SetStatus(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed)
 {
 	m_Status = std::make_unique<Status>(Country, Cost, Hp, Attack, Defence, Speed, Reload, RotSpeed);
 }
 
-Panzer & Vehicle::GetPanzer() const
+Panzer & Vehicle::panzer() const
 {
 	// nullcheck
-	if (!m_Panzer) { OutputDebugString("m_Panzer is NullPtr\n"); }
+	if (!m_Panzer) 
+	{
+		throw std::domain_error("m_Panzer is NullPtr");
+	}
 	return *m_Panzer;
 }
 
-const std::string & Vehicle::GetTag() const
+const std::string & Vehicle::tag() const
 {
 	return m_Tag;
 }

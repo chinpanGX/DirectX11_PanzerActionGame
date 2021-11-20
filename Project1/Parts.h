@@ -22,7 +22,7 @@ public:
 	virtual void UpdateMatrix(const D3DXMATRIX& ParentMatirx) = 0;
 	const D3DXMATRIX& GetWorldMatrix() const;
 protected:
-	const std::string& GetTag() const;
+	const std::string& tag() const;
 	D3DXMATRIX m_WorldMatrix;
 	class Resource& resource() const;
 	class Graphics& graphics() const;

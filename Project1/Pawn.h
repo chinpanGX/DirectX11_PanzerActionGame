@@ -25,7 +25,7 @@ public:
 	virtual void Respawn(const D3DXVECTOR3& pos) = 0;
 	Vehicle& vehicle() const;
 	Pivot& pivot()const;
-	MoveComponent& GetMoveComponent()const;
+	MoveComponent& moveComponent()const;
 
 protected:
 	virtual void OnCollision() = 0;

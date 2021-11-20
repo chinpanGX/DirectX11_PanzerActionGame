@@ -32,9 +32,9 @@ void Cpu::Draw()
 {
 }
 
-CpuStateRule & Cpu::GetCpuRule() const
+CpuStateRule & Cpu::cpuRule() const
 {
-	if(!m_CpuRule)
+	if (!m_CpuRule)
 	{
 		std::domain_error("Null");
 	}

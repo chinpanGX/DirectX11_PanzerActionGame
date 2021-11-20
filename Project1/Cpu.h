@@ -19,7 +19,7 @@ public:
 	void Event()override;
 	void Draw()override;
 	virtual void ChangeState(std::unique_ptr<class PanzerState> State) = 0;
-	class CpuStateRule& GetCpuRule() const;
+	class CpuStateRule& cpuRule() const;
 
 protected:
 	std::unique_ptr<class PanzerState> m_State;

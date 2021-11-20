@@ -39,7 +39,7 @@ void Reload::Update()
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	m_Transform->rotation().z += 0.05f;
 	// プレイヤーのリロードが完了すれば削除
-	if (player->vehicle().GetStatus().GetFinishReload() == true)
+	if (player->vehicle().status().finishReload() == true)
 	{
 		OnDestroy();
 	}
