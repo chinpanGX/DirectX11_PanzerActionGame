@@ -38,7 +38,7 @@ public:
 		}
 	}
 	
-	// D3DXVECTOR3の方法ベクトル
+	// D3DXVECTOR3の方向ベクトル
 	inline const D3DXVECTOR3& GetDirectionVector() const
 	{
 		return m_DirectionVector;

@@ -42,7 +42,7 @@ void CpuStateRule::DecideBehavior()
 		// スキルが使える状態か
 		if (m_Cpu->vehicle().skill().alreadyUseble())
 		{
-			m_Cpu->UseSkill();
+			m_Behavior = 2;
 		}
 	}
 	// 索敵範囲ないか？
@@ -54,9 +54,14 @@ void CpuStateRule::DecideBehavior()
 	// 待機
 	else
 	{
-		m_Behavior = 3;
+		m_Behavior = 10;
 		OutputDebugString("待機\n");
 	}
+}
+
+void CpuStateRule::behavior(int32_t i)
+{
+	m_Behavior = i;
 }
 
 const int32_t CpuStateRule::behavior() const

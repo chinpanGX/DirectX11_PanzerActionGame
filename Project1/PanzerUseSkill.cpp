@@ -25,5 +25,6 @@ void State::UseSkill::Update(Cpu * pCpu, float deltaTime)
 	if (pCpu->vehicle().skill().alreadyUseble())
 	{
 		pCpu->UseSkill();
+		pCpu->ChangeState(std::make_unique<State::Stay>());
 	}
 }

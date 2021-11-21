@@ -17,6 +17,8 @@ namespace State
 		Forward();
 		~Forward();
 		void Update(Cpu* pCpu, float deltaTime)override;
+	private:
+		float m_Time = 0.0f;
 	};
 
 	class Backward final : public PanzerState

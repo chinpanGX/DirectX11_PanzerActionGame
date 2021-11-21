@@ -28,26 +28,33 @@ State::Forward::~Forward()
 
 void State::Forward::Update(Cpu * pCpu, float deltaTime)
 {
-	FrameCountDown();
-	if (GetFrameZeroFlag() == true)
-	{
-		pCpu->ChangeState(std::make_unique<State::Stay>());
-	}
 	pCpu->moveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
 	pCpu->pivot().Move();
-	// プレイヤーとの当たり判定を取る
-	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+
+	auto* player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
-		if (Intersect(pCpu->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
+		// プレイヤーとCPUの距離を求める
+		D3DXVECTOR3 playerPosition = player->vehicle().bodyTransform().position();
+		D3DXVECTOR3 cpuPosition = pCpu->vehicle().bodyTransform().position();
+		D3DXVECTOR3 tmp = cpuPosition - playerPosition;
+		float dist = D3DXVec3Length(&tmp);
+		// 距離が近くなったら,ステートを変える
+		if (dist < 100.0f)
 		{
-			if (Intersect(pCpu->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
-			{
-				pCpu->moveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
-				pCpu->pivot().Move();
-				pCpu->ChangeState(std::make_unique<State::Stay>());
-			}
+			pCpu->ChangeState(std::make_unique<State::Stay>());
 		}
+
+		//// プレイヤーとの当たり判定を取る
+		//if (Intersect(pCpu->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
+		//{
+		//	if (Intersect(pCpu->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
+		//	{
+		//		pCpu->moveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
+		//		pCpu->pivot().Move();
+		//		pCpu->ChangeState(std::make_unique<State::Stay>());
+		//	}
+		//}		
 	}
 }
 

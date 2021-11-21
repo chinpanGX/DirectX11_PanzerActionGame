@@ -31,7 +31,7 @@ public:
 	}
 
 	// プロパティ
-	inline D3DXVECTOR3& position()	   { return this->m_Position; }
+	inline D3DXVECTOR3& position() { return this->m_Position; }
 	inline D3DXVECTOR3& rotation() { return this->m_Rotation; }
 	inline D3DXVECTOR3& scale()	   { return this->m_Scale; }
 	

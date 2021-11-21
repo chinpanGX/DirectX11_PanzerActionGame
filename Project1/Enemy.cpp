@@ -44,8 +44,8 @@ void Enemy::Begin()
 void Enemy::Update()
 {
 	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }	
-	m_CpuRule->Update();
 	m_State->Update(this, Fps::Get().deltaTime);
+	m_CpuRule->Update();
 	Pawn::Update();
 	OnCollision();
 }

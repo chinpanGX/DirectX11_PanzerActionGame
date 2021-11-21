@@ -19,6 +19,7 @@ public:
 	void Update();
 
 	// 
+	void behavior(int32_t i);
 	const int32_t behavior() const;
 private:
 	// エネミーとプレイヤーの距離を測る

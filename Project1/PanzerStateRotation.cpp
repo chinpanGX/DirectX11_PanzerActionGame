@@ -48,7 +48,7 @@ void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 	}
 
 	// -0.5f ～　0.5fの間になったら、移動ステートへ
-	if (-0.1f < dir && dir < 0.1f)
+	if (-0.5f < dir && dir < 0.5f)
 	{
 		pCpu->ChangeState(std::make_unique<State::Forward>());
 	}	
