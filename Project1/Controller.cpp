@@ -16,7 +16,7 @@
 #include "Engine.h"
 #include "Application.h"
 #include "Resource.h"
-#include "Reload.h"
+#include "PlayerUi.h"
 
 Controller::Controller(Player * pPlayer, GameCamera * pCamera, Pivot* pPivot) : m_Player(pPlayer), m_Camera(pCamera), m_Pivot(pPivot)
 {
@@ -92,7 +92,7 @@ void Controller::Shot()
 		Engine::Get().resource()->AudioPlay("Shot");
 		// リロードエフェクト
 		auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
-		D3DXVECTOR3 offset = m_Pivot->transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f);
+		D3DXVECTOR3 offset = m_Pivot->transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f) + (m_Pivot->transform().forward() * 5.0f);
 		effect->transform().position(offset);
 	}
 }

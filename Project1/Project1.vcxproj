@@ -158,7 +158,6 @@
     <ClCompile Include="Cost.cpp" />
     <ClCompile Include="Cpu.cpp" />
     <ClCompile Include="CpuStateRule.cpp" />
-    <ClCompile Include="DrawSkill.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -208,7 +207,7 @@
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneGarage.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Reload.cpp" />
+    <ClCompile Include="PlayerUi.cpp" />
     <ClCompile Include="Renderer2D.cpp" />
     <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="Resource.cpp" />
@@ -250,7 +249,6 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="Cpu.h" />
     <ClInclude Include="CpuStateRule.h" />
-    <ClInclude Include="DrawSkill.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Cost.h" />
@@ -307,7 +305,7 @@
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneGarage.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="Reload.h" />
+    <ClInclude Include="PlayerUi.h" />
     <ClInclude Include="Renderer2D.h" />
     <ClInclude Include="Renderer3D.h" />
     <ClInclude Include="Resource.h" />

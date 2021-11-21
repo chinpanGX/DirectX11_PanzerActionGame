@@ -262,9 +262,6 @@
     <ClCompile Include="Vehicle.cpp">
       <Filter>Actor\Panzer</Filter>
     </ClCompile>
-    <ClCompile Include="DrawSkill.cpp">
-      <Filter>Actor\2D\Game</Filter>
-    </ClCompile>
     <ClCompile Include="IDrawNumber.cpp">
       <Filter>Actor\2D\Number</Filter>
     </ClCompile>
@@ -273,9 +270,6 @@
     </ClCompile>
     <ClCompile Include="Cost.cpp">
       <Filter>Actor\2D\Number</Filter>
-    </ClCompile>
-    <ClCompile Include="Reload.cpp">
-      <Filter>Actor\2D\Game</Filter>
     </ClCompile>
     <ClCompile Include="GameBg.cpp">
       <Filter>Actor\2D\Bg</Filter>
@@ -346,6 +340,9 @@
     </ClCompile>
     <ClCompile Include="PanzerUseSkill.cpp">
       <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUi.cpp">
+      <Filter>Actor\2D\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -572,9 +569,6 @@
     <ClInclude Include="IUseSkill.h">
       <Filter>Actor\Panzer</Filter>
     </ClInclude>
-    <ClInclude Include="DrawSkill.h">
-      <Filter>Actor\2D\Game</Filter>
-    </ClInclude>
     <ClInclude Include="IDrawNumber.h">
       <Filter>Actor\2D\Number</Filter>
     </ClInclude>
@@ -583,9 +577,6 @@
     </ClInclude>
     <ClInclude Include="Cost.h">
       <Filter>Actor\2D\Number</Filter>
-    </ClInclude>
-    <ClInclude Include="Reload.h">
-      <Filter>Actor\2D\Game</Filter>
     </ClInclude>
     <ClInclude Include="GameBg.h">
       <Filter>Actor\2D\Bg</Filter>
@@ -656,6 +647,9 @@
     </ClInclude>
     <ClInclude Include="PanzerUseSkill.h">
       <Filter>Actor\Panzer\State</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerUi.h">
+      <Filter>Actor\2D\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

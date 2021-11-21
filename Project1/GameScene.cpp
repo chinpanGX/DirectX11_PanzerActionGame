@@ -27,7 +27,7 @@
 #include "TutorialStage.h"
 #include "GameStage.h"
 #include "GameScene.h"
-#include "DrawSkill.h"
+#include "PlayerUi.h"
 #include <thread>
 
 #pragma region GameScene::PanzerSelect_method
@@ -145,7 +145,7 @@ void GameScene::Tutorial::Init()
 	AddGameObject<PauseCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameManager>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::Hp>(ELayer::LAYER_2D_UI);
-	AddGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI);
+	AddGameObject<DrawSkill>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }
@@ -215,7 +215,7 @@ void GameScene::Game::Init()
 	AddGameObject<GameManager>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::Timer>(ELayer::LAYER_2D_UI);
 	AddGameObject<GameBg::Hp>(ELayer::LAYER_2D_UI);
-	AddGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI);
+	AddGameObject<DrawSkill>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }

@@ -13,7 +13,6 @@
 #include "Engine.h"
 #include "Application.h"
 #include "Resource.h"
-#include "Reload.h"
 #include "PanzerStateStay.h"
 #include "Body.h"
 #include "Player.h"
@@ -31,10 +30,6 @@ void State::Shot::Update(Cpu * pCpu, float deltaTime)
 	pCpu->vehicle().Shot(pCpu->pivot().transform());
 	// オーディオを鳴らす
 	PlayAudio(pCpu);
-	// リロードエフェクトを鳴らす
-	auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
-	D3DXVECTOR3 offset = pCpu->pivot().transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f);
-	effect->transform().position(offset);
 	pCpu->ChangeState(std::make_unique<State::Stay>());
 }
 

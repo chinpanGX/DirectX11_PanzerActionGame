@@ -29,16 +29,9 @@ public:
 	// スキルを使う
 	void Enable(Pawn* pawn);
 
-	// ゲージをリセットする
-	void GageReset();
-
 	// エフェクトの再生
 	void PlayEffect(Pawn* pawn);
 	
-	// スキルを使ったどうか
-	const bool UseSkill();
-
-
 	// ゲッター
 	const int32_t phase() const;
 	const float timeToActivateSkill() const;

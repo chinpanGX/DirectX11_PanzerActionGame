@@ -15,7 +15,6 @@
 #include "Fps.h"
 #include "Engine.h"
 #include "Application.h"
-#include "DrawSkill.h"
 #include "SkillParticle.h"
 
 #pragma region Skill_method
@@ -109,11 +108,6 @@ void Skill::Enable(Pawn* pawn)
 	}
 }
 
-void Skill::GageReset()
-{
-	Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
-}
-
 void Skill::PlayEffect(Pawn* pawn)
 {
 	// エフェクトを発生する位置を戦車の位置にする
@@ -121,15 +115,6 @@ void Skill::PlayEffect(Pawn* pawn)
 	// エフェクトを再生する
 	m_SkillEffect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
 	m_SkillEffect->transform().position(pos);
-}
-
-const bool Skill::UseSkill()
-{
-	if (m_Phase == 2)
-	{
-		return true;
-	}
-	return false;
 }
 
 const int32_t Skill::phase() const

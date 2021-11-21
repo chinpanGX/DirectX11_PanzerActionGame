@@ -10,7 +10,6 @@
 #include "PanzerStateMove.h"
 #include "PanzerStateStay.h"
 #include "Pivot.h"
-#include "Reload.h"
 #include "Body.h"
 #include "Turret.h"
 #include "MainGun.h"

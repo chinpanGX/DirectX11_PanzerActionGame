@@ -25,6 +25,7 @@
 #include "GameCamera.h"
 #include "Pivot.h"
 #include "Player.h"
+#include "PlayerUi.h"
 
 Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().resource())
 {
@@ -87,11 +88,25 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 void Player::UseSkill()
 {
 	vehicle().skill().Enable(this);
-	if (vehicle().skill().UseSkill())
+	if (vehicle().skill().alreadyUseble())
 	{		
-		vehicle().skill().GageReset();
+		// ゲージをリセットする
+		Engine::Get().application()->GetScene()->GetGameObject<DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
+		// スキルエフェクトを発生
 		vehicle().skill().PlayEffect(this);
 	}
+}
+
+void Player::Shot()
+{
+	// 射撃
+	vehicle().Shot(pivot().transform());
+	// オーディオ
+	Engine::Get().resource()->AudioPlay("Shot");
+	// リロードエフェクト
+	auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
+	D3DXVECTOR3 offset = pivot().transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f) + (pivot().transform().forward() * 5.0f);
+	effect->transform().position(offset);
 }
 
 void Player::OnCollision()
