@@ -6,6 +6,8 @@
 
 --------------------------------------------------------------*/
 #include "PanzerState.h"
+#include "Vehicle.h"
+#include "Skill.h"
 #include "Cpu.h"
 
 Cpu::Cpu() : Pawn(Factory::FVehicle::EType::E_CPU)
@@ -39,4 +41,11 @@ CpuStateRule & Cpu::cpuRule() const
 		std::domain_error("Null");
 	}
 	return *m_CpuRule;
+}
+
+void Cpu::UseSkill()
+{
+	// スキルを使用
+	vehicle().skill().Enable(this);
+	vehicle().skill().PlayEffect(this);	
 }

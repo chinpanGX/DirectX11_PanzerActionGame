@@ -11,8 +11,7 @@
 
 class CpuStateRule;
 namespace State
-{
-	
+{	
 	class Stay final : public PanzerState
 	{
 	public:

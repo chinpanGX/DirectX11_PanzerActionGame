@@ -7,8 +7,8 @@
 
 -------------------------------------------------------------*/
 #include "Input.h"
-#include "PanzerState.h"
 #include "MoveComponent.h"
+#include "Skill.h"
 #include "Vehicle.h"
 #include "PanzerContainer.h"
 #include "Engine.h"
@@ -82,6 +82,16 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 	Pawn::RespawnSetMaxHP();
 	Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->Update();
 	this->Update();
+}
+
+void Player::UseSkill()
+{
+	vehicle().skill().Enable(this);
+	if (vehicle().skill().UseSkill())
+	{		
+		vehicle().skill().GageReset();
+		vehicle().skill().PlayEffect(this);
+	}
 }
 
 void Player::OnCollision()

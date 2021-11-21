@@ -33,7 +33,7 @@ void GameBg::DrawSkill::Begin()
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 
 	// ゲージを増加する量を計算
-	float t = m_Player->vehicle().skill().GetEnableTime();
+	float t = m_Player->vehicle().skill().timeToActivateSkill();
 	m_Add = m_MaxDrawSize / t * Fps::Get().deltaTime;
 }
 
@@ -42,7 +42,7 @@ void GameBg::DrawSkill::Update()
 	if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
 
 	// まだスキルが使える状態じゃない
-	if (m_Player->vehicle().skill().GetAlreadyUseble() == false)
+	if (m_Player->vehicle().skill().alreadyUseble() == false)
 	{
 		// ゲージを増やす
 		m_DrawSize += m_Add; 

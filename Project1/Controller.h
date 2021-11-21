@@ -8,14 +8,14 @@
 ---------------------------------------------------------------*/
 #pragma once
 
-class Pawn;
+class Player;
 class GameCamera;
 class Pivot;
 class Controller final
 {
 public:
 	Controller() = delete;
-	Controller(Pawn* pPawn, GameCamera* pCamera, Pivot* pPivot);
+	Controller(Player* pPlayer, GameCamera* pCamera, Pivot* pPivot);
 	~Controller();
 
 	void FpsCameraMode(bool fpsMode);	// カメラモード
@@ -33,7 +33,7 @@ public:
 	// スキル
 	void UseSkill();
 private:
-	Pawn* m_Pawn = nullptr;
+	Player* m_Player = nullptr;
 	GameCamera* m_Camera = nullptr;
 	Pivot* m_Pivot = nullptr;
 };

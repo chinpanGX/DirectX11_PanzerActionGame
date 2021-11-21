@@ -56,18 +56,15 @@ void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 
 float State::BodyRotation::GetDirection(Cpu * pCpu)
 {
-	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	if (player)
-	{
-		// プレイヤーとエネミーの距離を測る
-		D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
-		D3DXVECTOR3 cross;
-		// bodyの前ベクトルとdistの外積を求める
-		D3DXVec3Cross(&cross, &pCpu->vehicle().bodyTransform().forward(), &dist);
-		float t = cross.x - cross.y - cross.z;
-		// t > 0.0fなら右にいる
-		return t;
-	}
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);	
+	// プレイヤーとエネミーの距離を測る
+	D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
+	D3DXVECTOR3 cross;
+	// bodyの前ベクトルとdistの外積を求める
+	D3DXVec3Cross(&cross, &pCpu->vehicle().bodyTransform().forward(), &dist);
+	float t = cross.x - cross.y - cross.z;
+	// t > 0.0fなら右にいる
+	return t;
 }
 #pragma endregion BodyRotationメソッド
 
@@ -103,17 +100,14 @@ void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 float State::TurretRotation::GetDirection(Cpu * pCpu)
 {
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	if (player)
-	{
-		// プレイヤーとエネミーの距離を測る
-		D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
-		D3DXVECTOR3 cross;
-		// pivotの前ベクトルとdistの外積を求める
-		D3DXVec3Cross(&cross, &pCpu->pivot().transform().forward(), &dist);
-		float t = cross.x - cross.y - cross.z;
-		// t > 0.0fなら右にいる
-		return t;
-	}
+	// プレイヤーとエネミーの距離を測る
+	D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
+	D3DXVECTOR3 cross;
+	// pivotの前ベクトルとdistの外積を求める
+	D3DXVec3Cross(&cross, &pCpu->pivot().transform().forward(), &dist);
+	float t = cross.x - cross.y - cross.z;
+	// t > 0.0fなら右にいる
+	return t;	
 }
 #pragma endregion TurretRotationメソッド
 

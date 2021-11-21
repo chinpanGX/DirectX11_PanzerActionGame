@@ -17,6 +17,7 @@ public:
 	void Event()override;
 	void Draw()override;
 	void Respawn(const D3DXVECTOR3& pos)override;
+	void UseSkill();
 private:
 	void OnCollision()override;
 	void OnSound(); //	ƒTƒEƒ“ƒh‚Ìİ’è

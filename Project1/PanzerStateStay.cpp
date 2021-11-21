@@ -6,13 +6,13 @@
 	何もしないステート
 
 --------------------------------------------------------------*/
-#include "Enemy.h"
 #include "Cpu.h"
 #include "Vehicle.h"
 #include "PanzerStateStay.h"
 #include "PanzerStateMove.h"
 #include "PanzerStateShot.h"
 #include "PanzerStateRotation.h"
+#include "PanzerUseSkill.h"
 
 State::Stay::Stay()
 {
@@ -35,7 +35,9 @@ void State::Stay::Update(Cpu * pCpu, float deltaTime)
 	case 1:
 		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
 		break;	
+	//　スキルを使う
 	case 2:
+		pCpu->ChangeState(std::make_unique<State::UseSkill>());
 		break;
 	}
 

@@ -21,6 +21,7 @@ public:
 	virtual void ChangeState(std::unique_ptr<class PanzerState> State) = 0;
 	class CpuStateRule& cpuRule() const;
 
+	void UseSkill();
 protected:
 	std::unique_ptr<class PanzerState> m_State;
 	std::unique_ptr<class CpuStateRule> m_CpuRule;

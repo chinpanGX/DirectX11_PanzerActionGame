@@ -10,7 +10,7 @@
 #include "Pivot.h"
 #include "Skill.h"
 #include "Vehicle.h"
-#include "Pawn.h"
+#include "Player.h"
 #include "GameCamera.h"
 #include "Controller.h"
 #include "Engine.h"
@@ -18,7 +18,7 @@
 #include "Resource.h"
 #include "Reload.h"
 
-Controller::Controller(Pawn * pPawn, GameCamera * pCamera, Pivot* pPivot) : m_Pawn(pPawn), m_Camera(pCamera), m_Pivot(pPivot)
+Controller::Controller(Player * pPlayer, GameCamera * pCamera, Pivot* pPivot) : m_Player(pPlayer), m_Camera(pCamera), m_Pivot(pPivot)
 {
 	
 }
@@ -34,60 +34,60 @@ void Controller::FpsCameraMode(bool fpsMode)
 
 void Controller::MoveForward(float deltaTime)
 {
-	m_Pawn->moveComponent().MoveForward(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Player->moveComponent().MoveForward(m_Player->vehicle().bodyTransform(), deltaTime);
 	m_Pivot->Move();
 }
 
 void Controller::MoveBackward(float deltaTime)
 {
-	m_Pawn->moveComponent().MoveBackward(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Player->moveComponent().MoveBackward(m_Player->vehicle().bodyTransform(), deltaTime);
 	m_Pivot->Move();
 }
 
 void Controller::RotRight(float deltaTime)
 {
-	m_Pawn->moveComponent().RotRight(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Player->moveComponent().RotRight(m_Player->vehicle().bodyTransform(), deltaTime);
 	m_Pivot->moveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotLeft(float deltaTime)
 {
-	m_Pawn->moveComponent().RotLeft(m_Pawn->vehicle().bodyTransform(), deltaTime);
+	m_Player->moveComponent().RotLeft(m_Player->vehicle().bodyTransform(), deltaTime);
 	m_Pivot->moveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretRight(float deltaTime)
 {
-	m_Pawn->moveComponent().RotRight(m_Pawn->vehicle().turretTransform(), deltaTime);
+	m_Player->moveComponent().RotRight(m_Player->vehicle().turretTransform(), deltaTime);
 	m_Pivot->moveComponent().RotRight(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotTurretLeft(float deltaTime)
 {
-	m_Pawn->moveComponent().RotLeft(m_Pawn->vehicle().turretTransform(), deltaTime);
+	m_Player->moveComponent().RotLeft(m_Player->vehicle().turretTransform(), deltaTime);
 	m_Pivot->moveComponent().RotLeft(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunUp(float deltaTime)
 {
-	m_Pawn->moveComponent().GunUp(m_Pawn->vehicle().gunTransform(), deltaTime);
+	m_Player->moveComponent().GunUp(m_Player->vehicle().gunTransform(), deltaTime);
 	m_Pivot->moveComponent().GunUp(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::RotMaingunDown(float deltaTime)
 {
-	m_Pawn->moveComponent().GunDown(m_Pawn->vehicle().gunTransform(), deltaTime);
+	m_Player->moveComponent().GunDown(m_Player->vehicle().gunTransform(), deltaTime);
 	m_Pivot->moveComponent().GunDown(m_Pivot->transform(), deltaTime);
 }
 
 void Controller::Shot()
 {
 	// リロードが完了しているかチェックする
-	if (m_Pawn->vehicle().status().finishReload() == true)
+	if (m_Player->vehicle().status().finishReload() == true)
 	{
 		// リロードが完了している
 		// 射撃
-		m_Pawn->vehicle().Shot(m_Pivot->transform());
+		m_Player->vehicle().Shot(m_Pivot->transform());
 		// オーディオ
 		Engine::Get().resource()->AudioPlay("Shot");
 		// リロードエフェクト
@@ -99,5 +99,5 @@ void Controller::Shot()
 
 void Controller::UseSkill()
 {
-	m_Pawn->vehicle().skill().Enable(m_Pawn);
+	m_Player->UseSkill();
 }

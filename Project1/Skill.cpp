@@ -34,9 +34,9 @@ void Skill::SetSkill(std::unique_ptr<IUseSkill> useSkill)
 	m_UseSkill.emplace_back(std::move(useSkill));
 }
 
-void Skill::Begin(float enableTime)
+void Skill::Begin(float timeToActivateSkill)
 {
-	m_EnableTime = enableTime;
+	m_TimeToActivateSkill = timeToActivateSkill;
 }
 
 void Skill::Update(Status& status, const D3DXVECTOR3& position)
@@ -49,9 +49,9 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		if (!m_AlreadyUseble)
 		{
 			// スキルをためる
-			m_NowTime += m_Time * Fps::Get().deltaTime;
+			m_NowTime += m_Amount * Fps::Get().deltaTime;
 			// たまったら有効にする
-			if (m_EnableTime < m_NowTime)
+			if (m_TimeToActivateSkill < m_NowTime)
 			{
 				m_Phase = 1;
 			}
@@ -65,6 +65,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		break;
 	// スキルを使う
 	case 2:
+		m_AlreadyUseble = false;
 		for (size_t i = 0; i < m_UseSkill.size(); ++i)
 		{
 			m_UseSkill[i]->Use(status);
@@ -84,8 +85,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 			for (size_t i = 0; i < m_UseSkill.size(); ++i)
 			{
 				m_UseSkill[i]->Reset(status);
-			}
-			m_AlreadyUseble = false;
+			}			
 			m_NowTime = 0.0f;
 			m_Phase = 0;
 			m_SkillEffect->OnDestroy();
@@ -95,9 +95,9 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 	}
 }
 
-void Skill::SetTime(float time)
+void Skill::SetTime(float amount)
 {
-	m_Time = time;
+	m_Amount = amount;
 }
 
 void Skill::Enable(Pawn* pawn)
@@ -105,29 +105,15 @@ void Skill::Enable(Pawn* pawn)
 	// すでにスキルが使える状態
 	if (m_AlreadyUseble)
 	{
-		m_Phase = 2;
-		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
-		// エフェクトを発生
-		PlayEffect(pawn);
+		m_Phase = 2;	
 	}
 }
 
-const int32_t Skill::GetPhase() const
+void Skill::GageReset()
 {
-	return m_Phase;
+	Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
 }
 
-const float Skill::GetEnableTime() const
-{
-	return m_EnableTime;
-}
-
-const bool Skill::GetAlreadyUseble() const
-{
-	return m_AlreadyUseble;
-}
-
-// private_Function
 void Skill::PlayEffect(Pawn* pawn)
 {
 	// エフェクトを発生する位置を戦車の位置にする
@@ -135,5 +121,29 @@ void Skill::PlayEffect(Pawn* pawn)
 	// エフェクトを再生する
 	m_SkillEffect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
 	m_SkillEffect->transform().position(pos);
+}
+
+const bool Skill::UseSkill()
+{
+	if (m_Phase == 2)
+	{
+		return true;
+	}
+	return false;
+}
+
+const int32_t Skill::phase() const
+{
+	return m_Phase;
+}
+
+const float Skill::timeToActivateSkill() const
+{
+	return m_TimeToActivateSkill;
+}
+
+const bool Skill::alreadyUseble() const
+{
+	return m_AlreadyUseble;
 }
 #pragma endregion スキル

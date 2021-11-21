@@ -344,6 +344,9 @@
     <ClCompile Include="Cpu.cpp">
       <Filter>Actor\Pawn</Filter>
     </ClCompile>
+    <ClCompile Include="PanzerUseSkill.cpp">
+      <Filter>Actor\Panzer\State</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -650,6 +653,9 @@
     </ClInclude>
     <ClInclude Include="Cpu.h">
       <Filter>Actor\Pawn</Filter>
+    </ClInclude>
+    <ClInclude Include="PanzerUseSkill.h">
+      <Filter>Actor\Panzer\State</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
