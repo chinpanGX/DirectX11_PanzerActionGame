@@ -19,5 +19,9 @@ public:
 	void Event()override;
 	void Draw()override;
 	void Set(D3DXVECTOR3 Pos, D3DXVECTOR3 Size = D3DXVECTOR3(5.0f, 5.0f, 5.0f));
+
+private:
+	void CreatePlane();
+	D3DXPLANE m_Plane[4];
 };
 

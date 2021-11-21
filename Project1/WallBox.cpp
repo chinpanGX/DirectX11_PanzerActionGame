@@ -11,6 +11,7 @@
 #include "Application.h"
 #include "GameCamera.h"
 #include "WallBox.h"
+#include <array>
 
 WallBox::WallBox()
 {
@@ -54,4 +55,31 @@ void WallBox::Set(D3DXVECTOR3 Pos, D3DXVECTOR3 Size)
 	m_Transform->Set(Pos, Size);
 	m_Collider->SetOBB3(*m_Transform, m_Transform->scale());
 	m_Collider->SetAABB3(*m_Transform, m_Transform->scale());
+	CreatePlane();
+}
+
+void WallBox::CreatePlane()
+{
+	// ñ@ê¸
+	std::array<D3DXVECTOR3, 4> normals;
+	normals[0] = D3DXVECTOR3(1.0f, 0.0f, 0.0f);
+	normals[1] = D3DXVECTOR3(-1.0f, 0.0f, 0.0f);
+	normals[2] = D3DXVECTOR3(0.0f, 0.0f, 1.0f);
+	normals[3] = D3DXVECTOR3(0.0f, 0.0f, -1.0f);
+
+	D3DXVECTOR3 pos = m_Transform->position();
+	D3DXVECTOR3 size = m_Transform->scale();
+	
+	// xï˚å¸
+	D3DXVECTOR3 tmp = D3DXVECTOR3(pos.x + size.x, pos.y, pos.z);
+	D3DXPlaneFromPointNormal(&m_Plane[0], &tmp, &normals[0]);
+	D3DXVECTOR3 tmp = D3DXVECTOR3(pos.x - size.x, pos.y, pos.z);
+	D3DXPlaneFromPointNormal(&m_Plane[1], &tmp, &normals[1]);
+
+	// zï˚å¸
+	D3DXVECTOR3 tmp = D3DXVECTOR3(pos.x, pos.y, pos.z + size.z);
+	D3DXPlaneFromPointNormal(&m_Plane[2], &tmp, &normals[2]);
+	D3DXVECTOR3 tmp = D3DXVECTOR3(pos.x, pos.y, pos.z - size.z);
+	D3DXPlaneFromPointNormal(&m_Plane[2], &tmp, &normals[3]);
+
 }
