@@ -40,7 +40,7 @@ Resource & StageObject::resource() const
 /*
 	setter/getter
 */
-void StageObject::redius(float r)
+void StageObject::radius(float r)
 {
 	m_Radius = r;
 }

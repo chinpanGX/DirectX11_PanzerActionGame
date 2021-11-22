@@ -417,6 +417,10 @@ const D3DXVECTOR3 & OBB3::GetLength() const
 {
 	return m_Length;
 }
+const D3DXVECTOR3 & OBB3::GetSize() const
+{
+	return m_Size;
+}
 #pragma endregion OBB3ƒƒ\ƒbƒh
 
 

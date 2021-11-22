@@ -19,7 +19,7 @@ public:
 protected:
 	class Resource& resource()const;
 	// ”¼Œa
-	void redius(float r);
+	void radius(float r);
 	float radius() const;
 private:
 	class Resource& m_Resource;

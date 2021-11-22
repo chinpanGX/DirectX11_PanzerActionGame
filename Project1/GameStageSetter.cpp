@@ -34,18 +34,29 @@ void GameStageSetterFence::Set(Scene * scene)
 */
 void GameStageSetterWallBox::Set(Scene * scene)
 {
-	for (int32_t i = 1; i < 20; ++i)
-	{
-		// 乱数の生成
-		float random = (float)myLib::Random::Rand_R(3, 10);
-		// サイズを乱数で決める
-		D3DXVECTOR3 size = D3DXVECTOR3(random, random, random);
+	// サイズは固定
+	D3DXVECTOR3 size = D3DXVECTOR3(5.0f, 5.0f, 5.0f);
 
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, 150.0f));
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, 150.0f));
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(150.0f, 0.0f, -30.0f * i));
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-150.0f, 0.0f, -30.0f * i));
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, -150.0f));
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f));
+	for (int32_t i = 1; i <= 60; ++i)
+	{
+		// 配置する位置を決める
+		D3DXVECTOR3 Far = D3DXVECTOR3(-300.0f + 10.0f * i, 0.0f, 300.0f);
+		D3DXVECTOR3 Near = D3DXVECTOR3(-300.0f + 10.0f * i, 0.0f, -300.0f);
+		D3DXVECTOR3 Right = D3DXVECTOR3(-300.0f, 0.0f, -300.0f + 10.0f * i);
+		D3DXVECTOR3 Left = D3DXVECTOR3(300.0f, 0.0f, -300.0f + 10.0f * i);
+
+		// 壁を配置
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Far, size, g_NegUnitZ);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Near, size, g_UnitZ);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Right, size, g_UnitX);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Left, size, g_NegUnitX);				
+#if 0
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, 150.0f), size);
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, 150.0f), size);		
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(150.0f, 0.0f, -30.0f * i), size);		
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-150.0f, 0.0f, -30.0f * i), size);		
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, -150.0f), size);		
+		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f), size);
+#endif
 	}
 }

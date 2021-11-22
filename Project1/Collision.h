@@ -67,6 +67,7 @@ public:
 	const D3DXVECTOR3& position()const;
 	const D3DXVECTOR3& GetDirection(int32_t Element);
 	const D3DXVECTOR3& GetLength()const;
+	const D3DXVECTOR3& GetSize() const;
 private:
 	D3DXVECTOR3 m_Position;
 	D3DXVECTOR3 m_Dir[3];

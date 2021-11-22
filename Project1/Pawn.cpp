@@ -126,12 +126,15 @@ void Pawn::BeginOverlap(Pawn* pPawn)
 			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
 			{
 				pPawn->moveComponent().MoveBackward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
-			}
+			}					
 			// Œã‘Þ
 			if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
 			{
 				pPawn->moveComponent().MoveForward(pPawn->vehicle().bodyTransform(), Fps::Get().deltaTime);
 			}
+
+			auto tmp = pPawn->vehicle().bodyTransform().position() + w->OffsetLength(pPawn->vehicle().collider(0).GetOBB3());
+			pPawn->vehicle().bodyTransform().position(tmp);
 		}		
 	}
 }

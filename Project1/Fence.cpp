@@ -28,7 +28,7 @@ Fence::~Fence()
 
 void Fence::Begin()
 {
-	StageObject::redius(8.0f);
+	StageObject::radius(8.0f);
 	m_Collider->SetAABB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 	m_Collider->SetOBB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 }
