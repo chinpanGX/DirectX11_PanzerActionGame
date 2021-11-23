@@ -44,14 +44,27 @@ namespace PlayerUi
 		void Draw()override;
 		
 		void OnReload();
+		// クイックリロードが有効かどうか返す
+		const bool enableQuickReload()const;
+
 	private:
-		D3DXVECTOR2 m_Position;
+		D3DXVECTOR4 m_IconColor; // アイコンの色
+		
+		D3DXVECTOR2 m_GagePosition; // ゲージの位置
+		D3DXVECTOR2 m_QuickRangePosition;	// クイックリロード範囲
+		D3DXVECTOR2 m_IconPosition;
+
 		std::unique_ptr<Render> m_Render;
 		Player* m_Player;
-		const float m_MaxSize = 500.0f;
-		float m_NowGage = 0.0f;
-		float m_Amount;
-		bool m_NowReload = false; // リロード中
+
+		// ゲージのサイズ
+		const float m_MaxSize = 500.0f; // MAXサイズ
+		float m_Center; // 画面中央
+		float m_NowGage = 0.0f;			// 		
+		float m_Amount; // 増える量
+		
+		bool m_NowReload = false; // リロード中かどうか
+		bool m_EnableQuickReload = false;
 	};
 
 	// Hpゲージ

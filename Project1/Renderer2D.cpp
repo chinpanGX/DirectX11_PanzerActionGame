@@ -310,7 +310,7 @@ Render::~Render()
 {
 }
 
-void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & color)
+void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & color, const std::string& texture)
 {
 	D3D11_MAPPED_SUBRESOURCE msr;
 	m_Graphics.GetDeviceContext()->Map(m_VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
@@ -351,7 +351,7 @@ void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & colo
 	m_Graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &stride, &offset);
 
 	//テクスチャ設定
-	m_Resource.SetTexture(0, "Gage");
+	m_Resource.SetTexture(0, texture);
 
 	//プリミティブトポロジ設定
 	m_Graphics.GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);

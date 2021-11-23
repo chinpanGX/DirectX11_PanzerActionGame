@@ -7,6 +7,7 @@
 #pragma once
 #include "myLib.h"
 
+
 class Graphics;
 class Resource;
 class Renderer2D final
@@ -45,7 +46,7 @@ public:
 	Render() = delete;
 	Render(Graphics& graphics, Resource& resource);
 	~Render();
-	void Draw(float Param, const D3DXVECTOR2& pos, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+	void Draw(float Param, const D3DXVECTOR2& pos, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f), const std::string& texture = "Gage");
 private:
 	Graphics& m_Graphics;
 	Resource& m_Resource;

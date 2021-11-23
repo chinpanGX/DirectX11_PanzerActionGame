@@ -24,6 +24,7 @@
 #include "TitleSystem.h"
 #include "ResultBg.h"
 #include "Pause.h"
+#include "PlayerUi.h"
 #include "Command.h"
 #include "ResultScene.h"
 
@@ -310,6 +311,9 @@ GameCommand::GameCommand()
 	// 戦車の操縦
 	auto& Pivot = m_Player->pivot();
 	m_Controller = std::make_unique<Controller>(m_Player, camera, &Pivot);
+
+	// 
+	m_NowInput.resize(11);
 }
 GameCommand::~GameCommand() {}
 void GameCommand::Begin() {}
@@ -353,9 +357,9 @@ bool GameCommand::GetNowInput(int32_t i) const { return m_NowInput[i]; }
 void GameCommand::InputKeyboard(float deltaTime)
 {
 	// 入力状態をリセット
-	for (int32_t i = 0; i < 10; i++)
+	for (auto i : m_NowInput)
 	{
-		m_NowInput[i] = false;
+		i = false;
 	}
 	m_Controller->FpsCameraMode(false);
 
@@ -420,6 +424,11 @@ void GameCommand::InputKeyboard(float deltaTime)
 	{
 		m_NowInput[8] = true;
 		m_Controller->Shot();
+		// クイックリロード
+		if (Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->enableQuickReload())
+		{
+			m_NowInput[10] = true;
+		}
 	}
 
 	// スキルを使う
@@ -436,9 +445,10 @@ void GameCommand::InputKeyboard(float deltaTime)
 void GameCommand::InputGamePad(float deltaTime)
 {
 	// 入力状態をリセット
-	for (int32_t i = 0; i < 9; i++)
+// 入力状態をリセット
+	for (auto i : m_NowInput)
 	{
-		m_NowInput[i] = false;
+		i = false;
 	}
 	m_Controller->FpsCameraMode(false);
 
@@ -502,6 +512,11 @@ void GameCommand::InputGamePad(float deltaTime)
 	{
 		m_NowInput[8] = true;
 		m_Controller->Shot();
+		// クイックリロード
+		if (Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->enableQuickReload())
+		{
+			m_NowInput[10] = true;
+		}
 	}
 
 	// スキルを使う

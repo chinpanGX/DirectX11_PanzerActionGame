@@ -9,12 +9,24 @@
 #pragma once
 #include "DefaultObject.h"
 #include <memory>
-#include <array>
+#include <vector>
 
 namespace
 {
 	// falseならマウス＆キーボード、tureならゲームパッド
 	bool g_IsInputGamePad = false;
+}
+
+// 入力状態の取得変数
+namespace Input
+{
+	// 前後
+	const int Forward = 0;
+	const int Backward = 1;
+	// カメラモード
+	const int Camera = 9;
+	// クイックリロード
+	const int QuickReload = 10;
 }
 
 // タイトル
@@ -50,12 +62,13 @@ public:
 private:
 	void InputKeyboard(float deltaTime);
 	void InputGamePad(float deltaTime);
+	std::vector<bool> m_NowInput;
+	D3DXVECTOR2 m_OldMouse;
+	D3DXVECTOR2 m_Mouse;
+
 	// trueなら入力している/falseなら入力していない
 	std::unique_ptr<Controller> m_Controller;
 	class Player* m_Player;
-	D3DXVECTOR2 m_OldMouse;
-	D3DXVECTOR2 m_Mouse;
-	std::array<bool, 10> m_NowInput;
 };
 
 // 戦車選択コマンドクラス

@@ -107,15 +107,18 @@ void GameBg::PanzerSelectUi::Draw()
 
 	// îwåi
 	m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.5f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
+
+	auto op_pos = D3DXVECTOR2(960.0f, 960.0f);
+	auto op_size = D3DXVECTOR2(500.0f, 70.0f);
 	
 	// ëÄçÏï˚ñ@ÇÃê‡ñæ
 	if (g_IsInputGamePad == false)
 	{
-		m_Operation->Draw(D3DXVECTOR2(960.0f, 960.0f), D3DXVECTOR2(500.0f, 70.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
+		m_Operation->Draw(op_pos, op_size, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 	}
 	else
 	{
-		m_Operation->Draw(D3DXVECTOR2(960.0f, 960.0f), D3DXVECTOR2(500.0f, 70.0f), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
+		m_Operation->Draw(op_pos, op_size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	}
 	
 	// êÌé‘ÇÃñºëO

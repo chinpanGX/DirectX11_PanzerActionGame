@@ -119,11 +119,11 @@ void Player::OnCollision()
 		{
 			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
 			{
-				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(0))
+				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(Input::Forward))
 				{
 					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
-				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(1))
+				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(Input::Backward))
 				{
 					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
