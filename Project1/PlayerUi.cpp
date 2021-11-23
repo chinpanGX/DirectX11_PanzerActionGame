@@ -9,6 +9,7 @@
 #include "Application.h"
 #include "Graphics.h"
 #include "Resource.h"
+#include "Reload.h"
 #include "Fps.h"
 #include "Pause.h"
 #include "Skill.h"
@@ -113,7 +114,7 @@ namespace PlayerUi
 			}
 
 			// ƒŠƒ[ƒhŠ®—¹
-			if (m_Player->vehicle().status().finishReload())
+			if (m_Player->reload().finishReload())
 			{
 				m_EnableQuickReload = false;
 				m_NowReload = false;

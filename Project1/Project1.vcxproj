@@ -207,6 +207,7 @@
     <ClCompile Include="PlaneGarage.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerUi.cpp" />
+    <ClCompile Include="Reload.cpp" />
     <ClCompile Include="Renderer2D.cpp" />
     <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="Resource.cpp" />
@@ -304,6 +305,7 @@
     <ClInclude Include="PlaneGarage.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerUi.h" />
+    <ClInclude Include="Reload.h" />
     <ClInclude Include="Renderer2D.h" />
     <ClInclude Include="Renderer3D.h" />
     <ClInclude Include="Resource.h" />

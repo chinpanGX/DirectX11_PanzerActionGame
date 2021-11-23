@@ -73,6 +73,12 @@
     <Filter Include="Actor\Base">
       <UniqueIdentifier>{650d7208-b803-4ee3-8e68-03ef5e7e8dc6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Actor\Panzer\Skill">
+      <UniqueIdentifier>{ef6d73e9-7564-442a-a285-d842af3f68f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Panzer\Status">
+      <UniqueIdentifier>{807da5a4-7edb-4730-aea5-7579917f26d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -226,9 +232,6 @@
     <ClCompile Include="TitleSystem.cpp">
       <Filter>Actor\Title</Filter>
     </ClCompile>
-    <ClCompile Include="Status.cpp">
-      <Filter>Actor\Panzer</Filter>
-    </ClCompile>
     <ClCompile Include="Gage.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
@@ -249,12 +252,6 @@
     </ClCompile>
     <ClCompile Include="UnitStageSetter.cpp">
       <Filter>Actor\Stage</Filter>
-    </ClCompile>
-    <ClCompile Include="SkillList.cpp">
-      <Filter>Actor\Panzer</Filter>
-    </ClCompile>
-    <ClCompile Include="Skill.cpp">
-      <Filter>Actor\Panzer</Filter>
     </ClCompile>
     <ClCompile Include="Vehicle.cpp">
       <Filter>Actor\Panzer</Filter>
@@ -340,6 +337,18 @@
     </ClCompile>
     <ClCompile Include="PlayerUi.cpp">
       <Filter>Actor\2D\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillList.cpp">
+      <Filter>Actor\Panzer\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Actor\Panzer\Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Status.cpp">
+      <Filter>Actor\Panzer\Status</Filter>
+    </ClCompile>
+    <ClCompile Include="Reload.cpp">
+      <Filter>Actor\Panzer\Status</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -521,9 +530,6 @@
     <ClInclude Include="TitleSystem.h">
       <Filter>Actor\Title</Filter>
     </ClInclude>
-    <ClInclude Include="Status.h">
-      <Filter>Actor\Panzer</Filter>
-    </ClInclude>
     <ClInclude Include="ResultState.h">
       <Filter>Actor\Result</Filter>
     </ClInclude>
@@ -550,12 +556,6 @@
     </ClInclude>
     <ClInclude Include="UnitStageSetter.h">
       <Filter>Actor\Stage</Filter>
-    </ClInclude>
-    <ClInclude Include="SkillList.h">
-      <Filter>Actor\Panzer</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill.h">
-      <Filter>Actor\Panzer</Filter>
     </ClInclude>
     <ClInclude Include="Vehicle.h">
       <Filter>Actor\Panzer</Filter>
@@ -644,6 +644,18 @@
     </ClInclude>
     <ClInclude Include="PlayerUi.h">
       <Filter>Actor\2D\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillList.h">
+      <Filter>Actor\Panzer\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Actor\Panzer\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Status.h">
+      <Filter>Actor\Panzer\Status</Filter>
+    </ClInclude>
+    <ClInclude Include="Reload.h">
+      <Filter>Actor\Panzer\Status</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

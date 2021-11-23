@@ -9,31 +9,13 @@
 #include "Status.h"
 
 Status::Status(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed)
-	: m_FinishReload(true), m_GunUpMax(0.26f), m_GunDownMax(0.03f), m_MaxHp(hp), m_Country(country), m_Cost(cost), m_Hp(hp),
-	m_Attack(attack), m_Defense(defence), m_Speed(speed), m_ReloadTime(reloadTime), m_RotSpeed(rotSpeed), m_Time(1.0f)
+	: m_GunUpMax(0.26f), m_GunDownMax(0.03f), m_MaxHp(hp), m_Country(country), m_Cost(cost), m_Hp(hp),
+	m_Attack(attack), m_Defense(defence), m_Speed(speed), m_ReloadTime(reloadTime), m_RotSpeed(rotSpeed), m_AddTime(1.0f)
 {
 }
 
 Status::~Status()
 {
-}
-
-void Status::Update()
-{
-	const float time = m_ReloadTime * 60.0f; // リロード完了する時間
-	m_NowReloadTime += m_Time;
-	// リロード完了時間を超えたら
-	if (m_NowReloadTime >= time)
-	{
-		// リロード完了
-		m_FinishReload = true;
-	}
-}
-
-void Status::BeginReload()
-{
-	m_NowReloadTime = 0;
-	m_FinishReload = false;
 }
 
 #pragma region _Getter&Setter_function_
@@ -123,18 +105,18 @@ const float Status::gunAngleDownMax() const
 	return m_GunDownMax;
 }
 
-void Status::reloadTime(float Time)
+void Status::reloadAddTime(float AddTime)
 {
-	m_Time = Time;
+	m_AddTime = AddTime;
+}
+
+const float Status::addTime() const
+{
+	return m_AddTime;
 }
 
 const float Status::reloadTime() const
 {
 	return m_ReloadTime;
-}
-
-const bool Status::finishReload() const
-{
-	return m_FinishReload;
 }
 #pragma endregion _Getter/Setterの関数_

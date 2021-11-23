@@ -8,6 +8,7 @@
 ----------------------------------------------------------------*/
 #include "Cpu.h"
 #include "Vehicle.h"
+#include "Reload.h"
 #include "MoveComponent.h"
 #include "Pivot.h"
 #include "PanzerStateRotation.h"
@@ -92,7 +93,7 @@ void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 		pCpu->pivot().moveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
 	}
 	// ƒŠƒ[ƒh‚ªŠ®—¹‚µ‚½‚çŒ‚‚Â
-	if (pCpu->vehicle().status().finishReload() == true)
+	if (pCpu->reload().finishReload() == true)
 	{
 		pCpu->ChangeState(std::make_unique<State::Shot>());
 	}

@@ -5,6 +5,7 @@
 
 ---------------------------------------------------------------*/
 #include "Vehicle.h"
+#include "Reload.h"
 #include "Status.h"
 #include "Skill.h"
 #include "Pivot.h"
@@ -39,6 +40,7 @@ void Pawn::Begin()
 
 void Pawn::Update()
 {
+	m_Reload->Update();
 	m_Vehicle->Update();
 	m_MoveComponent->Update();
 	m_Vehicle->ColiisionUpdate(0, m_Vehicle->bodyTransform().position(), m_Vehicle->bodyTransform());
@@ -74,11 +76,20 @@ Pivot & Pawn::pivot() const
 	return *m_Pivot;
 }
 
+Reload & Pawn::reload() const
+{
+	if (!m_Reload)
+	{
+		throw std::domain_error("null");
+	}
+	return *m_Reload;
+}
+
 MoveComponent & Pawn::moveComponent() const
 {
 	if (!m_MoveComponent)
 	{
-		std::domain_error("null");
+		throw std::domain_error("null");
 	}
 	return *m_MoveComponent;
 }
@@ -115,6 +126,15 @@ void Pawn::Create()
 	m_Pivot = fPivot.Create(*m_Vehicle);
 	// 移動用コンポーネント
 	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->status());	
+
+	if (m_Type == 0)
+	{
+		m_Reload = std::make_unique<PlayerReload>(m_Vehicle->status());
+	}
+	else
+	{
+		m_Reload = std::make_unique<CpuReload>(m_Vehicle->status());
+	}
 }
 
 void Pawn::BeginOverlap(Pawn* pPawn)

@@ -8,6 +8,7 @@
 ----------------------------------------------------------------*/
 #include "Vehicle.h"
 #include "Cpu.h"
+#include "Reload.h"
 #include "Pivot.h"
 #include "PanzerStateShot.h"
 #include "Engine.h"
@@ -27,9 +28,19 @@ State::Shot::~Shot()
 
 void State::Shot::Update(Cpu * pCpu, float deltaTime)
 {
+	// リロードが終わっていないなら撃てない
+	if (pCpu->reload().finishReload() == false) 
+	{
+		// ステート変更
+		pCpu->ChangeState(std::make_unique<State::Stay>());
+	}
+
 	pCpu->vehicle().Shot(pCpu->pivot().transform());
 	// オーディオを鳴らす
 	PlayAudio(pCpu);
+	// リロード開始
+	pCpu->reload().Begin();
+	// ステート変更
 	pCpu->ChangeState(std::make_unique<State::Stay>());
 }
 

@@ -83,17 +83,10 @@ void Controller::RotMaingunDown(float deltaTime)
 void Controller::Shot()
 {
 	// リロードが完了しているかチェックする
-	if (m_Player->vehicle().status().finishReload() == true)
-	{
-		// リロードが完了している
-		// 射撃
-		m_Player->vehicle().Shot(m_Pivot->transform());
-		// オーディオ
-		Engine::Get().resource()->AudioPlay("Shot");		
+	m_Player->Shot();
 
-		// リロードゲージの表示ON
-		Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->OnReload();
-	}
+	// リロードゲージの表示ON
+	Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->OnReload();
 }
 
 void Controller::UseSkill()

@@ -25,9 +25,6 @@ public:
 	Status(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed);
 	~Status();
 	
-	void Update();
-	void BeginReload();
-
 	// 国
 	const Country& country() const;
 
@@ -62,10 +59,11 @@ public:
 	const float gunAngleUpMax() const;
 	const float gunAngleDownMax() const;
 
-	void reloadTime(float Time);
-	// リロードは完了しているか
+	// リロード関係
+	void reloadAddTime(float AddTime);	
+	const float addTime()const;
+
 	const float reloadTime()const;
-	const bool finishReload() const;
 private:
 	Country m_Country;
 	const float m_MaxHp; // Max値
@@ -76,8 +74,7 @@ private:
 	float m_Attack; // 攻撃力
 	float m_Defense;  // 防御力
 
-	float m_Time; // リロードをする時間
-	float m_NowReloadTime; // リロード時間中
+	float m_AddTime; // リロードをする時間
 
 	float m_Speed; // 移動速度
 	float m_AddForce = 0.1f; // 加速度
@@ -86,7 +83,5 @@ private:
 	// 主砲の最大値
 	const float m_GunUpMax;
 	const float m_GunDownMax;
-
-	bool m_FinishReload;  // trueで撃つことができる
 };
 

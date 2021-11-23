@@ -33,7 +33,6 @@ void Vehicle::Begin()
 
 void Vehicle::Update()
 {
-	m_Status->Update();
 	m_Panzer->Update();
 	m_Shadow->transform().position(m_Panzer->GetBody().transform().position());
 	m_Shadow->transform().position().y = 0.01f;
@@ -81,9 +80,6 @@ void Vehicle::CalcuateDamege(Pawn * Pawn)
 // 撃つ
 void Vehicle::Shot(const Transform & transform)
 {
-	// リロードが終わっていないなら撃てない
-	if (m_Status->finishReload() == false) { return; }
-
 	float offset = 10.0f; // 補正値
 	auto t = transform;
 	// 発射位置
@@ -94,9 +90,6 @@ void Vehicle::Shot(const Transform & transform)
 	// Bulletのインスタンスを生成する
 	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
 	normalBullet->Create(pos, vector);
-
-	// リロード開始
-	m_Status->BeginReload();
 }
 
 // HP計算 

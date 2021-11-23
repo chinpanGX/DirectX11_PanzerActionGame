@@ -8,6 +8,7 @@
 #include "Actor.h"
 #include "Factory.h"
 
+class Reload;
 class Vehicle;
 class Pivot;
 class MoveComponent;
@@ -25,6 +26,7 @@ public:
 	virtual void Respawn(const D3DXVECTOR3& pos) = 0;
 	Vehicle& vehicle() const;
 	Pivot& pivot()const;
+	Reload& reload()const;
 	MoveComponent& moveComponent()const;
 
 protected:
@@ -43,6 +45,7 @@ private:
 	std::unique_ptr<Vehicle> m_Vehicle = nullptr;
 	std::unique_ptr<MoveComponent> m_MoveComponent = nullptr;
 	std::unique_ptr<Pivot> m_Pivot = nullptr;
+	std::unique_ptr<Reload> m_Reload = nullptr;
 	int32_t m_Type;
 };
 

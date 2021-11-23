@@ -9,6 +9,7 @@
 #include "Input.h"
 #include "MoveComponent.h"
 #include "Skill.h"
+#include "Reload.h"
 #include "Vehicle.h"
 #include "PanzerContainer.h"
 #include "Engine.h"
@@ -99,14 +100,17 @@ void Player::UseSkill()
 
 void Player::Shot()
 {
+	// リロードが終わっていないなら撃てない
+	if (reload().finishReload() == false) 
+	{ 
+		return; 
+	}
 	// 射撃
 	vehicle().Shot(pivot().transform());
 	// オーディオ
 	Engine::Get().resource()->AudioPlay("Shot");
-	// リロードエフェクト
-	auto effect = Engine::Get().application()->GetScene()->AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_EFFECT);
-	D3DXVECTOR3 offset = pivot().transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f) + (pivot().transform().forward() * 5.0f);
-	effect->transform().position(offset);
+	
+	reload().Begin();
 }
 
 void Player::OnCollision()
