@@ -89,11 +89,10 @@ void Controller::Shot()
 		// 射撃
 		m_Player->vehicle().Shot(m_Pivot->transform());
 		// オーディオ
-		Engine::Get().resource()->AudioPlay("Shot");
-		// リロードエフェクト
-		auto effect = Engine::Get().application()->GetScene()->AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_EFFECT);
-		D3DXVECTOR3 offset = m_Pivot->transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f) + (m_Pivot->transform().forward() * 5.0f);
-		effect->transform().position(offset);
+		Engine::Get().resource()->AudioPlay("Shot");		
+
+		// リロードゲージの表示ON
+		Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->OnReload();
 	}
 }
 

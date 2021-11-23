@@ -95,7 +95,8 @@ void Vehicle::Shot(const Transform & transform)
 	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
 	normalBullet->Create(pos, vector);
 
-	m_Status->RereloadTime();
+	// リロード開始
+	m_Status->BeginReload();
 }
 
 // HP計算 

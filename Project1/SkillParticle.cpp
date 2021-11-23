@@ -33,7 +33,7 @@ void SkillParticle::Begin()
 void SkillParticle::Update()
 {
 	// ƒ|[ƒY’†‚©‚Ç‚¤‚©
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
 
 	Effect::Update();

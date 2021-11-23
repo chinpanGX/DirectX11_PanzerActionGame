@@ -20,6 +20,7 @@ enum ELayer : int32_t
 	LAYER_2D_EFFECT,
 	LAYER_2D_BG,
 	LAYER_2D_UI,
+	LAYER_2D_PAUSE,
 	LAYER_MAX,
 };
 

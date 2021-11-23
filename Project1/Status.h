@@ -26,7 +26,7 @@ public:
 	~Status();
 	
 	void Update();
-	void RereloadTime();
+	void BeginReload();
 
 	// çë
 	const Country& country() const;

@@ -30,7 +30,7 @@ void Status::Update()
 	}
 }
 
-void Status::RereloadTime()
+void Status::BeginReload()
 {
 	m_NowReloadTime = 0;
 	m_FinishReload = false;

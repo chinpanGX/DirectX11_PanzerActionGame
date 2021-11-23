@@ -316,7 +316,7 @@ void GameCommand::Begin() {}
 
 void GameCommand::Update()
 {
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG);
+	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	float deltaTime = Fps::Get().deltaTime;
 
 	// デバッグ用
@@ -671,7 +671,7 @@ void SelectCommand::InputGamePad()
 #pragma endregion SelectCommandメソッド
 
 #pragma region PauseCommnad_method
-PauseCommand::PauseCommand() { m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG); }
+PauseCommand::PauseCommand() { m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE); }
 PauseCommand::~PauseCommand(){}
 void PauseCommand::Begin() {}
 void PauseCommand::Update() { g_IsInputGamePad ? InputGamePad() : InputKeyBoard(); }

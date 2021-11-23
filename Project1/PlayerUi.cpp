@@ -42,7 +42,7 @@ namespace PlayerUi
 
 	void DrawSkill::Update()
 	{
-		if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
+		if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 
 		// まだスキルが使える状態じゃない
 		if (m_Player->vehicle().skill().alreadyUseble() == false)
@@ -70,9 +70,11 @@ namespace PlayerUi
 	}
 #pragma endregion スキルゲージを描画する
 
-	Reload::Reload() : Effect()
+#pragma region _Reload_
+	Reload::Reload()
 	{
-		m_Transform = Actor::AddComponent<Transform>();
+		m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
+		m_Position = D3DXVECTOR2(static_cast<float>((SCREEN_WIDTH / 2) - 250.0f), 750.0f);
 	}
 
 	Reload::~Reload()
@@ -81,19 +83,30 @@ namespace PlayerUi
 
 	void Reload::Begin()
 	{
-		m_Transform->Begin();
+		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+		// リロード時間の取得
+		float t = m_Player->vehicle().status().reloadTime();
+		m_Amount = m_MaxSize / t * Fps::Get().deltaTime;
 	}
 
 	void Reload::Update()
 	{
-		if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
-
-		auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-		m_Transform->rotation().z += 0.05f;
-		// プレイヤーのリロードが完了すれば削除
-		if (player->vehicle().status().finishReload() == true)
+		if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
+		
+		
+		// リロード中
+		if (m_NowReload)
 		{
-			OnDestroy();
+			m_NowGage += m_Amount;
+			if (m_Player->vehicle().status().finishReload())
+			{
+				m_NowReload = false;
+			}			
+		}
+		// リロード終了
+		else 
+		{			
+			m_NowGage = 0.0f;		
 		}
 	}
 
@@ -103,65 +116,17 @@ namespace PlayerUi
 
 	void Reload::Draw()
 	{
-		// マトリクスの設定
-		// カメラの情報を取得
-		auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-		D3DXMATRIX view = camera->view();
-
-		// ビューの逆行列
-		D3DXMATRIX invView;
-		D3DXMatrixInverse(&invView, nullptr, &view);//逆行列
-		invView._41 = 0.0f;
-		invView._42 = 0.0f;
-		invView._43 = 0.0f;
-
-		// 戦車の情報を取得
-		auto& pivot = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->pivot();
-		// 戦車の位置にエフェクトの位置を合わせる
-		m_Transform->position().x = pivot.transform().position().x;
-		m_Transform->position().z = pivot.transform().position().z;
-
-		// 座標変換
-		D3DXMATRIX scale, rot, trans;
-		Math::Matrix::MatrixScaling(&scale, m_Transform->scale());
-		Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
-		Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
-		D3DXMATRIX world = scale * rot * invView * trans;
-		m_Graphics.SetWorldMatrix(world);
-
-		// マテリアル
-		Material m;
-		m.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-		m_Graphics.SetMaterial(m);
-
-		// テクスチャの設定
-		m_Resource.SetTexture(0, "Reload");
-
-		Effect::Draw();
+		// リロード中のときに描画
+		if (m_NowReload)
+		{
+			m_Render->Draw(m_MaxSize, m_Position, D3DXVECTOR4(1.0f, 0.35f, 0.55f, 0.75f));
+			m_Render->Draw(m_NowGage, m_Position, D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f));
+		}
 	}
-#pragma region _ReloadGage_
-	ReloadGage::ReloadGage()
-	{
-		m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
-		m_Position = D3DXVECTOR2(static_cast<float>((SCREEN_WIDTH / 2) - 250.0f), 940.0f);
-	}
-	ReloadGage::~ReloadGage()
-	{
-	}
-	void ReloadGage::Begin()
-	{
 
-	}
-	void ReloadGage::Update()
+	void Reload::OnReload()
 	{
-	}
-	void ReloadGage::Event()
-	{
-	}
-	void ReloadGage::Draw()
-	{
-		m_Render->Draw(m_MaxSize, m_Position, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
-		//m_Render->Draw(m_NowGage, pos, D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f));
+		m_NowReload = true;
 	}
 #pragma endregion _リロードゲージ_
 

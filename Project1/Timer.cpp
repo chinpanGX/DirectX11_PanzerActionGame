@@ -70,7 +70,7 @@ void GameBg::Timer::Begin()
 void GameBg::Timer::Update()
 {
 	// ボーズ中なら、タイマーをストップ
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_BG)->NowPausing()) { return; }
+	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
 
 	m_NowTime -= Fps::Get().deltaTime;

@@ -139,13 +139,13 @@ void GameScene::Tutorial::Init()
 	AddGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	AddGameObject<GameBg::Scope>(ELayer::LAYER_2D_UI);
 	AddGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
-	AddGameObject<Pause>(ELayer::LAYER_2D_BG);
+	AddGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	AddGameObject<GameBg::TutorialUi>(ELayer::LAYER_2D_UI);
 	AddGameObject<PauseCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameManager>(ELayer::LAYER_SYSTEM);
 	AddGameObject<PlayerUi::Hp>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
-	AddGameObject<PlayerUi::ReloadGage>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }
@@ -209,14 +209,14 @@ void GameScene::Game::Init()
 	AddGameObject<GameStage>(ELayer::LAYER_3D_STAGE);
 	AddGameObject<GameBg::Scope>(ELayer::LAYER_2D_UI);
 	AddGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
-	AddGameObject<Pause>(ELayer::LAYER_2D_BG);
+	AddGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	AddGameObject<PauseCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI);
 	AddGameObject<GameManager>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::Timer>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::Hp>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
-	AddGameObject<PlayerUi::ReloadGage>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }

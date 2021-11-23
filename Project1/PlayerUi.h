@@ -32,7 +32,8 @@ namespace PlayerUi
 		float m_Add; // 増加する量
 	};
 
-	class Reload final : public Effect
+	// リロードゲージ
+	class Reload final : public Actor
 	{
 	public:
 		Reload();
@@ -41,25 +42,16 @@ namespace PlayerUi
 		void Update()override;
 		void Event()override;
 		void Draw()override;
-	};
-
-	// リロードゲージ
-	class ReloadGage final : public Actor
-	{
-	public:
-		ReloadGage();
-		~ReloadGage();
-		void Begin()override;
-		void Update()override;
-		void Event()override;
-		void Draw()override;
+		
+		void OnReload();
 	private:
+		D3DXVECTOR2 m_Position;
 		std::unique_ptr<Render> m_Render;
 		Player* m_Player;
 		const float m_MaxSize = 500.0f;
 		float m_NowGage = 0.0f;
 		float m_Amount;
-		D3DXVECTOR2 m_Position;
+		bool m_NowReload = false; // リロード中
 	};
 
 	// Hpゲージ
