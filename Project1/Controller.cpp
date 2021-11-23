@@ -91,7 +91,7 @@ void Controller::Shot()
 		// オーディオ
 		Engine::Get().resource()->AudioPlay("Shot");
 		// リロードエフェクト
-		auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
+		auto effect = Engine::Get().application()->GetScene()->AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_EFFECT);
 		D3DXVECTOR3 offset = m_Pivot->transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f) + (m_Pivot->transform().forward() * 5.0f);
 		effect->transform().position(offset);
 	}

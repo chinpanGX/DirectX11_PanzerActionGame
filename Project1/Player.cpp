@@ -91,7 +91,7 @@ void Player::UseSkill()
 	if (vehicle().skill().alreadyUseble())
 	{		
 		// ゲージをリセットする
-		Engine::Get().application()->GetScene()->GetGameObject<DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
+		Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
 		// スキルエフェクトを発生
 		vehicle().skill().PlayEffect(this);
 	}
@@ -104,7 +104,7 @@ void Player::Shot()
 	// オーディオ
 	Engine::Get().resource()->AudioPlay("Shot");
 	// リロードエフェクト
-	auto effect = Engine::Get().application()->GetScene()->AddGameObject<Reload>(ELayer::LAYER_2D_EFFECT);
+	auto effect = Engine::Get().application()->GetScene()->AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_EFFECT);
 	D3DXVECTOR3 offset = pivot().transform().position() + D3DXVECTOR3(0.0f, 3.0f, 0.0f) + (pivot().transform().forward() * 5.0f);
 	effect->transform().position(offset);
 }

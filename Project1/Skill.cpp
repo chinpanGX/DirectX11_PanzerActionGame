@@ -81,16 +81,24 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		// ‚T•bŠÔ—LŒø
 		if (m_NowTime > 5.0f)
 		{
-			for (size_t i = 0; i < m_UseSkill.size(); ++i)
-			{
-				m_UseSkill[i]->Reset(status);
-			}			
-			m_NowTime = 0.0f;
-			m_Phase = 0;
-			m_SkillEffect->OnDestroy();
-			m_SkillEffect = nullptr;
+			Reset(status);
 		}
 		break;
+	}
+}
+
+void Skill::Reset(Status & status)
+{
+	for (size_t i = 0; i < m_UseSkill.size(); ++i)
+	{
+		m_UseSkill[i]->Reset(status);
+	}
+	m_NowTime = 0.0f;
+	m_Phase = 0;
+	if (m_SkillEffect != nullptr)
+	{
+		m_SkillEffect->OnDestroy();
+		m_SkillEffect = nullptr;
 	}
 }
 

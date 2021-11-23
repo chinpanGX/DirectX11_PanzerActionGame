@@ -23,6 +23,7 @@ public:
 	// スキル発動(発動するまでの時間)
 	void Begin(float timeToActivateSkill); 
 	void Update(Status& status, const D3DXVECTOR3& position);
+	void Reset(Status& status);
 
 	// スキルゲージがたまる時間
 	void SetTime(float amount); //　進める時間

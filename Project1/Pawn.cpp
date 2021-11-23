@@ -6,6 +6,7 @@
 ---------------------------------------------------------------*/
 #include "Vehicle.h"
 #include "Status.h"
+#include "Skill.h"
 #include "Pivot.h"
 #include "MoveComponent.h"
 #include "Engine.h"
@@ -88,6 +89,8 @@ void Pawn::CheckZeroHp(Pawn* pawn)
 	if (m_Vehicle->status().hp() <= 0.0f)
 	{
 		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(pawn, m_Type);
+		// スキルの状態をリセット
+		m_Vehicle->skill().Reset(m_Vehicle->status());
 	}
 }
 

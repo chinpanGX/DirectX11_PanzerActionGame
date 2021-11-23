@@ -34,8 +34,10 @@ public:
 	D3DXVECTOR3 OffsetLength(const class OBB3& obj);
 
 private:
+	// ïΩñ ÇÇ¬Ç≠ÇÈ
 	void CreatePlane(int Normal);
-	D3DXVECTOR3 m_PlanePoint;
-	D3DXVECTOR3 m_Normal;
+	
+	D3DXVECTOR3 m_PlanePoint;	// ïΩñ ÇÃà íu
+	D3DXVECTOR3 m_Normal;		// ñ@ê¸
 };
 

@@ -235,9 +235,6 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
-    <ClCompile Include="Hp.cpp">
-      <Filter>GameManager</Filter>
-    </ClCompile>
     <ClCompile Include="Spawn.cpp">
       <Filter>GameManager</Filter>
     </ClCompile>
@@ -534,9 +531,6 @@
       <Filter>GameManager</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
-      <Filter>GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Hp.h">
       <Filter>GameManager</Filter>
     </ClInclude>
     <ClInclude Include="Spawn.h">

@@ -23,7 +23,6 @@
 #include "GameManager.h"
 #include "Gage.h"
 #include "Timer.h"
-#include "Hp.h"
 #include "TutorialStage.h"
 #include "GameStage.h"
 #include "GameScene.h"
@@ -144,8 +143,9 @@ void GameScene::Tutorial::Init()
 	AddGameObject<GameBg::TutorialUi>(ELayer::LAYER_2D_UI);
 	AddGameObject<PauseCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameManager>(ELayer::LAYER_SYSTEM);
-	AddGameObject<GameBg::Hp>(ELayer::LAYER_2D_UI);
-	AddGameObject<DrawSkill>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::Hp>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::ReloadGage>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }
@@ -214,8 +214,9 @@ void GameScene::Game::Init()
 	AddGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI);
 	AddGameObject<GameManager>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::Timer>(ELayer::LAYER_2D_UI);
-	AddGameObject<GameBg::Hp>(ELayer::LAYER_2D_UI);
-	AddGameObject<DrawSkill>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::Hp>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::ReloadGage>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }
