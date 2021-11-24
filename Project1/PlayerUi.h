@@ -44,6 +44,8 @@ namespace PlayerUi
 		void Draw()override;
 		
 		void OnReload();
+		void OnStop(); // リロードを止める
+		void OffStop();
 		// クイックリロードが有効かどうか返す
 		const bool enableQuickReload()const;
 
@@ -63,6 +65,7 @@ namespace PlayerUi
 		float m_NowGage = 0.0f;			// 		
 		float m_Amount; // 増える量
 		
+		bool m_NowStop; // ストップ中かどうか
 		bool m_NowReload = false; // リロード中かどうか
 		bool m_EnableQuickReload = false;
 	};

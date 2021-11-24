@@ -20,6 +20,11 @@ private:
 	bool m_FinishReload = true;
 };
 
+namespace PlayerUi
+{
+	class Reload;
+}
+class GameCommand;
 class Status;
 class PlayerReload final : public Reload
 {
@@ -31,8 +36,11 @@ public:
 	void Update()override;
 private:
 	const Status& m_Status;
-	std::unique_ptr<Reload> m_Reload;
+	PlayerUi::Reload* m_Reload;
+	GameCommand* m_Command;
 	float m_NowReloadTime; // リロード時間中
+	float m_Time;
+	bool m_OnReloadStop = false; // リロードストップ
 };
 
 class CpuReload : public Reload
@@ -45,6 +53,5 @@ public:
 	void Update()override;
 private:
 	const Status& m_Status;
-	std::unique_ptr<Reload> m_Reload;
 	float m_NowReloadTime; // リロード時間中
 };

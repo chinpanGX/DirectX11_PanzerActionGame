@@ -24,7 +24,6 @@
 #include "TitleSystem.h"
 #include "ResultBg.h"
 #include "Pause.h"
-#include "PlayerUi.h"
 #include "Command.h"
 #include "ResultScene.h"
 
@@ -424,16 +423,12 @@ void GameCommand::InputKeyboard(float deltaTime)
 	{
 		m_NowInput[8] = true;
 		m_Controller->Shot();
-		// クイックリロード
-		if (Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->enableQuickReload())
-		{
-			m_NowInput[10] = true;
-		}
 	}
 
 	// スキルを使う
 	if (KeyBoard::IsTrigger(DIK_E))
 	{
+		m_NowInput[10] = true;
 		m_Controller->UseSkill();
 	}
 	// 1f前のマウスポインタ
@@ -512,16 +507,12 @@ void GameCommand::InputGamePad(float deltaTime)
 	{
 		m_NowInput[8] = true;
 		m_Controller->Shot();
-		// クイックリロード
-		if (Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->enableQuickReload())
-		{
-			m_NowInput[10] = true;
-		}
 	}
 
 	// スキルを使う
 	if (GamePad::IsTrigger(0, BUTTON_1))
 	{
+		m_NowInput[10] = true;
 		m_Controller->UseSkill();
 	}
 }

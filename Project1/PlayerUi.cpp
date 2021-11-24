@@ -92,6 +92,7 @@ namespace PlayerUi
 		float t = m_Player->vehicle().status().reloadTime();
 		// 増える量を計算
 		m_Amount = m_MaxSize / t * Fps::Get().deltaTime;
+		m_NowStop = false;
 	}
 
 	void Reload::Update()
@@ -99,10 +100,10 @@ namespace PlayerUi
 		if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 		
 		// リロード中
-		if (m_NowReload)
+		if (m_NowReload && m_NowStop == false)
 		{
-			m_NowGage += m_Amount;
-			m_IconPosition.x += m_Amount;			
+				m_NowGage += m_Amount;
+				m_IconPosition.x += m_Amount;
 			// クイックリロードの範囲内ならクイックリロードを有効にする
 			if (m_IconPosition.x - 25.0f > m_QuickRangePosition.x - 50.0f && m_IconPosition.x + 25.0f < m_QuickRangePosition.x + 50.0f)
 			{
@@ -122,7 +123,7 @@ namespace PlayerUi
 			}			
 		}
 		// リロード終了
-		else 
+		else if(m_NowReload == false && m_NowStop == false)
 		{			
 			m_NowGage = 0.0f;		
 		}
@@ -164,6 +165,16 @@ namespace PlayerUi
 	void Reload::OnReload()
 	{
 		m_NowReload = true;
+	}
+
+	void Reload::OnStop()
+	{
+		m_NowStop = true;
+	}
+
+	void Reload::OffStop()
+	{
+		m_NowStop = false;
 	}
 
 	// リロードが有効かどうか

@@ -25,8 +25,9 @@ namespace Input
 	const int Backward = 1;
 	// カメラモード
 	const int Camera = 9;
-	// クイックリロード
-	const int QuickReload = 10;
+
+	// 射撃
+	const int Shot = 8;
 }
 
 // タイトル
