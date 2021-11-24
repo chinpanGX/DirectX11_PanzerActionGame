@@ -11,6 +11,9 @@
 #include <array>
 #include <vector>
 
+class GameCamera;
+class SelectCommand;
+class PanzerContainer;
 class Renderer2D;
 namespace GameBg
 {
@@ -24,6 +27,8 @@ namespace GameBg
 		void Update()override;
 		void Event()override;
 		void Draw()override;
+	private:
+		GameCamera* m_Camera;
 	};
 
 	// 選択画面背景UI
@@ -49,6 +54,7 @@ namespace GameBg
 		std::vector<D3DXVECTOR2> m_TexCoord;
 		std::unique_ptr<Renderer2D> m_List; // 戦車のリスト
 		std::unique_ptr<Renderer2D> m_Operation; // 操作方法UI
+		PanzerContainer* m_Container;
 		int32_t m_Page;
 		bool m_DrawFlag = false;
 	};
@@ -70,6 +76,7 @@ namespace GameBg
 		void DrawModeName(D3DXVECTOR2 pos, float size_y);	// ゲームモード
 
 		std::unique_ptr<Renderer2D> m_Renderer;
+		SelectCommand* m_Command;
 		bool m_Mode; // trueでチュートリアル、falseでゲーム
 		float m_Alpha = 1.0f;
 		float m_Color = 0.01f;

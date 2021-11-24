@@ -70,7 +70,14 @@ private:
 	// trueなら入力している/falseなら入力していない
 	std::unique_ptr<Controller> m_Controller;
 	class Player* m_Player;
+	class Pause* m_Pause;
 };
+
+namespace GameBg
+{
+	class PanzerSelectUi;
+	class ResultBg;
+}
 
 // 戦車選択コマンドクラス
 class SelectCommand final : public DefaultObject
@@ -87,6 +94,7 @@ private:
 	void InputKeyBoard();
 	void InputGamePad();
 	class PanzerContainer* m_Container = nullptr;
+	class GameBg::PanzerSelectUi* m_Ui;
 	bool m_Select = true; // trueで戦車選択、falseでゲーム選択
 	bool m_Mode;
 };
@@ -121,4 +129,5 @@ private:
 	void InputKeyBoard();
 	void InputGamePad();
 	int32_t m_Frame = 0;
+	GameBg::ResultBg* m_Bg;
 };

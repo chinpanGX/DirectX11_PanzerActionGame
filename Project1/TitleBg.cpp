@@ -24,6 +24,7 @@ GameBg::TitleBg::~TitleBg()
 
 void GameBg::TitleBg::Begin()
 {
+
 }
 
 void GameBg::TitleBg::Update()

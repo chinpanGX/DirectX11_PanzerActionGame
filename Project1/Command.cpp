@@ -35,7 +35,9 @@ namespace
 #pragma region TitleCommand_method
 TitleCommand::TitleCommand() {}
 TitleCommand::~TitleCommand() {}
-void TitleCommand::Begin() {}
+void TitleCommand::Begin() 
+{
+}
 
 void TitleCommand::Update()
 {
@@ -316,13 +318,13 @@ void GameCommand::Begin()
 	auto& Pivot = m_Player->pivot();
 	m_Controller = std::make_unique<Controller>(m_Player, camera, &Pivot);
 
+	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	// 
 	m_NowInput.resize(11);
 }
 
 void GameCommand::Update()
 {
-	auto pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	float deltaTime = Fps::Get().deltaTime;
 
 	// デバッグ用
@@ -337,14 +339,14 @@ void GameCommand::Update()
 
 	if (!g_IsInputGamePad)
 	{
-		if (!pause->NowPausing())
+		if (!m_Pause->NowPausing())
 		{
 			InputKeyboard(deltaTime);
 		}
 	}
 	else if (g_IsInputGamePad)
 	{
-		if (!pause->NowPausing())
+		if (!m_Pause->NowPausing())
 		{
 			InputGamePad(deltaTime);
 		}
@@ -524,7 +526,10 @@ void GameCommand::InputGamePad(float deltaTime)
 #pragma region SelectCommand_method
 SelectCommand::SelectCommand() { m_Container = Engine::Get().application()->GetScene()->GetGameObject<PanzerContainer>(LAYER_3D_ACTOR); }
 SelectCommand::~SelectCommand() {}
-void SelectCommand::Begin() {}
+void SelectCommand::Begin() 
+{
+	m_Ui = Engine::Get().application()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
+}
 void SelectCommand::Update() { g_IsInputGamePad ? InputGamePad() : InputKeyBoard(); }
 void SelectCommand::Event() {}
 void SelectCommand::Draw() {}
@@ -533,21 +538,20 @@ const bool SelectCommand::GetSelect() const { return m_Select; }
 // キーボード入力
 void SelectCommand::InputKeyBoard()
 {
-	auto explain = Engine::Get().application()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
 	// ゲーム説明を表示する
-	if(explain->GetDrawFlag())
+	if(m_Ui->GetDrawFlag())
 	{
 		if (KeyBoard::IsTrigger(DIK_D))
 		{
-			explain->Up();
+			m_Ui->Up();
 		}
 		else if(KeyBoard::IsTrigger(DIK_A))
 		{
-			explain->Down();
+			m_Ui->Down();
 		}
 		else if(KeyBoard::IsTrigger(DIK_Q))
 		{
-			explain->Disable();
+			m_Ui->Disable();
 		}
 	}
 	// 説明を表示しない
@@ -572,7 +576,7 @@ void SelectCommand::InputKeyBoard()
 			}
 			else if (KeyBoard::IsTrigger(DIK_D))
 			{
-				explain->Enable();
+				m_Ui->Enable();
 				Engine::Get().resource()->AudioPlay("Button", 1.0f);
 			}
 			else if (KeyBoard::IsTrigger(DIK_SPACE))
@@ -612,21 +616,20 @@ void SelectCommand::InputKeyBoard()
 // ゲームパッドの入力
 void SelectCommand::InputGamePad()
 {
-	auto explain = Engine::Get().application()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
 	// ゲーム説明を表示する
-	if (explain->GetDrawFlag())
+	if (m_Ui->GetDrawFlag())
 	{
 		if (GamePad::IsTrigger(0, LEFTSTICK_RIGHT) || GamePad::IsTrigger(0, BUTTON_RIGHT))
 		{
-			explain->Up();
+			m_Ui->Up();
 		}
 		else if (GamePad::IsTrigger(0, LEFTSTICK_LEFT) || GamePad::IsTrigger(0, BUTTON_LEFT))
 		{
-			explain->Down();
+			m_Ui->Down();
 		}
 		else if (GamePad::IsTrigger(0, BUTTON_3))
 		{
-			explain->Disable();
+			m_Ui->Disable();
 		}
 	}
 	// 説明を表示しない
@@ -899,7 +902,10 @@ void PauseCommand::InputGamePad()
 #pragma region ResultCommand_method
 ResultCommand::ResultCommand() {}
 ResultCommand::~ResultCommand() {}
-void ResultCommand::Begin() {}
+void ResultCommand::Begin() 
+{
+	m_Bg = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG);
+}
 
 void ResultCommand::Update() 
 { 
@@ -915,7 +921,7 @@ void ResultCommand::Event() {}
 void ResultCommand::Draw() {}
 void ResultCommand::InputKeyBoard()
 {
-	auto& state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	auto& state = m_Bg->GetState();
 	// 次のシーンを選択
 	if (KeyBoard::IsTrigger(DIK_W))
 	{
@@ -949,7 +955,7 @@ void ResultCommand::InputKeyBoard()
 
 void ResultCommand::InputGamePad()
 {
-	auto state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	auto state = m_Bg->GetState();
 	// 次のシーンを選択
 	if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 	{

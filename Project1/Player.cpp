@@ -44,6 +44,7 @@ void Player::Begin()
 	m_Command = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+	m_DrawSkill = Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
 	reload().Init();
 	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -150.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 }

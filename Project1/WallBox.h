@@ -39,5 +39,6 @@ private:
 	
 	D3DXVECTOR3 m_PlanePoint;	// ïΩñ ÇÃà íu
 	D3DXVECTOR3 m_Normal;		// ñ@ê¸
+	class GameCamera* m_Camera;
 };
 

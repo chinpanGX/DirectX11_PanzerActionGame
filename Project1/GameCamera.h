@@ -44,6 +44,7 @@ private:
 	D3DXVECTOR3 m_Position;
 	D3DXVECTOR3 m_Target;
 	
+	class Player* m_Player;
 	class Graphics& m_Graphics;
 	bool m_EnableFpsMode; // カメラのモードを切り替える trueのときFPSカメラにする
 };

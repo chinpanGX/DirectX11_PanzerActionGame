@@ -24,6 +24,7 @@ private:
 	void UpdateMatrix(); 
 
 	float m_RotationSpeed; // スカイドームの回転速度
+	class GameCamera* m_Camera;
 	class Graphics& m_Graphics;
 };
 

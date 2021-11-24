@@ -31,6 +31,7 @@ GameBg::Scope::~Scope()
 
 void GameBg::Scope::Begin()
 {
+	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 }
 
 void GameBg::Scope::Update()
@@ -44,7 +45,7 @@ void GameBg::Scope::Event()
 void GameBg::Scope::Draw()
 {
 	// カメラがFPSモードのときにスコープを描画する
-	if(Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->FpsModeNow() == true)
+	if(m_Camera->FpsModeNow() == true)
 	{
 		m_Renderer2D->Draw();
 	}
@@ -76,24 +77,25 @@ GameBg::PanzerSelectUi::~PanzerSelectUi()
 
 void GameBg::PanzerSelectUi::Begin()
 {
+	m_Container = Engine::Get().application()->GetScene()->GetGameObject<PanzerContainer>(LAYER_3D_ACTOR);
 }
 
 void GameBg::PanzerSelectUi::Update()
 {
-	auto container = Engine::Get().application()->GetScene()->GetGameObject<PanzerContainer>(LAYER_3D_ACTOR);
+	
 	// 上
-	if (container->GetButton() == 1)
+	if (m_Container->GetButton() == 1)
 	{
 		std::rotate(m_TexCoord.rbegin(), m_TexCoord.rbegin() + 1, m_TexCoord.rend());
 	}
 	// 下
-	else if (container->GetButton() == 2)
+	else if (m_Container->GetButton() == 2)
 	{
 		// 配列を左シフト
 		std::rotate(m_TexCoord.begin(), m_TexCoord.begin() + 1, m_TexCoord.end());
 	}
 	// 選択をリセット
-	container->Reset();
+	m_Container->Reset();
 }
 
 void GameBg::PanzerSelectUi::Event()
@@ -223,20 +225,27 @@ GameBg::Mode::~Mode()
 
 void GameBg::Mode::Begin()
 {
+	m_Command = Engine::Get().application()->GetScene()->GetGameObject<SelectCommand>(ELayer::LAYER_SYSTEM);
 }
 
 void GameBg::Mode::Update()
 {
 	m_Alpha += m_Color;
-	if (m_Alpha < 0.5f)
+	if (m_Alpha < 0.4f)
 	{
-		m_Alpha = 0.5f;
+		m_Alpha = 0.4f;
 		m_Color *= -1;
 	}
 	else if (m_Alpha > 1.0f)
 	{
 		m_Alpha = 1.0f;
 		m_Color *= -1;
+	}
+
+	// ゲームモードを選択していないとき
+	if (m_Command->GetSelect() == true)
+	{
+		m_Alpha = 1.0f;
 	}
 }
 
@@ -262,14 +271,10 @@ bool GameBg::Mode::SetMode(bool f)
 
 void GameBg::Mode::DrawFrame(D3DXVECTOR2 pos, float size_y)
 {
-	if (Engine::Get().application()->GetScene()->GetGameObject<SelectCommand>(ELayer::LAYER_SYSTEM)->GetSelect() == false)
-	{
-		m_Renderer->Draw(pos, D3DXVECTOR2(512.0f, size_y), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
-	}
-	else
-	{
-		m_Renderer->Draw(pos, D3DXVECTOR2(512.0f, size_y), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f));
-	}
+	auto size = D3DXVECTOR2(512.0f, size_y);
+	auto ul = D3DXVECTOR2(0.0f, 0.375f);
+	auto lr = D3DXVECTOR2(0.25f, 0.5f);
+	m_Renderer->Draw(pos, size, ul, lr, D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
 }
 
 void GameBg::Mode::DrawModeName(D3DXVECTOR2 pos, float size_y)

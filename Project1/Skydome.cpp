@@ -23,6 +23,7 @@ Skydome::~Skydome()
 
 void Skydome::Begin()
 {
+	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	m_Transform->position(0.0f, -1.0f, 0.0f);
 	m_Transform->scale(0.3f);
 }
@@ -48,9 +49,8 @@ void Skydome::Draw()
 #pragma region private_method
 void Skydome::UpdateMatrix()
 {
-	// カメラの情報を取得する
-	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	D3DXVECTOR3 pos = camera->position();
+	// カメラの位置を取得する
+	D3DXVECTOR3 pos = m_Camera->position();
 
 	// 錯覚維持のためにスカイドームがカメラの中心に来るようにする
 	// マトリクス設定

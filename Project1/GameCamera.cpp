@@ -24,12 +24,12 @@ GameCamera::~GameCamera()
 
 void GameCamera::Begin()
 {
-
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 }
 
 void GameCamera::Update()
 {
-	const auto& pivot = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->pivot();
+	const auto& pivot = m_Player->pivot();
 
 	// FPSÉÇÅ[Éh
 	if (m_EnableFpsMode)

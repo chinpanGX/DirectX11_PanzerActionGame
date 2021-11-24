@@ -74,12 +74,12 @@ GameBg::ResultUi::~ResultUi()
 
 void GameBg::ResultUi::Begin()
 {
-
+	m_Bg = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG);
 }
 
 void GameBg::ResultUi::Update()
 {
-	auto& state = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->GetState();
+	auto& state = m_Bg->GetState();
 	m_Alpha = state.GetAlpha();
 	//	‘I‘ð‚µ‚Ä‚¢‚éˆÊ’u‚ÉˆÚ“®‚µ‚Ä•`‰æ
 	switch (state.GetSelect())
