@@ -84,9 +84,6 @@ void Controller::Shot()
 {
 	// リロードが完了しているかチェックする
 	m_Player->Shot();
-
-	// リロードゲージの表示ON
-	Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI)->BeginReload();
 }
 
 void Controller::UseSkill()

@@ -40,11 +40,13 @@ Player::~Player()
 
 void Player::Begin()
 {
-	m_EnemyList = Engine::Get().application()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
-	m_Command = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
-	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
-	m_DrawSkill = Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
+	auto scene = Engine::Get().application()->GetScene();
+	m_EnemyList = scene->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
+	m_Command = scene->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
+	m_Camera = scene->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	m_Pause = scene->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+	m_DrawSkill = scene->GetGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
+	m_Reload = scene->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	reload().Init();
 	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -150.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 }
@@ -112,6 +114,9 @@ void Player::Shot()
 	
 	// リロード開始
 	reload().Begin();
+
+	// リロードゲージの表示ON
+	m_Reload->BeginReload();
 }
 
 void Player::OnCollision()

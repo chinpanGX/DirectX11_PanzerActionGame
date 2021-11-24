@@ -93,7 +93,7 @@ void PlayerReload::Update()
 				if(m_Count == QuickReload)
 				{
 					// リロードがストップする
-					m_Reload->OnStop();
+					m_Reload->Stop();
 					m_OnReloadStop = true;
 				}
 				m_Count++;
@@ -121,11 +121,13 @@ void PlayerReload::ReloadStop()
 	// リロードストップ中
 	if (m_OnReloadStop == true)
 	{
+		// ストップする時間
+		float stopTime = 3.0;
 		m_Time += Fps::Get().deltaTime;
-		if (m_Time > 3)
+		if (m_Time > stopTime)
 		{
 			m_OnReloadStop = false;
-			m_Reload->OffStop();
+			m_Reload->Restart();
 		}
 	}
 }

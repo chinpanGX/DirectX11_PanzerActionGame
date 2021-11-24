@@ -43,38 +43,41 @@ namespace PlayerUi
 		void Event()override;
 		void Draw()override;
 		
-		void BeginReload();
-		void OnStop(); // リロードを止める
-		void OffStop();
-
-		// クイックリロード成功
-		void SuccessQuickReload();
-		void FailedQuickReload();
+		void BeginReload();			// リロード開始
+		void Stop();				// リロードを止める
+		void Restart();				// リスタート
+		void SuccessQuickReload();	// クイックリロード成功
 
 		// クイックリロードが有効かどうか返す
 		const bool enableQuickReload()const;		
 	private:
-		// リロード終了
-		void Finish();
+		/* 更新処理のヘルパー関数 */
+		void NowReload();		// リロード優の処理
+		void Finish();			// リロード終了
+		void SwitchNotDraw();	// 非表示にする
+
+		/* 描画処理のヘルパー関数 */
+		void DrawIcon();
+
 
 		D3DXVECTOR4 m_IconColor; // アイコンの色
-		
-		D3DXVECTOR2 m_GagePosition; // ゲージの位置
+
+		D3DXVECTOR2 m_GagePosition;			// ゲージの位置
 		D3DXVECTOR2 m_QuickRangePosition;	// クイックリロード範囲
-		D3DXVECTOR2 m_IconPosition;
+		D3DXVECTOR2 m_IconPosition;			// アイコンの位置
 
 		std::unique_ptr<Render> m_Render;
 		Player* m_Player;
 
 		// ゲージのサイズ
 		const float m_MaxSize = 500.0f; // MAXサイズ
-		float m_Center; // 画面中央
 		float m_NowGage = 0.0f;			// 		
 		float m_Amount; // 増える量
 		
 		float m_Time;
 
-		bool m_NowStop; // ストップ中かどうか
+		bool m_DrawQuickGage = true; // 高速リロードの表示
+		bool m_NowStop = false; // ストップ中かどうか
 		bool m_NowReload = false; // リロード中かどうか
 		bool m_EnableQuickReload = false;
 		bool m_Draw = false; // 描画するかどうか

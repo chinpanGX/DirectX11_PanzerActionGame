@@ -7,7 +7,11 @@
 #pragma once
 #include "Pawn.h"
 
-namespace PlayerUi { class DrawSkill; }
+namespace PlayerUi 
+{ 
+	class DrawSkill; 
+	class Reload; 
+}
 class Resource;
 class GameCommand;
 class GameCamera;
@@ -34,6 +38,7 @@ private:
 	GameCamera* m_Camera;
 	Pause* m_Pause;
 	PlayerUi::DrawSkill* m_DrawSkill;
+	PlayerUi::Reload* m_Reload;
 	Resource& m_Resource;
 
 	float m_Volume = 0.0f;

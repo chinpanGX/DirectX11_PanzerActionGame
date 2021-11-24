@@ -75,10 +75,10 @@ namespace PlayerUi
 	Reload::Reload()
 	{
 		m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
-		m_Center = static_cast<float>(SCREEN_WIDTH / 2);
-		m_GagePosition = D3DXVECTOR2((m_Center - 250.0f), 750.0f);		
-		m_QuickRangePosition = D3DXVECTOR2((m_Center- 50.0f), 750.0f);
-		m_IconPosition = D3DXVECTOR2((m_Center - 250.0f), 750.0f);
+		float center = static_cast<float>(SCREEN_WIDTH / 2);
+		m_GagePosition = D3DXVECTOR2((center - 250.0f), 750.0f);		
+		m_QuickRangePosition = D3DXVECTOR2((center- 50.0f), 750.0f);
+		m_IconPosition = D3DXVECTOR2((center - 250.0f), 750.0f);
 	}
 
 	Reload::~Reload()
@@ -105,33 +105,16 @@ namespace PlayerUi
 		// リロード中
 		if (m_NowReload && m_NowStop == false)
 		{
-			m_NowGage += m_Amount;
-			m_IconPosition.x += m_Amount;
-			// クイックリロードの範囲内ならクイックリロードを有効にする
-			if (m_IconPosition.x - 25.0f > m_QuickRangePosition.x - 50.0f && m_IconPosition.x + 25.0f < m_QuickRangePosition.x + 50.0f)
-			{
-				m_EnableQuickReload = true;
-			}
-			else
-			{
-				m_EnableQuickReload = false;
-			}
+			// リロード中の処理
+			NowReload();
 			// リロード完了
-			if (m_Player->reload().finishReload())
-			{
-				m_EnableQuickReload = false;
-				m_NowReload = false;				
-			}
+			Finish();
 		}
+		// リロード終了
 		else if(m_NowReload == false && m_NowStop == false)
 		{
-			m_Time += Fps::Get().deltaTime;
-			if (m_Time > 1)
-			{
-				m_IconPosition.x = m_Center - 250.0f;
-				m_NowGage = 0.0f;
-				m_Draw = false;
-			}
+			// 描画の切り替え
+			SwitchNotDraw();			
 		}
 
 	}
@@ -148,41 +131,39 @@ namespace PlayerUi
 			// 背景ゲージ
 			m_Render->Draw(m_MaxSize, m_GagePosition, D3DXVECTOR4(0.0f, 0.35f, 0.55f, 0.35f));
 
-			// 高速リロード有効範囲のマーク
-			m_Render->Draw(100.0f, m_QuickRangePosition);
+			if (m_DrawQuickGage)
+			{
+				// 高速リロード有効範囲のマーク
+				m_Render->Draw(100.0f, m_QuickRangePosition);
+			}
 
 			// ゲージ
 			m_Render->Draw(m_NowGage, m_GagePosition, D3DXVECTOR4(1.0f, 0.5f, 0.7f, 0.5f));
 
-			// 有効かどうかで色を変える
-			if (m_EnableQuickReload)
-			{
-				m_IconColor = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0);
-			}
-			else
-			{
-				m_IconColor = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0);
-			}
-			
-			// アイコン 
-			m_Render->Draw(50.0f, m_IconPosition, m_IconColor);
+			// アイコンの描画
+			DrawIcon();
 		}
 	}
+
 	// リロード開始
 	void Reload::BeginReload()
 	{
 		m_NowReload = true;
 		m_Time = 0.0f;
+		m_IconPosition.x = m_GagePosition.x;
+		m_NowGage = 0.0f;
 		// ゲージの描画開始
 		m_Draw = true;
+		m_DrawQuickGage = true;
 	}
 
-	void Reload::OnStop()
+	void Reload::Stop()
 	{
 		m_NowStop = true;
+		m_DrawQuickGage = false;
 	}
 
-	void Reload::OffStop()
+	void Reload::Restart()
 	{
 		m_NowStop = false;
 	}
@@ -190,13 +171,10 @@ namespace PlayerUi
 	// クイックリロード成功
 	void Reload::SuccessQuickReload()
 	{
+		m_EnableQuickReload = false;
+		m_NowReload = false;
 		m_IconPosition.x = m_GagePosition.x + 500.0f;
 		m_NowGage = m_MaxSize;
-	}
-
-	// クイックリロード失敗
-	void Reload::FailedQuickReload()
-	{
 	}
 
 	// リロードが有効かどうか
@@ -206,10 +184,68 @@ namespace PlayerUi
 	}
 
 #pragma region _privateFunction_
-	// リロード終了
+	// リロード優の処理
+	void Reload::NowReload()
+	{
+		// ゲージをとアイコンの更新
+		m_NowGage += m_Amount;
+		m_IconPosition.x += m_Amount;
+
+		// クイックリロードの範囲内ならクイックリロードを有効にする
+		if (m_IconPosition.x - 25.0f > m_QuickRangePosition.x - 50.0f && m_IconPosition.x + 25.0f < m_QuickRangePosition.x + 50.0f)
+		{
+			m_EnableQuickReload = true;
+		}
+		else
+		{
+			m_EnableQuickReload = false;
+		}
+	}
+	// リロード完了
 	void Reload::Finish()
 	{
+		if (m_Player->reload().finishReload())
+		{
+			m_EnableQuickReload = false;
+			m_NowReload = false;
+		}
+	}
+
+	// 非表示にする
+	void Reload::SwitchNotDraw()
+	{
+		// リロードが完了したあと、表示する時間を設定
+		float drawTime = 0.1f;
+
+		// 時間更新
+		m_Time += Fps::Get().deltaTime;
 		
+		if (m_Time > drawTime)
+		{
+			// ゲージを元に戻す
+			m_IconPosition.x = m_GagePosition.x;
+			m_NowGage = 0.0f;
+
+			// 非表示にする
+			m_Draw = false;
+		}
+	}
+
+	// アイコンの描画
+	void Reload::DrawIcon()
+	{		
+		// クイックリロードが有効
+		if (m_EnableQuickReload && m_DrawQuickGage)
+		{
+			m_IconColor = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0);
+		}
+		else
+		{
+			m_IconColor = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0);
+		}
+
+		// アイコン 
+		m_Render->Draw(50.0f, m_IconPosition, m_IconColor);
 	}
 #pragma endregion _privateFunction_
 #pragma endregion _リロードゲージ_
