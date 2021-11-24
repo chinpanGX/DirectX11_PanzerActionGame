@@ -92,7 +92,10 @@ namespace PlayerUi
 		float t = m_Player->vehicle().status().reloadTime();
 		// 増える量を計算
 		m_Amount = m_MaxSize / t * Fps::Get().deltaTime;
+		
+		// 変数の初期化
 		m_NowStop = false;
+		m_Time = 0.0f;
 	}
 
 	void Reload::Update()
@@ -102,8 +105,8 @@ namespace PlayerUi
 		// リロード中
 		if (m_NowReload && m_NowStop == false)
 		{
-				m_NowGage += m_Amount;
-				m_IconPosition.x += m_Amount;
+			m_NowGage += m_Amount;
+			m_IconPosition.x += m_Amount;
 			// クイックリロードの範囲内ならクイックリロードを有効にする
 			if (m_IconPosition.x - 25.0f > m_QuickRangePosition.x - 50.0f && m_IconPosition.x + 25.0f < m_QuickRangePosition.x + 50.0f)
 			{
@@ -113,20 +116,24 @@ namespace PlayerUi
 			{
 				m_EnableQuickReload = false;
 			}
-
 			// リロード完了
 			if (m_Player->reload().finishReload())
 			{
 				m_EnableQuickReload = false;
-				m_NowReload = false;
-				m_IconPosition.x = m_Center - 250.0f;
-			}			
+				m_NowReload = false;				
+			}
 		}
-		// リロード終了
 		else if(m_NowReload == false && m_NowStop == false)
-		{			
-			m_NowGage = 0.0f;		
+		{
+			m_Time += Fps::Get().deltaTime;
+			if (m_Time > 1)
+			{
+				m_IconPosition.x = m_Center - 250.0f;
+				m_NowGage = 0.0f;
+				m_Draw = false;
+			}
 		}
+
 	}
 
 	void Reload::Event()
@@ -136,7 +143,7 @@ namespace PlayerUi
 	void Reload::Draw()
 	{
 		// リロード中のときに描画
-		if (m_NowReload)
+		if (m_Draw)
 		{
 			// 背景ゲージ
 			m_Render->Draw(m_MaxSize, m_GagePosition, D3DXVECTOR4(0.0f, 0.35f, 0.55f, 0.35f));
@@ -165,6 +172,9 @@ namespace PlayerUi
 	void Reload::BeginReload()
 	{
 		m_NowReload = true;
+		m_Time = 0.0f;
+		// ゲージの描画開始
+		m_Draw = true;
 	}
 
 	void Reload::OnStop()
@@ -177,11 +187,31 @@ namespace PlayerUi
 		m_NowStop = false;
 	}
 
+	// クイックリロード成功
+	void Reload::SuccessQuickReload()
+	{
+		m_IconPosition.x = m_GagePosition.x + 500.0f;
+		m_NowGage = m_MaxSize;
+	}
+
+	// クイックリロード失敗
+	void Reload::FailedQuickReload()
+	{
+	}
+
 	// リロードが有効かどうか
 	const bool Reload::enableQuickReload() const
 	{
 		return m_EnableQuickReload;
 	}
+
+#pragma region _privateFunction_
+	// リロード終了
+	void Reload::Finish()
+	{
+		
+	}
+#pragma endregion _privateFunction_
 #pragma endregion _リロードゲージ_
 
 #pragma region _HPGage_

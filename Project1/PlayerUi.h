@@ -46,10 +46,17 @@ namespace PlayerUi
 		void BeginReload();
 		void OnStop(); // リロードを止める
 		void OffStop();
-		// クイックリロードが有効かどうか返す
-		const bool enableQuickReload()const;
 
+		// クイックリロード成功
+		void SuccessQuickReload();
+		void FailedQuickReload();
+
+		// クイックリロードが有効かどうか返す
+		const bool enableQuickReload()const;		
 	private:
+		// リロード終了
+		void Finish();
+
 		D3DXVECTOR4 m_IconColor; // アイコンの色
 		
 		D3DXVECTOR2 m_GagePosition; // ゲージの位置
@@ -65,9 +72,12 @@ namespace PlayerUi
 		float m_NowGage = 0.0f;			// 		
 		float m_Amount; // 増える量
 		
+		float m_Time;
+
 		bool m_NowStop; // ストップ中かどうか
 		bool m_NowReload = false; // リロード中かどうか
 		bool m_EnableQuickReload = false;
+		bool m_Draw = false; // 描画するかどうか
 	};
 
 	// Hpゲージ

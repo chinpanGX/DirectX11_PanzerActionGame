@@ -13,6 +13,7 @@
 #include "Reload.h"
 #include "Fps.h"
 
+#pragma region _Reload_
 void Reload::BeginReload()
 {
 	m_FinishReload = false;
@@ -27,10 +28,11 @@ const bool Reload::finishReload() const
 {
 	return m_FinishReload;
 }
+#pragma endregion _リロード_
 
 namespace
 {
-	int count = 0;
+	const int QuickReload = 1;
 }
 
 PlayerReload::PlayerReload(const Status & status) : m_Status(status)
@@ -53,10 +55,13 @@ void PlayerReload::Begin()
 {
 	// 変数の初期化
 	Reload::BeginReload();
+
+	m_FinishReloadTime = m_Status.reloadTime() * 60.0f; // リロード完了する時間
+
 	m_NowReloadTime = 0.0f;
 	m_OnReloadStop = false;
 	m_Time = 0.0f;
-	count = 0;
+	m_Count = 0;
 }
 
 void PlayerReload::Update()
@@ -65,7 +70,6 @@ void PlayerReload::Update()
 	if(Reload::finishReload() == false && m_OnReloadStop == false)
 	{
 		// 時間を計測
-		const float time = m_Status.reloadTime() * 60.0f; // リロード完了する時間
 		m_NowReloadTime += m_Status.addTime();
 		
 		// クイックリロードが有効中
@@ -73,42 +77,47 @@ void PlayerReload::Update()
 		if (enableQuickReload)
 		{
 			// 左クリックをすると
-			bool isInput = m_Command->GetNowInput(Input::Shot);
-			if (isInput)
+			if (m_Command->GetNowInput(Input::Shot) && m_Count == QuickReload)
 			{
 				// リロードが終了する
 				Reload::FinishReload();
+				m_Reload->SuccessQuickReload();
 			}
 		}
 		// 有効じゃないとき
 		else
 		{
 			// 左クリックをするとリロードストップ
-			bool isInput = m_Command->GetNowInput(Input::Shot);
-			if (isInput)
-			{
-				if (count == 0)
+			if (m_Command->GetNowInput(Input::Shot))
+			{				
+				if(m_Count == QuickReload)
 				{
-					m_OnReloadStop = false;
-					count++;
-				}
-				else
-				{
-
-					// リロードが終了する
+					// リロードがストップする
 					m_Reload->OnStop();
 					m_OnReloadStop = true;
 				}
+				m_Count++;
 			}
 		}
-		// リロード完了時間を超えたら
-		if (m_NowReloadTime >= time)
-		{
-			// リロード完了
-			Reload::FinishReload();
-		}
+		// リロード時間を超えたとき
+		OverReloadTime();
 	}
+	// リロードストップ
+	ReloadStop();
+}
 
+void PlayerReload::OverReloadTime()
+{
+	// リロード完了時間を超えたら
+	if (m_NowReloadTime >= m_FinishReloadTime)
+	{
+		// リロード完了
+		Reload::FinishReload();
+	}
+}
+
+void PlayerReload::ReloadStop()
+{
 	// リロードストップ中
 	if (m_OnReloadStop == true)
 	{
@@ -121,6 +130,7 @@ void PlayerReload::Update()
 	}
 }
 
+#pragma region _CpuReload_
 CpuReload::CpuReload(const Status & status) : m_Status(status)
 {
 
@@ -155,3 +165,4 @@ void CpuReload::Update()
 		}
 	}
 }
+#pragma endregion _Cpuのリロード_
