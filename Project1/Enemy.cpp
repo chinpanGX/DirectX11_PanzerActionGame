@@ -35,6 +35,10 @@ Enemy::~Enemy()
 
 void Enemy::Begin()
 {
+	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
 	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 70.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	m_CpuRule = std::make_unique<CpuStateRule>(this);
@@ -43,7 +47,7 @@ void Enemy::Begin()
 
 void Enemy::Update()
 {
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }	
+	if(m_Pause->NowPausing()) { return; }	
 	m_State->Update(this, Fps::Get().deltaTime);
 	m_CpuRule->Update();
 	Pawn::Update();
@@ -54,24 +58,15 @@ void Enemy::Event()
 {
 	if (CollisionEnter())
 	{
-		auto player = Engine::Get().application()->GetScene()->GetGameObjects<Player>(ELayer::LAYER_3D_ACTOR);
-		for (auto p : player)
-		{
-			vehicle().CalcuateDamege(p);
-			ResetCollisionEnter();
-		}
+		vehicle().CalcuateDamege(m_Player);
+		ResetCollisionEnter();
 	}
 	Pawn::CheckZeroHp(this);
 }
 
 void Enemy::Draw()
 {
-	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	if (camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
-	{
-		//OutputDebugString("Enemy NoRendering\n");
-		return;
-	}
+	if (m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius())) { return; }
 	m_Resource.SetShader("PixelLighting");
 	vehicle().Draw();
 }

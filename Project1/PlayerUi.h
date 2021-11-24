@@ -43,7 +43,7 @@ namespace PlayerUi
 		void Event()override;
 		void Draw()override;
 		
-		void OnReload();
+		void BeginReload();
 		void OnStop(); // リロードを止める
 		void OffStop();
 		// クイックリロードが有効かどうか返す

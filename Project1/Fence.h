@@ -7,6 +7,9 @@
 #pragma once
 #include "StageObject.h"
 
+class Enemy;
+class Player;
+class GameCamera;
 class Fence : public StageObject
 {
 public:
@@ -18,5 +21,9 @@ public:
 	void Draw()override;
 private:
 	void OnCollisionToVehicle(const class Vehicle& Vehicle);
+
+	std::vector<Enemy*> m_EnemyList;
+	Player* m_Player;
+	GameCamera* m_Camera;
 };
 

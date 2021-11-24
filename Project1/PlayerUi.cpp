@@ -162,7 +162,7 @@ namespace PlayerUi
 		}
 	}
 	// リロード開始
-	void Reload::OnReload()
+	void Reload::BeginReload()
 	{
 		m_NowReload = true;
 	}

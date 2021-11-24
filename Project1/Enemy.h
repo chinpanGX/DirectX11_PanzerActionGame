@@ -7,6 +7,9 @@
 #pragma once
 #include "Cpu.h"
 
+class Pause;
+class Player;
+class GameCamera;
 class PanzerState;
 class Enemy final : public Cpu
 {
@@ -21,5 +24,8 @@ public:
 	void Respawn(const D3DXVECTOR3& pos)override;
 private:
 	void OnCollision()override;
+	Pause* m_Pause;
+	Player* m_Player;
+	GameCamera* m_Camera;
 	class Resource& m_Resource;
 };

@@ -7,6 +7,12 @@
 #pragma once
 #include "Pawn.h"
 
+namespace PlayerUi { class DrawSkill; }
+class Resource;
+class GameCommand;
+class GameCamera;
+class Enemy;
+class Pause;
 class Player final : public Pawn
 {
 public:
@@ -22,7 +28,14 @@ public:
 private:
 	void OnCollision()override;
 	void OnSound(); //	ÉTÉEÉìÉhÇÃê›íË
-	class Resource& m_Resource;
+	
+	std::vector<Enemy*> m_EnemyList;
+	GameCommand* m_Command;
+	GameCamera* m_Camera;
+	Pause* m_Pause;
+	PlayerUi::DrawSkill* m_DrawSkill;
+	Resource& m_Resource;
+
 	float m_Volume = 0.0f;
 	bool m_Audioplay = false;
 	bool m_HitWall = false;

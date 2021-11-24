@@ -35,17 +35,23 @@ namespace
 
 PlayerReload::PlayerReload(const Status & status) : m_Status(status)
 {
-	
+
 }
 
 PlayerReload::~PlayerReload()
 {
 }
 
-void PlayerReload::Begin()
+void PlayerReload::Init()
 {
+	// オブジェクトの取得
 	m_Reload = Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	m_Command = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
+}
+
+void PlayerReload::Begin()
+{
+	// 変数の初期化
 	Reload::BeginReload();
 	m_NowReloadTime = 0.0f;
 	m_OnReloadStop = false;
@@ -115,13 +121,16 @@ void PlayerReload::Update()
 	}
 }
 
-
 CpuReload::CpuReload(const Status & status) : m_Status(status)
 {
 
 }
 
 CpuReload::~CpuReload()
+{
+}
+
+void CpuReload::Init()
 {
 }
 

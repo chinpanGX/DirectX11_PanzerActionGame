@@ -10,8 +10,9 @@
 class Reload
 {
 public:
-	virtual void Begin() = 0;
-	virtual void Update() = 0;
+	virtual void Init() = 0; // 初期化処理
+	virtual void Begin() = 0; // リロード開始
+	virtual void Update() = 0; // 更新
 	const bool finishReload() const;
 protected:
 	void BeginReload();
@@ -32,12 +33,13 @@ public:
 	PlayerReload() = delete;
 	PlayerReload(const Status& status);
 	~PlayerReload();
+	void Init()override;
 	void Begin()override;
 	void Update()override;
 private:
 	const Status& m_Status;
-	PlayerUi::Reload* m_Reload;
-	GameCommand* m_Command;
+	PlayerUi::Reload* m_Reload = nullptr;
+	GameCommand* m_Command = nullptr;
 	float m_NowReloadTime; // リロード時間中
 	float m_Time;
 	bool m_OnReloadStop = false; // リロードストップ
@@ -49,6 +51,7 @@ public:
 	CpuReload() = delete;
 	CpuReload(const Status& status);
 	~CpuReload();
+	void Init()override;
 	void Begin()override;
 	void Update()override;
 private:

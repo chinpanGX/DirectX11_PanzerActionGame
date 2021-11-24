@@ -303,6 +303,11 @@ void TitleCommand::InputGamePad()
 #pragma region GameCommand
 GameCommand::GameCommand()
 {
+}
+GameCommand::~GameCommand() {}
+void GameCommand::Begin() 
+{
+
 	// カメラの操作
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	// プレイヤーの操作
@@ -314,8 +319,6 @@ GameCommand::GameCommand()
 	// 
 	m_NowInput.resize(11);
 }
-GameCommand::~GameCommand() {}
-void GameCommand::Begin() {}
 
 void GameCommand::Update()
 {

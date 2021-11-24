@@ -28,6 +28,10 @@ Fence::~Fence()
 
 void Fence::Begin()
 {
+	m_EnemyList = Engine::Get().application()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+
 	StageObject::radius(8.0f);
 	m_Collider->SetAABB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 	m_Collider->SetOBB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
@@ -37,16 +41,11 @@ void Fence::Update()
 {
 	Actor::UpdateCollision(*m_Collider);
 	// プレイヤー
-	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	if (player)
-	{
-		OnCollisionToVehicle(player->vehicle());
-	}
+	OnCollisionToVehicle(m_Player->vehicle());
 	// エネミー
-	auto enemy_1 = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
-	if (enemy_1)
+	for(auto enemy : m_EnemyList)
 	{
-		OnCollisionToVehicle(enemy_1->vehicle());
+		OnCollisionToVehicle(enemy->vehicle());
 	}
 }
 
@@ -60,8 +59,7 @@ void Fence::Event()
 
 void Fence::Draw()
 {
-	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	if (camera->NotDrawObject(m_Transform->position(), StageObject::radius()))
+	if (m_Camera->NotDrawObject(m_Transform->position(), StageObject::radius()))
 	{
 		return;
 	}

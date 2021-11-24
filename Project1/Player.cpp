@@ -40,12 +40,17 @@ Player::~Player()
 
 void Player::Begin()
 {
+	m_EnemyList = Engine::Get().application()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
+	m_Command = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
+	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+	reload().Init();
 	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -150.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 }
 
 void Player::Update()
 {
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
+	if(m_Pause->NowPausing()) { return; }
 	OnSound();
 	Pawn::Update();
 	OnCollision();
@@ -55,8 +60,7 @@ void Player::Event()
 {
 	if (CollisionEnter())
 	{
-		auto enemy = Engine::Get().application()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
-		for (auto e : enemy)
+		for (auto e : m_EnemyList)
 		{
 			// ダメージ計算
 			vehicle().CalcuateDamege(e);
@@ -68,12 +72,7 @@ void Player::Event()
 
 void Player::Draw()
 {
-	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	if (camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius()))
-	{
-		//OutputDebugString("Player NoRendering\n");
-		return;
-	}
+	if (m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius())) { return; }
 	m_Resource.SetShader("PixelLighting");
 	vehicle().Draw();
 }
@@ -82,7 +81,7 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 {
 	Pawn::SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	Pawn::RespawnSetMaxHP();
-	Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA)->Update();
+	m_Camera->Update();
 	this->Update();
 }
 
@@ -92,7 +91,7 @@ void Player::UseSkill()
 	if (vehicle().skill().alreadyUseble())
 	{		
 		// ゲージをリセットする
-		Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI)->Reset();
+		m_DrawSkill->Reset();
 		// スキルエフェクトを発生
 		vehicle().skill().PlayEffect(this);
 	}
@@ -110,24 +109,25 @@ void Player::Shot()
 	// オーディオ
 	Engine::Get().resource()->AudioPlay("Shot");
 	
+	// リロード開始
 	reload().Begin();
 }
 
 void Player::OnCollision()
 {
 	// 敵との当たり判定
-	auto enemy = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
+	for(auto enemy : m_EnemyList)
 	if (enemy)
 	{
 		if (Intersect(vehicle().collider(0).GetSphere3(), enemy->vehicle().collider(0).GetSphere3()))
 		{
 			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
 			{
-				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(Input::Forward))
+				if (m_Command->GetNowInput(Input::Forward))
 				{
 					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
-				if (Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(Input::Backward))
+				if (m_Command->GetNowInput(Input::Backward))
 				{
 					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
@@ -143,7 +143,7 @@ void Player::OnSound()
 	bool nowInput = false;
 	for (int32_t i = 0; i < 2; i++)
 	{
-		nowInput = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(i);
+		nowInput = m_Command->GetNowInput(i);
 		if (nowInput == true)
 		{
 			break;
