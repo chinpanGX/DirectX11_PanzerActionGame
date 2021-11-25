@@ -30,10 +30,14 @@ State::BodyRotation::~BodyRotation()
 {
 }
 
+void State::BodyRotation::Begin(Player * pPlayer)
+{
+	m_Player = pPlayer;
+}
+
 void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 {
-	float dir = GetDirection(pCpu);
-
+	float dir = FindTargetDirection(m_Player, pCpu, pCpu->vehicle().bodyTransform().forward());
 	// 右旋回
 	if (dir > 0.0f)
 	{
@@ -53,33 +57,26 @@ void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
 		pCpu->ChangeState(std::make_unique<State::Forward>());
 	}	
 }
-
-float State::BodyRotation::GetDirection(Cpu * pCpu)
-{
-	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);	
-	// プレイヤーとエネミーの距離を測る
-	D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
-	D3DXVECTOR3 cross;
-	// bodyの前ベクトルとdistの外積を求める
-	D3DXVec3Cross(&cross, &pCpu->vehicle().bodyTransform().forward(), &dist);
-	float t = cross.x - cross.y - cross.z;
-	// t > 0.0fなら右にいる
-	return t;
-}
 #pragma endregion BodyRotationメソッド
 
 #pragma region TurretRotation_method
 State::TurretRotation::TurretRotation()
 {
+	
 }
 
 State::TurretRotation::~TurretRotation()
 {
 }
 
+void State::TurretRotation::Begin(Player * pPlayer)
+{
+	m_Player = pPlayer;
+}
+
 void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 {
-	float dir = GetDirection(pCpu);
+	float dir = FindTargetDirection(m_Player, pCpu, pCpu->pivot().transform().forward());
 	// 右旋回
 	if (dir > 0.0f)
 	{
@@ -111,18 +108,6 @@ void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 	}
 }
 
-float State::TurretRotation::GetDirection(Cpu * pCpu)
-{
-	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	// プレイヤーとエネミーの距離を測る
-	D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - player->vehicle().bodyTransform().position();
-	D3DXVECTOR3 cross;
-	// pivotの前ベクトルとdistの外積を求める
-	D3DXVec3Cross(&cross, &pCpu->pivot().transform().forward(), &dist);
-	float t = cross.x - cross.y - cross.z;
-	// t > 0.0fなら右にいる
-	return t;	
-}
 #pragma endregion TurretRotationメソッド
 
 #pragma region GunRotation_method
@@ -131,6 +116,10 @@ State::GunRotation::GunRotation()
 }
 
 State::GunRotation::~GunRotation()
+{
+}
+
+void State::GunRotation::Begin(Player * pPlayer)
 {
 }
 

@@ -17,6 +17,7 @@ namespace State
 	public:
 		Shot();
 		~Shot();
+		void Begin(Player* pPlayer)override;
 		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
 		void PlayAudio(Cpu* pCpu);

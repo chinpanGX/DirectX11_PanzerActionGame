@@ -19,11 +19,16 @@
 
 State::Stay::Stay()
 {
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	
 }
 
 State::Stay::~Stay()
 {
+}
+
+void State::Stay::Begin(Player * pPlayer)
+{
+	m_Player = pPlayer;
 }
 
 void State::Stay::Update(Cpu * pCpu, float deltaTime)
@@ -46,4 +51,16 @@ void State::Stay::Update(Cpu * pCpu, float deltaTime)
 		OutputDebugString("サーチ範囲\n");
 		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
 	}
+}
+
+float FindTargetDirection(Player * pTarget, Cpu * pCpu, const D3DXVECTOR3& forward)
+{
+	// プレイヤーとエネミーの距離を測る
+	D3DXVECTOR3 dist = pCpu->vehicle().bodyTransform().position() - pTarget->vehicle().bodyTransform().position();
+	D3DXVECTOR3 cross;
+	// pivotの前ベクトルとdistの外積を求める
+	D3DXVec3Cross(&cross, &forward, &dist);
+	float t = cross.x - cross.y - cross.z;
+	// t > 0.0fなら右にいる
+	return t;
 }

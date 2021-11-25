@@ -17,6 +17,7 @@ namespace State
 	public:
 		Forward();
 		~Forward();
+		void Begin(Player* pPlayer)override;
 		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
 		float m_Time = 0.0f;
@@ -28,6 +29,7 @@ namespace State
 	public:
 		Backward();
 		~Backward();
+		void Begin(Player* pPlayer)override;
 		void Update(Cpu* pCpu, float deltaTime)override;
 	};
 }

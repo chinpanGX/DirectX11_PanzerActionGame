@@ -42,6 +42,7 @@ void Enemy::Begin()
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
 	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 70.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	m_State = std::make_unique<State::Stay>();
+	m_State->Begin(m_Player);
 }
 
 void Enemy::Update()
@@ -72,6 +73,7 @@ void Enemy::Draw()
 void Enemy::ChangeState(std::unique_ptr<PanzerState> State)
 {
 	m_State = std::move(State);
+	m_State->Begin(m_Player);
 }
 
 void Enemy::Respawn(const D3DXVECTOR3 & pos)

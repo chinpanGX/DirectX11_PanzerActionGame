@@ -17,6 +17,7 @@ namespace State
 	public:
 		Stay();
 		~Stay();
+		void Begin(Player* pPlayer)override;
 		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
 		Player* m_Player;
@@ -26,3 +27,6 @@ namespace State
 		const float m_ShotRange = 200.0f;	// 射程範囲
 	};
 }
+
+// ターゲットが左右どちらにいるかを調べる
+float FindTargetDirection(Player* target, Cpu* cpu, const D3DXVECTOR3& forward);

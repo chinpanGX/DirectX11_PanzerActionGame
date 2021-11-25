@@ -9,6 +9,7 @@
 #pragma once
 #include "PanzerState.h"
 
+class Player;
 namespace State
 {	
 	// ボディの旋回
@@ -17,9 +18,10 @@ namespace State
 	public:
 		BodyRotation();
 		~BodyRotation();
+		void Begin(Player* pPlayer)override;
 		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
-		float GetDirection(Cpu* pCpu); // Bodyを基準に、プレイヤーのいる方向を求める
+		class Player* m_Player;
 	};
 
 	// タレットの旋回
@@ -28,9 +30,10 @@ namespace State
 	public:
 		TurretRotation();
 		~TurretRotation();
+		void Begin(Player* pPlayer)override;
 		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
-		float GetDirection(Cpu* pCpu); // pivotを基準に、プレイヤーがいる方向を求める
+		class Player* m_Player;
 	};
 
 	// 主砲の上下
@@ -39,6 +42,7 @@ namespace State
 	public:
 		GunRotation();
 		~GunRotation();
+		void Begin(Player* pPlayer)override;
 		void Update(Cpu* pCpu, float deltaTime)override;
 	};
 }

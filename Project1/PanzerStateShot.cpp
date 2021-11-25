@@ -20,11 +20,16 @@
 
 State::Shot::Shot()
 {
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	
 }
 
 State::Shot::~Shot()
 {
+}
+
+void State::Shot::Begin(Player * pPlayer)
+{
+	m_Player = pPlayer;
 }
 
 void State::Shot::Update(Cpu * pCpu, float deltaTime)

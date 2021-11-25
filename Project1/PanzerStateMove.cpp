@@ -8,6 +8,7 @@
 #include "MoveComponent.h"
 #include "Enemy.h"
 #include "PanzerStateMove.h"
+#include "PanzerStateRotation.h"
 #include "PanzerStateStay.h"
 #include "Pivot.h"
 #include "Body.h"
@@ -19,7 +20,7 @@
 
 State::Forward::Forward()
 {
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	
 }
 
 
@@ -27,15 +28,26 @@ State::Forward::~Forward()
 {
 }
 
+void State::Forward::Begin(Player * pPlayer)
+{
+	m_Player = pPlayer;
+}
+
 void State::Forward::Update(Cpu * pCpu, float deltaTime)
 {
 	pCpu->moveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
 	pCpu->pivot().Move();
 
-	if (m_Player)
+	auto player = m_Player;
+	if (player)
 	{
+		float dir = FindTargetDirection(player, pCpu, pCpu->vehicle().bodyTransform().forward());
+		if (-5.0f > dir || dir > 5.0f)
+		{
+			pCpu->ChangeState(std::make_unique<State::BodyRotation>());
+		}
 		// ƒvƒŒƒCƒ„[‚ÆCPU‚Ì‹——£‚ð‹‚ß‚é
-		D3DXVECTOR3 playerPosition = m_Player->vehicle().bodyTransform().position();
+		D3DXVECTOR3 playerPosition = player->vehicle().bodyTransform().position();
 		D3DXVECTOR3 cpuPosition = pCpu->vehicle().bodyTransform().position();
 		D3DXVECTOR3 tmp = cpuPosition - playerPosition;
 		float dist = D3DXVec3Length(&tmp);
@@ -52,6 +64,10 @@ State::Backward::Backward()
 }
 
 State::Backward::~Backward()
+{
+}
+
+void State::Backward::Begin(Player * pPlayer)
 {
 }
 

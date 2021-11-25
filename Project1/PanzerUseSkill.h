@@ -15,6 +15,7 @@ namespace State
 	public:
 		UseSkill();
 		~UseSkill();
+		void Begin(Player* pPlayer)override;
 		void Update(class Cpu* pCpu, float deltaTime)override;
 	};
 }

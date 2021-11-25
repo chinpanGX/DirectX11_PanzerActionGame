@@ -37,19 +37,25 @@ namespace PlayerUi
 		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 		m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
-		// 増加する量を計算
+		// 増加する量
 		float t = m_Player->vehicle().skill().timeToActivateSkill();
 		m_AddAmount = m_MaxDrawSize / t * Fps::Get().deltaTime;
 		
 		// 減らす量
 		m_TimeLimit = m_Player->vehicle().skill().timeLimit();
 		m_SubAmount = m_MaxDrawSize / m_TimeLimit * Fps::Get().deltaTime + 0.2f;
+
+		m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
+		m_Time = 0.0f;
 	}
 
 	void DrawSkill::Update()
 	{
 		if (m_Pause->NowPausing()) { return; }
+		
+		// スキルを使ったかどうか
 		m_Use = m_Player->vehicle().skill().Use();
+		// ゲージを増やす
 		AddGage();
 		Use();
 	}
@@ -63,18 +69,8 @@ namespace PlayerUi
 		// ゲージの背景
 		D3DXVECTOR2 pos = D3DXVECTOR2(1450.0f, 940.0f);
 		m_Render->Draw(m_MaxDrawSize, pos, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
-		
 
 		// 実際のゲージ
-		// スキルを使っているかどうかで色を変える
-		if (m_Use)
-		{
-			m_Color = D3DXVECTOR4(0.7f, 0.1f, 1.0f, 1.0f);
-		}
-		else
-		{
-			m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
-		}
 		m_Render->Draw(m_DrawSize, pos, m_Color);
 	}
 
@@ -86,6 +82,11 @@ namespace PlayerUi
 		{
 			// ゲージを増やす
 			m_DrawSize += m_AddAmount;
+			// ゲージの量の調整
+			if (m_DrawSize > m_MaxDrawSize)
+			{
+				m_DrawSize = m_MaxDrawSize;
+			}
 		}
 	}
 
@@ -94,8 +95,22 @@ namespace PlayerUi
 		// スキルを使っている状態
 		if (m_Use)
 		{
+			// 色の変更
+			m_Color = D3DXVECTOR4(0.7f, 0.1f, 1.0f, 1.0f);
+
+			// 時間計測
 			m_Time += Fps::Get().deltaTime;
+
+			// ゲージを減らす
 			m_DrawSize -= m_SubAmount;
+
+			// ゲージ量の調整
+			if (0.0f > m_DrawSize)
+			{
+				m_DrawSize = 0.0f;
+			}
+			
+			// ゲージリセット
 			if (m_Time > m_TimeLimit)
 			{
 				Reset();
@@ -107,6 +122,8 @@ namespace PlayerUi
 	{
 		// 描画サイズを0にする
 		m_DrawSize = 0.0f;
+		m_Time = 0.0f;
+		m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
 	}
 #pragma endregion _private関数_
 #pragma endregion スキルゲージを描画する

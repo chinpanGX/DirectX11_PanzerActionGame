@@ -18,8 +18,6 @@ class PanzerState : public StateBase
 public:
 	PanzerState() {}
 	virtual ~PanzerState() {}
+	virtual void Begin(class Player* pPlayer) = 0;
 	virtual void Update(Cpu* pCpu, float deltaTime) = 0;
 };
-
-
-
