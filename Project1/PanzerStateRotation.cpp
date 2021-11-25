@@ -8,6 +8,7 @@
 ----------------------------------------------------------------*/
 #include "Cpu.h"
 #include "Vehicle.h"
+#include "Skill.h"
 #include "Reload.h"
 #include "MoveComponent.h"
 #include "Pivot.h"
@@ -18,8 +19,6 @@
 #include "Engine.h"
 #include "Application.h"
 #include "Player.h"
-#include <cfenv>
-
 
 #pragma region BodyRotation_method
 State::BodyRotation::BodyRotation()
@@ -92,12 +91,21 @@ void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 		pCpu->moveComponent().RotLeft(pCpu->vehicle().turretTransform(), deltaTime);
 		pCpu->pivot().moveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
 	}
+
+	// スキルが使える状態なら、使う
+	if (pCpu->vehicle().skill().alreadyUseble())
+	{
+		pCpu->UseSkill();
+		pCpu->ChangeState(std::make_unique<State::Stay>());
+	}
+
 	// リロードが完了したら撃つ
 	if (pCpu->reload().finishReload() == true)
 	{
 		pCpu->ChangeState(std::make_unique<State::Shot>());
 	}
 }
+
 float State::TurretRotation::GetDirection(Cpu * pCpu)
 {
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);

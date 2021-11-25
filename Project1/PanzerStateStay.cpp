@@ -7,7 +7,10 @@
 
 --------------------------------------------------------------*/
 #include "Cpu.h"
+#include "Engine.h"
+#include "Application.h"
 #include "Vehicle.h"
+#include "Player.h"
 #include "PanzerStateStay.h"
 #include "PanzerStateMove.h"
 #include "PanzerStateShot.h"
@@ -16,7 +19,7 @@
 
 State::Stay::Stay()
 {
-
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 }
 
 State::Stay::~Stay()
@@ -25,20 +28,20 @@ State::Stay::~Stay()
 
 void State::Stay::Update(Cpu * pCpu, float deltaTime)
 {
-	switch(pCpu->cpuRule().behavior())
-	{
-	// 射程範囲ない
-	case 0:
-		pCpu->ChangeState(std::make_unique<State::TurretRotation>());
-		break;
-	// 索敵範囲内
-	case 1:
-		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
-		break;	
-	//　スキルを使う
-	case 2:
-		pCpu->ChangeState(std::make_unique<State::UseSkill>());
-		break;
-	}
+	// 距離を求める
+	const auto& cpuPosition = pCpu->vehicle().bodyTransform().position();
+	const auto& playerPosition = m_Player->vehicle().bodyTransform().position();
+	D3DXVECTOR3 length = cpuPosition - playerPosition;
+	m_PlayerToDistance = D3DXVec3LengthSq(&length);
 
+	// 射程範囲内
+	if (m_PlayerToDistance < m_ShotRange)
+	{
+		pCpu->ChangeState(std::make_unique<State::TurretRotation>());
+	}
+	// サーチ範囲内
+	else if (m_PlayerToDistance < m_SearchRange)
+	{
+		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
+	}
 }

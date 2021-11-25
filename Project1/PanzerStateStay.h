@@ -9,7 +9,7 @@
 #pragma once
 #include "PanzerState.h"
 
-class CpuStateRule;
+class Player;
 namespace State
 {	
 	class Stay final : public PanzerState
@@ -18,5 +18,11 @@ namespace State
 		Stay();
 		~Stay();
 		void Update(Cpu* pCpu, float deltaTime)override;
+	private:
+		Player* m_Player;
+
+		float m_PlayerToDistance; // プレイヤーとの距離
+		const float m_SearchRange = 2000.0f; // サーチ範囲
+		const float m_ShotRange = 500.0f;	// 射程範囲
 	};
 }

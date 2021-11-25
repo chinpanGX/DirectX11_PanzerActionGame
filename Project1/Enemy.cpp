@@ -41,7 +41,6 @@ void Enemy::Begin()
 
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
 	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 70.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
-	m_CpuRule = std::make_unique<CpuStateRule>(this);
 	m_State = std::make_unique<State::Stay>();
 }
 
@@ -49,7 +48,6 @@ void Enemy::Update()
 {
 	if(m_Pause->NowPausing()) { return; }	
 	m_State->Update(this, Fps::Get().deltaTime);
-	m_CpuRule->Update();
 	Pawn::Update();
 	OnCollision();
 }

@@ -34,15 +34,6 @@ void Cpu::Draw()
 {
 }
 
-CpuStateRule & Cpu::cpuRule() const
-{
-	if (!m_CpuRule)
-	{
-		std::domain_error("Null");
-	}
-	return *m_CpuRule;
-}
-
 void Cpu::UseSkill()
 {
 	// スキルを使用
