@@ -79,8 +79,9 @@ State::TurretRotation::~TurretRotation()
 
 void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 {
+	float dir = GetDirection(pCpu);
 	// 右旋回
-	if (GetDirection(pCpu) > 0.0f)
+	if (dir > 0.0f)
 	{
 		pCpu->moveComponent().RotRight(pCpu->vehicle().turretTransform(), deltaTime);
 		pCpu->pivot().moveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
@@ -99,10 +100,14 @@ void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
 		pCpu->ChangeState(std::make_unique<State::Stay>());
 	}
 
-	// リロードが完了したら撃つ
-	if (pCpu->reload().finishReload() == true)
+	// -0.5f ～　0.5fの間
+	if (-0.5f < dir && dir < 0.5f)
 	{
-		pCpu->ChangeState(std::make_unique<State::Shot>());
+		// リロードが完了したら撃つ
+		if (pCpu->reload().finishReload() == true)
+		{
+			pCpu->ChangeState(std::make_unique<State::Shot>());
+		}
 	}
 }
 

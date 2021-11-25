@@ -32,16 +32,18 @@ void State::Stay::Update(Cpu * pCpu, float deltaTime)
 	const auto& cpuPosition = pCpu->vehicle().bodyTransform().position();
 	const auto& playerPosition = m_Player->vehicle().bodyTransform().position();
 	D3DXVECTOR3 length = cpuPosition - playerPosition;
-	m_PlayerToDistance = D3DXVec3LengthSq(&length);
+	m_PlayerToDistance = D3DXVec3Length(&length);
 
 	// 射程範囲内
 	if (m_PlayerToDistance < m_ShotRange)
 	{
+		OutputDebugString("射程範囲\n");
 		pCpu->ChangeState(std::make_unique<State::TurretRotation>());
 	}
 	// サーチ範囲内
 	else if (m_PlayerToDistance < m_SearchRange)
 	{
+		OutputDebugString("サーチ範囲\n");
 		pCpu->ChangeState(std::make_unique<State::BodyRotation>());
 	}
 }

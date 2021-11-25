@@ -9,6 +9,7 @@
 #pragma once
 #include "PanzerState.h"
 
+class Player;
 namespace State
 {
 	class Shot final : public PanzerState
@@ -19,5 +20,6 @@ namespace State
 		void Update(Cpu* pCpu, float deltaTime)override;
 	private:
 		void PlayAudio(Cpu* pCpu);
+		Player* m_Player;
 	};
 }

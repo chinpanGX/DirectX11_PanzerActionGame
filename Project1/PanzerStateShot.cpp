@@ -20,6 +20,7 @@
 
 State::Shot::Shot()
 {
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 }
 
 State::Shot::~Shot()
@@ -40,6 +41,7 @@ void State::Shot::Update(Cpu * pCpu, float deltaTime)
 	PlayAudio(pCpu);
 	// リロード開始
 	pCpu->reload().Begin();
+
 	// ステート変更
 	pCpu->ChangeState(std::make_unique<State::Stay>());
 }
@@ -47,13 +49,14 @@ void State::Shot::Update(Cpu * pCpu, float deltaTime)
 void State::Shot::PlayAudio(Cpu * pCpu)
 {
 	// プレイヤーの位置を取得
-	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	D3DXVECTOR3 playerPos = player->vehicle().bodyTransform().position();
+	D3DXVECTOR3 playerPos = m_Player->vehicle().bodyTransform().position();
 	// CPUの位置を取得
 	D3DXVECTOR3 cpuPos = pCpu->vehicle().bodyTransform().position();
 
 	// プレイヤーとCPU間の距離を取り,2倍する
-	float d = 2.0f * (Math::Sqrt((cpuPos.x - playerPos.x) * (cpuPos.x - playerPos.x) + (cpuPos.y - playerPos.y) *  (cpuPos.y - playerPos.y) + (cpuPos.z - playerPos.z) * (cpuPos.z - playerPos.z)));
+	D3DXVECTOR3 length = cpuPos - playerPos;
+	float d = 2.0f * D3DXVec3Length(&length);
+
 	// 絶対値を求める
 	d = Math::Abs(d);
 	// 1.0fより小さくする　
