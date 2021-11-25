@@ -18,7 +18,7 @@
 #include "SkillParticle.h"
 
 #pragma region Skill_method
-Skill::Skill() : m_AlreadyUseble(false)
+Skill::Skill()
 {
 }
 
@@ -50,7 +50,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 			// スキルをためる
 			m_NowTime += m_Amount * Fps::Get().deltaTime;
 			// たまったら有効にする
-			if (m_TimeToActivateSkill < m_NowTime)
+			if (m_NowTime > m_TimeToActivateSkill)
 			{
 				m_Phase = 1;
 			}
@@ -65,6 +65,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 	// スキルを使う
 	case 2:
 		m_AlreadyUseble = false;
+		m_Use = true;
 		for (size_t i = 0; i < m_UseSkill.size(); ++i)
 		{
 			m_UseSkill[i]->Use(status);
@@ -79,7 +80,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 			m_SkillEffect->transform().position(position);
 		}
 		// ５秒間有効
-		if (m_NowTime > 5.0f)
+		if (m_NowTime > m_TimeLimit)
 		{
 			Reset(status);
 		}
@@ -89,6 +90,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 
 void Skill::Reset(Status & status)
 {
+	m_Use = false;
 	for (size_t i = 0; i < m_UseSkill.size(); ++i)
 	{
 		m_UseSkill[i]->Reset(status);
@@ -135,8 +137,18 @@ const float Skill::timeToActivateSkill() const
 	return m_TimeToActivateSkill;
 }
 
+const float Skill::timeLimit() const
+{
+	return m_TimeLimit;
+}
+
 const bool Skill::alreadyUseble() const
 {
 	return m_AlreadyUseble;
+}
+
+const bool Skill::Use() const
+{
+	return m_Use;
 }
 #pragma endregion スキル

@@ -90,14 +90,11 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 
 void Player::UseSkill()
 {
-	vehicle().skill().Enable(this);
-	if (vehicle().skill().alreadyUseble())
-	{		
-		// ゲージをリセットする
-		m_DrawSkill->Reset();
-		// スキルエフェクトを発生
-		vehicle().skill().PlayEffect(this);
-	}
+	if (vehicle().skill().alreadyUseble() == false) { return; }
+	// スキルを使う
+	vehicle().skill().Enable(this);	
+	// スキルエフェクトを発生
+	vehicle().skill().PlayEffect(this);
 }
 
 void Player::Shot()

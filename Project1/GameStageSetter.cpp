@@ -37,13 +37,14 @@ void GameStageSetterWallBox::Set(Scene * scene)
 	// サイズは固定
 	D3DXVECTOR3 size = D3DXVECTOR3(5.0f, 5.0f, 5.0f);
 
-	for (int32_t i = 1; i <= 60; ++i)
+	// マップ範囲 600.0f*600.0f
+	for (int32_t i = 1; i < 59; ++i)
 	{
 		// 配置する位置を決める
-		D3DXVECTOR3 Far = D3DXVECTOR3(-300.0f + 10.0f * i, 0.0f, 300.0f);
-		D3DXVECTOR3 Near = D3DXVECTOR3(-300.0f + 10.0f * i, 0.0f, -300.0f);
-		D3DXVECTOR3 Right = D3DXVECTOR3(-300.0f, 0.0f, -300.0f + 10.0f * i);
-		D3DXVECTOR3 Left = D3DXVECTOR3(300.0f, 0.0f, -300.0f + 10.0f * i);
+		D3DXVECTOR3 Far = D3DXVECTOR3(-300.0f + 10.0f * i, 0.0f, 290.0f);
+		D3DXVECTOR3 Near = D3DXVECTOR3(-300.0f + 10.0f * i, 0.0f, -290.0f);
+		D3DXVECTOR3 Right = D3DXVECTOR3(-290.0f, 0.0f, -300.0f + 10.0f * i);
+		D3DXVECTOR3 Left = D3DXVECTOR3(290.0f, 0.0f, -300.0f + 10.0f * i);
 
 		// 壁を配置
 		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Far, size, g_NegUnitZ);

@@ -9,6 +9,7 @@
 #include "Actor.h"
 #include "Effect.h"
 
+class Pause;
 class Render;
 class Player;
 namespace PlayerUi
@@ -23,13 +24,25 @@ namespace PlayerUi
 		void Update()override;
 		void Event()override;
 		void Draw()override;
-		void Reset();
 	private:
+		/* 更新処理のヘルパー関数 */
+		void AddGage();
+		void Use();
+		void Reset();
+
+		D3DXVECTOR4 m_Color;
 		std::unique_ptr<Render> m_Render;
 		Player* m_Player;
+		Pause* m_Pause;
+
 		const float m_MaxDrawSize = 400.0f;
 		float m_DrawSize = 0.0f;
-		float m_Add; // 増加する量
+		float m_TimeLimit;
+		float m_Time;
+		float m_AddAmount; // 増加する量
+		float m_SubAmount; // 減らしていく量
+
+		bool m_Use;
 	};
 
 	// リロードゲージ
@@ -68,6 +81,7 @@ namespace PlayerUi
 
 		std::unique_ptr<Render> m_Render;
 		Player* m_Player;
+		Pause* m_Pause;
 
 		// ゲージのサイズ
 		const float m_MaxSize = 500.0f; // MAXサイズ

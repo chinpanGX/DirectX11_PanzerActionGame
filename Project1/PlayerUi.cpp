@@ -35,22 +35,23 @@ namespace PlayerUi
 	void DrawSkill::Begin()
 	{
 		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+		m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
-		// ゲージを増加する量を計算
+		// 増加する量を計算
 		float t = m_Player->vehicle().skill().timeToActivateSkill();
-		m_Add = m_MaxDrawSize / t * Fps::Get().deltaTime;
+		m_AddAmount = m_MaxDrawSize / t * Fps::Get().deltaTime;
+		
+		// 減らす量
+		m_TimeLimit = m_Player->vehicle().skill().timeLimit();
+		m_SubAmount = m_MaxDrawSize / m_TimeLimit * Fps::Get().deltaTime + 0.2f;
 	}
 
 	void DrawSkill::Update()
 	{
-		if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
-
-		// まだスキルが使える状態じゃない
-		if (m_Player->vehicle().skill().alreadyUseble() == false)
-		{
-			// ゲージを増やす
-			m_DrawSize += m_Add;
-		}
+		if (m_Pause->NowPausing()) { return; }
+		m_Use = m_Player->vehicle().skill().Use();
+		AddGage();
+		Use();
 	}
 
 	void DrawSkill::Event()
@@ -59,16 +60,55 @@ namespace PlayerUi
 
 	void DrawSkill::Draw()
 	{
+		// ゲージの背景
 		D3DXVECTOR2 pos = D3DXVECTOR2(1450.0f, 940.0f);
 		m_Render->Draw(m_MaxDrawSize, pos, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
-		m_Render->Draw(m_DrawSize, pos, D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f));
+		
+
+		// 実際のゲージ
+		// スキルを使っているかどうかで色を変える
+		if (m_Use)
+		{
+			m_Color = D3DXVECTOR4(0.7f, 0.1f, 1.0f, 1.0f);
+		}
+		else
+		{
+			m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
+		}
+		m_Render->Draw(m_DrawSize, pos, m_Color);
+	}
+
+#pragma region _privateFunction_
+	void DrawSkill::AddGage()
+	{
+		// まだスキルが使える状態じゃない
+		if (m_Player->vehicle().skill().alreadyUseble() == false)
+		{
+			// ゲージを増やす
+			m_DrawSize += m_AddAmount;
+		}
+	}
+
+	void DrawSkill::Use()
+	{
+		// スキルを使っている状態
+		if (m_Use)
+		{
+			m_Time += Fps::Get().deltaTime;
+			m_DrawSize -= m_SubAmount;
+			if (m_Time > m_TimeLimit)
+			{
+				Reset();
+			}
+		}
 	}
 
 	void DrawSkill::Reset()
 	{
-		// 描画サイズを０にする
+		// 描画サイズを0にする
 		m_DrawSize = 0.0f;
 	}
+#pragma endregion _private関数_
 #pragma endregion スキルゲージを描画する
 
 #pragma region _Reload_
@@ -88,6 +128,8 @@ namespace PlayerUi
 	void Reload::Begin()
 	{
 		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+		m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+
 		// リロード時間の取得
 		float t = m_Player->vehicle().status().reloadTime();
 		// 増える量を計算
@@ -100,7 +142,7 @@ namespace PlayerUi
 
 	void Reload::Update()
 	{
-		if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
+		if (m_Pause->NowPausing()) { return; }
 		
 		// リロード中
 		if (m_NowReload && m_NowStop == false)
