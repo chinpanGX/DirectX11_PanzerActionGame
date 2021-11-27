@@ -58,6 +58,9 @@ void GameCamera::Draw()
 
 	// プロジェクションマトリクスの設定
 	SetProjectionMatrix();
+
+	// シェーダーにカメラの位置を設定する
+	m_Graphics.SetCameraPosition(m_Position);
 }
 
 bool GameCamera::NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)

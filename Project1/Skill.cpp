@@ -65,7 +65,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 	// スキルを使う
 	case 2:
 		m_AlreadyUseble = false;
-		m_Use = true;
+		m_NowUse = true;
 		for (size_t i = 0; i < m_UseSkill.size(); ++i)
 		{
 			m_UseSkill[i]->Use(status);
@@ -90,7 +90,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 
 void Skill::Reset(Status & status)
 {
-	m_Use = false;
+	m_NowUse = false;
 	for (size_t i = 0; i < m_UseSkill.size(); ++i)
 	{
 		m_UseSkill[i]->Reset(status);
@@ -147,8 +147,8 @@ const bool Skill::alreadyUseble() const
 	return m_AlreadyUseble;
 }
 
-const bool Skill::Use() const
+const bool Skill::useSkillNow() const
 {
-	return m_Use;
+	return m_NowUse;
 }
 #pragma endregion スキル

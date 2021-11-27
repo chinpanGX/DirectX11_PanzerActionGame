@@ -50,5 +50,6 @@ void GarageCamera::Draw()
 	// プロジェクションマトリクスの設定
 	D3DXMatrixPerspectiveFovLH(&m_Projection, angle, aspect, 1.0f, 1000.0f);
 	m_Graphics.SetProjectionMatrix(m_Projection);
+
 	m_Graphics.SetCameraPosition(m_Position);
 }

@@ -4,7 +4,7 @@
     Author : o‡ãÄ‘¾
 
 ------------------------------------------------------*/
-#include "Common.hlsl"
+#include "Common.hlsli"
 
 Texture2D g_texture : register(t0);
 SamplerState g_samplerState : register(s0);

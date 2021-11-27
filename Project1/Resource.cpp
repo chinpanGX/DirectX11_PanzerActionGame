@@ -64,6 +64,7 @@ void Resource::LoadTexture_ThreadB()
 	m_Texture->Load("Effect", "Effect.jpg");
 	m_Texture->Load("Number", "Number.png");
 	m_Texture->Load("Timer", "TimeMarker.png");
+	m_Texture->Load("Toon", "Toon1.png");
 }
 
 void Resource::LoadModel_ThreadA()

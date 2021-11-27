@@ -76,7 +76,8 @@ void Player::Event()
 void Player::Draw()
 {
 	if (m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius())) { return; }
-	m_Resource.SetShader("PixelLighting");
+	m_Resource.SetShader("Toon");
+	m_Resource.SetTexture(1, "Toon");
 	vehicle().Draw();
 }
 

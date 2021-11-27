@@ -239,6 +239,7 @@ void GameScene::Game::Draw()
 	light.Enable = true;
 	light.Direction = D3DXVECTOR4(1.0f, -1.0f, 1.0f, 0.0f);
 	D3DXVec4Normalize(&light.Direction, &light.Direction);
+	light.Position = D3DXVECTOR4(0.0f, 100.0f, 0.0f, 0.0f);
 	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
 	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 	Engine::Get().graphics()->SetLight(light);

@@ -1,4 +1,10 @@
-#include "Common.hlsl"
+/*---------------------------------------------
+
+    [MappingPS.hlsl]
+    Author : o‡ãÄ‘¾
+
+----------------------------------------------*/
+#include "Common.hlsli"
 
 Texture2D g_Texture : register(t0);
 Texture2D g_TextureNormal : register(t1);

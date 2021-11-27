@@ -1,10 +1,10 @@
 /*-----------------------------------------------------
     
-    [PixellightingVS.hlsl]
+    [SpotLightVS.hlsl]
     Author : èoçá„ƒëæ
 
 ------------------------------------------------------*/
-#include "Common.hlsl"
+#include "Common.hlsli"
 
 void main(in VS_IN In, out PS_IN Out)
 {

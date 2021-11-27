@@ -39,8 +39,9 @@ public:
 	const float timeLimit() const;
 	// スキルが使える状態かどうか
 	const bool alreadyUseble() const;
-	// スキルを使う
-	const bool Use() const;
+	
+	// スキルを使っているかどうか
+	const bool useSkillNow() const;
 private:	
 	std::vector<std::unique_ptr<IUseSkill>> m_UseSkill;
 	class SkillParticle* m_SkillEffect;
@@ -51,5 +52,5 @@ private:
 	float m_Amount = 1.0f;					// 増やす量
 	float m_NowTime = 0.0f;
 	bool m_AlreadyUseble = false;			// スキルが使える状態かどうか
-	bool m_Use = false;						// スキルを使用したか
+	bool m_NowUse = false;						// スキルを使用したか
 };

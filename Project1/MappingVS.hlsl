@@ -1,4 +1,10 @@
-#include "Common.hlsl"
+/*------------------------------------------------
+    
+    [MappingVS.hlsl]
+    Author : èoçá„ƒëæ
+
+------------------------------------------------*/
+#include "Common.hlsli"
 
 void main(in VS_IN In, out VS_IN Out)
 {

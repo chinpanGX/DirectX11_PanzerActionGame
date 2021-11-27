@@ -1,10 +1,10 @@
 /*--------------------------------------------------------------
     
-    [PixelLightingPS.hlsl]
+    [SpotLightPS.hlsl]
     Author : èoçá„ƒëæ
 
 --------------------------------------------------------------*/
-#include "Common.hlsl"
+#include "Common.hlsli"
 
 Texture2D g_texture : register(t0);
 SamplerState g_samplerState : register(s0);
