@@ -54,7 +54,7 @@ namespace PlayerUi
 		if (m_Pause->NowPausing()) { return; }
 		
 		// スキルを使ったかどうか
-		m_Use = m_Player->vehicle().skill().Use();
+		m_Use = m_Player->vehicle().skill().useSkillNow();
 		// ゲージを増やす
 		AddGage();
 		Use();

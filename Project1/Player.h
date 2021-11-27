@@ -12,6 +12,7 @@ namespace PlayerUi
 	class DrawSkill; 
 	class Reload; 
 }
+class Graphics;
 class Resource;
 class GameCommand;
 class GameCamera;
@@ -33,13 +34,17 @@ private:
 	void OnCollision()override;
 	void OnSound(); //	ÉTÉEÉìÉhÇÃê›íË
 	
+
 	std::vector<Enemy*> m_EnemyList;
+	
+	D3DXVECTOR4 m_Param;
 	GameCommand* m_Command;
 	GameCamera* m_Camera;
 	Pause* m_Pause;
 	PlayerUi::DrawSkill* m_DrawSkill;
 	PlayerUi::Reload* m_Reload;
 	Resource& m_Resource;
+	Graphics& m_Graphics;
 
 	float m_Volume = 0.0f;
 	bool m_Audioplay = false;

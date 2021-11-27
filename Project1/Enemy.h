@@ -7,6 +7,8 @@
 #pragma once
 #include "Cpu.h"
 
+class Graphics;
+class Resource;
 class Pause;
 class Player;
 class GameCamera;
@@ -27,5 +29,6 @@ private:
 	Pause* m_Pause;
 	Player* m_Player;
 	GameCamera* m_Camera;
-	class Resource& m_Resource;
+	Resource& m_Resource;
+	Graphics& m_Graphics;
 };

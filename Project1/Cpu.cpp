@@ -38,5 +38,5 @@ void Cpu::UseSkill()
 {
 	// スキルを使用
 	vehicle().skill().Enable(this);
-	vehicle().skill().PlayEffect(this);	
+	vehicle().skill().PlayEffect(this);
 }

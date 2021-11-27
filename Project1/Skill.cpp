@@ -44,17 +44,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 	{
 	// スキルゲージをためる
 	case 0:
-		// スキルが有効じゃない
-		if (!m_AlreadyUseble)
-		{
-			// スキルをためる
-			m_NowTime += m_Amount * Fps::Get().deltaTime;
-			// たまったら有効にする
-			if (m_NowTime > m_TimeToActivateSkill)
-			{
-				m_Phase = 1;
-			}
-		}
+		Charge();
 		break;
 	// スキルが溜まって、準備完了
 	case 1:
@@ -64,21 +54,15 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		break;
 	// スキルを使う
 	case 2:
-		m_AlreadyUseble = false;
-		m_NowUse = true;
-		for (size_t i = 0; i < m_UseSkill.size(); ++i)
-		{
-			m_UseSkill[i]->Use(status);
-		}
-		m_Phase = 3;
+		Use(status);
 		break;
 	// スキルを使っている間
 	case 3:
-		m_NowTime += Fps::Get().deltaTime;
-		if (m_SkillEffect)
-		{
-			m_SkillEffect->transform().position(position);
-		}
+		m_NowTime += Fps::Get().deltaTime;		
+		// エフェクトの位置を戦車に合わせる
+		m_Effect->transform().position(position);
+		// アニメーションを再生する
+		PlayAnim();		
 		// ５秒間有効
 		if (m_NowTime > m_TimeLimit)
 		{
@@ -86,6 +70,13 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		}
 		break;
 	}
+}
+
+void Skill::PlayEffect(Pawn * pawn)
+{
+	auto pos = pawn->vehicle().bodyTransform().position();
+	m_Effect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
+	m_Effect->transform().position(pos);
 }
 
 void Skill::Reset(Status & status)
@@ -97,11 +88,11 @@ void Skill::Reset(Status & status)
 	}
 	m_NowTime = 0.0f;
 	m_Phase = 0;
-	if (m_SkillEffect != nullptr)
+	if (m_Effect != nullptr)
 	{
-		m_SkillEffect->OnDestroy();
-		m_SkillEffect = nullptr;
+		m_Effect->OnDestroy();
 	}
+	m_UvParam = D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f);
 }
 
 void Skill::SetTime(float amount)
@@ -118,13 +109,10 @@ void Skill::Enable(Pawn* pawn)
 	}
 }
 
-void Skill::PlayEffect(Pawn* pawn)
+/* ゲッター */
+const D3DXVECTOR4 & Skill::uv() const
 {
-	// エフェクトを発生する位置を戦車の位置にする
-	auto pos = pawn->vehicle().bodyTransform().position();
-	// エフェクトを再生する
-	m_SkillEffect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
-	m_SkillEffect->transform().position(pos);
+	return m_UvParam;
 }
 
 const int32_t Skill::phase() const
@@ -151,4 +139,38 @@ const bool Skill::useSkillNow() const
 {
 	return m_NowUse;
 }
+
+#pragma region _privateFunction_
+void Skill::Charge()
+{
+	// スキルが有効じゃない
+	if (!m_AlreadyUseble)
+	{
+		// スキルをためる
+		m_NowTime += m_Amount * Fps::Get().deltaTime;
+		// たまったら有効にする
+		if (m_NowTime > m_TimeToActivateSkill)
+		{
+			m_Phase = 1;
+		}
+	}
+}
+
+void Skill::Use(Status & status)
+{
+	m_AlreadyUseble = false;
+	m_NowUse = true;
+	for (size_t i = 0; i < m_UseSkill.size(); ++i)
+	{
+		m_UseSkill[i]->Use(status);
+	}
+	m_Phase = 3;
+}
+
+void Skill::PlayAnim()
+{
+	m_UvParam.x += 0.01f;
+	m_UvParam.y = 0.5f;
+}
+#pragma endregion _private関数
 #pragma endregion スキル

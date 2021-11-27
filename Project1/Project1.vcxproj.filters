@@ -347,9 +347,6 @@
     <ClCompile Include="Reload.cpp">
       <Filter>Actor\Panzer\Status</Filter>
     </ClCompile>
-    <ClCompile Include="SkillAnim.cpp">
-      <Filter>Actor\2D</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -654,9 +651,6 @@
     <ClInclude Include="Reload.h">
       <Filter>Actor\Panzer\Status</Filter>
     </ClInclude>
-    <ClInclude Include="SkillAnim.h">
-      <Filter>Actor\2D</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="MappingPS.hlsl">
@@ -669,9 +663,6 @@
       <Filter>シェーダー</Filter>
     </FxCompile>
     <FxCompile Include="vertexLightingVS.hlsl">
-      <Filter>シェーダー</Filter>
-    </FxCompile>
-    <FxCompile Include="SpotLightVS.hlsl">
       <Filter>シェーダー</Filter>
     </FxCompile>
     <FxCompile Include="SpotLightPS.hlsl">
@@ -687,9 +678,6 @@
       <Filter>シェーダー</Filter>
     </FxCompile>
     <FxCompile Include="unlitTextureVS.hlsl">
-      <Filter>シェーダー</Filter>
-    </FxCompile>
-    <FxCompile Include="ToonVS.hlsl">
       <Filter>シェーダー</Filter>
     </FxCompile>
     <FxCompile Include="ToonPS.hlsl">

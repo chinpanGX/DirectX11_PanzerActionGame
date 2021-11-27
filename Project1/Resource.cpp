@@ -32,6 +32,8 @@ Resource::~Resource()
 	m_Texture->Unload("Effect");
 	m_Texture->Unload("Number");
 	m_Texture->Unload("Timer");
+	m_Texture->Unload("Toon");
+	m_Texture->Unload("ToonAnim");
 	m_StaticModel->Unload("Sky");
 	m_StaticModel->Unload("Fence");
 	m_StaticModel->Unload("Bullet");
@@ -65,6 +67,7 @@ void Resource::LoadTexture_ThreadB()
 	m_Texture->Load("Number", "Number.png");
 	m_Texture->Load("Timer", "TimeMarker.png");
 	m_Texture->Load("Toon", "Toon1.png");
+	m_Texture->Load("ToonAnim", "SkillToon.png");
 }
 
 void Resource::LoadModel_ThreadA()

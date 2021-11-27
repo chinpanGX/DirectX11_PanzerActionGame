@@ -28,6 +28,6 @@ void main(in PS_IN In, out float4 outDiffuse : SV_TARGET)
     uv.x += _Parameter.x;
     uv.y = _Parameter.y;
     
-    color = g_textureToon.Sample(g_samplerState, uv).xyz; //明るさを取得
-    outDiffuse.rgb *= saturate(In.Diffuse.rgb * color); //テクスチャ * 頂点色 * 明るさ
+    color = g_textureToon.Sample(g_samplerState, uv); //明るさを取得
+    outDiffuse.rgb *= saturate(In.Diffuse.rgb * color * 1.5f); //テクスチャ * 頂点色 * 明るさ
 }

@@ -14,6 +14,7 @@
 #include "PanzerContainer.h"
 #include "Engine.h"
 #include "Resource.h"
+#include "Graphics.h"
 #include "Application.h"
 #include "Command.h"
 #include "Body.h"
@@ -28,7 +29,7 @@
 #include "Player.h"
 #include "PlayerUi.h"
 
-Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().resource())
+Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
 	Pawn::Create();
 }
@@ -76,8 +77,28 @@ void Player::Event()
 void Player::Draw()
 {
 	if (m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius())) { return; }
-	m_Resource.SetShader("Toon");
-	m_Resource.SetTexture(1, "Toon");
+	
+	// シェーダーの設定
+	m_Resource.SetVertexShader("PixelLighting");
+	m_Resource.SetInputLayout("PixelLighting");
+	// スキルを使っているか
+	if (vehicle().skill().useSkillNow())
+	{
+		// スキルを使っているときの設定
+		m_Resource.SetPixelShader("ToonAnim");
+		m_Resource.SetTexture(1, "ToonAnim");
+		D3DXVECTOR4 uv = vehicle().skill().uv();
+		m_Graphics.SetParameter(uv);
+	}
+	else
+	{
+		// デフォルトの設定
+		m_Resource.SetPixelShader("PixelLighting");
+		//m_Resource.SetPixelShader("Toon");
+		//m_Resource.SetTexture(1, "Toon");
+	}
+
+	// 描画
 	vehicle().Draw();
 }
 
@@ -94,7 +115,6 @@ void Player::UseSkill()
 	if (vehicle().skill().alreadyUseble() == false) { return; }
 	// スキルを使う
 	vehicle().skill().Enable(this);	
-	// スキルエフェクトを発生
 	vehicle().skill().PlayEffect(this);
 }
 

@@ -18,13 +18,14 @@
 #include "Factory.h"
 #include "Pause.h"
 #include "Player.h"
+#include "Skill.h"
 #include "Vehicle.h"
 #include "Command.h"
 #include "MoveComponent.h"
 #include "GameCamera.h"
 #include "Enemy.h"
 
-Enemy::Enemy() : Cpu(), m_Resource(*Engine::Get().resource())
+Enemy::Enemy() : Cpu(), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
 	Pawn::Create();	
 }
@@ -66,8 +67,26 @@ void Enemy::Event()
 void Enemy::Draw()
 {
 	if (m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius())) { return; }
-	m_Resource.SetShader("Toon");
-	m_Resource.SetTexture(1, "Toon");
+
+	// シェーダーの設定
+	m_Resource.SetVertexShader("PixelLighting");
+	m_Resource.SetInputLayout("PixelLighting");
+	// スキルを使っているか
+	if (vehicle().skill().useSkillNow())
+	{
+		// スキルを使っているときの設定
+		m_Resource.SetPixelShader("ToonAnim");
+		m_Resource.SetTexture(1, "ToonAnim");
+		D3DXVECTOR4 uv = vehicle().skill().uv();
+		m_Graphics.SetParameter(uv);
+	}
+	else
+	{
+		// デフォルトの設定
+		m_Resource.SetPixelShader("PixelLighting");
+		//m_Resource.SetPixelShader("Toon");
+		//m_Resource.SetTexture(1, "Toon");
+	}
 	vehicle().Draw();
 }
 
