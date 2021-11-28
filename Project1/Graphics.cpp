@@ -109,13 +109,23 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	m_Device->CreateBlendState(&blendDesc, m_BlendState[0].GetAddressOf());
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_NORMAL].GetAddressOf());
 	SetBlendStateDefault();
 
+	// 加算合成
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_ADD].GetAddressOf());
+
+	// 加算合成(透過有)
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_ADDALPHA].GetAddressOf());
+
+	// 減算合成
 	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ZERO;
 	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_COLOR;
-
-	m_Device->CreateBlendState(&blendDesc, m_BlendState[1].GetAddressOf());
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_SUB].GetAddressOf());
 
 	// 深度ステンシルステート設定
 	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
@@ -285,13 +295,25 @@ void Graphics::SetParameter(D3DXVECTOR4 Parameter)
 void Graphics::SetBlendStateDefault()
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	m_DeviceContext->OMSetBlendState(m_BlendState[0].Get(), blendFactor, 0xffffffff);
+	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_NORMAL].Get(), blendFactor, 0xffffffff);
+}
+
+void Graphics::SetBlendStateAdd()
+{
+	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_ADD].Get(), blendFactor, 0xffffffff);
+}
+
+void Graphics::SetBlendStateAddAlpha()
+{
+	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_ADDALPHA].Get(), blendFactor, 0xffffffff);
 }
 
 void Graphics::SetBlendStateSub()
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	m_DeviceContext->OMSetBlendState(m_BlendState[1].Get(), blendFactor, 0xffffffff);
+	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_SUB].Get(), blendFactor, 0xffffffff);
 }
 
 const Microsoft::WRL::ComPtr<ID3D11Device> Graphics::GetDevice() const

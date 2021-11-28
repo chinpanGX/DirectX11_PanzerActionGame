@@ -63,6 +63,7 @@ public:
 	void Begin();
 	void End();
 	void SetDepthEnable(bool Enable);
+	//　コンスタントバッファの
 	void SetWorldViewProjection2D();
 	void SetWorldMatrix(D3DXMATRIX & WorldMatrix);
 	void SetViewMatrix(D3DXMATRIX & ViewMatrix);
@@ -74,6 +75,8 @@ public:
 
 	// ブレンドステート
 	void SetBlendStateDefault();
+	void SetBlendStateAdd();
+	void SetBlendStateAddAlpha();
 	void SetBlendStateSub();
 
 	const ComPtr<ID3D11Device> GetDevice() const;
@@ -90,8 +93,19 @@ private:
 	ComPtr<ID3D11DepthStencilView>	m_DepthStencilView;
 	ComPtr<ID3D11DepthStencilState>	m_DepthStateEnable;
 	ComPtr<ID3D11DepthStencilState>	m_DepthStateDisable;
-	std::array<ComPtr<ID3D11BlendState>, 2> m_BlendState;
+
+	// ブレンドステート
+	enum EBlendState : int32_t
+	{
+		BLENDSTATE_NORMAL,	 // αブレンド
+		BLENDSTATE_ADD,		 // 加算合成
+		BLENDSTATE_ADDALPHA, // 加算合成（透過有）
+		BLENDSTATE_SUB,		 // 減算合成
+		BLENDSTATE_NUM_MAX
+	};
+	std::array<ComPtr<ID3D11BlendState>, EBlendState::BLENDSTATE_NUM_MAX> m_BlendState;
 	
+	// コンスタントバッファ
 	enum EBuffer : int32_t
 	{
 		CONSTANT_BUFFER_WORLD,
@@ -101,7 +115,7 @@ private:
 		CONSTANT_BUFFER_LIGHT,
 		CONSTANT_BUFFER_CAMERA,
 		CONSTANT_BUFFER_PARAMETER,
-		NUM_MAX
+		CONSTANT_BUFFER_NUM_MAX
 	};
-	std::array<ComPtr<ID3D11Buffer>, EBuffer::NUM_MAX> m_Buffer;
+	std::array<ComPtr<ID3D11Buffer>, EBuffer::CONSTANT_BUFFER_NUM_MAX> m_Buffer;
 };

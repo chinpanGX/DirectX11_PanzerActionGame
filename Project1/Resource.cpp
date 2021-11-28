@@ -57,7 +57,7 @@ void Resource::LoadTexture_ThreadA()
 	m_Texture->Load("Ui", "Ui01.png");
 	m_Texture->Load("Grass", "grass.jpg");
 	m_Texture->Load("Explosion", "explosion.png");
-	m_Texture->Load("Reload", "Reload.png");
+	m_Texture->Load("Reload", "BulletIcon.png");
 }
 
 void Resource::LoadTexture_ThreadB()

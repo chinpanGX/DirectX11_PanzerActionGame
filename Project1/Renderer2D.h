@@ -46,7 +46,8 @@ public:
 	Render() = delete;
 	Render(Graphics& graphics, Resource& resource);
 	~Render();
-	void Draw(float Param, const D3DXVECTOR2& pos, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f), const std::string& texture = "Gage");
+	void Draw(float param, const D3DXVECTOR2& pos, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+	void Draw(float param, const D3DXVECTOR2& pos, float size_y, const std::string& texture, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 private:
 	Graphics& m_Graphics;
 	Resource& m_Resource;

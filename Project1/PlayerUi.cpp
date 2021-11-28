@@ -131,11 +131,13 @@ namespace PlayerUi
 #pragma region _Reload_
 	Reload::Reload()
 	{
+		m_QuickReload = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Gage");
+		m_ReloadIcon = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Reload");
 		m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
 		float center = static_cast<float>(SCREEN_WIDTH / 2);
-		m_GagePosition = D3DXVECTOR2((center - 250.0f), 750.0f);		
-		m_QuickRangePosition = D3DXVECTOR2((center- 50.0f), 750.0f);
-		m_IconPosition = D3DXVECTOR2((center - 250.0f), 750.0f);
+		m_GagePosition = D3DXVECTOR2((center - 300.0f), 750.0f);		
+		m_QuickRangePosition = D3DXVECTOR2(center, 750.0f);
+		m_IconPosition = D3DXVECTOR2((center - 300.0f), 750.0f);
 	}
 
 	Reload::~Reload()
@@ -187,17 +189,22 @@ namespace PlayerUi
 		// リロード中のときに描画
 		if (m_Draw)
 		{
+			auto color = D3DXVECTOR4(0.0f, 0.35f, 0.55f, 0.35f);
 			// 背景ゲージ
-			m_Render->Draw(m_MaxSize, m_GagePosition, D3DXVECTOR4(0.0f, 0.35f, 0.55f, 0.35f));
+			m_Render->Draw(m_MaxSize, m_GagePosition, 15.0f, "Gage", color);
 
 			if (m_DrawQuickGage)
 			{
+				color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 0.7f);				
+				auto size = D3DXVECTOR2(160.0f, 30.0f);
 				// 高速リロード有効範囲のマーク
-				m_Render->Draw(100.0f, m_QuickRangePosition);
+				m_QuickReload->Draw(m_QuickRangePosition, size);
+				//m_Render->Draw(150.0f, m_QuickRangePosition, 15.0f, "Gage", color);
 			}
 
+			color = D3DXVECTOR4(1.0f, 0.5f, 0.7f, 0.5f);
 			// ゲージ
-			m_Render->Draw(m_NowGage, m_GagePosition, D3DXVECTOR4(1.0f, 0.5f, 0.7f, 0.5f));
+			m_Render->Draw(m_NowGage, m_GagePosition, 15.0f, "Gage", color);
 
 			// アイコンの描画
 			DrawIcon();
@@ -232,7 +239,7 @@ namespace PlayerUi
 	{
 		m_EnableQuickReload = false;
 		m_NowReload = false;
-		m_IconPosition.x = m_GagePosition.x + 500.0f;
+		m_IconPosition.x = m_GagePosition.x + m_MaxSize;
 		m_NowGage = m_MaxSize;
 	}
 
@@ -251,7 +258,7 @@ namespace PlayerUi
 		m_IconPosition.x += m_Amount;
 
 		// クイックリロードの範囲内ならクイックリロードを有効にする
-		if (m_IconPosition.x - 25.0f > m_QuickRangePosition.x - 50.0f && m_IconPosition.x + 25.0f < m_QuickRangePosition.x + 50.0f)
+		if (m_IconPosition.x - 40.0f > m_QuickRangePosition.x - 80.0f && m_IconPosition.x + 40.0f < m_QuickRangePosition.x + 80.0f)
 		{
 			m_EnableQuickReload = true;
 		}
@@ -296,15 +303,18 @@ namespace PlayerUi
 		// クイックリロードが有効
 		if (m_EnableQuickReload && m_DrawQuickGage)
 		{
-			m_IconColor = D3DXVECTOR4(1.0f, 1.0f, 0.0f, 1.0);
+			Engine::Get().graphics()->SetBlendStateSub();
+			//m_IconColor = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0);
 		}
 		else
 		{
 			m_IconColor = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0);
 		}
 
-		// アイコン 
-		m_Render->Draw(50.0f, m_IconPosition, m_IconColor);
+		// アイコン
+		m_ReloadIcon->Draw(m_IconPosition, D3DXVECTOR2(80.0f, 40.0f), D3DXVECTOR2(0.0f,0.0f), D3DXVECTOR2(0.99f, 1.0f), m_IconColor);
+
+		Engine::Get().graphics()->SetBlendStateDefault();
 	}
 #pragma endregion _privateFunction_
 #pragma endregion _リロードゲージ_

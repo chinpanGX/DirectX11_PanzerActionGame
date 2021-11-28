@@ -310,8 +310,9 @@ Render::~Render()
 {
 }
 
-void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & color, const std::string& texture)
+void Render::Draw(float param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & color)
 {
+
 	D3D11_MAPPED_SUBRESOURCE msr;
 	m_Graphics.GetDeviceContext()->Map(m_VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 
@@ -322,7 +323,7 @@ void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & colo
 	vertex[0].Diffuse = color;
 	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
 
-	vertex[1].Position = D3DXVECTOR3(pos.x + Param, pos.y - 10.0f, 0.0f);
+	vertex[1].Position = D3DXVECTOR3(pos.x + param, pos.y - 10.0f, 0.0f);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[1].Diffuse = color;
 	vertex[1].TexCoord = D3DXVECTOR2(1.0f, 0.0f);
@@ -332,7 +333,57 @@ void Render::Draw(float Param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & colo
 	vertex[2].Diffuse = color;
 	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 1.0f);
 
-	vertex[3].Position = D3DXVECTOR3(pos.x + Param, pos.y + 10.0f, 0.0f);
+	vertex[3].Position = D3DXVECTOR3(pos.x + param, pos.y + 10.0f, 0.0f);
+	vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	vertex[3].Diffuse = color;
+	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
+
+	m_Graphics.GetDeviceContext()->Unmap(m_VertexBuffer.Get(), 0);
+
+	// シェーダーの設定
+	m_Resource.SetShader("NoLighting");
+
+	//マトリクス設定
+	m_Graphics.SetWorldViewProjection2D();
+
+	//頂点バッファ設定
+	UINT stride = sizeof(Vertex3D);
+	UINT offset = 0;
+	m_Graphics.GetDeviceContext()->IASetVertexBuffers(0, 1, m_VertexBuffer.GetAddressOf(), &stride, &offset);
+
+	//テクスチャ設定
+	m_Resource.SetTexture(0, "Gage");
+
+	//プリミティブトポロジ設定
+	m_Graphics.GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
+
+	//ポリゴン描画
+	m_Graphics.GetDeviceContext()->Draw(4, 0);
+}
+
+void Render::Draw(float param, const D3DXVECTOR2 & pos, float size_y, const std::string & texture, const D3DXVECTOR4 & color)
+{
+	D3D11_MAPPED_SUBRESOURCE msr;
+	m_Graphics.GetDeviceContext()->Map(m_VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
+
+	Vertex3D* vertex = (Vertex3D*)msr.pData;
+
+	vertex[0].Position = D3DXVECTOR3(pos.x, pos.y - size_y, 0.0f);
+	vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	vertex[0].Diffuse = color;
+	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
+
+	vertex[1].Position = D3DXVECTOR3(pos.x + param, pos.y - size_y, 0.0f);
+	vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	vertex[1].Diffuse = color;
+	vertex[1].TexCoord = D3DXVECTOR2(1.0f, 0.0f);
+
+	vertex[2].Position = D3DXVECTOR3(pos.x, pos.y + size_y, 0.0f);
+	vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
+	vertex[2].Diffuse = color;
+	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 1.0f);
+
+	vertex[3].Position = D3DXVECTOR3(pos.x + param, pos.y + size_y, 0.0f);
 	vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	vertex[3].Diffuse = color;
 	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
