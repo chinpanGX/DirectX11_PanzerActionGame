@@ -24,6 +24,7 @@ public:
 	void Draw()override;
 	void ChangeState(std::unique_ptr<PanzerState> State)override;
 	void Respawn(const D3DXVECTOR3& pos)override;
+	bool IsDraw() const;
 private:
 	void OnCollision()override;
 	Pause* m_Pause;
@@ -31,4 +32,5 @@ private:
 	GameCamera* m_Camera;
 	Resource& m_Resource;
 	Graphics& m_Graphics;
+	bool m_IsNotDraw = false; // •`‰æ‚µ‚Ä‚¢‚é‚Ç‚¤‚©
 };

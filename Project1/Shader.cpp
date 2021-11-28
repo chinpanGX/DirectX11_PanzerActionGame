@@ -59,7 +59,7 @@ PixelShader::PixelShader(Graphics & graphics)
 	m_Map["PixelLighting"]->Load(assetname + "PixelLightingPS.cso");
 	m_Map["Toon"]->Load(assetname + "ToonPS.cso");
 	m_Map["ToonAnim"]->Load(assetname + "ToonAnimationPS.cso");
-	m_Map["GrayScaleTexture"]->Load("GrayScaleTexturePS.cso");
+	m_Map["GrayScaleTexture"]->Load(assetname + "GrayScaleTexturePS.cso");
 }
 
 PixelShader::~PixelShader()

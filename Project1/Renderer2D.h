@@ -22,7 +22,7 @@ public:
 	~Renderer2D();
 
 	// í∏ì_èÓïÒÇê›íËÇ∑ÇÈ
-	void SetVertex(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3DXVECTOR2& ul = D3DXVECTOR2(0.0f, 0.0f), const D3DXVECTOR2& lr = D3DXVECTOR2(1.0f, 1.0f));
+	void SetVertex(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3DXVECTOR2& ul = D3DXVECTOR2(0.0f, 0.0f), const D3DXVECTOR2& lr = D3DXVECTOR2(1.0f, 1.0f), const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 
 	// í èÌÇÃï`âÊ
 	void Draw();

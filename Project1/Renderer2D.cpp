@@ -96,27 +96,27 @@ Renderer2D::~Renderer2D()
 
 }
 
-void Renderer2D::SetVertex(const D3DXVECTOR2 & pos, const D3DXVECTOR2 & size, const D3DXVECTOR2 & ul, const D3DXVECTOR2 & lr)
+void Renderer2D::SetVertex(const D3DXVECTOR2 & pos, const D3DXVECTOR2 & size, const D3DXVECTOR2 & ul, const D3DXVECTOR2 & lr, const D3DXVECTOR4 & color)
 {
 	Vertex3D vertex[4];
 	vertex[0].Position = D3DXVECTOR3(pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0.0f);
 	vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[0].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[0].Diffuse = color;
 	vertex[0].TexCoord = D3DXVECTOR2(ul.x, ul.y);
 
 	vertex[1].Position = D3DXVECTOR3(pos.x + size.x * 0.5f, pos.y - size.y * 0.5f, 0.0f);
 	vertex[1].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[1].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[1].Diffuse = color;
 	vertex[1].TexCoord = D3DXVECTOR2(lr.x, ul.y);
 
 	vertex[2].Position = D3DXVECTOR3(pos.x - size.x * 0.5f, pos.y + size.y * 0.5f, 0.0f);
 	vertex[2].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[2].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[2].Diffuse = color;
 	vertex[2].TexCoord = D3DXVECTOR2(ul.x, lr.y);
 
 	vertex[3].Position = D3DXVECTOR3(pos.x + size.x * 0.5f, pos.y + size.y * 0.5f, 0.0f);
 	vertex[3].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
-	vertex[3].Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
+	vertex[3].Diffuse = color;
 	vertex[3].TexCoord = D3DXVECTOR2(lr.x, lr.y);
 
 	//頂点バッファ生成
@@ -193,7 +193,7 @@ void Renderer2D::Draw(float alpha)
 void Renderer2D::Draw(const D3DXVECTOR4& color)
 {
 	// シェーダーの設定
-	m_Resource.SetShader("Defualt");
+	m_Resource.SetShader("NoLighting");
 
 	//マトリクス設定
 	m_Graphics.SetWorldViewProjection2D();

@@ -66,7 +66,8 @@ void Enemy::Event()
 
 void Enemy::Draw()
 {
-	if (m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius())) { return; }
+	m_IsNotDraw = m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius());
+	if (m_IsNotDraw) { return; }
 
 	// シェーダーの設定
 	m_Resource.SetVertexShader("PixelLighting");
@@ -102,6 +103,17 @@ void Enemy::Respawn(const D3DXVECTOR3 & pos)
 	Pawn::RespawnSetMaxHP();
 	this->ChangeState(std::make_unique<State::Stay>());
 	this->Update();
+}
+
+bool Enemy::IsDraw() const
+{
+	// 描画していないならfalseを返す
+	if (m_IsNotDraw == true)
+	{
+		return false;
+	}
+	// 描画している
+	return true;
 }
 
 void Enemy::OnCollision()

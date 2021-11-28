@@ -182,6 +182,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGun.cpp" />
     <ClCompile Include="AudioManager.cpp" />
+    <ClCompile Include="MiniMap.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="MuzzleFlash.cpp" />
@@ -278,6 +279,7 @@
     <ClInclude Include="MainGun.h" />
     <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Manager.h" />
+    <ClInclude Include="MiniMap.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="MuzzleFlash.h" />

@@ -27,6 +27,7 @@
 #include "GameStage.h"
 #include "GameScene.h"
 #include "PlayerUi.h"
+#include "MiniMap.h"
 #include <thread>
 
 #pragma region GameScene::PanzerSelect_method
@@ -217,6 +218,7 @@ void GameScene::Game::Init()
 	AddGameObject<PlayerUi::Hp>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
+	AddGameObject<MiniMap>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }
@@ -258,12 +260,14 @@ void GameScene::Game::Load()
 	Engine::Get().resource()->AudioLoad("Shot", false);
 	// テクスチャのロード
 	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
+	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.png");
 }
 
 void GameScene::Game::Unload()
 {
 	Engine::Get().resource()->AudioUnload();
 	Engine::Get().resource()->UnloadTexture("SkillEffect");
+	Engine::Get().resource()->UnloadTexture("MiniMapBg");
 }
 
 #pragma endregion GameScene::Gameメソッド
