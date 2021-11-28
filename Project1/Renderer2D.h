@@ -32,7 +32,7 @@ public:
 	void Draw(const D3DXVECTOR4& color);
 	// map,unmap‚ð‚µ‚Ä•`‰æ
 	void Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3DXVECTOR2& ul = D3DXVECTOR2(0.0f, 0.0f), const D3DXVECTOR2& lr = D3DXVECTOR2(1.0f, 1.0f), 
-		const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+		const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f), bool ShaderSetting = true);
 private:
 	Graphics& m_Graphics;
 	Resource& m_Resource;

@@ -72,8 +72,6 @@ namespace PlayerUi
 		/* 描画処理のヘルパー関数 */
 		void DrawIcon();
 
-		D3DXVECTOR4 m_IconColor; // アイコンの色
-
 		D3DXVECTOR2 m_GagePosition;			// ゲージの位置
 		D3DXVECTOR2 m_QuickRangePosition;	// クイックリロード範囲
 		D3DXVECTOR2 m_IconPosition;			// アイコンの位置

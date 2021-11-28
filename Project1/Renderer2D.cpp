@@ -218,10 +218,14 @@ void Renderer2D::Draw(const D3DXVECTOR4& color)
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
 
-void Renderer2D::Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3DXVECTOR2& ul, const D3DXVECTOR2& lr, const D3DXVECTOR4& color)
+void Renderer2D::Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3DXVECTOR2& ul, const D3DXVECTOR2& lr, const D3DXVECTOR4& color, bool ShaderSetting)
 {
-	// シェーダーの設定
-	m_Resource.SetShader("NoLighting");
+	// シェーダーの設定をするかチェック
+	if (ShaderSetting)
+	{
+		// シェーダーの設定
+		m_Resource.SetShader("NoLighting");
+	}
 
 	D3D11_MAPPED_SUBRESOURCE msr;
 	m_Graphics.GetDeviceContext()->Map(m_VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);

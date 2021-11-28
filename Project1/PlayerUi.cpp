@@ -199,7 +199,6 @@ namespace PlayerUi
 				auto size = D3DXVECTOR2(160.0f, 30.0f);
 				// 高速リロード有効範囲のマーク
 				m_QuickReload->Draw(m_QuickRangePosition, size);
-				//m_Render->Draw(150.0f, m_QuickRangePosition, 15.0f, "Gage", color);
 			}
 
 			color = D3DXVECTOR4(1.0f, 0.5f, 0.7f, 0.5f);
@@ -299,22 +298,29 @@ namespace PlayerUi
 
 	// アイコンの描画
 	void Reload::DrawIcon()
-	{		
+	{	
+		auto size = D3DXVECTOR2(80.0f, 38.0f);
+		auto min = D3DXVECTOR2(0.0f, 0.0f);
+		auto max = D3DXVECTOR2(0.99f, 1.0f);
+		D3DXVECTOR4 color;
+
+		// デフォルトの設定
+		Engine::Get().resource()->SetVertexShader("NoLighting");
+		Engine::Get().resource()->SetInputLayout("NoLighting");
+	
 		// クイックリロードが有効
 		if (m_EnableQuickReload && m_DrawQuickGage)
-		{
-			Engine::Get().graphics()->SetBlendStateSub();
-			//m_IconColor = D3DXVECTOR4(0.0f, 0.0f, 1.0f, 1.0);
-		}
+		{			
+			Engine::Get().resource()->SetPixelShader("NoLighting");
+			color = D3DXVECTOR4(0.85f, 0.95f, 0.0f, 1.0);
+		}	
 		else
 		{
-			m_IconColor = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0);
+			Engine::Get().resource()->SetPixelShader("GrayScaleTexture");
+			color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0);
 		}
-
 		// アイコン
-		m_ReloadIcon->Draw(m_IconPosition, D3DXVECTOR2(80.0f, 40.0f), D3DXVECTOR2(0.0f,0.0f), D3DXVECTOR2(0.99f, 1.0f), m_IconColor);
-
-		Engine::Get().graphics()->SetBlendStateDefault();
+		m_ReloadIcon->Draw(m_IconPosition, size, min, max, color, false);
 	}
 #pragma endregion _privateFunction_
 #pragma endregion _リロードゲージ_
