@@ -261,6 +261,7 @@ void GameScene::Game::Load()
 	// テクスチャのロード
 	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
 	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.png");
+	Engine::Get().resource()->LoadTexture("MiniMapMarker", "MiniMapMarker.png");
 }
 
 void GameScene::Game::Unload()
@@ -268,6 +269,7 @@ void GameScene::Game::Unload()
 	Engine::Get().resource()->AudioUnload();
 	Engine::Get().resource()->UnloadTexture("SkillEffect");
 	Engine::Get().resource()->UnloadTexture("MiniMapBg");
+	Engine::Get().resource()->UnloadTexture("MiniMapMarker");
 }
 
 #pragma endregion GameScene::Gameメソッド

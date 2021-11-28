@@ -10,6 +10,22 @@
 #include "DefaultObject.h"
 #include <memory>
 
+class Transform;
+class PlayerIcon final
+{
+public:
+	PlayerIcon();
+	~PlayerIcon();
+	void Begin();
+	void Update();
+	void Draw(D3DXVECTOR2 pos, D3DXVECTOR2 size, float rot);
+private:	
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
+	Graphics& m_Graphics;
+	Resource& m_Resource;
+};
+
+
 class Enemy;
 class Player;
 class Renderer2D;
@@ -26,6 +42,7 @@ private:
 	std::unique_ptr<Renderer2D> m_Bg;
 	std::unique_ptr<Renderer2D> m_Map;
 	std::unique_ptr<Renderer2D> m_Icon;
+	std::unique_ptr<PlayerIcon> m_PlayerIcon;
 	Enemy* m_Enemy;
 	Player* m_Player;
 
@@ -33,6 +50,5 @@ private:
 	D3DXVECTOR2 m_EnemyPosition;
 
 	D3DXVECTOR2 m_Position;
-	float m_Radius;
+	float m_MapSize;
 };
-
