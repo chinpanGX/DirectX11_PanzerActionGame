@@ -18,6 +18,7 @@
 #include "MiniMap.h"
 #include "Utility.h"
 
+#pragma region _PlayerIcon
 PlayerIcon::PlayerIcon() : m_Graphics(*Engine::Get().graphics()), m_Resource(*Engine::Get().resource())
 {
 	Vertex3D vertex[4];
@@ -56,14 +57,6 @@ PlayerIcon::PlayerIcon() : m_Graphics(*Engine::Get().graphics()), m_Resource(*En
 }
 
 PlayerIcon::~PlayerIcon()
-{
-}
-
-void PlayerIcon::Begin()
-{
-}
-
-void PlayerIcon::Update()
 {
 }
 
@@ -126,7 +119,9 @@ void PlayerIcon::Draw(D3DXVECTOR2 pos, D3DXVECTOR2 size, float rot)
 	//ポリゴン描画
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
+#pragma endregion _プレイヤーのアイコン_
 
+#pragma region _MiniMap_
 MiniMap::MiniMap()
 {
 	m_Bg = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "MiniMapBg");
@@ -202,3 +197,4 @@ void MiniMap::Draw()
 		m_Icon->Draw(m_EnemyPosition, size, min, max);
 	}
 }
+#pragma endregion _ミニマップ_

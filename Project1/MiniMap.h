@@ -10,14 +10,14 @@
 #include "DefaultObject.h"
 #include <memory>
 
-class Transform;
+// プレイヤーのアイコン
 class PlayerIcon final
 {
 public:
 	PlayerIcon();
 	~PlayerIcon();
-	void Begin();
-	void Update();
+	// param name
+	// pos = "描画位置", size = "描画サイズ", rot = "回転"
 	void Draw(D3DXVECTOR2 pos, D3DXVECTOR2 size, float rot);
 private:	
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
@@ -25,7 +25,7 @@ private:
 	Resource& m_Resource;
 };
 
-
+// ミニマップ
 class Enemy;
 class Player;
 class Renderer2D;
