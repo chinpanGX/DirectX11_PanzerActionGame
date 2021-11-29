@@ -72,10 +72,10 @@ void Resource::LoadTexture_ThreadB()
 
 void Resource::LoadModel_ThreadA()
 {
-	m_StaticModel->Load("Sky", "Other\\Sky.obj");
-	m_StaticModel->Load("Fence", "Other\\Fence.obj");
-	m_StaticModel->Load("Bullet", "Other\\TankBullet.obj");
-	m_StaticModel->Load("WallFence", "Other\\Box.obj");
+	m_StaticModel->Load("Sky", "Sky.obj");
+	m_StaticModel->Load("Fence", "Fence.obj");
+	m_StaticModel->Load("Bullet", "TankBullet.obj");
+	m_StaticModel->Load("WallFence", "Box.obj");
 }
 #pragma endregion 共通で使うリソースのロード
 

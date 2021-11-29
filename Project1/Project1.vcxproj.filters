@@ -350,6 +350,9 @@
     <ClCompile Include="MiniMap.cpp">
       <Filter>Actor\2D\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Supply.cpp">
+      <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -656,6 +659,9 @@
     </ClInclude>
     <ClInclude Include="MiniMap.h">
       <Filter>Actor\2D\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Supply.h">
+      <Filter>Actor\Stage\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

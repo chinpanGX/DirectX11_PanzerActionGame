@@ -17,8 +17,15 @@ public:
 	void Set(Scene* scene);
 };
 
-// BOXŒ^‚É•Ç
+// BOXŒ^‚Ì•Ç
 class GameStageSetterWallBox final : public ISetterObject
+{
+public:
+	void Set(Scene* scene);
+};
+
+// •â‹‹’n“_
+class GameStageSetterSupply final : public ISetterObject
 {
 public:
 	void Set(Scene* scene);

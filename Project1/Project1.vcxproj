@@ -221,6 +221,7 @@
     <ClCompile Include="Skydome.cpp" />
     <ClCompile Include="Spawn.cpp" />
     <ClCompile Include="StageObject.cpp" />
+    <ClCompile Include="Supply.cpp" />
     <ClCompile Include="TitleBg.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UnitStageSetter.cpp" />
@@ -323,6 +324,7 @@
     <ClInclude Include="Spawn.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="StageObject.h" />
+    <ClInclude Include="Supply.h" />
     <ClInclude Include="TitleBg.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UnitStageSetter.h" />

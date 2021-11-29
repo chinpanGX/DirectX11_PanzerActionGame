@@ -22,9 +22,9 @@
 Tiger::Tiger() : Vehicle("Tiger")
 {
 	// リソースのロード
-	Engine::Get().resource()->LoadModel("TigerBody", "Panzer\\TankBody.obj");
-	Engine::Get().resource()->LoadModel("TigerTurret", "Panzer\\TankTurret.obj");
-	Engine::Get().resource()->LoadModel("TigerGun", "Panzer\\TankMainGun.obj");
+	Engine::Get().resource()->LoadModel("TigerBody", "TankBody.obj");
+	Engine::Get().resource()->LoadModel("TigerTurret", "TankTurret.obj");
+	Engine::Get().resource()->LoadModel("TigerGun", "TankMainGun.obj");
 	// 戦車のパーツを組み立てる
 	SetPanzer();
 	// プロパティ設定
@@ -81,9 +81,9 @@ void Tiger::Draw()
 Centurion::Centurion() : Vehicle("Centurion")
 {
 	// リソースのロード
-	Engine::Get().resource()->LoadModel("CenturionBody", "Panzer\\CenturionBody.obj");
-	Engine::Get().resource()->LoadModel("CenturionTurret", "Panzer\\CenturionTurret.obj");
-	Engine::Get().resource()->LoadModel("CenturionGun", "Panzer\\CenturionMainGun.obj");
+	Engine::Get().resource()->LoadModel("CenturionBody", "CenturionBody.obj");
+	Engine::Get().resource()->LoadModel("CenturionTurret", "CenturionTurret.obj");
+	Engine::Get().resource()->LoadModel("CenturionGun", "CenturionMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetStatus(Status::Country::UK, 45.0f, 1350.0f, 248.0f, 114.0f, 50.0f, 6.0f, 0.56f);
@@ -139,9 +139,9 @@ void Centurion::Draw()
 Patton::Patton() : Vehicle("Patton")
 {
 	//　リソースのロード
-	Engine::Get().resource()->LoadModel("PattonBody", "Panzer\\PattonBody.obj");
-	Engine::Get().resource()->LoadModel("PattonTurret", "Panzer\\PattonTurret.obj");
-	Engine::Get().resource()->LoadModel("PattonGun", "Panzer\\PattonMainGun.obj");
+	Engine::Get().resource()->LoadModel("PattonBody", "PattonBody.obj");
+	Engine::Get().resource()->LoadModel("PattonTurret", "PattonTurret.obj");
+	Engine::Get().resource()->LoadModel("PattonGun", "PattonMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetStatus(Status::Country::US, 47.0f, 1600.0f, 240.0f, 139.0f, 60.0f, 8.0f, 0.6f);
@@ -197,9 +197,9 @@ void Patton::Draw()
 T_34_85::T_34_85() : Vehicle("T-34/85")
 {
 	// リソースのロード
-	Engine::Get().resource()->LoadModel("T-34/85Body", "Panzer\\T-34Body.obj");
-	Engine::Get().resource()->LoadModel("T-34/85Turret", "Panzer\\T-34Turret.obj");
-	Engine::Get().resource()->LoadModel("T-34/85Gun", "Panzer\\T-34MainGun.obj");
+	Engine::Get().resource()->LoadModel("T-34/85Body", "T-34Body.obj");
+	Engine::Get().resource()->LoadModel("T-34/85Turret", "T-34Turret.obj");
+	Engine::Get().resource()->LoadModel("T-34/85Gun", "T-34MainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetStatus(Status::Country::RU, 31.0f, 770.0f, 140.0f, 63.0f, 54.0f, 4.0f, 0.6f);
@@ -258,9 +258,9 @@ void T_34_85::Draw()
 IV_H::IV_H() : Vehicle("IV-H")
 {
 	// リソースのロード
-	Engine::Get().resource()->LoadModel("IV-HBody", "Panzer\\IVBody.obj");
-	Engine::Get().resource()->LoadModel("IV-HTurret", "Panzer\\IVTurret.obj");
-	Engine::Get().resource()->LoadModel("IV-HGun", "Panzer\\IVMainGun.obj");
+	Engine::Get().resource()->LoadModel("IV-HBody", "IVBody.obj");
+	Engine::Get().resource()->LoadModel("IV-HTurret", "IVTurret.obj");
+	Engine::Get().resource()->LoadModel("IV-HGun", "IVMainGun.obj");
 	// 戦車の設定
 	Vehicle::SetPanzer();
 	Vehicle::SetStatus(Status::Country::DE, 26.0f, 600.0f, 132.0f, 47.0f, 40.0f, 4.0f, 0.5f);
@@ -319,9 +319,9 @@ void IV_H::Draw()
 
 Sherman::Sherman() : Vehicle("Sherman")
 {
-	Engine::Get().resource()->LoadModel("ShermanBody", "Panzer\\ShermanBody.obj");
-	Engine::Get().resource()->LoadModel("ShermanTurret", "Panzer\\ShermanTurret.obj");
-	Engine::Get().resource()->LoadModel("ShermanGun", "Panzer\\ShermanMainGun.obj");
+	Engine::Get().resource()->LoadModel("ShermanBody", "ShermanBody.obj");
+	Engine::Get().resource()->LoadModel("ShermanTurret", "ShermanTurret.obj");
+	Engine::Get().resource()->LoadModel("ShermanGun", "ShermanMainGun.obj");
 
 	// 戦車の設定
 	Vehicle::SetPanzer();
@@ -346,9 +346,9 @@ Sherman::Sherman() : Vehicle("Sherman")
 
 Sherman::~Sherman()
 {
-	Engine::Get().resource()->UnloadModel("Panzer\\ShermanBody.obj");
-	Engine::Get().resource()->UnloadModel("Panzer\\ShermanTurret.obj");
-	Engine::Get().resource()->UnloadModel("Panzer\\ShermanMainGun.obj");
+	Engine::Get().resource()->UnloadModel("ShermanBody.obj");
+	Engine::Get().resource()->UnloadModel("ShermanTurret.obj");
+	Engine::Get().resource()->UnloadModel("ShermanMainGun.obj");
 }
 
 void Sherman::Begin()

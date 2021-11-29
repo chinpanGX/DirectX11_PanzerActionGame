@@ -127,7 +127,7 @@ void GameScene::PanzerSelect::Thread_Texture_B()
 void GameScene::PanzerSelect::Thread_Model()
 {
 	// モデル
-	Engine::Get().resource()->LoadModel("PanzerGarage", "Other\\souko.obj");
+	Engine::Get().resource()->LoadModel("PanzerGarage", "souko.obj");
 }
 
 #pragma endregion GameScene::PanzerSelectメソッド
@@ -262,6 +262,8 @@ void GameScene::Game::Load()
 	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
 	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.png");
 	Engine::Get().resource()->LoadTexture("MiniMapMarker", "MiniMapMarker.png");
+	// モデル
+	Engine::Get().resource()->LoadModel("Supply", "hokyuu.obj");
 }
 
 void GameScene::Game::Unload()
@@ -270,6 +272,7 @@ void GameScene::Game::Unload()
 	Engine::Get().resource()->UnloadTexture("SkillEffect");
 	Engine::Get().resource()->UnloadTexture("MiniMapBg");
 	Engine::Get().resource()->UnloadTexture("MiniMapMarker");
+	Engine::Get().resource()->UnloadModel("Supply");
 }
 
 #pragma endregion GameScene::Gameメソッド

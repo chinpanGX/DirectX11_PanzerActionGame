@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Fence.h"
 #include "WallBox.h"
+#include "Supply.h"
 #include "GameStageSetter.h"
 
 /*
@@ -60,4 +61,16 @@ void GameStageSetterWallBox::Set(Scene * scene)
 		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f), size);
 #endif
 	}
+}
+
+void GameStageSetterSupply::Set(Scene * scene)
+{
+	float x = 250.0f;
+	D3DXVECTOR3 pos = D3DXVECTOR3(x, 0.0f, 0.0f);
+	D3DXVECTOR3 scl = D3DXVECTOR3(3.0f, 3.0f, 3.0f);
+	D3DXVECTOR3 rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	scene->AddGameObject<Supply>(LAYER_3D_STAGE)->transform().Set(pos, scl, rot);
+	pos.x = -x;
+	rot.y = D3DXToRadian(180.0f);
+	scene->AddGameObject<Supply>(LAYER_3D_STAGE)->transform().Set(pos, scl, rot);
 }
