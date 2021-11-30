@@ -18,6 +18,7 @@ class GameCommand;
 class GameCamera;
 class Enemy;
 class Pause;
+class Supply;
 class Player final : public Pawn
 {
 public:
@@ -36,7 +37,8 @@ private:
 	
 
 	std::vector<Enemy*> m_EnemyList;
-	
+	std::vector<Supply*> m_SupplyList;
+
 	D3DXVECTOR4 m_Param;
 	GameCommand* m_Command;
 	GameCamera* m_Camera;

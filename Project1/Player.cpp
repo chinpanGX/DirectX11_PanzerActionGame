@@ -26,6 +26,7 @@
 #include "Enemy.h"
 #include "GameCamera.h"
 #include "Pivot.h"
+#include "Supply.h"
 #include "Player.h"
 #include "PlayerUi.h"
 
@@ -43,6 +44,7 @@ void Player::Begin()
 {
 	auto scene = Engine::Get().application()->GetScene();
 	m_EnemyList = scene->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
+	m_SupplyList = scene->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
 	m_Command = scene->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 	m_Camera = scene->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	m_Pause = scene->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
@@ -146,6 +148,26 @@ void Player::OnCollision()
 		if (Intersect(vehicle().collider(0).GetSphere3(), enemy->vehicle().collider(0).GetSphere3()))
 		{
 			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
+			{
+				if (m_Command->GetNowInput(Input::Forward))
+				{
+					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+				}
+				if (m_Command->GetNowInput(Input::Backward))
+				{
+					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+				}
+			}
+		}
+	}
+
+	// 補給地点との当たり判定
+	for (auto supply : m_SupplyList)
+	{
+		if (Intersect(vehicle().collider(0).GetSphere3(), supply->collider().GetSphere3()))
+		{
+			OutputDebugString("補給できる\n");
+			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
 			{
 				if (m_Command->GetNowInput(Input::Forward))
 				{

@@ -9,6 +9,7 @@
 #pragma once
 #include "DefaultObject.h"
 #include <memory>
+#include <vector>
 
 // プレイヤーのアイコン
 class PlayerIcon final
@@ -43,12 +44,16 @@ private:
 	std::unique_ptr<Renderer2D> m_Map;
 	std::unique_ptr<Renderer2D> m_Icon;
 	std::unique_ptr<PlayerIcon> m_PlayerIcon;
+	
+	std::vector<Supply*> m_SupplyList;
 	Enemy* m_Enemy;
 	Player* m_Player;
+
 
 	D3DXVECTOR2 m_PlayerPosition;
 	D3DXVECTOR2 m_EnemyPosition;
 
-	D3DXVECTOR2 m_Position;
-	float m_MapSize;
+	D3DXVECTOR2 m_Position; // ミニマップの位置
+	float m_MapSize;		// ミニマップの大きさ
+	float m_Shrink;			// 実際のマップに対してミニマップを縮小する倍率
 };

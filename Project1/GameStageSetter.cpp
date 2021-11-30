@@ -63,6 +63,9 @@ void GameStageSetterWallBox::Set(Scene * scene)
 	}
 }
 
+/*
+	ƒTƒvƒ‰ƒC
+*/
 void GameStageSetterSupply::Set(Scene * scene)
 {
 	float x = 250.0f;

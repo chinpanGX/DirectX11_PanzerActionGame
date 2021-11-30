@@ -23,6 +23,7 @@
 #include "Command.h"
 #include "MoveComponent.h"
 #include "GameCamera.h"
+#include "Supply.h"
 #include "Enemy.h"
 
 Enemy::Enemy() : Cpu(), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
@@ -36,6 +37,7 @@ Enemy::~Enemy()
 
 void Enemy::Begin()
 {
+	m_SupplyList = Engine::Get().application()->GetScene()->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
 	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);

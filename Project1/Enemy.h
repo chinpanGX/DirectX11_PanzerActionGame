@@ -6,6 +6,7 @@
 ---------------------------------------------------------------*/
 #pragma once
 #include "Cpu.h"
+#include <vector>
 
 class Graphics;
 class Resource;
@@ -13,6 +14,7 @@ class Pause;
 class Player;
 class GameCamera;
 class PanzerState;
+class Supply;
 class Enemy final : public Cpu
 {
 public:
@@ -27,6 +29,8 @@ public:
 	bool IsDraw() const;
 private:
 	void OnCollision()override;
+	
+	std::vector<Supply*> m_SupplyList;
 	Pause* m_Pause;
 	Player* m_Player;
 	GameCamera* m_Camera;

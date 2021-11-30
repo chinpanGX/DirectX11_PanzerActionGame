@@ -15,6 +15,7 @@
 #include "Pivot.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Supply.h"
 #include "MiniMap.h"
 #include "Utility.h"
 
@@ -136,9 +137,11 @@ MiniMap::~MiniMap()
 
 void MiniMap::Begin()
 {
+	m_SupplyList = Engine::Get().application()->GetScene()->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	m_Enemy = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 
+	m_Shrink = 0.5f; // 1/2倍
 	// マップの大きさ
 	m_MapSize = 300.0f;
 	// 補正値
@@ -161,12 +164,12 @@ void MiniMap::Update()
 {
 	// x座標は正負を反転させる
 	// プレイヤーの位置
-	m_PlayerPosition.x = m_Position.x - m_Player->vehicle().bodyTransform().position().x * 0.5f * -1;
-	m_PlayerPosition.y = m_Position.y - m_Player->vehicle().bodyTransform().position().z * 0.5f;
+	m_PlayerPosition.x = m_Position.x - m_Player->vehicle().bodyTransform().position().x * m_Shrink * -1;
+	m_PlayerPosition.y = m_Position.y - m_Player->vehicle().bodyTransform().position().z * m_Shrink;
 
 	// エネミーの位置
-	m_EnemyPosition.x = m_Position.x - m_Enemy->vehicle().bodyTransform().position().x * 0.5f * -1;
-	m_EnemyPosition.y = m_Position.y - m_Enemy->vehicle().bodyTransform().position().z * 0.5f;
+	m_EnemyPosition.x = m_Position.x - m_Enemy->vehicle().bodyTransform().position().x * m_Shrink* -1;
+	m_EnemyPosition.y = m_Position.y - m_Enemy->vehicle().bodyTransform().position().z * m_Shrink;
 }
 
 void MiniMap::Event()
@@ -185,8 +188,19 @@ void MiniMap::Draw()
 	auto size = D3DXVECTOR2(20.0f, 20.0f);
 	m_PlayerIcon->Draw(m_PlayerPosition, size, m_Player->pivot().transform().rotation().y);
 
-	auto min = D3DXVECTOR2(0.0f, 0.0f);
+	auto min = D3DXVECTOR2(0.5f, 0.0f);
 	auto max = D3DXVECTOR2(1.0f, 0.5f);
+
+	for (auto supply : m_SupplyList)
+	{
+		// ミニマップの描画する位置
+		D3DXVECTOR2 pos;
+		pos.x = m_Position.x - supply->transform().position().x * m_Shrink;
+		pos.y = m_Position.y - supply->transform().position().z * m_Shrink;
+		// アイコンの大きさ
+		auto isize = D3DXVECTOR2(30.0f, 30.0f);
+		m_Icon->Draw(pos, isize, min, max);
+	}
 
 	// 敵を描画しているかチェック
 	if (m_Enemy->IsDraw())
