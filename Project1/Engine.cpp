@@ -57,7 +57,7 @@ void Engine::Init(HINSTANCE h)
 	auto result = CoInitializeEx(0, COINITBASE_MULTITHREADED);
 	MessageBox(NULL, "ウィンドウモードで起動しますか？", "画面モード確認", MB_YESNO) == IDYES ? m_EnableWindowMode = true : m_EnableWindowMode = false;
 	CreateGameWindow(m_hwnd, m_WindowClass);	// ゲームウィンドウ
-	InputDevice::Init(h, m_hwnd, m_EnableWindowMode);	// コントローラの初期
+	InputDevice::Init(h, m_hwnd, false);	// コントローラの初期
 }
 
 void Engine::Run()

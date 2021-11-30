@@ -39,5 +39,5 @@ void Supply::Draw()
 	resource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
 	resource().SetStaticModel("Supply");
-	m_Collider->SystemDraw();
+	//m_Collider->SystemDraw();
 }

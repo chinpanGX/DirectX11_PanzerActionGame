@@ -198,8 +198,8 @@ void MiniMap::Draw()
 		pos.x = m_Position.x - supply->transform().position().x * m_Shrink;
 		pos.y = m_Position.y - supply->transform().position().z * m_Shrink;
 		// アイコンの大きさ
-		auto isize = D3DXVECTOR2(30.0f, 30.0f);
-		m_Icon->Draw(pos, isize, min, max);
+		auto iconSize = D3DXVECTOR2(30.0f, 30.0f);
+		m_Icon->Draw(pos, iconSize, min, max);
 	}
 
 	// 敵を描画しているかチェック
