@@ -169,16 +169,18 @@ void Player::OnCollision()
 	{
 		if (Intersect(vehicle().collider(0).GetSphere3(), supply->collider().GetSphere3()))
 		{
-			OutputDebugString("補給できる\n");
+			// ここで通知する
+		
+			//OutputDebugString("補給できる\n");
 			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
 			{
 				if (m_Command->GetNowInput(Input::Forward))
 				{
-					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);
 				}
 				if (m_Command->GetNowInput(Input::Backward))
 				{
-					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
+					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);			
 				}
 			}
 		}

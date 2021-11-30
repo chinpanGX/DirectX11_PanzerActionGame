@@ -120,7 +120,7 @@ void GameScene::PanzerSelect::Thread_Texture_A()
 void GameScene::PanzerSelect::Thread_Texture_B()
 {
 	Engine::Get().resource()->LoadTexture("Ui03", "Ui03.png");
-	Engine::Get().resource()->LoadTexture("Plane", "Plane.png");	
+	Engine::Get().resource()->LoadTexture("Plane", "Plane.dds");	
 	Engine::Get().resource()->LoadTexture("SelectList", "psUI.png");
 }
 
@@ -260,7 +260,7 @@ void GameScene::Game::Load()
 	Engine::Get().resource()->AudioLoad("Shot", false);
 	// テクスチャのロード
 	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
-	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.png");
+	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.dds");
 	Engine::Get().resource()->LoadTexture("MiniMapMarker", "MiniMapMarker.png");
 	// モデル
 	Engine::Get().resource()->LoadModel("Supply", "hokyuu.obj");

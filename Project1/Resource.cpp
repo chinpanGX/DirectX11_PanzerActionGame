@@ -32,7 +32,6 @@ Resource::~Resource()
 	m_Texture->Unload("Effect");
 	m_Texture->Unload("Number");
 	m_Texture->Unload("Timer");
-	m_Texture->Unload("Toon");
 	m_Texture->Unload("ToonAnim");
 	m_StaticModel->Unload("Sky");
 	m_StaticModel->Unload("Fence");
@@ -55,19 +54,18 @@ void Resource::LoadTexture_ThreadA()
 {
 	m_Texture->Load("Bg", "Bg.png");
 	m_Texture->Load("Ui", "Ui01.png");
-	m_Texture->Load("Grass", "grass.jpg");
+	m_Texture->Load("Grass", "grass.dds");
 	m_Texture->Load("Explosion", "explosion.png");
 	m_Texture->Load("Reload", "BulletIcon.png");
 }
 
 void Resource::LoadTexture_ThreadB()
 {
-	m_Texture->Load("Gage", "Gage.png");
+	m_Texture->Load("Gage", "Gage.dds");
 	m_Texture->Load("Effect", "Effect.jpg");
 	m_Texture->Load("Number", "Number.png");
 	m_Texture->Load("Timer", "TimeMarker.png");
-	m_Texture->Load("Toon", "Toon1.png");
-	m_Texture->Load("ToonAnim", "SkillToon.png");
+	m_Texture->Load("ToonAnim", "SkillToon.dds");
 }
 
 void Resource::LoadModel_ThreadA()

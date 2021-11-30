@@ -55,9 +55,6 @@
     <Filter Include="Actor\Panzer\Object">
       <UniqueIdentifier>{dbaa73f6-88ff-45f6-8e20-e36d5944e807}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\2D\Game">
-      <UniqueIdentifier>{c0bdaf23-a780-46db-9d65-493979e36584}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\2D\Number">
       <UniqueIdentifier>{77fa1926-2302-450f-8873-009a0f761d7b}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="Actor\Panzer\Status">
       <UniqueIdentifier>{807da5a4-7edb-4730-aea5-7579917f26d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\2D\Game">
+      <UniqueIdentifier>{c0bdaf23-a780-46db-9d65-493979e36584}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

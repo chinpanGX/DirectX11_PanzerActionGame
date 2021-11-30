@@ -142,17 +142,18 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	// サンプラーステート設定
 	D3D11_SAMPLER_DESC samplerDesc;
 	ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-	//samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-	samplerDesc.Filter = D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
+	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+	//samplerDesc.Filter = D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
 	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
 	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
 	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.MipLODBias = 0;
-	samplerDesc.MaxAnisotropy = 16;
+	//samplerDesc.MipLODBias = 0;
+	//samplerDesc.MaxAnisotropy = 16;
 	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
-	samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
 	samplerDesc.MinLOD = 0;
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+	samplerDesc.MaxAnisotropy = 16;
 
 	ID3D11SamplerState* samplerState = NULL;
 	m_Device->CreateSamplerState(&samplerDesc, &samplerState);
@@ -223,6 +224,7 @@ void Graphics::End()
 	m_SwapChain->Present(1, 0);
 }
 
+#pragma region _SetDepthStencilSwichONOFF_
 void Graphics::SetDepthEnable(bool Enable)
 {
 	if (Enable)
@@ -234,7 +236,9 @@ void Graphics::SetDepthEnable(bool Enable)
 		m_DeviceContext->OMSetDepthStencilState(m_DepthStateDisable.Get(), NULL);
 	}
 }
+#pragma endregion _デプスステンシルの有効/無効の切り替え_
 
+#pragma region _UpdateContantBuffer_
 void Graphics::SetWorldViewProjection2D()
 {
 	using namespace DirectX;
@@ -291,7 +295,9 @@ void Graphics::SetParameter(D3DXVECTOR4 Parameter)
 {
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER], &Parameter);
 }
+#pragma endregion _コンスタントバッファの更新_
 
+#pragma region _SetBlendState_
 void Graphics::SetBlendStateDefault()
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -315,6 +321,7 @@ void Graphics::SetBlendStateSub()
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_SUB].Get(), blendFactor, 0xffffffff);
 }
+#pragma endregion _ブレンドステートの設定_
 
 const Microsoft::WRL::ComPtr<ID3D11Device> Graphics::GetDevice() const
 {
