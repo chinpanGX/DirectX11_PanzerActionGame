@@ -122,11 +122,14 @@ void Player::UseSkill()
 
 void Player::Shot()
 {
-	// リロードが終わっていないなら撃てない
-	if (reload().finishReload() == false) 
+	// リロードが終わっていない OR 弾数が0のとき　=> 撃てない
+	if (reload().finishReload() == false || m_AmountBullets == 0) 
 	{ 
 		return; 
 	}
+	// 弾数を減らして行く
+	m_AmountBullets--;
+
 	// 射撃
 	vehicle().Shot(pivot().transform());
 	// オーディオ

@@ -34,7 +34,7 @@ public:
 private:
 	void OnCollision()override;
 	void OnSound(); //	サウンドの設定
-	
+	//void ReplenishBullets(); // 弾を補給する 
 
 	std::vector<Enemy*> m_EnemyList;
 	std::vector<Supply*> m_SupplyList;
@@ -48,8 +48,8 @@ private:
 	Resource& m_Resource;
 	Graphics& m_Graphics;
 
-	float m_Volume = 0.0f;
+	int32_t m_AmountBullets = 24; // 弾数
+	float m_Volume = 0.0f;		// サウンドの大きさ	
 	bool m_Audioplay = false;
-	bool m_HitWall = false;
 };
 
