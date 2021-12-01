@@ -7,14 +7,14 @@
 
 ---------------------------------------------------------------*/
 #pragma once
-#include "IDrawNumber.h"
+#include "DrawNumber.h"
  
-class Cost final : public IDrawNumber
+class Cost final : public DrawNumber
 { 
 public:
 	Cost();
 	~Cost();
-	void Draw(int32_t n)override;
+	void Draw(int32_t value)override;
 private:
 	float m_Cost;
 };

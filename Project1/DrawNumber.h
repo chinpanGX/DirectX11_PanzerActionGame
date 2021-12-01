@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------
 	
-	[IDrawNumber.h]
+	[DrawNumber.h]
 	Author : 出合翔太
 
 	数字を描画するインターフェイス
@@ -11,13 +11,13 @@
 #include <memory>
 #include <array>
 
-class IDrawNumber
+class DrawNumber
 {
 public:
-	IDrawNumber() = delete;
-	IDrawNumber(float size, int32_t digit); // 描画サイズ、桁数
-	virtual ~IDrawNumber(){}
-	virtual void Draw(int32_t n) = 0; // "param" n = 数値 
+	DrawNumber() = delete;
+	DrawNumber(float size, int32_t digit); // 描画サイズ、桁数
+	virtual ~DrawNumber(){}
+	virtual void Draw(int32_t value) = 0; // "param" value = 数値 
 	void SetColor(float r, float g, float b, float a);
 protected:
 	void NumberDraw(const D3DXVECTOR2& position, int32_t n);

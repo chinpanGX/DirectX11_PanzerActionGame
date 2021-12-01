@@ -32,6 +32,8 @@ public:
 	void Shot();
 	// ƒXƒLƒ‹
 	void UseSkill();
+	// ’e–ò‚Ì•â‹‹
+	void ReplenishBullet();
 private:
 	Player* m_Player = nullptr;
 	GameCamera* m_Camera = nullptr;

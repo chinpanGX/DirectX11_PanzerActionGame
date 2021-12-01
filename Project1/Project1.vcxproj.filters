@@ -256,9 +256,6 @@
     <ClCompile Include="Vehicle.cpp">
       <Filter>Actor\Panzer</Filter>
     </ClCompile>
-    <ClCompile Include="IDrawNumber.cpp">
-      <Filter>Actor\2D\Number</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Actor\2D\Number</Filter>
     </ClCompile>
@@ -352,6 +349,12 @@
     </ClCompile>
     <ClCompile Include="Supply.cpp">
       <Filter>Actor\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerBulletAmount.cpp">
+      <Filter>Actor\2D\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawNumber.cpp">
+      <Filter>Actor\2D\Number</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -566,9 +569,6 @@
     <ClInclude Include="IUseSkill.h">
       <Filter>Actor\Panzer</Filter>
     </ClInclude>
-    <ClInclude Include="IDrawNumber.h">
-      <Filter>Actor\2D\Number</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Actor\2D\Number</Filter>
     </ClInclude>
@@ -662,6 +662,12 @@
     </ClInclude>
     <ClInclude Include="Supply.h">
       <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerBulletAmount.h">
+      <Filter>Actor\2D\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawNumber.h">
+      <Filter>Actor\2D\Number</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

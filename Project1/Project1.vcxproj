@@ -176,7 +176,7 @@
     <ClCompile Include="Graphics.cpp" />
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="GrassField.cpp" />
-    <ClCompile Include="IDrawNumber.cpp" />
+    <ClCompile Include="DrawNumber.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Loader.cpp" />
     <ClCompile Include="main.cpp" />
@@ -206,6 +206,7 @@
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PlaneGarage.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerBulletAmount.cpp" />
     <ClCompile Include="PlayerUi.cpp" />
     <ClCompile Include="Reload.cpp" />
     <ClCompile Include="Renderer2D.cpp" />
@@ -272,7 +273,7 @@
     <ClInclude Include="Graphics.h" />
     <ClInclude Include="Grass.h" />
     <ClInclude Include="GrassField.h" />
-    <ClInclude Include="IDrawNumber.h" />
+    <ClInclude Include="DrawNumber.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="ISetterObject.h" />
     <ClInclude Include="IUseSkill.h" />
@@ -305,6 +306,7 @@
     <ClInclude Include="Plane.h" />
     <ClInclude Include="PlaneGarage.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerBulletAmount.h" />
     <ClInclude Include="PlayerUi.h" />
     <ClInclude Include="Reload.h" />
     <ClInclude Include="Renderer2D.h" />

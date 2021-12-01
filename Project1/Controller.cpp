@@ -90,3 +90,8 @@ void Controller::UseSkill()
 {
 	m_Player->UseSkill();
 }
+
+void Controller::ReplenishBullet()
+{
+	
+}

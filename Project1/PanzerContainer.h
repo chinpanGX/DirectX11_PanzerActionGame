@@ -45,7 +45,7 @@ private:
 	std::unordered_map<std::string, std::unique_ptr<Vehicle>> m_Map;
 	std::vector<std::string> m_PanzerName;
 	std::unique_ptr<class Parameters> m_Parameters; // パラメータ表示
-	std::unique_ptr<class IDrawNumber> m_Number; // コスト表示
+	std::unique_ptr<class DrawNumber> m_Number; // コスト表示
 	int32_t m_InputButton; // 1で上を選択、2で下を選択
 
 	// 表示するパラメータ

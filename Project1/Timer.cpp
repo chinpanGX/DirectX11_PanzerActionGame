@@ -12,8 +12,14 @@
 #include "Command.h"
 #include "Timer.h"
 
+namespace
+{
+	// 描画する位置の基準
+	const D3DXVECTOR2 g_PivotPosition = D3DXVECTOR2(350.0f, 80.0f);
+}
+
 #pragma region DrawTimerMinute_method
-DrawTimerMinute::DrawTimerMinute() : IDrawNumber(64.0f, 1)
+DrawTimerMinute::DrawTimerMinute() : DrawNumber(64.0f, 1)
 {
 }
 
@@ -21,14 +27,14 @@ DrawTimerMinute::~DrawTimerMinute()
 {
 }
 
-void DrawTimerMinute::Draw(int32_t n)
+void DrawTimerMinute::Draw(int32_t value)
 {
-	NumberDraw(D3DXVECTOR2(305.0f, 80.0f), n);
+	NumberDraw(D3DXVECTOR2(g_PivotPosition.x - 45.0f, g_PivotPosition.y), value);
 }
 #pragma endregion DrawTimerMinute_メソッド
 
 #pragma region DrawTimerSecond_method
-DrawTimerSecond::DrawTimerSecond() : IDrawNumber(64.0f, 2)
+DrawTimerSecond::DrawTimerSecond() : DrawNumber(64.0f, 2)
 {
 }
 
@@ -36,22 +42,22 @@ DrawTimerSecond::~DrawTimerSecond()
 {
 }
 
-void DrawTimerSecond::Draw(int32_t n) 
+void DrawTimerSecond::Draw(int32_t value) 
 {
 	for (int32_t i = 0; i < Getdigit(); ++i)
 	{
-		int num = n % 10;
-		n /= 10;
-		NumberDraw(D3DXVECTOR2(365.0f + ((GetSize() - 30.0f) * (Getdigit() - (i + 1))), 80.0f), num);
+		int num = value % 10;
+		value /= 10;
+		NumberDraw(D3DXVECTOR2(g_PivotPosition.x + 15.0f + ((GetSize() - 30.0f) * (Getdigit() - (i + 1))), g_PivotPosition.y), num);
 	}
 }
 #pragma endregion DrawTimerSecond_メソッド
 
 #pragma region GameBg::Timer_method
 							/* 5分*/
-GameBg::Timer::Timer() : m_TimeLimit_min(5), m_NowTime(0)
+GameBg::Timer::Timer() : m_TimeLimitMin(5), m_NowTime(0)
 {
-	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Timer", D3DXVECTOR2(350.0f, 80.0f), D3DXVECTOR2(200.0f, 128.0f));
+	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Timer", g_PivotPosition, D3DXVECTOR2(200.0f, 128.0f));
 	m_DrawTimer[0] = std::make_unique<DrawTimerMinute>();
 	m_DrawTimer[1] = std::make_unique<DrawTimerSecond>();
 }
@@ -64,7 +70,7 @@ GameBg::Timer::~Timer()
 
 void GameBg::Timer::Begin()
 {
-	m_NowTime = m_TimeLimit_min * 60.0f; // 秒に変換
+	m_NowTime = m_TimeLimitMin * 60.0f; // 秒に変換
 }
 
 void GameBg::Timer::Update()

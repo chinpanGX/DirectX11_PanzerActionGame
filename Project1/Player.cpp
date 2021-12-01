@@ -52,6 +52,7 @@ void Player::Begin()
 	m_Reload = scene->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	reload().Init();
 	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -150.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	m_EnteringSulpplyPoint = false;
 }
 
 void Player::Update()
@@ -74,6 +75,16 @@ void Player::Event()
 		}
 	}
 	Pawn::CheckZeroHp(this);
+	// 補給地点にいる && 弾数が上限ではない
+	if (m_EnteringSulpplyPoint && m_AmountBullets < m_AmountBuuletsMax)
+	{
+		m_AmountBullets++;
+		// 上限を超えないようにする
+		if (m_AmountBullets > m_AmountBuuletsMax)
+		{
+			m_AmountBullets = m_AmountBuuletsMax;
+		}
+	}
 }
 
 void Player::Draw()
@@ -142,6 +153,16 @@ void Player::Shot()
 	m_Reload->BeginReload();
 }
 
+bool Player::enterSupplyPoint()
+{
+	return m_EnteringSulpplyPoint;
+}
+
+int32_t Player::amountBullets() const
+{
+	return m_AmountBullets;
+}
+
 void Player::OnCollision()
 {
 	// 敵との当たり判定
@@ -170,8 +191,7 @@ void Player::OnCollision()
 		if (Intersect(vehicle().collider(0).GetSphere3(), supply->collider().GetSphere3()))
 		{
 			// ここで通知する
-		
-			//OutputDebugString("補給できる\n");
+			m_EnteringSulpplyPoint = true;
 			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
 			{
 				if (m_Command->GetNowInput(Input::Forward))
@@ -182,6 +202,10 @@ void Player::OnCollision()
 				{
 					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);			
 				}
+			}
+			else
+			{
+				m_EnteringSulpplyPoint = false;
 			}
 		}
 	}

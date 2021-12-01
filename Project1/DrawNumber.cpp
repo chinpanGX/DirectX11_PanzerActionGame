@@ -1,6 +1,6 @@
 /*--------------------------------------------------------------
 
-	[IDrawNumber.cpp]
+	[DrawNumber.cpp]
 	Author : 出合翔太
 
 	数字を描画するインターフェイス
@@ -9,9 +9,9 @@
 #include "Engine.h"
 #include "Graphics.h"
 #include "Resource.h"
-#include "IDrawNumber.h"
+#include "DrawNumber.h"
 
-IDrawNumber::IDrawNumber(float size , int32_t digit) : m_Size(size), m_digit(digit)
+DrawNumber::DrawNumber(float size , int32_t digit) : m_Size(size), m_digit(digit)
 {
 	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Number");
 	// テクスチャ座標のxの値
@@ -19,22 +19,22 @@ IDrawNumber::IDrawNumber(float size , int32_t digit) : m_Size(size), m_digit(dig
 	m_Color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
 }
 
-void IDrawNumber::SetColor(float r, float g, float b, float a)
+void DrawNumber::SetColor(float r, float g, float b, float a)
 {
 	m_Color = D3DXVECTOR4(r, g, b, a);
 }
 
-void IDrawNumber::NumberDraw(const D3DXVECTOR2& position, int32_t n)
+void DrawNumber::NumberDraw(const D3DXVECTOR2& position, int32_t n)
 {
 	m_Render->Draw(position, D3DXVECTOR2(m_Size, m_Size), D3DXVECTOR2(m_Numbers[n], 0.0f), D3DXVECTOR2(m_Numbers[n + 1], 1.0f), m_Color);
 }
 
-const float IDrawNumber::GetSize() const
+const float DrawNumber::GetSize() const
 {
 	return m_Size;
 }
 
-const int32_t IDrawNumber::Getdigit() const
+const int32_t DrawNumber::Getdigit() const
 {
 	return m_digit;
 }

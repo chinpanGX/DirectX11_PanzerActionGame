@@ -7,25 +7,25 @@
 
 ---------------------------------------------------------------*/
 #pragma once
-#include "IDrawNumber.h"
+#include "DrawNumber.h"
 #include "DefaultObject.h"
 
 // 分
-class DrawTimerMinute final : public IDrawNumber
+class DrawTimerMinute final : public DrawNumber
 {
 public:
 	DrawTimerMinute();
 	~DrawTimerMinute();
-	void Draw(int32_t n)override;
+	void Draw(int32_t value)override;
 };
 
 // 秒
-class DrawTimerSecond final : public IDrawNumber
+class DrawTimerSecond final : public DrawNumber
 {
 public:
 	DrawTimerSecond();
 	~DrawTimerSecond();
-	void Draw(int32_t n)override;
+	void Draw(int32_t value)override;
 };
 
 namespace GameBg
@@ -40,8 +40,8 @@ namespace GameBg
 		void Event()override;
 		void Draw()override;
 	private:
-		std::array<std::unique_ptr<IDrawNumber>, 2> m_DrawTimer;
-		const float m_TimeLimit_min; // タイムリミット（分）
+		std::array<std::unique_ptr<DrawNumber>, 2> m_DrawTimer;
+		const float m_TimeLimitMin; // タイムリミット（分）
 		int32_t m_Minute; // 分
 		int32_t m_Second;	  // 秒
 		float m_NowTime;  // 今の時間

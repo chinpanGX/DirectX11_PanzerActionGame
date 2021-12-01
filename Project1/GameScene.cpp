@@ -28,6 +28,7 @@
 #include "GameScene.h"
 #include "PlayerUi.h"
 #include "MiniMap.h"
+#include "PlayerBulletAmount.h"
 #include <thread>
 
 #pragma region GameScene::PanzerSelect_method
@@ -219,6 +220,7 @@ void GameScene::Game::Init()
 	AddGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	AddGameObject<MiniMap>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::BulletAmount>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }
