@@ -93,6 +93,7 @@ void Skill::Reset(Status & status)
 		m_Effect->OnDestroy();
 	}
 	m_UvParam = D3DXVECTOR4(0.0f, 0.0f, 0.0f, 0.0f);
+	
 }
 
 void Skill::SetTime(float amount)

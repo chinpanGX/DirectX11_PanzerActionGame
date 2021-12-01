@@ -7,6 +7,7 @@
 #include "Fps.h"
 #include "Engine.h"
 #include "Application.h"
+#include "Graphics.h"
 #include "GameManager.h"
 #include "Pause.h"
 #include "Command.h"

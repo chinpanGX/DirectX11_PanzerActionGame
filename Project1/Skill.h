@@ -10,6 +10,7 @@
 #include <memory>
 #include <vector>
 
+class SkillParticle;
 class Pawn;
 class Status;
 class IUseSkill;
@@ -52,7 +53,7 @@ private:
 	std::vector<std::unique_ptr<IUseSkill>> m_UseSkill;
 	D3DXVECTOR4 m_UvParam;
 
-	class SkillParticle* m_Effect = nullptr;
+	SkillParticle* m_Effect = nullptr;
 
 	int32_t m_Phase = 0;					// フェーズ
 	float m_TimeToActivateSkill = 30.0f;	// スキルを有効にする時間

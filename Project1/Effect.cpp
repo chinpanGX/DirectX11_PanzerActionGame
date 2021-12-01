@@ -111,6 +111,7 @@ void Effect::Event()
 
 void Effect::Draw()
 {
+	m_Graphics.SetAlphaToCoverageEnable(true);
 	// ライティングなし
 	m_Resource.SetShader("NoLighting");
 	// 頂点バッファ
@@ -123,6 +124,7 @@ void Effect::Draw()
 
 	//ポリゴン描画
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
+	m_Graphics.SetAlphaToCoverageEnable(false);
 }
 
 #pragma region protected_method

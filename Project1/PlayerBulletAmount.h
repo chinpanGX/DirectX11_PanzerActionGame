@@ -35,6 +35,10 @@ public:
 	DrawSlash();
 	~DrawSlash();
 	void Draw();
+private:
+	Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
+	class Graphics& m_Graphics;
+	class Resource& m_Resource;
 };
 
 class Player;
@@ -43,13 +47,17 @@ namespace PlayerUi
 	class BulletAmount final : public Actor
 	{
 	public:
+		BulletAmount();
+		~BulletAmount();
 		void Begin()override;
 		void Update()override;
 		void Event()override;
 		void Draw()override;
 	private:
 		std::vector<std::unique_ptr<DrawNumber>> m_DrawBulletAmount;
+		std::unique_ptr<DrawSlash> m_Slash;
 		Player* m_Player;
 		int32_t m_BulletsValue;
+		int32_t m_BulletValueMax;
 	};
 }

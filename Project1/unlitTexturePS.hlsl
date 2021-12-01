@@ -12,7 +12,9 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
 {
 	outDiffuse = g_Texture.Sample(g_SamplerState, In.TexCoord);	
 	outDiffuse *= In.Diffuse;
-    if (outDiffuse.a < 0.1f)
+    
+    // ピクセル単位でアルファテスト
+    if (outDiffuse.a < 0.1)
     {
         discard;
     }

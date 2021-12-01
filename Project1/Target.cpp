@@ -103,6 +103,5 @@ void Target::Draw()
 		m_Resource.SetTexture(0, "Target");
 
 		Effect::Draw();
-		m_Collider->SystemDraw();
 	}
 }

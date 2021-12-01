@@ -74,6 +74,14 @@ namespace PlayerUi
 		m_Render->Draw(m_DrawSize, pos, m_Color);
 	}
 
+	void DrawSkill::Reset()
+	{
+		// 描画サイズを0にする
+		m_DrawSize = 0.0f;
+		m_Time = 0.0f;
+		m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
+	}
+
 #pragma region _privateFunction_
 	void DrawSkill::AddGage()
 	{
@@ -116,14 +124,6 @@ namespace PlayerUi
 				Reset();
 			}
 		}
-	}
-
-	void DrawSkill::Reset()
-	{
-		// 描画サイズを0にする
-		m_DrawSize = 0.0f;
-		m_Time = 0.0f;
-		m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
 	}
 #pragma endregion _private関数_
 #pragma endregion スキルゲージを描画する

@@ -24,11 +24,11 @@ namespace PlayerUi
 		void Update()override;
 		void Event()override;
 		void Draw()override;
+		void Reset();
 	private:
 		/* 更新処理のヘルパー関数 */
 		void AddGage();
 		void Use();
-		void Reset();
 
 		D3DXVECTOR4 m_Color;
 		std::unique_ptr<Render> m_Render;

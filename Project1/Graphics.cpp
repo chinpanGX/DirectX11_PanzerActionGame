@@ -95,104 +95,14 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	m_DeviceContext->RSSetState(rs);
 
 	// ブレンドステート設定
-	D3D11_BLEND_DESC blendDesc;
-	ZeroMemory(&blendDesc, sizeof(blendDesc));
-	blendDesc.AlphaToCoverageEnable = FALSE;
-	blendDesc.IndependentBlendEnable = FALSE;
-	blendDesc.RenderTarget[0].BlendEnable = TRUE;
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_NORMAL].GetAddressOf());
-	SetBlendStateDefault();
-
-	// 加算合成
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
-	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_ADD].GetAddressOf());
-
-	// 加算合成(透過有)
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
-	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_ADDALPHA].GetAddressOf());
-
-	// 減算合成
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ZERO;
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_COLOR;
-	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_SUB].GetAddressOf());
-
-	// 深度ステンシルステート設定
-	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
-	ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
-	depthStencilDesc.DepthEnable = TRUE;
-	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
-	depthStencilDesc.StencilEnable = FALSE;
-	m_Device->CreateDepthStencilState(&depthStencilDesc, m_DepthStateEnable.GetAddressOf());//深度有効ステート
-	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
-	m_Device->CreateDepthStencilState(&depthStencilDesc, m_DepthStateDisable.GetAddressOf());//深度無効ステート
-	m_DeviceContext->OMSetDepthStencilState(m_DepthStateEnable.Get(), NULL);
-
+	SettingBlendState();
+	// デプスステンシル設定
+	SettingDepthStencilState();
 	// サンプラーステート設定
-	D3D11_SAMPLER_DESC samplerDesc;
-	ZeroMemory(&samplerDesc, sizeof(samplerDesc));
-	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
-	//samplerDesc.Filter = D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
-	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
-	//samplerDesc.MipLODBias = 0;
-	//samplerDesc.MaxAnisotropy = 16;
-	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
-	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
-	samplerDesc.MinLOD = 0;
-	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
-	samplerDesc.MaxAnisotropy = 16;
-
-	ID3D11SamplerState* samplerState = NULL;
-	m_Device->CreateSamplerState(&samplerDesc, &samplerState);
-	m_DeviceContext->PSSetSamplers(0, 1, &samplerState);
-
-	/// 定数バッファ生成
-	D3D11_BUFFER_DESC hBufferDesc{};
-	hBufferDesc.ByteWidth = sizeof(D3DXMATRIX);
-	hBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-	hBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
-	hBufferDesc.CPUAccessFlags = 0;
-	hBufferDesc.MiscFlags = 0;
-	hBufferDesc.StructureByteStride = sizeof(float);
-
-	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD].GetAddressOf());
-	m_DeviceContext->VSSetConstantBuffers(0, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD].GetAddressOf());
-
-	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW].GetAddressOf());
-	m_DeviceContext->VSSetConstantBuffers(1, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW].GetAddressOf());
-
-	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION].GetAddressOf());
-	m_DeviceContext->VSSetConstantBuffers(2, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION].GetAddressOf());
-
-	hBufferDesc.ByteWidth = sizeof(Material);
-	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_MATERIAL].GetAddressOf());
-	m_DeviceContext->VSSetConstantBuffers(3, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_MATERIAL].GetAddressOf());
-
-	hBufferDesc.ByteWidth = sizeof(Light);
-	m_Device->CreateBuffer(&hBufferDesc, NULL,  m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
-	m_DeviceContext->VSSetConstantBuffers(4, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
-	m_DeviceContext->PSSetConstantBuffers(4, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
-
-	hBufferDesc.ByteWidth = sizeof(D3DXVECTOR4);
-	m_Device->CreateBuffer(&hBufferDesc, NULL,  m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA].GetAddressOf());
-	m_DeviceContext->PSSetConstantBuffers(5, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA].GetAddressOf());
-
-	hBufferDesc.ByteWidth = sizeof(D3DXVECTOR4);
-	m_Device->CreateBuffer(&hBufferDesc, NULL,  m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
-	m_DeviceContext->PSSetConstantBuffers(6, 1,  m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
+	SettingSamplerState();
+	
+	// 定数バッファの生成
+	CreateConstantBuffer();
 
 	// ライト無効化
 	Light light;
@@ -222,6 +132,19 @@ void Graphics::Begin()
 void Graphics::End()
 {
 	m_SwapChain->Present(1, 0);
+}
+
+void Graphics::SetAlphaToCoverageEnable(bool Enable)
+{
+	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	if (Enable)
+	{
+		m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_ALPHATOCOVERAGE].Get(), blendFactor, 0xffffffff);
+	}
+	else
+	{
+		m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_NORMAL].Get(), blendFactor, 0xffffffff);
+	}
 }
 
 #pragma region _SetDepthStencilSwichONOFF_
@@ -331,6 +254,124 @@ const Microsoft::WRL::ComPtr<ID3D11Device> Graphics::GetDevice() const
 const Microsoft::WRL::ComPtr<ID3D11DeviceContext> Graphics::GetDeviceContext() const
 {
 	return m_DeviceContext;
+}
+
+void Graphics::SettingBlendState()
+{
+	// ブレンドステート設定
+	D3D11_BLEND_DESC blendDesc;
+	ZeroMemory(&blendDesc, sizeof(blendDesc));
+	blendDesc.IndependentBlendEnable = FALSE;
+	blendDesc.RenderTarget[0].BlendEnable = TRUE;
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	// AlphaToCoverageあり
+	blendDesc.AlphaToCoverageEnable = TRUE;
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_ALPHATOCOVERAGE].GetAddressOf());
+
+	blendDesc.AlphaToCoverageEnable = FALSE;
+	/* AlphaToCoverageなし */
+	// デフォルトの設定
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_NORMAL].GetAddressOf());
+	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_NORMAL].Get(), blendFactor, 0xffffffff);
+
+	// 加算合成
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_ADD].GetAddressOf());
+
+	// 加算合成(透過有)
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_ONE;
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_ADDALPHA].GetAddressOf());
+
+	// 減算合成
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_COLOR;
+	m_Device->CreateBlendState(&blendDesc, m_BlendState[EBlendState::BLENDSTATE_SUB].GetAddressOf());
+}
+
+void Graphics::SettingDepthStencilState()
+{
+	// 深度ステンシルステート設定
+	D3D11_DEPTH_STENCIL_DESC depthStencilDesc;
+	ZeroMemory(&depthStencilDesc, sizeof(depthStencilDesc));
+	depthStencilDesc.DepthEnable = TRUE;
+	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+	depthStencilDesc.DepthFunc = D3D11_COMPARISON_LESS_EQUAL;
+	depthStencilDesc.StencilEnable = FALSE;
+	m_Device->CreateDepthStencilState(&depthStencilDesc, m_DepthStateEnable.GetAddressOf());//深度有効ステート
+	depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ZERO;
+	m_Device->CreateDepthStencilState(&depthStencilDesc, m_DepthStateDisable.GetAddressOf());//深度無効ステート
+	m_DeviceContext->OMSetDepthStencilState(m_DepthStateEnable.Get(), NULL);
+}
+
+void Graphics::SettingSamplerState()
+{
+	// サンプラーステート設定
+	D3D11_SAMPLER_DESC samplerDesc;
+	ZeroMemory(&samplerDesc, sizeof(samplerDesc));
+	samplerDesc.Filter = D3D11_FILTER_ANISOTROPIC;
+	//samplerDesc.Filter = D3D11_FILTER_MIN_LINEAR_MAG_POINT_MIP_LINEAR;
+	samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+	samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+	//samplerDesc.MipLODBias = 0;
+	//samplerDesc.MaxAnisotropy = 16;
+	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	samplerDesc.MinLOD = 0;
+	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
+	samplerDesc.MaxAnisotropy = 16;
+
+	ID3D11SamplerState* samplerState = NULL;
+	m_Device->CreateSamplerState(&samplerDesc, &samplerState);
+	m_DeviceContext->PSSetSamplers(0, 1, &samplerState);
+}
+
+void Graphics::CreateConstantBuffer()
+{
+	/// 定数バッファ生成
+	D3D11_BUFFER_DESC hBufferDesc{};
+	hBufferDesc.ByteWidth = sizeof(D3DXMATRIX);
+	hBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+	hBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
+	hBufferDesc.CPUAccessFlags = 0;
+	hBufferDesc.MiscFlags = 0;
+	hBufferDesc.StructureByteStride = sizeof(float);
+
+	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD].GetAddressOf());
+	m_DeviceContext->VSSetConstantBuffers(0, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD].GetAddressOf());
+
+	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW].GetAddressOf());
+	m_DeviceContext->VSSetConstantBuffers(1, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW].GetAddressOf());
+
+	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION].GetAddressOf());
+	m_DeviceContext->VSSetConstantBuffers(2, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION].GetAddressOf());
+
+	hBufferDesc.ByteWidth = sizeof(Material);
+	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_MATERIAL].GetAddressOf());
+	m_DeviceContext->VSSetConstantBuffers(3, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_MATERIAL].GetAddressOf());
+
+	hBufferDesc.ByteWidth = sizeof(Light);
+	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
+	m_DeviceContext->VSSetConstantBuffers(4, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
+	m_DeviceContext->PSSetConstantBuffers(4, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT].GetAddressOf());
+
+	hBufferDesc.ByteWidth = sizeof(D3DXVECTOR4);
+	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA].GetAddressOf());
+	m_DeviceContext->PSSetConstantBuffers(5, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA].GetAddressOf());
+
+	hBufferDesc.ByteWidth = sizeof(D3DXVECTOR4);
+	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
+	m_DeviceContext->PSSetConstantBuffers(6, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER].GetAddressOf());
 }
 
 // コンスタントバッファ

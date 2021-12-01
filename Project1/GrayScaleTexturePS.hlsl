@@ -17,4 +17,8 @@ void main(in PS_IN In, out float4 outDiffuse : SV_Target)
     // グレースケール
     outDiffuse.rgb = 0.299 * outDiffuse.r + 0.587 * outDiffuse.g, + 0.114 * outDiffuse.b;
 
+    if (outDiffuse.a < 0.1)
+    {
+        discard;
+    }
 }

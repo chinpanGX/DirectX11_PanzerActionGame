@@ -62,6 +62,7 @@ public:
 	~Graphics();
 	void Begin();
 	void End();
+	void SetAlphaToCoverageEnable(bool Enable);
 	void SetDepthEnable(bool Enable);
 	//　コンスタントバッファの
 	void SetWorldViewProjection2D();
@@ -85,6 +86,12 @@ private:
 	// コンスタントバッファの更新
 	template<typename T>
 	void UpdateConstantBuffer(ComPtr<ID3D11Buffer> buffer, const T& src);
+
+	// 初期化処理
+	void SettingBlendState();
+	void SettingDepthStencilState();
+	void SettingSamplerState();
+	void CreateConstantBuffer();
 	
 	ComPtr<ID3D11Device>			m_Device;
 	ComPtr<ID3D11DeviceContext>		m_DeviceContext;
@@ -97,6 +104,7 @@ private:
 	// ブレンドステート
 	enum EBlendState : int32_t
 	{
+		BLENDSTATE_ALPHATOCOVERAGE,	 // AlphaToCoverageあり
 		BLENDSTATE_NORMAL,	 // αブレンド
 		BLENDSTATE_ADD,		 // 加算合成
 		BLENDSTATE_ADDALPHA, // 加算合成（透過有）
