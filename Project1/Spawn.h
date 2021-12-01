@@ -9,7 +9,7 @@
 #pragma once
 #include "Manager.h"
 #include "myLib.h"
-#include <array>
+#include <vector>
 
 // リスポーン
 class Respawn final : public IManager
@@ -17,10 +17,11 @@ class Respawn final : public IManager
 public:
 	Respawn();
 	~Respawn();
+	void Begin()override;
 	void Update(GameManager* manager, Pawn* pawn, int32_t Type)override;
 	const bool GetRespawn() const;
 private:
-	std::array<std::unique_ptr<class ISpawn>, 2> m_Spawn;
+	std::vector<std::unique_ptr<class ISpawn>> m_Spawn;
 	bool m_IsRespawn = false; // trueでリスポーンする
 };
 

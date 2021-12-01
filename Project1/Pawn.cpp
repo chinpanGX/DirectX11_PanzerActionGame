@@ -102,6 +102,8 @@ void Pawn::CheckZeroHp(Pawn* pawn)
 		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(pawn, m_Type);
 		// スキルの状態をリセット
 		m_Vehicle->skill().Reset(m_Vehicle->status());
+		// HPを最大にする
+		RespawnSetMaxHP();
 	}
 }
 

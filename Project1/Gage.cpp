@@ -20,10 +20,16 @@
 
 RemainGage::RemainGage()
 {
+	
 }
 
 RemainGage::~RemainGage()
 {
+}
+
+void RemainGage::Begin()
+{
+	m_Gage = Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI);
 }
 
 void RemainGage::Update(GameManager* manager, Pawn * pawn, int32_t type)
@@ -48,14 +54,14 @@ void RemainGage::SetGage(float gage, int32_t type)
 	case 0:
 	//case 1:
 		m_PlayerGage = gage;
-		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetPlayerGage(m_PlayerGage);
+		m_Gage->SetPlayerGage(m_PlayerGage);
 		break;
 		// “G‘¤
 	//case 2:
 	//case 3:
 	case 1:
 		m_EmenyGage = gage;
-		Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI)->SetEnemyGage(m_EmenyGage);
+		m_Gage->SetEnemyGage(m_EmenyGage);
 		break;
 	}
 }

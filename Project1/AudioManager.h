@@ -15,6 +15,7 @@ class GameAudio final : public IManager
 public:
 	GameAudio();
 	~GameAudio();
+	void Begin()override;
 	void Update(GameManager* manager, Pawn* pawn, int32_t Type)override;
 };
 
@@ -24,6 +25,7 @@ class ResultAudio final : public IManager
 public:
 	ResultAudio();
 	~ResultAudio();
+	void Begin()override;
 	void Update(GameManager* manager, Pawn* pawn, int32_t Type)override;
 	void Begin(bool IsPlayerWin);
 };

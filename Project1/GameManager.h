@@ -12,7 +12,7 @@
 #include "DefaultObject.h"
 #include "Manager.h"
 #include <memory>
-#include <array>
+#include <vector>
 
 enum ID : int32_t
 {
@@ -44,7 +44,7 @@ public:
 private:
 	// trueでゲーム終了
 	bool m_GameEnd = false;
-	std::array<std::unique_ptr<IManager>, 3> m_Manager;
+	std::vector<std::unique_ptr<IManager>> m_Manager;
 };
 
 // リザルト

@@ -34,9 +34,6 @@
     <Filter Include="Actor\Title">
       <UniqueIdentifier>{37b526c9-52c9-439a-bcdf-9c86a3248586}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Result">
-      <UniqueIdentifier>{10880981-0a0a-4610-86d3-4389942a4f8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="シェーダー">
       <UniqueIdentifier>{974fc649-8da4-4c5e-b7a1-37507268a0fe}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="Actor\2D\Game">
       <UniqueIdentifier>{c0bdaf23-a780-46db-9d65-493979e36584}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Result">
+      <UniqueIdentifier>{10880981-0a0a-4610-86d3-4389942a4f8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -560,13 +560,7 @@
     <ClInclude Include="WallBox.h">
       <Filter>Actor\Stage\Object</Filter>
     </ClInclude>
-    <ClInclude Include="UnitStageSetter.h">
-      <Filter>Actor\Stage</Filter>
-    </ClInclude>
     <ClInclude Include="Vehicle.h">
-      <Filter>Actor\Panzer</Filter>
-    </ClInclude>
-    <ClInclude Include="IUseSkill.h">
       <Filter>Actor\Panzer</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
@@ -668,6 +662,12 @@
     </ClInclude>
     <ClInclude Include="DrawNumber.h">
       <Filter>Actor\2D\Number</Filter>
+    </ClInclude>
+    <ClInclude Include="IUseSkill.h">
+      <Filter>Actor\Panzer\Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitStageSetter.h">
+      <Filter>Actor\Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -218,7 +218,7 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	m_Collider[2] = std::make_unique<Collider>();
 	m_Collider[0]->SetSphere3(panzer().GetBody().transform(), 6.0f);
 	m_Collider[0]->SetAABB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f));
+	m_Collider[0]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f)); 
 	m_Collider[1]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
 	m_Collider[2]->SetOBB3(panzer().GetBody().transform(), D3DXVECTOR3(0.5f, 0.5f, 3.0f));
 }

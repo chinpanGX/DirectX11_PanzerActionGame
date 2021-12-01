@@ -40,7 +40,7 @@ namespace GameBg
 		void Event()override;
 		void Draw()override;
 	private:
-		std::array<std::unique_ptr<DrawNumber>, 2> m_DrawTimer;
+		std::vector<std::unique_ptr<DrawNumber>> m_DrawTimer;
 		const float m_TimeLimitMin; // タイムリミット（分）
 		int32_t m_Minute; // 分
 		int32_t m_Second;	  // 秒

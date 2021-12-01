@@ -18,6 +18,16 @@
 
 GameAudio::GameAudio()
 {
+	
+}
+
+GameAudio::~GameAudio()
+{
+	
+}
+
+void GameAudio::Begin()
+{
 	Player* player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
@@ -57,16 +67,11 @@ GameAudio::GameAudio()
 			name = "RU01";
 			break;
 		}
-		
+
 		// オーディオのロードと再生
 		resource->AudioLoad(name, true);
 		resource->AudioPlay(name, 0.3f);
 	}
-}
-
-GameAudio::~GameAudio()
-{
-	
 }
 
 void GameAudio::Update(GameManager * manager, Pawn * pawn, int32_t Type)
@@ -81,6 +86,10 @@ ResultAudio::ResultAudio()
 ResultAudio::~ResultAudio()
 {
 	
+}
+
+void ResultAudio::Begin()
+{
 }
 
 void ResultAudio::Update(GameManager * manager, Pawn * pawn, int32_t Type)

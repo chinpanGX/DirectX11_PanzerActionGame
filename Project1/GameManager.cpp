@@ -31,9 +31,9 @@ namespace
 
 GameManager::GameManager()
 {
-	m_Manager[0] = std::make_unique<GameAudio>();
-	m_Manager[1] = std::make_unique<RemainGage>();
-	m_Manager[2] = std::make_unique<Respawn>();
+	m_Manager.emplace_back(std::make_unique<GameAudio>());
+	m_Manager.emplace_back(std::make_unique<RemainGage>());
+	m_Manager.emplace_back(std::make_unique<Respawn>());
 }
 
 GameManager::~GameManager()
@@ -43,6 +43,11 @@ GameManager::~GameManager()
 
 void GameManager::Begin()
 {
+	// ‰Šú‰»ˆ—
+	for (auto& m : m_Manager)
+	{
+		m->Begin();
+	}
 }
 
 void GameManager::Update()

@@ -59,8 +59,8 @@ void DrawTimerSecond::Draw(int32_t value)
 GameBg::Timer::Timer() : m_TimeLimitMin(5), m_NowTime(0)
 {
 	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Timer", g_PivotPosition, D3DXVECTOR2(200.0f, 128.0f));
-	m_DrawTimer[0] = std::make_unique<DrawTimerMinute>();
-	m_DrawTimer[1] = std::make_unique<DrawTimerSecond>();
+	m_DrawTimer.emplace_back(std::make_unique<DrawTimerMinute>());
+	m_DrawTimer.emplace_back(std::make_unique<DrawTimerSecond>());
 }
 
 GameBg::Timer::~Timer()

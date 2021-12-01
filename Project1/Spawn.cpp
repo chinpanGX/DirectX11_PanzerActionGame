@@ -17,11 +17,15 @@
 
 Respawn::Respawn()
 {
-	m_Spawn[0] = std::make_unique<PlayerSpawn>();
-	m_Spawn[1] = std::make_unique<EnemySpawn>();
+	m_Spawn.emplace_back(std::make_unique<PlayerSpawn>());
+	m_Spawn.emplace_back(std::make_unique<EnemySpawn>());
 }
 
 Respawn::~Respawn()
+{
+}
+
+void Respawn::Begin()
 {
 }
 

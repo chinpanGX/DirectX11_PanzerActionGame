@@ -17,6 +17,7 @@ class IManager
 {
 public:
 	virtual ~IManager() {};
+	virtual void Begin() = 0;
 	virtual void Update(GameManager* manager, Pawn* pawn, int32_t Type) = 0;
 };
 
