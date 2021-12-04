@@ -32,12 +32,12 @@ public:
 	void UseSkill();
 	void Shot();
 
+	void ReplenishBullets(); // 弾を補給する 
 	bool enterSupplyPoint(); // 補給地点に入っている
 	int32_t amountBullets() const;
 private:
 	void OnCollision()override;
 	void OnSound(); //	サウンドの設定
-	//void ReplenishBullets(); // 弾を補給する 
 
 	std::vector<Enemy*> m_EnemyList;
 	std::vector<Supply*> m_SupplyList;

@@ -154,6 +154,16 @@ void Player::Shot()
 	m_Reload->BeginReload();
 }
 
+void Player::ReplenishBullets()
+{
+	m_AmountBullets++;
+	// 上限値の設定
+	if (m_AmountBullets > m_AmountBuuletsMax)
+	{
+		m_AmountBullets = m_AmountBuuletsMax;
+	}
+}
+
 bool Player::enterSupplyPoint()
 {
 	return m_EnteringSulpplyPoint;
@@ -193,6 +203,7 @@ void Player::OnCollision()
 		{
 			// ここで通知する
 			m_EnteringSulpplyPoint = true;
+			
 			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
 			{
 				if (m_Command->GetNowInput(Input::Forward))

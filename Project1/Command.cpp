@@ -436,6 +436,13 @@ void GameCommand::InputKeyboard(float deltaTime)
 		m_NowInput[10] = true;
 		m_Controller->UseSkill();
 	}
+
+	// 補給
+	if (KeyBoard::IsTrigger(DIK_R))
+	{
+		m_Controller->ReplenishBullet();
+	}
+
 	// 1f前のマウスポインタ
 	m_OldMouse.x = (float)Mouse::GetMouseX();
 	m_OldMouse.y = (float)Mouse::GetMouseY();
@@ -519,6 +526,12 @@ void GameCommand::InputGamePad(float deltaTime)
 	{
 		m_NowInput[10] = true;
 		m_Controller->UseSkill();
+	}
+
+	// ほきゅう　
+	if (GamePad::IsTrigger(0, BUTTON_4))
+	{
+		m_Controller->ReplenishBullet();
 	}
 }
 #pragma endregion GameCommandメソッド

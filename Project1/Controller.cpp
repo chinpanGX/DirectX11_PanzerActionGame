@@ -93,5 +93,8 @@ void Controller::UseSkill()
 
 void Controller::ReplenishBullet()
 {
-	
+	if (m_Player->enterSupplyPoint())
+	{
+		m_Player->ReplenishBullets();
+	}
 }
