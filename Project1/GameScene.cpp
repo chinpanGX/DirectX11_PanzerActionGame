@@ -14,6 +14,7 @@
 #include "GameCamera.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "SelectCommand.h"
 #include "Command.h"
 #include "GarageCamera.h"
 #include "PanzerGarage.h"

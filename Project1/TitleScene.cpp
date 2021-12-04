@@ -8,7 +8,7 @@
 #include "Resource.h"
 #include "TitleBg.h"
 #include "TitleSystem.h"
-#include "Command.h"
+#include "TitleCommand.h"
 #include "TitleScene.h"
 #include <thread>
 

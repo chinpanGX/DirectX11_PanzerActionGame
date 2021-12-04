@@ -7,7 +7,7 @@
 #include "Engine.h"
 #include "Resource.h"
 #include "ResultBg.h"
-#include "Command.h"
+#include "ResultCommand.h"
 #include "GameManager.h"
 #include "ResultScene.h"
 

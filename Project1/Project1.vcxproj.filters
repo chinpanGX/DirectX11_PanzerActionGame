@@ -79,6 +79,9 @@
     <Filter Include="Actor\Result">
       <UniqueIdentifier>{10880981-0a0a-4610-86d3-4389942a4f8d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{ff8796bd-3cb0-44eb-a6b7-1abb1bda1708}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application.cpp">
@@ -107,9 +110,6 @@
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="Graphics.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Input.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -210,9 +210,6 @@
     </ClCompile>
     <ClCompile Include="PanzerStateStay.cpp">
       <Filter>Actor\Panzer\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <Filter>Command</Filter>
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Command</Filter>
@@ -356,6 +353,21 @@
     <ClCompile Include="DrawNumber.cpp">
       <Filter>Actor\2D\Number</Filter>
     </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Command.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleCommand.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultCommand.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="SelectCommand.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -387,9 +399,6 @@
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Graphics.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="myLib.h">
@@ -508,9 +517,6 @@
     </ClInclude>
     <ClInclude Include="PanzerStateStay.h">
       <Filter>Actor\Panzer\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="Controller.h">
       <Filter>Command</Filter>
@@ -668,6 +674,21 @@
     </ClInclude>
     <ClInclude Include="UnitStageSetter.h">
       <Filter>Actor\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleCommand.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultCommand.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="SelectCommand.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

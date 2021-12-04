@@ -214,7 +214,9 @@
     <ClCompile Include="Renderer3D.cpp" />
     <ClCompile Include="Resource.cpp" />
     <ClCompile Include="ResultBg.cpp" />
+    <ClCompile Include="ResultCommand.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="SelectCommand.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shadow.cpp" />
     <ClCompile Include="Skill.cpp" />
@@ -225,6 +227,7 @@
     <ClCompile Include="StageObject.cpp" />
     <ClCompile Include="Supply.cpp" />
     <ClCompile Include="TitleBg.cpp" />
+    <ClCompile Include="TitleCommand.cpp" />
     <ClCompile Include="TitleScene.cpp" />
     <ClCompile Include="UnitStageSetter.cpp" />
     <ClCompile Include="Status.cpp" />
@@ -314,9 +317,11 @@
     <ClInclude Include="Renderer3D.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="ResultBg.h" />
+    <ClInclude Include="ResultCommand.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="ResultState.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SelectCommand.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Shadow.h" />
     <ClInclude Include="Singleton.h" />
@@ -329,6 +334,7 @@
     <ClInclude Include="StageObject.h" />
     <ClInclude Include="Supply.h" />
     <ClInclude Include="TitleBg.h" />
+    <ClInclude Include="TitleCommand.h" />
     <ClInclude Include="TitleScene.h" />
     <ClInclude Include="UnitStageSetter.h" />
     <ClInclude Include="State.h" />

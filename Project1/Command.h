@@ -3,11 +3,12 @@
 	[Command.h]
 	Author : 出合翔太
 
-	コマンド
+	ゲームシーンで使う入力処理の管理
 
 -------------------------------------------------------------*/
 #pragma once
 #include "DefaultObject.h"
+#include "stdafx.h"
 #include <memory>
 #include <vector>
 
@@ -30,23 +31,6 @@ namespace Input
 	const int Shot = 8;
 }
 
-// タイトル
-class TitleCommand final : public DefaultObject
-{
-public:
-	TitleCommand();
-	~TitleCommand();
-	void Begin()override;
-	void Update()override;
-	void Event()override;
-	void Draw()override;
-private:
-	void BeginInput();
-	void InputKeyBoard();
-	void InputGamePad();
-	class TitleSystem* m_TitleSystem = nullptr;
-};
-
 // ゲームコマンド
 class Controller;
 class GameCommand final : public DefaultObject
@@ -61,42 +45,18 @@ public:
 	// 今入力しているか
 	bool GetNowInput(int32_t i) const;
 private:
-	void InputKeyboard(float deltaTime);
+	void InputKeyboardAndMouse(float deltaTime);
 	void InputGamePad(float deltaTime);
+	// trueなら入力している/falseなら入力していない
 	std::vector<bool> m_NowInput;
+
+	// マウスの情報
 	D3DXVECTOR2 m_OldMouse;
 	D3DXVECTOR2 m_Mouse;
-
-	// trueなら入力している/falseなら入力していない
+	
 	std::unique_ptr<Controller> m_Controller;
 	class Player* m_Player;
 	class Pause* m_Pause;
-};
-
-namespace GameBg
-{
-	class PanzerSelectUi;
-	class ResultBg;
-}
-
-// 戦車選択コマンドクラス
-class SelectCommand final : public DefaultObject
-{
-public:
-	SelectCommand();
-	~SelectCommand();
-	void Begin()override;
-	void Update()override;
-	void Event()override;
-	void Draw()override;
-	const bool GetSelect()const;
-private:
-	void InputKeyBoard();
-	void InputGamePad();
-	class PanzerContainer* m_Container = nullptr;
-	class GameBg::PanzerSelectUi* m_Ui;
-	bool m_Select = true; // trueで戦車選択、falseでゲーム選択
-	bool m_Mode;
 };
 
 // ポーズ中のコマンド
@@ -110,24 +70,7 @@ public:
 	void Event()override;
 	void Draw()override;
 private:
-	void InputKeyBoard();
+	void InputKeyBoardAndMouse();
 	void InputGamePad();
 	class Pause* m_Pause = nullptr;
-};
-
-// リザルトのコマンド
-class ResultCommand final : public DefaultObject
-{
-public:
-	ResultCommand();
-	~ResultCommand();
-	void Begin()override;
-	void Update()override;
-	void Event()override;
-	void Draw()override;
-private:
-	void InputKeyBoard();
-	void InputGamePad();
-	int32_t m_Frame = 0;
-	GameBg::ResultBg* m_Bg;
 };
