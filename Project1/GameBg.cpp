@@ -15,6 +15,7 @@
 #include "GameCamera.h"
 #include "PanzerContainer.h"
 #include "Command.h"
+#include "SelectCommand.h"
 #include <string>
 #include <vector>
 #include <algorithm>

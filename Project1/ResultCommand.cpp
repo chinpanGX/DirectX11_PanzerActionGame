@@ -7,8 +7,8 @@
 
 --------------------------------------------------------------*/
 #include "Command.h"
-#include "ResultBg.h"
 #include "ResultState.h"
+#include "ResultBg.h"
 #include "ResultCommand.h"
 #include "Engine.h"
 #include "Application.h"
@@ -73,7 +73,7 @@ void ResultCommand::InputKeyBoard()
 
 void ResultCommand::InputGamePad()
 {
-	auto state = m_Bg->GetState();
+	auto& state = m_Bg->GetState();
 	// Ÿ‚ÌƒV[ƒ“‚ğ‘I‘ğ
 	if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 	{
