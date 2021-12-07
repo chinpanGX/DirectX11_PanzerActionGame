@@ -83,6 +83,9 @@ void PanzerContainer::Draw()
 	m_Parameters->Draw(m_Speed, D3DXVECTOR2(1500.0f, 500.0f));
 	// ‘•“U‘¬“x
 	m_Parameters->Draw(m_Reload, D3DXVECTOR2(1500.0f, 570.0f));
+
+	// ƒXƒLƒ‹‚Ìà–¾
+
 }
 
 void PanzerContainer::SetChooseUp()

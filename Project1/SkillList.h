@@ -61,6 +61,15 @@ namespace UseSkill
 	private:
 		float m_AmountHeal = 0.2f; // 回復する割合 = 20%
 	};
+
+	class QuickReload final : public IUseSkill
+	{
+	public:
+		void Use(Status& status)override;
+		void Reset(Status & status)override;
+	private:
+		float m_DefualtReloadTime;
+	};
 }
 #if 0
 // 味方のスキルゲージをためる

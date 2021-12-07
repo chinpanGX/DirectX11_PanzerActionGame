@@ -168,7 +168,7 @@ void MiniMap::Update()
 	m_PlayerPosition.y = m_Position.y - m_Player->vehicle().bodyTransform().position().z * m_Shrink;
 
 	// エネミーの位置
-	m_EnemyPosition.x = m_Position.x - m_Enemy->vehicle().bodyTransform().position().x * m_Shrink* -1;
+	m_EnemyPosition.x = m_Position.x - m_Enemy->vehicle().bodyTransform().position().x * m_Shrink * -1;
 	m_EnemyPosition.y = m_Position.y - m_Enemy->vehicle().bodyTransform().position().z * m_Shrink;
 }
 

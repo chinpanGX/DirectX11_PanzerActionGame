@@ -85,8 +85,9 @@ namespace PlayerUi
 		// ゲージのサイズ
 		const float m_MaxSize = 600.0f; // MAXサイズ
 		float m_NowGage = 0.0f;			// 		
-		float m_Amount; // 増える量
-		
+		float m_DefaultAmount;	// デフォルトの増える量
+		float m_QuickAmount;	// クイックの増える量	
+
 		float m_Time;
 
 		bool m_DrawQuickGage = true; // 高速リロードの表示

@@ -63,11 +63,12 @@ public:
 	void reloadAddTime(float AddTime);	
 	const float addTime()const;
 
+	void reloadTime(float time);
 	const float reloadTime()const;
 private:
 	Country m_Country;
 	const float m_MaxHp; // Max値
-	const float m_ReloadTime; // リロードに必要な秒数
+	float m_ReloadTime; // リロードに必要な秒数
 	
 	float m_Cost; // 戦車のコスト
 	float m_Hp;		// Hp

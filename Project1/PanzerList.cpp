@@ -35,6 +35,7 @@ Tiger::Tiger() : Vehicle("Tiger")
 	skill().Begin(30.0f);	
 	// 攻撃力UP
 	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
+	skill().SetSkill(std::make_unique<UseSkill::QuickReload>());
 
 	// Colliderの設定
 	m_Collider[0] = std::make_unique<Collider>();
@@ -93,6 +94,7 @@ Centurion::Centurion() : Vehicle("Centurion")
 	skill().Begin(20.0f);
 	// 速度UP
 	skill().SetSkill(std::make_unique<UseSkill::SpeedUp>(1.5f));
+	skill().SetSkill(std::make_unique<UseSkill::QuickReload>());
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
@@ -151,6 +153,7 @@ Patton::Patton() : Vehicle("Patton")
 	skill().Begin(40.0f);
 	// 防御力UP
 	skill().SetSkill(std::make_unique<UseSkill::DefenceUp>(1.5f));
+	skill().SetSkill(std::make_unique<UseSkill::QuickReload>());
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
@@ -211,6 +214,7 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	skill().SetSkill(std::make_unique<UseSkill::HealHp>());
 	// 防御力UP
 	skill().SetSkill(std::make_unique<UseSkill::DefenceUp>(2.0f));
+	skill().SetSkill(std::make_unique<UseSkill::QuickReload>());
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
@@ -274,6 +278,7 @@ IV_H::IV_H() : Vehicle("IV-H")
 	skill().SetSkill(std::make_unique<UseSkill::DefenceUp>(1.2f));
 	// 攻撃力UP
 	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.2f));
+	skill().SetSkill(std::make_unique<UseSkill::QuickReload>());
 	
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
@@ -332,6 +337,7 @@ Sherman::Sherman() : Vehicle("Sherman")
 	skill().Begin(20.0f);	
 	// 攻撃力UP
 	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.3f));
+	skill().SetSkill(std::make_unique<UseSkill::QuickReload>());
 
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();

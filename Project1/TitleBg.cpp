@@ -48,7 +48,8 @@ void GameBg::TitleBg::Draw()
 	}
 	else
 	{
-		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.49f, 1.0f));
+		// タイトル画面
+		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.49f, 0.9f));
 	}
 }
 #pragma endregion TitleBgメソッド

@@ -77,3 +77,14 @@ void UseSkill::HealHp::Use(Status& status)
 void UseSkill::HealHp::Reset(Status & status)
 {
 }
+
+void UseSkill::QuickReload::Use(Status & status)
+{
+	m_DefualtReloadTime = status.reloadTime();
+	status.reloadTime(0.5f);
+}
+
+void UseSkill::QuickReload::Reset(Status & status)
+{
+	status.reloadTime(m_DefualtReloadTime);
+}

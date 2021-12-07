@@ -115,6 +115,11 @@ const float Status::addTime() const
 	return m_AddTime;
 }
 
+void Status::reloadTime(float time)
+{
+	m_ReloadTime = time;
+}
+
 const float Status::reloadTime() const
 {
 	return m_ReloadTime;

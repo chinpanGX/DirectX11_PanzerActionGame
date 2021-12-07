@@ -152,7 +152,9 @@ namespace PlayerUi
 		// リロード時間の取得
 		float t = m_Player->vehicle().status().reloadTime();
 		// 増える量を計算
-		m_Amount = m_MaxSize / t * Fps::Get().deltaTime;
+		m_DefaultAmount = m_MaxSize / t * Fps::Get().deltaTime;
+
+		m_QuickAmount = m_MaxSize / 0.5f * Fps::Get().deltaTime;
 		
 		// 変数の初期化
 		m_NowStop = false;
@@ -252,9 +254,18 @@ namespace PlayerUi
 	// リロード優の処理
 	void Reload::NowReload()
 	{
+		float amount;
+		if (m_Player->vehicle().skill().useSkillNow())
+		{
+			amount = m_QuickAmount;
+		}
+		else
+		{
+			amount = m_DefaultAmount;
+		}
 		// ゲージをとアイコンの更新
-		m_NowGage += m_Amount;
-		m_IconPosition.x += m_Amount;
+		m_NowGage += amount;
+		m_IconPosition.x += amount;
 
 		// クイックリロードの範囲内ならクイックリロードを有効にする
 		if (m_IconPosition.x - 40.0f > m_QuickRangePosition.x - 80.0f && m_IconPosition.x + 40.0f < m_QuickRangePosition.x + 80.0f)
