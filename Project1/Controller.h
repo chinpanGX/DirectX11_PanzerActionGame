@@ -33,7 +33,7 @@ public:
 	// ƒXƒLƒ‹
 	void UseSkill();
 	// ’e–ò‚Ì•â‹‹
-	void ReplenishBullet();
+	bool ReplenishBullet();
 private:
 	Player* m_Player = nullptr;
 	GameCamera* m_Camera = nullptr;

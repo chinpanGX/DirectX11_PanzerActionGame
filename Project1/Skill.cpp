@@ -59,10 +59,13 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 	// スキルを使っている間
 	case 3:
 		m_NowTime += Fps::Get().deltaTime;		
-		// エフェクトの位置を戦車に合わせる
-		m_Effect->transform().position(position);
-		// アニメーションを再生する
-		PlayAnim();		
+		if (m_Effect)
+		{
+			// エフェクトの位置を戦車に合わせる
+			m_Effect->transform().position(position);
+			// アニメーションを再生する
+			PlayAnim();
+		}
 		// ５秒間有効
 		if (m_NowTime > m_TimeLimit)
 		{

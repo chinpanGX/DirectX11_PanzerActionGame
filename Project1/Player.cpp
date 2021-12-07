@@ -75,16 +75,6 @@ void Player::Event()
 		}
 	}
 	Pawn::CheckZeroHp(this);
-	// 補給地点にいる && 弾数が上限ではない
-	if (m_EnteringSulpplyPoint && m_AmountBullets < m_AmountBuuletsMax)
-	{
-		m_AmountBullets++;
-		// 上限を超えないようにする
-		if (m_AmountBullets > m_AmountBuuletsMax)
-		{
-			m_AmountBullets = m_AmountBuuletsMax;
-		}
-	}
 }
 
 void Player::Draw()
@@ -156,12 +146,31 @@ void Player::Shot()
 
 void Player::ReplenishBullets()
 {
-	m_AmountBullets++;
-	// 上限値の設定
-	if (m_AmountBullets > m_AmountBuuletsMax)
+	m_ReplenishTime += Fps::Get().deltaTime;
+	// 補給に必要な時間 1秒
+	float delayTime = 1.0f;
+
+	if (m_ReplenishTime > delayTime)
 	{
-		m_AmountBullets = m_AmountBuuletsMax;
+		m_AmountBullets++;
+		// 上限値の設定
+		if (m_AmountBullets > m_AmountBuuletsMax)
+		{
+			m_AmountBullets = m_AmountBuuletsMax;
+		}
+		m_ReplenishTime = 0;
 	}
+}
+
+
+bool Player::isBulletsUpperLimit()
+{
+	// 弾の数が上限かどうか
+	if (m_AmountBullets >= m_AmountBuuletsMax)
+	{
+		return true; // 上限
+	}
+	return false; // 上限ではない⇒補給できる
 }
 
 bool Player::enterSupplyPoint()
@@ -184,11 +193,11 @@ void Player::OnCollision()
 		{
 			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
 			{
-				if (m_Command->GetNowInput(Input::Forward))
+				if (m_Command->GetNowInput(InputCode::Forward))
 				{
 					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
-				if (m_Command->GetNowInput(Input::Backward))
+				if (m_Command->GetNowInput(InputCode::Backward))
 				{
 					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
@@ -206,19 +215,20 @@ void Player::OnCollision()
 			
 			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
 			{
-				if (m_Command->GetNowInput(Input::Forward))
+				if (m_Command->GetNowInput(InputCode::Forward))
 				{
 					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);
 				}
-				if (m_Command->GetNowInput(Input::Backward))
+				if (m_Command->GetNowInput(InputCode::Backward))
 				{
 					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);			
 				}
 			}
-			else
-			{
-				m_EnteringSulpplyPoint = false;
-			}
+		}
+		// 当たっていない
+		else
+		{
+			m_EnteringSulpplyPoint = false;
 		}
 	}
 	BeginOverlap(this);

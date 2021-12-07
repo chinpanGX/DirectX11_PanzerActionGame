@@ -77,7 +77,7 @@ void PlayerReload::Update()
 		if (enableQuickReload)
 		{
 			// 左クリックをすると
-			if (m_Command->GetNowInput(Input::Shot) && m_Count == QuickReload)
+			if (m_Command->GetNowInput(InputCode::Shot) && m_Count == QuickReload)
 			{
 				// リロードが終了する
 				Reload::FinishReload();
@@ -88,7 +88,7 @@ void PlayerReload::Update()
 		else
 		{
 			// 左クリックをするとリロードストップ
-			if (m_Command->GetNowInput(Input::Shot))
+			if (m_Command->GetNowInput(InputCode::Shot))
 			{				
 				if(m_Count == QuickReload)
 				{

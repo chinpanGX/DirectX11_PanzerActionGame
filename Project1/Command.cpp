@@ -79,82 +79,90 @@ void GameCommand::InputKeyboardAndMouse(float deltaTime)
 	// 現在のマウスポインタ
 	m_Mouse.y = (Mouse::GetMouseY() - m_OldMouse.y) * 0.08f;
 	m_Mouse.x = (Mouse::GetMouseX() - m_OldMouse.x) * 0.02f;
-	
-	// カメラモードをFPSにする
-	if (Mouse::RightPress())
-	{
-		m_NowInput[9] = true;
-		m_Controller->FpsCameraMode(true);
-	}
 
-	// 戦車（ボディ）の移動
-	if (KeyBoard::IsPress(DIK_W))
-	{
-		m_NowInput[0] = true;
-		m_Controller->MoveForward(deltaTime);
-	}
-	if (KeyBoard::IsPress(DIK_S))
-	{
-		m_NowInput[1] = true;
-		m_Controller->MoveBackward(deltaTime);
-	}
-	if (KeyBoard::IsPress(DIK_D))
-	{
-		m_NowInput[2] = true;
-		m_Controller->RotRight(deltaTime);
-	}
-	if (KeyBoard::IsPress(DIK_A))
-	{
-		m_NowInput[3] = true;
-		m_Controller->RotLeft(deltaTime);
-	}
-	// 戦車（タレット）の回転
-	if (m_Mouse.x < m_OldMouse.x - 2.5f)
-	{
-		m_NowInput[4] = true;
-		m_Controller->RotTurretRight(deltaTime);
-	}
-	else if (m_Mouse.x > m_OldMouse.x + 5.0f)
-	{
-		m_NowInput[5] = true;
-		m_Controller->RotTurretLeft(deltaTime);
-	}
-
-	// 砲台の上下
-	if (m_Mouse.y > m_OldMouse.y + 2.5f)
-	{
-		m_NowInput[6] = true;
-		m_Controller->RotMaingunUp(deltaTime);
-	}
-	else if (m_Mouse.y < m_OldMouse.y - 2.5f)
-	{
-		m_NowInput[7] = true;
-		m_Controller->RotMaingunDown(deltaTime);
-	}
-
-	// 砲弾を撃つ
-	if (Mouse::LeftTrigger())
-	{
-		m_NowInput[8] = true;
-		m_Controller->Shot();
-	}
-
-	// スキルを使う
-	if (KeyBoard::IsTrigger(DIK_E))
-	{
-		m_NowInput[10] = true;
-		m_Controller->UseSkill();
-	}
+	bool nowReplenishBullet = false;
 
 	// 補給
-	if (KeyBoard::IsTrigger(DIK_R))
+	if (KeyBoard::IsPress(DIK_R))
 	{
-		m_Controller->ReplenishBullet();
+		// 補給中であることを知らせる
+		nowReplenishBullet = m_Controller->ReplenishBullet();
 	}
 
-	// 1f前のマウスポインタ
-	m_OldMouse.x = (float)Mouse::GetMouseX();
-	m_OldMouse.y = (float)Mouse::GetMouseY();
+	// 補給をしていなければ、他の動作が可能
+	if (nowReplenishBullet == false)
+	{
+
+		// カメラモードをFPSにする
+		if (Mouse::RightPress())
+		{
+			m_NowInput[9] = true;
+			m_Controller->FpsCameraMode(true);
+		}
+
+		// 戦車（ボディ）の移動
+		if (KeyBoard::IsPress(DIK_W))
+		{
+			m_NowInput[0] = true;
+			m_Controller->MoveForward(deltaTime);
+		}
+		if (KeyBoard::IsPress(DIK_S))
+		{
+			m_NowInput[1] = true;
+			m_Controller->MoveBackward(deltaTime);
+		}
+		if (KeyBoard::IsPress(DIK_D))
+		{
+			m_NowInput[2] = true;
+			m_Controller->RotRight(deltaTime);
+		}
+		if (KeyBoard::IsPress(DIK_A))
+		{
+			m_NowInput[3] = true;
+			m_Controller->RotLeft(deltaTime);
+		}
+		// 戦車（タレット）の回転
+		if (m_Mouse.x < m_OldMouse.x - 2.5f)
+		{
+			m_NowInput[4] = true;
+			m_Controller->RotTurretRight(deltaTime);
+		}
+		else if (m_Mouse.x > m_OldMouse.x + 5.0f)
+		{
+			m_NowInput[5] = true;
+			m_Controller->RotTurretLeft(deltaTime);
+		}
+
+		// 砲台の上下
+		if (m_Mouse.y > m_OldMouse.y + 2.5f)
+		{
+			m_NowInput[6] = true;
+			m_Controller->RotMaingunUp(deltaTime);
+		}
+		else if (m_Mouse.y < m_OldMouse.y - 2.5f)
+		{
+			m_NowInput[7] = true;
+			m_Controller->RotMaingunDown(deltaTime);
+		}
+
+		// 砲弾を撃つ
+		if (Mouse::LeftTrigger())
+		{
+			m_NowInput[8] = true;
+			m_Controller->Shot();
+		}
+
+		// スキルを使う
+		if (KeyBoard::IsTrigger(DIK_E))
+		{
+			m_NowInput[10] = true;
+			m_Controller->UseSkill();
+		}
+
+		// 1f前のマウスポインタ
+		m_OldMouse.x = (float)Mouse::GetMouseX();
+		m_OldMouse.y = (float)Mouse::GetMouseY();
+	}
 }
 
 // ゲームパッドの入力
@@ -168,79 +176,86 @@ void GameCommand::InputGamePad(float deltaTime)
 	}
 	m_Controller->FpsCameraMode(false);
 
-	// カメラモードをFPSにする
-	if (GamePad::IsPress(0, TRIGGER_L2))
-	{
-		m_NowInput[9] = true;
-		m_Controller->FpsCameraMode(true);
-	}
+	bool nowReplenishBullet = false;
 
-	// 戦車（ボディ）の移動
-	if (GamePad::IsPress(0, LEFTSTICK_UP))
-	{
-		if (!m_Player->CollisionEnter())
-		{
-			m_NowInput[0] = true;
-			m_Controller->MoveForward(deltaTime);
-		}
-	}
-	if (GamePad::IsPress(0, LEFTSTICK_DOWN))
-	{
-		m_NowInput[1] = true;
-		m_Controller->MoveBackward(deltaTime);
-	}
-	if (GamePad::IsPress(0, LEFTSTICK_RIGHT))
-	{
-		m_NowInput[2] = true;
-		m_Controller->RotRight(deltaTime);
-	}
-	if (GamePad::IsPress(0, LEFTSTICK_LEFT))
-	{
-		m_NowInput[3] = true;
-		m_Controller->RotLeft(deltaTime);
-	}
-	// 戦車（タレット）の回転
-	if (GamePad::IsPress(0, RIGHTSTICK_RIGHT))
-	{
-		m_NowInput[4] = true;
-		m_Controller->RotTurretRight(deltaTime);
-	}
-	else if (GamePad::IsPress(0, RIGHTSTICK_LEFT))
-	{
-		m_NowInput[5] = true;
-		m_Controller->RotTurretLeft(deltaTime);
-	}
-
-	// 砲台の上下
-	if (GamePad::IsPress(0, RIGHTSTICK_UP))
-	{
-		m_NowInput[6] = true;
-		m_Controller->RotMaingunUp(deltaTime);
-	}
-	else if (GamePad::IsPress(0, RIGHTSTICK_DOWN))
-	{
-		m_NowInput[7] = true;
-		m_Controller->RotMaingunDown(deltaTime);
-	}
-
-	// 砲弾を撃つ
-	if (GamePad::IsTrigger(0, TRIGGER_R2))
-	{
-		m_NowInput[8] = true;
-		m_Controller->Shot();
-	}
-
-	// スキルを使う
-	if (GamePad::IsTrigger(0, BUTTON_1))
-	{
-		m_NowInput[10] = true;
-		m_Controller->UseSkill();
-	}
-
-	// ほきゅう　
+	// 補給
 	if (GamePad::IsTrigger(0, BUTTON_4))
 	{
-		m_Controller->ReplenishBullet();
+		// 補給中であることを知らせる
+		nowReplenishBullet =  m_Controller->ReplenishBullet();
+	}
+
+	// 補給をしていなければ、他の動作が可能
+	if (nowReplenishBullet == false)
+	{
+		// カメラモードをFPSにする
+		if (GamePad::IsPress(0, TRIGGER_L2))
+		{
+			m_NowInput[9] = true;
+			m_Controller->FpsCameraMode(true);
+		}
+
+		// 戦車（ボディ）の移動
+		if (GamePad::IsPress(0, LEFTSTICK_UP))
+		{
+			if (!m_Player->CollisionEnter())
+			{
+				m_NowInput[0] = true;
+				m_Controller->MoveForward(deltaTime);
+			}
+		}
+		if (GamePad::IsPress(0, LEFTSTICK_DOWN))
+		{
+			m_NowInput[1] = true;
+			m_Controller->MoveBackward(deltaTime);
+		}
+		if (GamePad::IsPress(0, LEFTSTICK_RIGHT))
+		{
+			m_NowInput[2] = true;
+			m_Controller->RotRight(deltaTime);
+		}
+		if (GamePad::IsPress(0, LEFTSTICK_LEFT))
+		{
+			m_NowInput[3] = true;
+			m_Controller->RotLeft(deltaTime);
+		}
+		// 戦車（タレット）の回転
+		if (GamePad::IsPress(0, RIGHTSTICK_RIGHT))
+		{
+			m_NowInput[4] = true;
+			m_Controller->RotTurretRight(deltaTime);
+		}
+		else if (GamePad::IsPress(0, RIGHTSTICK_LEFT))
+		{
+			m_NowInput[5] = true;
+			m_Controller->RotTurretLeft(deltaTime);
+		}
+
+		// 砲台の上下
+		if (GamePad::IsPress(0, RIGHTSTICK_UP))
+		{
+			m_NowInput[6] = true;
+			m_Controller->RotMaingunUp(deltaTime);
+		}
+		else if (GamePad::IsPress(0, RIGHTSTICK_DOWN))
+		{
+			m_NowInput[7] = true;
+			m_Controller->RotMaingunDown(deltaTime);
+		}
+
+		// 砲弾を撃つ
+		if (GamePad::IsTrigger(0, TRIGGER_R2))
+		{
+			m_NowInput[8] = true;
+			m_Controller->Shot();
+		}
+
+		// スキルを使う
+		if (GamePad::IsTrigger(0, BUTTON_1))
+		{
+			m_NowInput[10] = true;
+			m_Controller->UseSkill();
+		}
 	}
 }
 #pragma endregion GameCommandメソッド

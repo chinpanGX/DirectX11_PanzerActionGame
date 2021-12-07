@@ -149,7 +149,6 @@ void PlayerUi::BulletAmount::Begin()
 
 void PlayerUi::BulletAmount::Update()
 {
-	m_BulletsValue = m_Player->amountBullets();
 }
 
 void PlayerUi::BulletAmount::Event()
@@ -159,6 +158,6 @@ void PlayerUi::BulletAmount::Event()
 void PlayerUi::BulletAmount::Draw()
 {
 	m_Slash->Draw();
-	m_DrawBulletAmount[0]->Draw(m_BulletsValue);
+	m_DrawBulletAmount[0]->Draw(m_Player->amountBullets());
 	m_DrawBulletAmount[1]->Draw(m_BulletValueMax);
 }

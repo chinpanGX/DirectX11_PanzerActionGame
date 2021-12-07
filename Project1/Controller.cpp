@@ -91,10 +91,13 @@ void Controller::UseSkill()
 	m_Player->UseSkill();
 }
 
-void Controller::ReplenishBullet()
+bool Controller::ReplenishBullet()
 {
-	if (m_Player->enterSupplyPoint())
+	// •â‹‹”ÍˆÍ‚É“ü‚Á‚Ä‚¢‚é‚© && ’e”‚ªãŒÀ‚Å‚Í‚È‚¢
+	if (m_Player->enterSupplyPoint() && m_Player->isBulletsUpperLimit() == false)
 	{
 		m_Player->ReplenishBullets();
+		return true;
 	}
+	return false;
 }

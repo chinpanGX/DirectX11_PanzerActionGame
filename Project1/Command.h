@@ -19,16 +19,20 @@ namespace
 }
 
 // 入力状態の取得変数
-namespace Input
+namespace InputCode
 {
 	// 前後
 	const int Forward = 0;
 	const int Backward = 1;
+	// 射撃
+	const int Shot = 8;
+
 	// カメラモード
 	const int Camera = 9;
 
-	// 射撃
-	const int Shot = 8;
+	// 補給
+	const int Replenish = 11;
+
 }
 
 // ゲームコマンド

@@ -43,9 +43,6 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{018faa8d-06bc-4288-8440-7ecab2a345a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Command">
-      <UniqueIdentifier>{1853295f-ef03-4747-a33b-2411950f75bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Camera">
       <UniqueIdentifier>{6beffdee-0ca4-4648-86fd-5f16515247c9}</UniqueIdentifier>
     </Filter>
@@ -211,9 +208,6 @@
     <ClCompile Include="PanzerStateStay.cpp">
       <Filter>Actor\Panzer\State</Filter>
     </ClCompile>
-    <ClCompile Include="Controller.cpp">
-      <Filter>Command</Filter>
-    </ClCompile>
     <ClCompile Include="Actor.cpp">
       <Filter>Actor\Base</Filter>
     </ClCompile>
@@ -368,6 +362,9 @@
     <ClCompile Include="SelectCommand.cpp">
       <Filter>Input</Filter>
     </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Actor\Pawn</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -517,9 +514,6 @@
     </ClInclude>
     <ClInclude Include="PanzerStateStay.h">
       <Filter>Actor\Panzer\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Controller.h">
-      <Filter>Command</Filter>
     </ClInclude>
     <ClInclude Include="DefaultObject.h">
       <Filter>Actor\Base</Filter>
@@ -689,6 +683,9 @@
     </ClInclude>
     <ClInclude Include="SelectCommand.h">
       <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Actor\Pawn</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

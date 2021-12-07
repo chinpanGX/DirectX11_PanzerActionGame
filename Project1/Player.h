@@ -32,8 +32,9 @@ public:
 	void UseSkill();
 	void Shot();
 
-	void ReplenishBullets(); // 弾を補給する 
-	bool enterSupplyPoint(); // 補給地点に入っている
+	void ReplenishBullets();	// 弾を補給する 
+	bool isBulletsUpperLimit(); // 弾の数が上限かどうか
+	bool enterSupplyPoint();	// 補給地点に入っている
 	int32_t amountBullets() const;
 private:
 	void OnCollision()override;
@@ -51,10 +52,11 @@ private:
 	Resource& m_Resource;
 	Graphics& m_Graphics;
 
-	const int32_t m_AmountBuuletsMax = 24; // 弾数の最大値 
-	int32_t m_AmountBullets = 24; // 弾数
-	float m_Volume = 0.0f;		// サウンドの大きさ	
+	const int32_t m_AmountBuuletsMax = 24;	// 弾数の最大値 
+	int32_t m_AmountBullets = 24;			// 弾数
+	float m_ReplenishTime = 0;				// 補給中の時間計測
+	float m_Volume = 0.0f;					// サウンドの大きさ	
 	bool m_Audioplay = false;
-	bool m_EnteringSulpplyPoint; // 補給地点に入っている
+	bool m_EnteringSulpplyPoint;			// 補給地点に入っている
 };
 
