@@ -26,9 +26,9 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.OutputWindow = Engine::Get().GetHwnd();
-	sd.SampleDesc.Count = 1;
+	sd.SampleDesc.Count = 16;
 	sd.SampleDesc.Quality = 0;
-	sd.Windowed = TRUE;
+	sd.Windowed = FALSE;
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // alt-enter fullscreen
 
 	hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &sd,
@@ -62,7 +62,7 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	D3D11_DEPTH_STENCIL_VIEW_DESC dsvd;
 	ZeroMemory(&dsvd, sizeof(dsvd));
 	dsvd.Format = td.Format;
-	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+	dsvd.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2DMS;
 	dsvd.Flags = 0;
 	m_Device->CreateDepthStencilView(depthTexture, &dsvd, m_DepthStencilView.GetAddressOf());
 	m_DeviceContext->OMSetRenderTargets(1, m_RenderTargetView.GetAddressOf(), m_DepthStencilView.Get());
