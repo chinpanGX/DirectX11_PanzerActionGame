@@ -26,7 +26,7 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	sd.BufferDesc.RefreshRate.Denominator = 1;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.OutputWindow = Engine::Get().GetHwnd();
-	sd.SampleDesc.Count = 16;
+	sd.SampleDesc.Count = 4;
 	sd.SampleDesc.Quality = 0;
 	sd.Windowed = FALSE;
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // alt-enter fullscreen
