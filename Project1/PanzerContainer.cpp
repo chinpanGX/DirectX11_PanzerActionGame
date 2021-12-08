@@ -131,7 +131,7 @@ void PanzerContainer::DecisionofCpuPanzer()
 			// Å¬’l‚É‚È‚Á‚½‚çAÅŒã”ö‚Ö
 			if (rand < 0)
 			{
-				rand = m_PanzerName.size();;
+				rand = m_PanzerName.size();
 			}
 		}
 	}

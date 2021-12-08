@@ -37,7 +37,6 @@ public:
 	void Begin()override;
 	void Update()override;
 private:
-	void OverReloadTime();	// リロード完了になったら
 	void ReloadStop();		// リロードストップ
 
 	const Status& m_Status;
@@ -45,7 +44,6 @@ private:
 	GameCommand* m_Command = nullptr;
 	int32_t m_Count;
 	float m_NowReloadTime; // リロード時間中
-	float m_FinishReloadTime; // リロード完了時間
 	float m_Time;
 	bool m_OnReloadStop = false; // リロードストップ
 };

@@ -56,8 +56,6 @@ void PlayerReload::Begin()
 	// 変数の初期化
 	Reload::BeginReload();
 
-	m_FinishReloadTime = m_Status.reloadTime() * 60.0f; // リロード完了する時間
-
 	m_NowReloadTime = 0.0f;
 	m_OnReloadStop = false;
 	m_Time = 0.0f;
@@ -69,6 +67,9 @@ void PlayerReload::Update()
 	// リロードが完了していない状態
 	if(Reload::finishReload() == false && m_OnReloadStop == false)
 	{
+		// リロード完了する時間
+		float finishReloadTime = m_Status.reloadTime() * 60.0f;
+
 		// 時間を計測
 		m_NowReloadTime += m_Status.addTime();
 		
@@ -100,20 +101,14 @@ void PlayerReload::Update()
 			}
 		}
 		// リロード時間を超えたとき
-		OverReloadTime();
+		if (m_NowReloadTime >= finishReloadTime)
+		{
+			// リロード完了
+			Reload::FinishReload();
+		}
 	}
 	// リロードストップ
 	ReloadStop();
-}
-
-void PlayerReload::OverReloadTime()
-{
-	// リロード完了時間を超えたら
-	if (m_NowReloadTime >= m_FinishReloadTime)
-	{
-		// リロード完了
-		Reload::FinishReload();
-	}
 }
 
 void PlayerReload::ReloadStop()
