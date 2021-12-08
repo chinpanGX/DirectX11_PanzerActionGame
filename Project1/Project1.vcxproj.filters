@@ -43,9 +43,6 @@
     <Filter Include="Resource">
       <UniqueIdentifier>{018faa8d-06bc-4288-8440-7ecab2a345a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Camera">
-      <UniqueIdentifier>{6beffdee-0ca4-4648-86fd-5f16515247c9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Panzer\Object">
       <UniqueIdentifier>{dbaa73f6-88ff-45f6-8e20-e36d5944e807}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="Input">
       <UniqueIdentifier>{ff8796bd-3cb0-44eb-a6b7-1abb1bda1708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Camera">
+      <UniqueIdentifier>{6beffdee-0ca4-4648-86fd-5f16515247c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -320,9 +320,6 @@
     <ClCompile Include="PanzerUseSkill.cpp">
       <Filter>Actor\Panzer\State</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerUi.cpp">
-      <Filter>Actor\2D\Game</Filter>
-    </ClCompile>
     <ClCompile Include="SkillList.cpp">
       <Filter>Actor\Panzer\Skill</Filter>
     </ClCompile>
@@ -364,6 +361,9 @@
     </ClCompile>
     <ClCompile Include="Controller.cpp">
       <Filter>Actor\Pawn</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerUi.cpp">
+      <Filter>Actor\2D\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

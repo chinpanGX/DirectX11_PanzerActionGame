@@ -25,13 +25,13 @@ namespace PlayerUi
 {
 	class Reload;
 }
+class Player;
 class GameCommand;
 class Status;
 class PlayerReload final : public Reload
 {
 public:
-	PlayerReload() = delete;
-	PlayerReload(const Status& status);
+	PlayerReload();
 	~PlayerReload();
 	void Init()override;
 	void Begin()override;
@@ -39,13 +39,14 @@ public:
 private:
 	void ReloadStop();		// リロードストップ
 
-	const Status& m_Status;
+	Player* m_Player;
 	PlayerUi::Reload* m_Reload = nullptr;
 	GameCommand* m_Command = nullptr;
 	int32_t m_Count;
 	float m_NowReloadTime; // リロード時間中
 	float m_Time;
 	bool m_OnReloadStop = false; // リロードストップ
+	bool m_UseSkill = false; // スキルを使っているかどうか
 };
 
 class CpuReload : public Reload

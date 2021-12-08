@@ -251,32 +251,40 @@ namespace PlayerUi
 	}
 
 #pragma region _privateFunction_
-	// リロード優の処理
+	// リロードの処理
 	void Reload::NowReload()
 	{
+		// ゲージの増える量を決める
 		float amount;
+
+		// スキルを使用中
 		if (m_Player->vehicle().skill().useSkillNow())
 		{
 			amount = m_QuickAmount;
 		}
+		// デフォルトの状態
 		else
 		{
 			amount = m_DefaultAmount;
+			// クイックリロードの範囲内ならクイックリロードを有効にする
+			if (m_IconPosition.x - 40.0f > m_QuickRangePosition.x - 80.0f && m_IconPosition.x + 40.0f < m_QuickRangePosition.x + 80.0f)
+			{
+				m_EnableQuickReload = true;
+			}
+			else
+			{
+				m_EnableQuickReload = false;
+			}
+
 		}
+
 		// ゲージをとアイコンの更新
 		m_NowGage += amount;
 		m_IconPosition.x += amount;
 
-		// クイックリロードの範囲内ならクイックリロードを有効にする
-		if (m_IconPosition.x - 40.0f > m_QuickRangePosition.x - 80.0f && m_IconPosition.x + 40.0f < m_QuickRangePosition.x + 80.0f)
-		{
-			m_EnableQuickReload = true;
-		}
-		else
-		{
-			m_EnableQuickReload = false;
-		}
 	}
+
+
 	// リロード完了
 	void Reload::Finish()
 	{

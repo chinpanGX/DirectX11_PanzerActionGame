@@ -43,10 +43,11 @@ void Pawn::Update()
 	m_Reload->Update();
 	m_Vehicle->Update();
 	m_MoveComponent->Update();
-	m_Vehicle->ColiisionUpdate(0, m_Vehicle->bodyTransform().position(), m_Vehicle->bodyTransform());
+
+	auto colliderPosition = m_Vehicle->bodyTransform().position();
+	colliderPosition.y = m_Vehicle->bodyTransform().position().y + 1.0f;
+	m_Vehicle->ColiisionUpdate(0, colliderPosition, m_Vehicle->bodyTransform());
 	m_Vehicle->ColiisionUpdate(1, m_Pivot->transform().position(), m_Pivot->transform());
-	m_Vehicle->ColiisionUpdate(2, D3DXVECTOR3(m_Pivot->transform().position().x, m_Pivot->transform().position().y,
-		m_Pivot->transform().position().z + 3.0f), m_Pivot->transform());
 }
 
 void Pawn::Event()
@@ -131,7 +132,7 @@ void Pawn::Create()
 
 	if (m_Type == 0)
 	{
-		m_Reload = std::make_unique<PlayerReload>(m_Vehicle->status());
+		m_Reload = std::make_unique<PlayerReload>();
 	}
 	else
 	{

@@ -37,14 +37,15 @@ public:
 	//　当たり判定関係
 	void ColiisionUpdate(int32_t Element, const D3DXVECTOR3& Position, Transform& t);
 	Collider& collider(int32_t Element) const;
-	
+	const uint32_t colliderNum() const;
+
 	class Transform& bodyTransform() const;
 	class Transform& turretTransform() const;
 	class Transform& gunTransform() const;
 	Status& status() const;
 	Skill& skill() const;
 protected:
-	std::array<std::unique_ptr<class Collider>, 3> m_Collider;
+	std::array<std::unique_ptr<class Collider>, 2> m_Collider;
 
 	// ステータスの設定
 	void SetPanzer();

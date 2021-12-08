@@ -119,6 +119,11 @@ Collider & Vehicle::collider(int32_t Element) const
 	return *m_Collider[Element];
 }
 
+const uint32_t Vehicle::colliderNum() const
+{
+	return m_Collider.size();
+}
+
 Transform & Vehicle::bodyTransform() const
 {
 	return m_Panzer->GetBody().transform();

@@ -55,7 +55,6 @@ void NormalBullet::Draw()
 	// マトリクス設定
 	Actor::UpdateMatrix(*m_Transform);
 	m_Resource.SetStaticModel("Bullet");
-	//m_Collider->SystemDraw();
 }
 
 void NormalBullet::Create(const D3DXVECTOR3& Position, const D3DXVECTOR3 & Vector)
@@ -128,12 +127,15 @@ void NormalBullet::OnCollisionToPawn(Pawn * Pawn)
 	// 球同士の当たり判定を取る
 	if (Intersect(m_Collider->GetSphere3(), Pawn->vehicle().collider(0).GetSphere3()))
 	{
-		for (int i = 0; i < 3; i++)
+		// 戦車が持つコライダー文ループ
+		for (int i = 0; i < Pawn->vehicle().colliderNum(); i++)
 		{
 			if (Intersect(m_Collider->GetOBB3(), Pawn->vehicle().collider(i).GetOBB3()))
 			{
 				Bullet::OnCollisionEnter();
 				Pawn->OnCollisionEnter();
+				// 当たったらループを抜ける
+				break;
 			}
 		}
 	}

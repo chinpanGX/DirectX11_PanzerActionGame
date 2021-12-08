@@ -10,6 +10,9 @@
 #include "Command.h"
 #include "PlayerUi.h"
 #include "Status.h"
+#include "Vehicle.h"
+#include "Player.h"
+#include "Skill.h"
 #include "Reload.h"
 #include "Fps.h"
 
@@ -35,7 +38,7 @@ namespace
 	const int QuickReload = 1;
 }
 
-PlayerReload::PlayerReload(const Status & status) : m_Status(status)
+PlayerReload::PlayerReload()
 {
 
 }
@@ -47,6 +50,7 @@ PlayerReload::~PlayerReload()
 void PlayerReload::Init()
 {
 	// オブジェクトの取得
+	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	m_Reload = Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	m_Command = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 }
@@ -55,8 +59,9 @@ void PlayerReload::Begin()
 {
 	// 変数の初期化
 	Reload::BeginReload();
-
 	m_NowReloadTime = 0.0f;
+	// 今スキルを使っているかどうか
+	m_UseSkill = m_Player->vehicle().skill().useSkillNow();
 	m_OnReloadStop = false;
 	m_Time = 0.0f;
 	m_Count = 0;
@@ -67,11 +72,17 @@ void PlayerReload::Update()
 	// リロードが完了していない状態
 	if(Reload::finishReload() == false && m_OnReloadStop == false)
 	{
+		// 開始時点でスキルまだ使っていない
+		if (m_UseSkill == false)
+		{
+			// 途中でスキルを使う可能性があるので、更新してみる
+			m_UseSkill = m_Player->vehicle().skill().useSkillNow();
+		}
 		// リロード完了する時間
-		float finishReloadTime = m_Status.reloadTime() * 60.0f;
+		float finishReloadTime = m_Player->vehicle().status().reloadTime() * 60.0f;
 
 		// 時間を計測
-		m_NowReloadTime += m_Status.addTime();
+		m_NowReloadTime += m_Player->vehicle().status().addTime();
 		
 		// クイックリロードが有効中
 		bool enableQuickReload = m_Reload->enableQuickReload();

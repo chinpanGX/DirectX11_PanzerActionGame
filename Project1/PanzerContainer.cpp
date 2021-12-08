@@ -110,28 +110,28 @@ void PanzerContainer::SetChooseDown()
 
 void PanzerContainer::DecisionofCpuPanzer()
 {
-	uint32_t rand = myLib::Random::Rand_R(0, m_PanzerName.size());
+	int32_t rand = myLib::Random::Rand_R(0, m_PanzerName.size());
 	// プレイヤーとCPUの戦車が被ったとき
 	if (m_PlayerofSelectedPanzer == m_PanzerName[rand])
 	{
 		// 選択する配列をずらす
-		uint32_t i = myLib::Random::Rand_R(0, 2);
-		if (i == 0)
-		{
-			rand++;
-			// 最大値になったら、先頭へ
-			if (rand > m_PanzerName.size())
-			{
-				rand = 0;
-			}
-		}
-		else
+		//uint32_t i = myLib::Random::Rand_R(0, 2);
+		//if (i == 0)
+		//{
+		//	rand++;
+		//	// 最大値になったら、先頭へ
+		//	if (rand > m_PanzerName.size())
+		//	{
+		//		rand = 0;
+		//	}
+		//}
+		//else
 		{
 			rand--;
 			// 最小値になったら、最後尾へ
 			if (rand < 0)
 			{
-				rand = m_PanzerName.size();
+				rand = m_PanzerName.size() -1;
 			}
 		}
 	}
