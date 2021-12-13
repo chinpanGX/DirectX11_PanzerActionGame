@@ -42,8 +42,10 @@ private:
 	Player* m_Player;
 	PlayerUi::Reload* m_Reload = nullptr;
 	GameCommand* m_Command = nullptr;
+	const int32_t m_EnableQuickReloadCount = 1; // クイックリロードを有効にするカウント
 	int32_t m_Count;
 	float m_NowReloadTime; // リロード時間中
+	float m_FinishReloadTime;
 	float m_Time;
 	bool m_OnReloadStop = false; // リロードストップ
 	bool m_UseSkill = false; // スキルを使っているかどうか

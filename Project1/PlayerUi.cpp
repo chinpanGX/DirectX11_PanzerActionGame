@@ -152,9 +152,9 @@ namespace PlayerUi
 		// リロード時間の取得
 		float t = m_Player->vehicle().status().reloadTime();
 		// 増える量を計算
-		m_DefaultAmount = m_MaxSize / t * Fps::Get().deltaTime;
+		m_DefaultAmount = m_MaxSizeAmount / t * Fps::Get().deltaTime;
 
-		m_QuickAmount = m_MaxSize / 0.5f * Fps::Get().deltaTime;
+		m_QuickAmount = m_MaxSizeAmount / 0.5f * Fps::Get().deltaTime;
 		
 		// 変数の初期化
 		m_NowStop = false;
@@ -193,7 +193,7 @@ namespace PlayerUi
 		{
 			auto color = D3DXVECTOR4(0.0f, 0.35f, 0.55f, 0.35f);
 			// 背景ゲージ
-			m_Render->Draw(m_MaxSize, m_GagePosition, 15.0f, "Gage", color);
+			m_Render->Draw(m_MaxSizeAmount, m_GagePosition, 15.0f, "Gage", color);
 
 			if (m_DrawQuickGage)
 			{
@@ -205,7 +205,7 @@ namespace PlayerUi
 
 			color = D3DXVECTOR4(1.0f, 0.5f, 0.7f, 0.5f);
 			// ゲージ
-			m_Render->Draw(m_NowGage, m_GagePosition, 15.0f, "Gage", color);
+			m_Render->Draw(m_NowGageAmount, m_GagePosition, 15.0f, "Gage", color);
 
 			// アイコンの描画
 			DrawIcon();
@@ -218,7 +218,7 @@ namespace PlayerUi
 		m_NowReload = true;
 		m_Time = 0.0f;
 		m_IconPosition.x = m_GagePosition.x;
-		m_NowGage = 0.0f;
+		m_NowGageAmount = 0.0f;
 		// ゲージの描画開始
 		m_Draw = true;
 		m_DrawQuickGage = true;
@@ -240,8 +240,8 @@ namespace PlayerUi
 	{
 		m_EnableQuickReload = false;
 		m_NowReload = false;
-		m_IconPosition.x = m_GagePosition.x + m_MaxSize;
-		m_NowGage = m_MaxSize;
+		m_IconPosition.x = m_GagePosition.x + m_MaxSizeAmount;
+		m_NowGageAmount = m_MaxSizeAmount;
 	}
 
 	// リロードが有効かどうか
@@ -253,43 +253,44 @@ namespace PlayerUi
 #pragma region _privateFunction_
 	// リロードの処理
 	void Reload::NowReload()
-	{
-		// ゲージの増える量を決める
-		float amount;
+	{		
+		// クイックリロードの範囲内ならクイックリロードを有効にする
+		if (m_IconPosition.x - 40.0f > m_QuickRangePosition.x - 80.0f && m_IconPosition.x + 40.0f < m_QuickRangePosition.x + 80.0f)
+		{
+			m_EnableQuickReload = true;
+		}
+		else
+		{
+			m_EnableQuickReload = false;
+		}
 
+		// ゲージをとアイコンの更新		
 		// スキルを使用中
 		if (m_Player->vehicle().skill().useSkillNow())
 		{
-			amount = m_QuickAmount;
+			AddGageAndMoveIcon(m_QuickAmount);
 		}
-		// デフォルトの状態
+		// スキルを使っていない
 		else
 		{
-			amount = m_DefaultAmount;
-			// クイックリロードの範囲内ならクイックリロードを有効にする
-			if (m_IconPosition.x - 40.0f > m_QuickRangePosition.x - 80.0f && m_IconPosition.x + 40.0f < m_QuickRangePosition.x + 80.0f)
-			{
-				m_EnableQuickReload = true;
-			}
-			else
-			{
-				m_EnableQuickReload = false;
-			}
-
+			AddGageAndMoveIcon(m_DefaultAmount);
 		}
-
-		// ゲージをとアイコンの更新
-		m_NowGage += amount;
-		m_IconPosition.x += amount;
-
+		
 	}
 
+	void Reload::AddGageAndMoveIcon(float amount)
+	{
+		m_NowGageAmount += amount;
+		m_IconPosition.x += amount;
+	}
 
 	// リロード完了
 	void Reload::Finish()
 	{
 		if (m_Player->reload().finishReload())
 		{
+			m_NowGageAmount = m_MaxSizeAmount;
+			m_IconPosition.x = m_GagePosition.x + m_MaxSizeAmount;
 			m_EnableQuickReload = false;
 			m_NowReload = false;
 		}
@@ -308,7 +309,8 @@ namespace PlayerUi
 		{
 			// ゲージを元に戻す
 			m_IconPosition.x = m_GagePosition.x;
-			m_NowGage = 0.0f;
+			
+			m_NowGageAmount = 0.0f;
 
 			// 非表示にする
 			m_Draw = false;
@@ -327,8 +329,8 @@ namespace PlayerUi
 		Engine::Get().resource()->SetVertexShader("NoLighting");
 		Engine::Get().resource()->SetInputLayout("NoLighting");
 	
-		// クイックリロードが有効
-		if (m_EnableQuickReload && m_DrawQuickGage)
+		// クイックリロードが有効 またはリロードしていないとき
+		if (m_EnableQuickReload || m_NowReload == false)
 		{			
 			Engine::Get().resource()->SetPixelShader("NoLighting");
 			color = D3DXVECTOR4(0.85f, 0.95f, 0.0f, 1.0);
@@ -358,21 +360,21 @@ namespace PlayerUi
 	{
 		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 		// 実際のHPとMAXのサイズから描画する比率を求める
-		m_DrawRatio = m_MaxDrawSize / m_Player->vehicle().status().maxHp();
+		m_DrawRatioAmount = m_MaxDrawSize / m_Player->vehicle().status().maxHp();
 	}
 
 	void Hp::Update()
 	{
 		// 現在のHP
-		m_NowHp = m_Player->vehicle().status().hp();
+		m_NowHpAmount = m_Player->vehicle().status().hp();
 		// 更新前のHPと比較する
-		if (m_OldHp != m_NowHp)
+		if (m_OldHpAmount != m_NowHpAmount)
 		{
 			// 一致しなかったら、描画サイズを計算して前のHPを更新する
 
 			// 現在のHP * 求めた比率
-			m_DrawSize = m_NowHp * m_DrawRatio;
-			m_OldHp = m_NowHp;
+			m_DrawSizeAmount = m_NowHpAmount * m_DrawRatioAmount;
+			m_OldHpAmount = m_NowHpAmount;
 		}
 	}
 
@@ -389,7 +391,7 @@ namespace PlayerUi
 		m_Render->Draw(m_MaxDrawSize, pos, D3DXVECTOR4(0.35f, 0.35f, 0.35f, 0.75f));
 
 		// 現在のHPバー
-		m_Render->Draw(m_DrawSize, pos, D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
+		m_Render->Draw(m_DrawSizeAmount, pos, D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 	}
 #pragma endregion Hpゲージ
 }

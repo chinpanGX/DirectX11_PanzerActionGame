@@ -23,7 +23,7 @@ void Supply::Begin()
 {	
 	auto size = D3DXVECTOR3(5.0f, 1.0, 5.0f);
 	m_Collider->SetSphere3(*m_Transform, 5.0f * 2.0f);
-	m_Collider->SetOBB3(*m_Transform, size);
+	m_Collider->SetOBB3(*m_Transform, size * 2.0f);
 }
 
 void Supply::Update()

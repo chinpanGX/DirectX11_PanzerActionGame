@@ -65,9 +65,10 @@ namespace PlayerUi
 		const bool enableQuickReload()const;		
 	private:
 		/* 更新処理のヘルパー関数 */
-		void NowReload();		// リロード優の処理
-		void Finish();			// リロード終了
-		void SwitchNotDraw();	// 非表示にする
+		void NowReload();			// リロードの処理
+		void AddGageAndMoveIcon(float amount);	// ゲージを増やす処理とアイコンを増やす
+		void Finish();				// リロード終了
+		void SwitchNotDraw();		// 非表示にする
 
 		/* 描画処理のヘルパー関数 */
 		void DrawIcon();
@@ -83,8 +84,8 @@ namespace PlayerUi
 		Pause* m_Pause;
 
 		// ゲージのサイズ
-		const float m_MaxSize = 600.0f; // MAXサイズ
-		float m_NowGage = 0.0f;			// 		
+		const float m_MaxSizeAmount = 600.0f; // MAXサイズ
+		float m_NowGageAmount = 0.0f;			// 		
 		float m_DefaultAmount;	// デフォルトの増える量
 		float m_QuickAmount;	// クイックの増える量	
 
@@ -113,11 +114,11 @@ namespace PlayerUi
 		const float m_MaxDrawSize = 400.0f; // MAX状態HP
 
 		// プレイヤーのHP
-		float m_NowHp = 0.0f; // 現在のHP
-		float m_OldHp = 0.0f; // 更新前のHP
+		float m_NowHpAmount = 0.0f; // 現在のHP
+		float m_OldHpAmount = 0.0f; // 更新前のHP
 
 		// 描画
-		float m_DrawSize = 400.0f; // 現在HP
-		float m_DrawRatio = 0.0f; // 描画 比率		
+		float m_DrawSizeAmount = 400.0f; // 現在HP
+		float m_DrawRatioAmount = 0.0f; // 描画 比率		
 	};
 }

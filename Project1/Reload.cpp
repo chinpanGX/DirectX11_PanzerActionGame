@@ -33,11 +33,6 @@ const bool Reload::finishReload() const
 }
 #pragma endregion _リロード_
 
-namespace
-{
-	const int QuickReload = 1;
-}
-
 PlayerReload::PlayerReload()
 {
 
@@ -62,6 +57,7 @@ void PlayerReload::Begin()
 	m_NowReloadTime = 0.0f;
 	// 今スキルを使っているかどうか
 	m_UseSkill = m_Player->vehicle().skill().useSkillNow();
+	m_FinishReloadTime = m_Player->vehicle().status().reloadTime() * 60.0f;
 	m_OnReloadStop = false;
 	m_Time = 0.0f;
 	m_Count = 0;
@@ -77,9 +73,8 @@ void PlayerReload::Update()
 		{
 			// 途中でスキルを使う可能性があるので、更新してみる
 			m_UseSkill = m_Player->vehicle().skill().useSkillNow();
-		}
-		// リロード完了する時間
-		float finishReloadTime = m_Player->vehicle().status().reloadTime() * 60.0f;
+			m_FinishReloadTime = m_Player->vehicle().status().reloadTime() * 60.0f;
+		}		
 
 		// 時間を計測
 		m_NowReloadTime += m_Player->vehicle().status().addTime();
@@ -89,7 +84,7 @@ void PlayerReload::Update()
 		if (enableQuickReload)
 		{
 			// 左クリックをすると
-			if (m_Command->GetNowInput(InputCode::Shot) && m_Count == QuickReload)
+			if (m_Command->GetNowInput(InputCode::Shot) && m_Count == m_EnableQuickReloadCount)
 			{
 				// リロードが終了する
 				Reload::FinishReload();
@@ -102,17 +97,19 @@ void PlayerReload::Update()
 			// 左クリックをするとリロードストップ
 			if (m_Command->GetNowInput(InputCode::Shot))
 			{				
-				if(m_Count == QuickReload)
+				// クイックリロードが有効なカウント && スキルを使っていないとき
+				if(m_Count == m_EnableQuickReloadCount && m_UseSkill == false)
 				{
 					// リロードがストップする
 					m_Reload->Stop();
 					m_OnReloadStop = true;
 				}
+				// クリックしたカウントを数えておく
 				m_Count++;
 			}
 		}
 		// リロード時間を超えたとき
-		if (m_NowReloadTime >= finishReloadTime)
+		if (m_NowReloadTime >= m_FinishReloadTime)
 		{
 			// リロード完了
 			Reload::FinishReload();
@@ -128,7 +125,7 @@ void PlayerReload::ReloadStop()
 	if (m_OnReloadStop == true)
 	{
 		// ストップする時間
-		float stopTime = 3.0;
+		float stopTime = 3.0f;
 		m_Time += Fps::Get().deltaTime;
 		if (m_Time > stopTime)
 		{

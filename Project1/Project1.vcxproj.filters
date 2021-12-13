@@ -46,9 +46,6 @@
     <Filter Include="Actor\Panzer\State">
       <UniqueIdentifier>{6f565254-acce-40f0-8acb-88973c42535b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Panzer\Object">
-      <UniqueIdentifier>{dbaa73f6-88ff-45f6-8e20-e36d5944e807}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Panzer\Skill">
       <UniqueIdentifier>{ef6d73e9-7564-442a-a285-d842af3f68f5}</UniqueIdentifier>
     </Filter>
@@ -78,6 +75,9 @@
     </Filter>
     <Filter Include="Actor\Camera">
       <UniqueIdentifier>{6beffdee-0ca4-4648-86fd-5f16515247c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Panzer\Object">
+      <UniqueIdentifier>{dbaa73f6-88ff-45f6-8e20-e36d5944e807}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
