@@ -136,7 +136,7 @@ void Pawn::Create()
 	}
 	else
 	{
-		m_Reload = std::make_unique<CpuReload>(m_Vehicle->status());
+		m_Reload = std::make_unique<CpuReload>();
 	}
 }
 

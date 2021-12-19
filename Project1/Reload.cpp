@@ -136,9 +136,8 @@ void PlayerReload::ReloadStop()
 }
 
 #pragma region _CpuReload_
-CpuReload::CpuReload(const Status & status) : m_Status(status)
+CpuReload::CpuReload()
 {
-
 }
 
 CpuReload::~CpuReload()
@@ -152,6 +151,9 @@ void CpuReload::Init()
 void CpuReload::Begin()
 {
 	Reload::BeginReload();
+	// リロードの時間⇒6秒固定
+	const float ReloadTime = 6.0f;
+	m_FinishReloadTime = ReloadTime * 60.0f;
 	m_NowReloadTime = 0.0f;
 }
 
@@ -160,10 +162,9 @@ void CpuReload::Update()
 	// リロードが完了していない状態
 	if (Reload::finishReload() == false)
 	{
-		const float time = m_Status.reloadTime() * 60.0f; // リロード完了する時間
-		m_NowReloadTime += m_Status.addTime();
+		m_NowReloadTime += 1.0f;
 		// リロード完了時間を超えたら
-		if (m_NowReloadTime >= time)
+		if (m_NowReloadTime >= m_FinishReloadTime)
 		{
 			// リロード完了
 			Reload::FinishReload();

@@ -54,13 +54,13 @@ private:
 class CpuReload : public Reload
 {
 public:
-	CpuReload() = delete;
-	CpuReload(const Status& status);
+	CpuReload();
 	~CpuReload();
 	void Init()override;
 	void Begin()override;
 	void Update()override;
 private:
-	const Status& m_Status;
+
+	float m_FinishReloadTime;
 	float m_NowReloadTime; // ƒŠƒ[ƒhŠÔ’†
 };
