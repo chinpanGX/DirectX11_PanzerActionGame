@@ -92,6 +92,7 @@ void Player::Draw()
 		m_Resource.SetTexture(1, "ToonAnim");
 		D3DXVECTOR4 uv = vehicle().skill().uv();
 		m_Graphics.SetParameter(uv);
+		
 	}
 	else
 	{
@@ -120,6 +121,7 @@ void Player::UseSkill()
 	// スキルを使う
 	vehicle().skill().Enable(this);	
 	vehicle().skill().PlayEffect(this);
+	m_Resource.AudioPlay("Skill");
 }
 
 void Player::Shot()

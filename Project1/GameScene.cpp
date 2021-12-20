@@ -187,6 +187,8 @@ void GameScene::Tutorial::Load()
 	Engine::Get().resource()->AudioLoad("Select", false);
 	Engine::Get().resource()->AudioLoad("Shot", false);
 	Engine::Get().resource()->AudioLoad("Idel", true);
+	Engine::Get().resource()->AudioLoad("Skill", false);
+	Engine::Get().resource()->AudioLoad("Reload", false);
 	// テクスチャのロード
 	Engine::Get().resource()->LoadTexture("Target", "Target.png");
 	Engine::Get().resource()->LoadTexture("Ui04", "Ui04.png");
@@ -261,6 +263,8 @@ void GameScene::Game::Load()
 	Engine::Get().resource()->AudioLoad("Select", false);
 	Engine::Get().resource()->AudioLoad("Idel", true);
 	Engine::Get().resource()->AudioLoad("Shot", false);
+	Engine::Get().resource()->AudioLoad("Skill", false);
+	Engine::Get().resource()->AudioLoad("Reload", false);
 	// テクスチャのロード
 	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
 	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.dds");

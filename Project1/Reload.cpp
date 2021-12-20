@@ -6,6 +6,7 @@
 
 ------------------------------------------------------------*/
 #include "Application.h"
+#include "Resource.h"
 #include "Engine.h"
 #include "Command.h"
 #include "PlayerUi.h"
@@ -89,6 +90,7 @@ void PlayerReload::Update()
 				// リロードが終了する
 				Reload::FinishReload();
 				m_Reload->SuccessQuickReload();
+				Engine::Get().resource()->AudioPlay("Reload");
 			}
 		}
 		// 有効じゃないとき
