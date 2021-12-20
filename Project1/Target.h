@@ -19,7 +19,7 @@ public:
 	void Event()override;
 	void Draw()override;
 private:
-	bool m_NotDraw = false; // true‚Å•`‰æ‚µ‚È‚¢
 	float m_CoolTime = 100.0f; // •`‰æ‚µ‚È‚¢ŽžŠÔ
+	bool m_NotDraw = false; // true‚Å•`‰æ‚µ‚È‚¢
 };
 

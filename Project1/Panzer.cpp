@@ -16,7 +16,6 @@
 #include "Application.h"
 #include "Resource.h"
 #include "Graphics.h"
-#include "NormalBullet.h"
 #include "Fence.h"
 
 Panzer::Panzer(const std::string & PanzerTag) : m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())

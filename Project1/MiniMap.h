@@ -40,19 +40,19 @@ public:
 	void Event()override;
 	void Draw()override;
 private:
-	std::unique_ptr<Renderer2D> m_Bg;
-	std::unique_ptr<Renderer2D> m_Map;
-	std::unique_ptr<Renderer2D> m_Icon;
+	void OtherIconDraw();
+	std::vector<std::unique_ptr<Renderer2D>> m_MarkerList;
 	std::unique_ptr<PlayerIcon> m_PlayerIcon;
-	
+	//ポインタ
 	std::vector<Supply*> m_SupplyList;
 	Enemy* m_Enemy;
 	Player* m_Player;
 
-
+	// プレイヤーとエネミーの位置
 	D3DXVECTOR2 m_PlayerPosition;
 	D3DXVECTOR2 m_EnemyPosition;
 
+	// ミニマップの表示関係
 	D3DXVECTOR2 m_Position; // ミニマップの位置
 	float m_MapSize;		// ミニマップの大きさ
 	float m_Shrink;			// 実際のマップに対してミニマップを縮小する倍率

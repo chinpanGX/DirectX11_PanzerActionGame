@@ -13,7 +13,6 @@
 #include "GameScene.h"
 #include "Player.h"
 #include "Pivot.h"
-#include "NormalBullet.h"
 #include "GameCamera.h"
 #include "Fps.h"
 #include "Controller.h"

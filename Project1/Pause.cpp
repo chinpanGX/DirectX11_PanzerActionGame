@@ -159,19 +159,10 @@ void Pause::ChangeState(std::unique_ptr<PauseState> State)
 	m_PauseState = std::move(State);
 }
 
-PauseState::PauseState() : m_Renderer(std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui"))
-{
-}
-
-class Renderer2D& PauseState::GetRenderer() const
-{
-	return *m_Renderer;
-}
-
 #pragma region Keepon
-Keepon::Keepon() : PauseState()
+Keepon::Keepon()
 {
-	
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui");
 }
 
 void Keepon::Draw(Pause * Pause)
@@ -181,17 +172,17 @@ void Keepon::Draw(Pause * Pause)
 	D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
 	D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, Pause->GetAlpha());
 
-	GetRenderer().Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), color);
-	GetRenderer().Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.25f, 0.625f));
-	GetRenderer().Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.625f), D3DXVECTOR2(0.25f, 0.75f));
-	GetRenderer().Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.25f, 0.375f), D3DXVECTOR2(0.5f, 0.5f));
+	m_Render->Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), color);
+	m_Render->Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.25f, 0.625f));
+	m_Render->Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.625f), D3DXVECTOR2(0.25f, 0.75f));
+	m_Render->Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.25f, 0.375f), D3DXVECTOR2(0.5f, 0.5f));
 }
 #pragma endregion 続ける
 
 #pragma region Operation 
-Operation::Operation() : PauseState()
+Operation::Operation()
 {
-
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui");
 }
 
 void Operation::Draw(Pause * Pause)
@@ -203,10 +194,10 @@ void Operation::Draw(Pause * Pause)
 	{
 		D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
 		D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, Pause->GetAlpha());
-		GetRenderer().Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), color);
-		GetRenderer().Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.25f, 0.625f));
-		GetRenderer().Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.625f), D3DXVECTOR2(0.25f, 0.75f));
-		GetRenderer().Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.25f, 0.375f), D3DXVECTOR2(0.5f, 0.5f));
+		m_Render->Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), color);
+		m_Render->Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.25f, 0.625f));
+		m_Render->Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.625f), D3DXVECTOR2(0.25f, 0.75f));
+		m_Render->Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.25f, 0.375f), D3DXVECTOR2(0.5f, 0.5f));
 	}
 	else
 	{
@@ -215,20 +206,20 @@ void Operation::Draw(Pause * Pause)
 		// キーボードマウスの設定
 		if (g_IsInputGamePad == false)
 		{
-			GetRenderer().Draw(pos, size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
+			m_Render->Draw(pos, size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 		}
 		else if (g_IsInputGamePad == true)
 		{
-			GetRenderer().Draw(pos, size, D3DXVECTOR2(0.5f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
+			m_Render->Draw(pos, size, D3DXVECTOR2(0.5f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 		}
 	}
 }
 #pragma endregion 操作方法の確認
 
 #pragma region GameEnd
-GameEnd::GameEnd() : PauseState()
+GameEnd::GameEnd()
 {
-
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui");
 }
 
 void GameEnd::Draw(Pause * Pause)
@@ -240,28 +231,29 @@ void GameEnd::Draw(Pause * Pause)
 	{
 		D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
 		D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, Pause->GetAlpha());
-		GetRenderer().Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), color);
-		GetRenderer().Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.25f, 0.625f));
-		GetRenderer().Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.25f, 0.375f), D3DXVECTOR2(0.5f, 0.5f));
-		GetRenderer().Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.625f), D3DXVECTOR2(0.25f, 0.75f));
+		m_Render->Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), color);
+		m_Render->Draw(D3DXVECTOR2(x, 400.0f), size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.25f, 0.625f));
+		m_Render->Draw(D3DXVECTOR2(x, 800.0f), size, D3DXVECTOR2(0.25f, 0.375f), D3DXVECTOR2(0.5f, 0.5f));
+		m_Render->Draw(D3DXVECTOR2(x, 600.0f), size, D3DXVECTOR2(0.0f, 0.625f), D3DXVECTOR2(0.25f, 0.75f));
 	}
 	else
 	{
+	
 		// 上を選んだとき、はい
 		if (Pause->GetToporBottom() == true)
 		{
-			GetRenderer().Draw(D3DXVECTOR2(x, 600.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f),D3DXVECTOR4(1.0f, 1.0f, 1.0f, Pause->GetAlpha()));
-			GetRenderer().Draw(D3DXVECTOR2(x, 600.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR2(0.5f, 0.625f));
-			GetRenderer().Draw(D3DXVECTOR2(x, 800.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.625f), D3DXVECTOR2(0.5f, 0.75f));
-			GetRenderer().Draw(D3DXVECTOR2(x, 400.0f), D3DXVECTOR2(1024.0f, 128.0f), D3DXVECTOR2(0.0f, 0.875f), D3DXVECTOR2(0.5f, 1.0f));
+			m_Render->Draw(D3DXVECTOR2(x, 600.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, Pause->GetAlpha()));
+			m_Render->Draw(D3DXVECTOR2(x, 600.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR2(0.5f, 0.625f));
+			m_Render->Draw(D3DXVECTOR2(x, 800.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.625f), D3DXVECTOR2(0.5f, 0.75f));
+			m_Render->Draw(D3DXVECTOR2(x, 400.0f), D3DXVECTOR2(1024.0f, 128.0f), D3DXVECTOR2(0.0f, 0.875f), D3DXVECTOR2(0.5f, 1.0f));
 		}
 		// 下を選んだ時、いいえ
 		else if (Pause->GetToporBottom() == false)
 		{
-			GetRenderer().Draw(D3DXVECTOR2(x, 800.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR4(1.0f,1.0f,1.0f, Pause->GetAlpha()));
-			GetRenderer().Draw(D3DXVECTOR2(x, 600.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR2(0.5f, 0.625f));
-			GetRenderer().Draw(D3DXVECTOR2(x, 800.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.625f), D3DXVECTOR2(0.5f, 0.75f));
-			GetRenderer().Draw(D3DXVECTOR2(x, 400.0f), D3DXVECTOR2(1024.0f, 128.0f), D3DXVECTOR2(0.0f, 0.875f), D3DXVECTOR2(0.5f, 1.0f));
+			m_Render->Draw(D3DXVECTOR2(x, 800.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, Pause->GetAlpha()));
+			m_Render->Draw(D3DXVECTOR2(x, 600.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.5f), D3DXVECTOR2(0.5f, 0.625f));
+			m_Render->Draw(D3DXVECTOR2(x, 800.0f), D3DXVECTOR2(512.0f, 128.0f), D3DXVECTOR2(0.25f, 0.625f), D3DXVECTOR2(0.5f, 0.75f));
+			m_Render->Draw(D3DXVECTOR2(x, 400.0f), D3DXVECTOR2(1024.0f, 128.0f), D3DXVECTOR2(0.0f, 0.875f), D3DXVECTOR2(0.5f, 1.0f));
 		}
 	}
 }

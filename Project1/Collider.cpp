@@ -13,7 +13,6 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "WallBox.h"
-#include "NormalBullet.h"
 #include "Fence.h"
 #include "Target.h"
 

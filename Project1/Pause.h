@@ -90,13 +90,8 @@ private:
 class PauseState
 {
 public:
-	PauseState();
 	virtual ~PauseState(){}
 	virtual void Draw(Pause* Pause) = 0;
-protected:
-	class Renderer2D& GetRenderer() const;
-private:
-	std::shared_ptr<class Renderer2D> m_Renderer; // Ui
 };
 
 // 続ける
@@ -105,6 +100,8 @@ class Keepon final : public PauseState
 public:
 	Keepon();
 	void Draw(Pause* Pause)override;
+private:
+	std::unique_ptr<class Renderer2D> m_Render;
 };
 
 // 操作方法の確認
@@ -113,6 +110,8 @@ class Operation final : public PauseState
 public:
 	Operation();
 	void Draw(Pause* Pause)override;
+private:
+	std::unique_ptr<class Renderer2D> m_Render;
 };
 
 // ゲーム終了
@@ -121,6 +120,8 @@ class GameEnd final : public PauseState
 public:
 	GameEnd();
 	void Draw(Pause* Pause)override;
+private:
+	std::unique_ptr<class Renderer2D> m_Render;
 };
 
 #pragma endregion _ポーズ中のステート_

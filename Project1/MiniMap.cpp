@@ -25,13 +25,10 @@ PlayerIcon::PlayerIcon() : m_Graphics(*Engine::Get().graphics()), m_Resource(*En
 	Vertex3D vertex[4];
 	vertex[0].Position = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);
 	vertex[0].TexCoord = D3DXVECTOR2(0.0f, 0.0f);
-
 	vertex[1].Position = D3DXVECTOR3(1.0f, -1.0f, 0.0f);
 	vertex[1].TexCoord = D3DXVECTOR2(1.0f, 0.0f);
-
 	vertex[2].Position = D3DXVECTOR3(-1.0f, 1.0f, 0.0f);
 	vertex[2].TexCoord = D3DXVECTOR2(0.0f, 1.0f);
-
 	vertex[3].Position = D3DXVECTOR3(1.0f, 1.0f, 0.0f);
 	vertex[3].TexCoord = D3DXVECTOR2(1.0f, 1.0f);
 
@@ -123,11 +120,19 @@ void PlayerIcon::Draw(D3DXVECTOR2 pos, D3DXVECTOR2 size, float rot)
 #pragma endregion _プレイヤーのアイコン_
 
 #pragma region _MiniMap_
+namespace
+{
+	uint32_t framebg = 0;
+	uint32_t mapbg = 1;
+	uint32_t othermarker = 2;
+}
+
 MiniMap::MiniMap()
 {
-	m_Bg = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "MiniMapBg");
-	m_Map = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Gage");
-	m_Icon = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "MiniMapMarker");
+	m_MarkerList.resize(3);
+	m_MarkerList[framebg] = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "MiniMapBg");
+	m_MarkerList[mapbg] = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Gage");
+	m_MarkerList[othermarker] = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "MiniMapMarker");
 	m_PlayerIcon = std::make_unique<PlayerIcon>();
 }
 
@@ -141,23 +146,21 @@ void MiniMap::Begin()
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	m_Enemy = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 
-	m_Shrink = 0.5f; // 1/2倍
+	// マップの縮小率　1/2倍
+	m_Shrink = 0.5f; 
 	// マップの大きさ
 	m_MapSize = 300.0f;
-	// 補正値
-	float offset = 50.0f;
 	// マップの位置
-	m_Position = D3DXVECTOR2(m_MapSize - offset, static_cast<float>(SCREEN_HEIGHT) - m_MapSize + offset);
+	m_Position = D3DXVECTOR2(m_MapSize - 50.0f, static_cast<float>(SCREEN_HEIGHT) - m_MapSize + 50.0f);
 
 	// ミニマップの設定
 	auto size = D3DXVECTOR2(m_MapSize, m_MapSize);
-	m_Map->SetVertex(m_Position, size);
+	m_MarkerList[mapbg]->SetVertex(m_Position, size);
 
 	// 背景の設定
 	// 背景テクスチャの大きさ
-	float bgSize = m_MapSize + 20.0f;
-	size = D3DXVECTOR2(bgSize, bgSize);
-	m_Bg->SetVertex(m_Position, size);
+	size = D3DXVECTOR2(m_MapSize + 20.0f, m_MapSize + 20.0f);
+	m_MarkerList[framebg]->SetVertex(m_Position, size);
 }
 
 void MiniMap::Update()
@@ -178,18 +181,21 @@ void MiniMap::Event()
 
 void MiniMap::Draw()
 {	
-	// ミニマップの背景
-	m_Bg->Draw();
+	// ミニマップの背景枠の描画
+	m_MarkerList[framebg]->Draw();
 
-	// マップの設定
-	m_Map->Draw(0.5f );
+	// マップの背景の描画
+	m_MarkerList[mapbg]->Draw(0.5f);
 
-	// プレイヤーの設定
+	// プレイヤーの描画
 	auto size = D3DXVECTOR2(20.0f, 20.0f);
 	m_PlayerIcon->Draw(m_PlayerPosition, size, m_Player->pivot().transform().rotation().y);
+}
 
-	auto min = D3DXVECTOR2(0.5f, 0.0f);
-	auto max = D3DXVECTOR2(1.0f, 0.5f);
+void MiniMap::OtherIconDraw()
+{
+	auto texmin = D3DXVECTOR2(0.5f, 0.0f);
+	auto texmax = D3DXVECTOR2(1.0f, 0.5f);
 
 	for (auto supply : m_SupplyList)
 	{
@@ -198,17 +204,23 @@ void MiniMap::Draw()
 		pos.x = m_Position.x - supply->transform().position().x * m_Shrink;
 		pos.y = m_Position.y - supply->transform().position().z * m_Shrink;
 		// アイコンの大きさ
-		auto iconSize = D3DXVECTOR2(30.0f, 30.0f);
-		m_Icon->Draw(pos, iconSize, min, max);
+		auto size = D3DXVECTOR2(30.0f, 30.0f);
+
+		// 描画
+		m_MarkerList[othermarker]->Draw(pos, size, texmin, texmax);
 	}
 
 	// 敵を描画しているかチェック
 	if (m_Enemy->IsDraw())
 	{
 		// 描画しているなら、ミニマップに映す
-		min = D3DXVECTOR2(0.0f, 0.5f);
-		max = D3DXVECTOR2(0.5f, 1.0f);
-		m_Icon->Draw(m_EnemyPosition, size, min, max);
+		texmin = D3DXVECTOR2(0.0f, 0.5f);
+		texmax = D3DXVECTOR2(0.5f, 1.0f);
+		// アイコンの大きさ
+		auto size = D3DXVECTOR2(20.0f, 20.0f);
+
+		// 描画
+		m_MarkerList[othermarker]->Draw(m_EnemyPosition, size, texmin, texmax);
 	}
 }
 #pragma endregion _ミニマップ_

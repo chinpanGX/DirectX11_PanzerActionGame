@@ -12,7 +12,7 @@
 #include "MainGun.h"
 #include "Engine.h"
 #include "Application.h"
-#include "NormalBullet.h"
+#include "Bullet.h"
 #include "Pawn.h"
 #include "GameManager.h"
 #include "Factory.h"
@@ -67,12 +67,12 @@ void Vehicle::SetStartPosition(Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 void Vehicle::CalcuateDamege(Pawn * Pawn)
 {
 	float attackpt = 0.0f; // 与えるダメージ
-	auto bullet = Engine::Get().application()->GetScene()->GetGameObjects<NormalBullet>(ELayer::LAYER_3D_ACTOR);
-	for (auto b : bullet)
+	auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+	for (auto bullet : bulletList)
 	{
 		// 乱数生成(50 ～ 100)の補正をする
-		int r = myLib::Random::Rand_R(50, 100);
-		attackpt = Pawn->vehicle().status().attack() + r * b->GetDDE() - m_Status->defence();
+		int rand = myLib::Random::Rand_R(50, 100);
+		attackpt = Pawn->vehicle().status().attack() + rand * bullet->distdecay() - m_Status->defence();
 		CalculateHp(attackpt);
 	}
 }
@@ -88,7 +88,7 @@ void Vehicle::Shot(const Transform & transform)
 	D3DXVECTOR3 vector = t.forward();
 	
 	// Bulletのインスタンスを生成する
-	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<NormalBullet>(LAYER_3D_ACTOR);
+	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<Bullet>(LAYER_3D_ACTOR);
 	normalBullet->Create(pos, vector);
 }
 

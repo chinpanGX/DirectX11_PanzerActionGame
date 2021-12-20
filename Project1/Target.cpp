@@ -11,7 +11,7 @@
 #include "Resource.h"
 #include "GameCamera.h"
 #include "Pause.h"
-#include "NormalBullet.h"
+#include "Bullet.h"
 #include "Fps.h"
 
 Target::Target()
@@ -36,20 +36,23 @@ void Target::Update()
 	if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
 	// 弾
-	auto Bullet = Engine::Get().application()->GetScene()->GetGameObject<NormalBullet>(ELayer::LAYER_3D_ACTOR);
-	if(Bullet)
+	auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+	for (auto bullet : bulletList)
 	{
-		// 描画している状態のとき
-		if (m_NotDraw == false)
+		if (bullet)
 		{
-			// 衝突検知
-			if (Intersect(Bullet->collider().GetSphere3(), m_Collider->GetSphere3()))
+			// 描画している状態のとき
+			if (m_NotDraw == false)
 			{
-				// 弾のオブジェクトに通知
-				Bullet->OnCollisionEnter();
-				// 当たったら描画しない
-				m_NotDraw = true;
-				m_CoolTime = 10.0f; // 時間
+				// 衝突検知
+				if (Intersect(bullet->collider().GetSphere3(), m_Collider->GetSphere3()))
+				{
+					// 弾のオブジェクトに通知
+					bullet->OnCollisionEnter();
+					// 当たったら描画しない
+					m_NotDraw = true;
+					m_CoolTime = 10.0f; // 時間
+				}
 			}
 		}
 	}

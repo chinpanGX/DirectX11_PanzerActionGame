@@ -91,9 +91,6 @@
     <ClCompile Include="BulletStateMove.cpp">
       <Filter>Actor\Bullet</Filter>
     </ClCompile>
-    <ClCompile Include="NormalBullet.cpp">
-      <Filter>Actor\Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="Audio.cpp">
       <Filter>Resource</Filter>
     </ClCompile>
@@ -365,6 +362,9 @@
     <ClCompile Include="PlayerUi.cpp">
       <Filter>Actor\2D\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Actor\Bullet</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Factory.h" />
@@ -378,9 +378,6 @@
       <Filter>Actor\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="BulletStateMove.h">
-      <Filter>Actor\Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="NormalBullet.h">
       <Filter>Actor\Bullet</Filter>
     </ClInclude>
     <ClInclude Include="Audio.h">

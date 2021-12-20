@@ -7,13 +7,12 @@
 
 ------------------------------------------------------------*/
 #include "Vehicle.h"
-#include "NormalBullet.h"
+#include "Bullet.h"
 #include "BulletStateDestory.h"
 #include "Engine.h"
 #include "Application.h"
 #include "Stage.h"
 #include "Fence.h"
-
 #include "Target.h"
 #include "BulletStateMove.h"
 
@@ -35,8 +34,9 @@ void BulletStateMove::Update(Bullet * Bullet, float deltaTime)
 	BulletPosition += vector * Bullet->speed() * deltaTime;
 	//　当たり判定
 	Bullet->OnCollision();
-	// 当たっていないオブジェクトのインスタンス削除
+	
 	Destory(Bullet);
+
 	// 威力の補正値を下げる
 	Bullet->DownDDE();
 }
@@ -44,9 +44,8 @@ void BulletStateMove::Update(Bullet * Bullet, float deltaTime)
 // 当たり判定以外のインスタンス削除
 void BulletStateMove::Destory(Bullet* Bullet)
 {
-	Bullet->FrameCountDown();
-	// フレーム数が０になる　OR　0.0fより低くなるとき
-	if (Bullet->GetFrameZeroFlag() == true || Bullet->transform().position().y <= 0.0f)
+	// 弾が地面と当たったら
+	if (Bullet->transform().position().y <= 0.0f)
 	{
 		if (Bullet != nullptr)
 		{
