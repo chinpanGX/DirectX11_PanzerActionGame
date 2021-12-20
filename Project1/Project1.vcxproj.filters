@@ -311,9 +311,6 @@
     <ClCompile Include="Collider.cpp">
       <Filter>Component</Filter>
     </ClCompile>
-    <ClCompile Include="Cpu.cpp">
-      <Filter>Actor\Pawn</Filter>
-    </ClCompile>
     <ClCompile Include="PanzerUseSkill.cpp">
       <Filter>Actor\Panzer\State</Filter>
     </ClCompile>
@@ -626,9 +623,6 @@
     </ClInclude>
     <ClInclude Include="Manager.h">
       <Filter>GameManager</Filter>
-    </ClInclude>
-    <ClInclude Include="Cpu.h">
-      <Filter>Actor\Pawn</Filter>
     </ClInclude>
     <ClInclude Include="PanzerUseSkill.h">
       <Filter>Actor\Panzer\State</Filter>

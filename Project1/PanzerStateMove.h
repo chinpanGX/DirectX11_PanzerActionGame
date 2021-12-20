@@ -18,7 +18,7 @@ namespace State
 		Forward();
 		~Forward();
 		void Begin(Player* pPlayer)override;
-		void Update(Cpu* pCpu, float deltaTime)override;
+		void Update(Enemy* pEnemy, float deltaTime)override;
 	private:
 		float m_Time = 0.0f;
 		Player* m_Player;
@@ -30,6 +30,6 @@ namespace State
 		Backward();
 		~Backward();
 		void Begin(Player* pPlayer)override;
-		void Update(Cpu* pCpu, float deltaTime)override;
+		void Update(Enemy* pEnemy, float deltaTime)override;
 	};
 }

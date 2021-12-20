@@ -18,9 +18,9 @@ namespace State
 		Shot();
 		~Shot();
 		void Begin(Player* pPlayer)override;
-		void Update(Cpu* pCpu, float deltaTime)override;
+		void Update(Enemy* pEnemy, float deltaTime)override;
 	private:
-		void PlayAudio(Cpu* pCpu);
+		void PlayAudio(Enemy* pEnemy);
 		Player* m_Player;
 	};
 }

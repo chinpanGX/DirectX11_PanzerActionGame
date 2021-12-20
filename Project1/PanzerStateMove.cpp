@@ -33,28 +33,28 @@ void State::Forward::Begin(Player * pPlayer)
 	m_Player = pPlayer;
 }
 
-void State::Forward::Update(Cpu * pCpu, float deltaTime)
+void State::Forward::Update(Enemy* pEnemy, float deltaTime)
 {
-	pCpu->moveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
-	pCpu->pivot().Move();
+	pEnemy->moveComponent().MoveForward(pEnemy->vehicle().bodyTransform(), deltaTime);
+	pEnemy->pivot().Move();
 
 	auto player = m_Player;
 	if (player)
 	{
-		float dir = FindTargetDirection(player, pCpu, pCpu->vehicle().bodyTransform().forward());
+		float dir = FindTargetDirection(player, pEnemy, pEnemy->vehicle().bodyTransform().forward());
 		if (-5.0f > dir || dir > 5.0f)
 		{
-			pCpu->ChangeState(std::make_unique<State::BodyRotation>());
+			pEnemy->ChangeState(std::make_unique<State::BodyRotation>());
 		}
 		// プレイヤーとCPUの距離を求める
 		D3DXVECTOR3 playerPosition = player->vehicle().bodyTransform().position();
-		D3DXVECTOR3 cpuPosition = pCpu->vehicle().bodyTransform().position();
+		D3DXVECTOR3 cpuPosition = pEnemy->vehicle().bodyTransform().position();
 		D3DXVECTOR3 tmp = cpuPosition - playerPosition;
 		float dist = D3DXVec3Length(&tmp);
 		// 距離が近くなったら,ステートを変える
 		if (dist < 100.0f)
 		{
-			pCpu->ChangeState(std::make_unique<State::Stay>());
+			pEnemy->ChangeState(std::make_unique<State::Stay>());
 		}
 	}
 }
@@ -71,26 +71,26 @@ void State::Backward::Begin(Player * pPlayer)
 {
 }
 
-void State::Backward::Update(Cpu * pCpu, float deltaTime)
+void State::Backward::Update(Enemy* pEnemy, float deltaTime)
 {
 	FrameCountDown();
 	if (GetFrameZeroFlag() == true)
 	{
-		pCpu->ChangeState(std::make_unique<State::Stay>());
+		pEnemy->ChangeState(std::make_unique<State::Stay>());
 	}
-	pCpu->moveComponent().MoveBackward(pCpu->vehicle().bodyTransform(), deltaTime);
-	pCpu->pivot().Move();
+	pEnemy->moveComponent().MoveBackward(pEnemy->vehicle().bodyTransform(), deltaTime);
+	pEnemy->pivot().Move();
 	// プレイヤーとの当たり判定
 	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
-		if (Intersect(pCpu->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
+		if (Intersect(pEnemy->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
 		{
-			if (Intersect(pCpu->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
+			if (Intersect(pEnemy->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
 			{
-				pCpu->moveComponent().MoveForward(pCpu->vehicle().bodyTransform(), deltaTime);
-				pCpu->pivot().Move();
-				pCpu->ChangeState(std::make_unique<State::Stay>());
+				pEnemy->moveComponent().MoveForward(pEnemy->vehicle().bodyTransform(), deltaTime);
+				pEnemy->pivot().Move();
+				pEnemy->ChangeState(std::make_unique<State::Stay>());
 			}
 		}
 	}

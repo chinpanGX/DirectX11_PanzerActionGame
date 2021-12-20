@@ -5,7 +5,7 @@
 	スキルを使う
 
 ------------------------------------------------------------*/
-#include "Cpu.h"
+#include "Enemy.h"
 #include "Vehicle.h"
 #include "Skill.h"
 #include "PanzerUseSkill.h"
@@ -23,9 +23,9 @@ void State::UseSkill::Begin(Player * pPlayer)
 {
 }
 
-void State::UseSkill::Update(Cpu * pCpu, float deltaTime)
+void State::UseSkill::Update(Enemy* pEnemy, float deltaTime)
 {
 	// スキルを使う
-	pCpu->UseSkill();
-	pCpu->ChangeState(std::make_unique<State::Stay>());
+	pEnemy->UseSkill();
+	pEnemy->ChangeState(std::make_unique<State::Stay>());
 }

@@ -26,7 +26,7 @@
 #include "Supply.h"
 #include "Enemy.h"
 
-Enemy::Enemy() : Cpu(), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
+Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
 {
 	Pawn::Create();	
 }
@@ -105,6 +105,12 @@ void Enemy::Respawn(const D3DXVECTOR3 & pos)
 	Pawn::RespawnSetMaxHP();
 	this->ChangeState(std::make_unique<State::Stay>());
 	this->Update();
+}
+
+void Enemy::UseSkill()
+{
+	vehicle().skill().Enable(this);
+	vehicle().skill().PlayEffect(this);
 }
 
 bool Enemy::IsDraw() const

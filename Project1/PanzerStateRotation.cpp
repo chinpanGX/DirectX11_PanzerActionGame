@@ -6,7 +6,7 @@
 	回転
 
 ----------------------------------------------------------------*/
-#include "Cpu.h"
+#include "Enemy.h"
 #include "Vehicle.h"
 #include "Skill.h"
 #include "Reload.h"
@@ -35,26 +35,26 @@ void State::BodyRotation::Begin(Player * pPlayer)
 	m_Player = pPlayer;
 }
 
-void State::BodyRotation::Update(Cpu * pCpu, float deltaTime)
+void State::BodyRotation::Update(Enemy* pEnemy, float deltaTime)
 {
-	float dir = FindTargetDirection(m_Player, pCpu, pCpu->vehicle().bodyTransform().forward());
+	float dir = FindTargetDirection(m_Player, pEnemy, pEnemy->vehicle().bodyTransform().forward());
 	// 右旋回
 	if (dir > 0.0f)
 	{
-		pCpu->moveComponent().RotRight(pCpu->vehicle().bodyTransform(), deltaTime);
-		pCpu->pivot().moveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
+		pEnemy->moveComponent().RotRight(pEnemy->vehicle().bodyTransform(), deltaTime);
+		pEnemy->pivot().moveComponent().RotRight(pEnemy->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pCpu->moveComponent().RotLeft(pCpu->vehicle().bodyTransform(), deltaTime);
-		pCpu->pivot().moveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
+		pEnemy->moveComponent().RotLeft(pEnemy->vehicle().bodyTransform(), deltaTime);
+		pEnemy->pivot().moveComponent().RotLeft(pEnemy->pivot().transform(), deltaTime);
 	}
 
 	// -0.5f ～　0.5fの間になったら、移動ステートへ
 	if (-0.5f < dir && dir < 0.5f)
 	{
-		pCpu->ChangeState(std::make_unique<State::Forward>());
+		pEnemy->ChangeState(std::make_unique<State::Forward>());
 	}	
 }
 #pragma endregion BodyRotationメソッド
@@ -74,36 +74,36 @@ void State::TurretRotation::Begin(Player * pPlayer)
 	m_Player = pPlayer;
 }
 
-void State::TurretRotation::Update(Cpu * pCpu, float deltaTime)
+void State::TurretRotation::Update(Enemy* pEnemy, float deltaTime)
 {
-	float dir = FindTargetDirection(m_Player, pCpu, pCpu->pivot().transform().forward());
+	float dir = FindTargetDirection(m_Player, pEnemy, pEnemy->pivot().transform().forward());
 	// 右旋回
 	if (dir > 0.0f)
 	{
-		pCpu->moveComponent().RotRight(pCpu->vehicle().turretTransform(), deltaTime);
-		pCpu->pivot().moveComponent().RotRight(pCpu->pivot().transform(), deltaTime);
+		pEnemy->moveComponent().RotRight(pEnemy->vehicle().turretTransform(), deltaTime);
+		pEnemy->pivot().moveComponent().RotRight(pEnemy->pivot().transform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pCpu->moveComponent().RotLeft(pCpu->vehicle().turretTransform(), deltaTime);
-		pCpu->pivot().moveComponent().RotLeft(pCpu->pivot().transform(), deltaTime);
+		pEnemy->moveComponent().RotLeft(pEnemy->vehicle().turretTransform(), deltaTime);
+		pEnemy->pivot().moveComponent().RotLeft(pEnemy->pivot().transform(), deltaTime);
 	}
 
 	// スキルが使える状態なら、使う
-	if (pCpu->vehicle().skill().alreadyUseble())
+	if (pEnemy->vehicle().skill().alreadyUseble())
 	{
-		pCpu->UseSkill();
-		pCpu->ChangeState(std::make_unique<State::Stay>());
+		pEnemy->UseSkill();
+		pEnemy->ChangeState(std::make_unique<State::Stay>());
 	}
 
 	// -0.5f ～　0.5fの間
 	if (-0.5f < dir && dir < 0.5f)
 	{
 		// リロードが完了したら撃つ
-		if (pCpu->reload().finishReload() == true)
+		if (pEnemy->reload().finishReload() == true)
 		{
-			pCpu->ChangeState(std::make_unique<State::Shot>());
+			pEnemy->ChangeState(std::make_unique<State::Shot>());
 		}
 	}
 }
@@ -123,7 +123,7 @@ void State::GunRotation::Begin(Player * pPlayer)
 {
 }
 
-void State::GunRotation::Update(Cpu * pCpu, float deltaTime)
+void State::GunRotation::Update(Enemy* pEnemy, float deltaTime)
 {
 }
 #pragma endregion GunRotationメソッド

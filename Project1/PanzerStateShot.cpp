@@ -7,7 +7,7 @@
 
 ----------------------------------------------------------------*/
 #include "Vehicle.h"
-#include "Cpu.h"
+#include "Enemy.h"
 #include "Reload.h"
 #include "Pivot.h"
 #include "PanzerStateShot.h"
@@ -32,31 +32,31 @@ void State::Shot::Begin(Player * pPlayer)
 	m_Player = pPlayer;
 }
 
-void State::Shot::Update(Cpu * pCpu, float deltaTime)
+void State::Shot::Update(Enemy* pEnemy, float deltaTime)
 {
 	// リロードが終わっていないなら撃てない
-	if (pCpu->reload().finishReload() == false) 
+	if (pEnemy->reload().finishReload() == false) 
 	{
 		// ステート変更
-		pCpu->ChangeState(std::make_unique<State::Stay>());
+		pEnemy->ChangeState(std::make_unique<State::Stay>());
 	}
 
-	pCpu->vehicle().Shot(pCpu->pivot().transform());
+	pEnemy->vehicle().Shot(pEnemy->pivot().transform());
 	// オーディオを鳴らす
-	PlayAudio(pCpu);
+	PlayAudio(pEnemy);
 	// リロード開始
-	pCpu->reload().Begin();
+	pEnemy->reload().Begin();
 
 	// ステート変更
-	pCpu->ChangeState(std::make_unique<State::Stay>());
+	pEnemy->ChangeState(std::make_unique<State::Stay>());
 }
 
-void State::Shot::PlayAudio(Cpu * pCpu)
+void State::Shot::PlayAudio(Enemy* pEnemy)
 {
 	// プレイヤーの位置を取得
 	D3DXVECTOR3 playerPos = m_Player->vehicle().bodyTransform().position();
 	// CPUの位置を取得
-	D3DXVECTOR3 cpuPos = pCpu->vehicle().bodyTransform().position();
+	D3DXVECTOR3 cpuPos = pEnemy->vehicle().bodyTransform().position();
 
 	// プレイヤーとCPU間の距離を取り,2倍する
 	D3DXVECTOR3 length = cpuPos - playerPos;

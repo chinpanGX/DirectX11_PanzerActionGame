@@ -158,7 +158,6 @@
     <ClCompile Include="Command.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Cost.cpp" />
-    <ClCompile Include="Cpu.cpp" />
     <ClCompile Include="Effect.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -253,7 +252,6 @@
     <ClInclude Include="BulletStateDestory.h" />
     <ClInclude Include="BulletStateMove.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="Cpu.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Cost.h" />
