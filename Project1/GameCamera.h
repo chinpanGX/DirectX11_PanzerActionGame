@@ -46,5 +46,6 @@ private:
 	
 	class Player* m_Player;
 	class Graphics& m_Graphics;
+	float m_Aspect;
 	bool m_EnableFpsMode; // カメラのモードを切り替える trueのときFPSカメラにする
 };

@@ -29,6 +29,8 @@ private:
 	D3DXVECTOR3 m_Position;
 	D3DXVECTOR3 m_Target;
 
+	float m_Angle;
+	float m_Aspect;
 	class Graphics& m_Graphics;
 };
 

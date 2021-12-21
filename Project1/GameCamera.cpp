@@ -14,7 +14,7 @@
 #pragma region CameCamera_method
 GameCamera::GameCamera() : m_Position(D3DXVECTOR3(0.0f, 5.0f, -8.0f)), m_Target(D3DXVECTOR3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().graphics()), m_EnableFpsMode(false)
 {
-	
+	m_Aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
 }
 
 GameCamera::~GameCamera()
@@ -186,11 +186,8 @@ void GameCamera::SetViewMatrix()
 
 void GameCamera::SetProjectionMatrix()
 {
-	// アスペクト比の計算	
-	float aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
-	
 	// プロジェクションマトリクスの設定
-	D3DXMatrixPerspectiveFovLH(&m_Projection, 1.0f, aspect, 1.0f, 2000.0f);
+	D3DXMatrixPerspectiveFovLH(&m_Projection, 1.0f, m_Aspect, 1.0f, 2000.0f);
 	m_Graphics.SetProjectionMatrix(m_Projection);
 	m_Graphics.SetCameraPosition(m_Position);
 }
