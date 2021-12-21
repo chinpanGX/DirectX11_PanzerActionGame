@@ -62,10 +62,8 @@ void State::Shot::PlayAudio(Enemy* pEnemy)
 	D3DXVECTOR3 length = cpuPos - playerPos;
 	float d = 2.0f * D3DXVec3Length(&length);
 
-	// 絶対値を求める
-	d = Math::Abs(d);
-	// 1.0fより小さくする　
-	d = d * 0.001f;
+	// 絶対値を求め、1.0fより小さくする　
+	d = Math::Abs(d) * 0.001f;
 	// ボリュームの最大値-距離から求めた値
 	float volume = 1.0f - d;
 

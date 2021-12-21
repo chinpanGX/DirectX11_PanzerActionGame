@@ -80,10 +80,9 @@ void Vehicle::CalcuateDamege(Pawn * Pawn)
 // 撃つ
 void Vehicle::Shot(const Transform & transform)
 {
-	float offset = 10.0f; // 補正値
 	auto t = transform;
 	// 発射位置
-	D3DXVECTOR3 pos = t.position() + t.forward() * offset;
+	D3DXVECTOR3 pos = t.position() + t.forward() * m_GunLength;
 	// 飛んでいく方向ベクトル
 	D3DXVECTOR3 vector = t.forward();
 	
@@ -180,6 +179,11 @@ void Vehicle::SetPanzer()
 void Vehicle::SetStatus(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed)
 {
 	m_Status = std::make_unique<Status>(Country, Cost, Hp, Attack, Defence, Speed, Reload, RotSpeed);
+}
+
+void Vehicle::ShotPointOffsetLength(float length)
+{
+	m_GunLength = length
 }
 
 Panzer & Vehicle::panzer() const

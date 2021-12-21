@@ -50,7 +50,9 @@ protected:
 	// ステータスの設定
 	void SetPanzer();
 	void SetStatus(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed);
-	
+	// 弾がでる位置の補正値を決める
+	void ShotPointOffsetLength(float length);
+
 	//　戦車
 	class Panzer& panzer() const;
 	const std::string& tag() const;
@@ -58,6 +60,7 @@ private:
 	// HP計算
 	void CalculateHp(float AttackPoint); 
 	std::string m_Tag;
+	float m_GunLength; // 主砲の長さ
 	std::unique_ptr<class Shadow> m_Shadow;
 	std::unique_ptr<Panzer> m_Panzer;
 	std::unique_ptr<Status> m_Status;

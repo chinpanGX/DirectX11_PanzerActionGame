@@ -16,7 +16,7 @@ namespace State
 		UseSkill();
 		~UseSkill();
 		void Begin(Player* pPlayer)override;
-		void Update(class Enemy* pEnemy, float deltaTime)override;
+		void Update(Enemy* pEnemy, float deltaTime)override;
 	};
 }
 
