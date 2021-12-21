@@ -29,6 +29,7 @@ Tiger::Tiger() : Vehicle("Tiger")
 	SetPanzer();
 	// プロパティ設定
 	SetStatus(Status::Country::DE, 36.0, 1400.0f, 163.0f, 120.0f, 30.0f, 4.0f, 0.4f);
+	ShotPointOffsetLength(10.0f);
 	
 	// スキルの設定
 	// たまる時間30.0f
@@ -83,8 +84,9 @@ Centurion::Centurion() : Vehicle("Centurion")
 	Engine::Get().resource()->LoadModel("CenturionTurret", "CenturionTurret.obj");
 	Engine::Get().resource()->LoadModel("CenturionGun", "CenturionMainGun.obj");
 	// 戦車の設定
-	Vehicle::SetPanzer();
-	Vehicle::SetStatus(Status::Country::UK, 45.0f, 1350.0f, 248.0f, 114.0f, 50.0f, 6.0f, 0.56f);
+	SetPanzer();
+	SetStatus(Status::Country::UK, 45.0f, 1350.0f, 248.0f, 114.0f, 50.0f, 6.0f, 0.56f);
+	ShotPointOffsetLength(13.0f);
 
 	// スキルの設定
 	// たまる時間20.0f
@@ -140,8 +142,9 @@ Patton::Patton() : Vehicle("Patton")
 	Engine::Get().resource()->LoadModel("PattonTurret", "PattonTurret.obj");
 	Engine::Get().resource()->LoadModel("PattonGun", "PattonMainGun.obj");
 	// 戦車の設定
-	Vehicle::SetPanzer();
-	Vehicle::SetStatus(Status::Country::US, 47.0f, 1600.0f, 240.0f, 139.0f, 60.0f, 8.0f, 0.6f);
+	SetPanzer();
+	SetStatus(Status::Country::US, 47.0f, 1600.0f, 240.0f, 139.0f, 60.0f, 8.0f, 0.6f);
+	ShotPointOffsetLength(13.0f);
 
 	// スキルの設定
 	// たまる時間40.0f
@@ -197,8 +200,9 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	Engine::Get().resource()->LoadModel("T-34/85Turret", "T-34Turret.obj");
 	Engine::Get().resource()->LoadModel("T-34/85Gun", "T-34MainGun.obj");
 	// 戦車の設定
-	Vehicle::SetPanzer();
-	Vehicle::SetStatus(Status::Country::RU, 31.0f, 770.0f, 140.0f, 63.0f, 54.0f, 4.0f, 0.6f);
+	SetPanzer();
+	SetStatus(Status::Country::RU, 31.0f, 770.0f, 140.0f, 63.0f, 54.0f, 4.0f, 0.6f);
+	ShotPointOffsetLength(10.0f);
 
 	// スキルの設定
 	// たまる時間20.0f
@@ -257,8 +261,9 @@ IV_H::IV_H() : Vehicle("IV-H")
 	Engine::Get().resource()->LoadModel("IV-HTurret", "IVTurret.obj");
 	Engine::Get().resource()->LoadModel("IV-HGun", "IVMainGun.obj");
 	// 戦車の設定
-	Vehicle::SetPanzer();
-	Vehicle::SetStatus(Status::Country::DE, 26.0f, 600.0f, 132.0f, 47.0f, 40.0f, 4.0f, 0.5f);
+	SetPanzer();
+	SetStatus(Status::Country::DE, 26.0f, 600.0f, 132.0f, 47.0f, 40.0f, 4.0f, 0.5f);
+	ShotPointOffsetLength(10.0f);
 
 	// スキルの設定
 	// たまる時間40.0f
@@ -318,8 +323,9 @@ Sherman::Sherman() : Vehicle("Sherman")
 	Engine::Get().resource()->LoadModel("ShermanGun", "ShermanMainGun.obj");
 
 	// 戦車の設定
-	Vehicle::SetPanzer();
-	Vehicle::SetStatus(Status::Country::US, 27.0f, 570.0f, 126.0f, 44.0f, 48.0f, 4.0f, 0.6f);
+	SetPanzer();
+	SetStatus(Status::Country::US, 27.0f, 570.0f, 126.0f, 44.0f, 48.0f, 4.0f, 0.6f);
+	ShotPointOffsetLength(10.0f);
 
 	// スキルの設定
 	// たまる時間20.0f
@@ -363,6 +369,5 @@ void Sherman::Draw()
 #if 0
 	m_Collider[0]->SystemDraw();
 	m_Collider[1]->SystemDraw();
-	
 #endif
 }
