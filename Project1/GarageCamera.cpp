@@ -18,10 +18,10 @@ GarageCamera::GarageCamera() : m_Graphics(*Engine::Get().graphics())
 	m_Target = D3DXVECTOR3(-43.3f, 3.0f, 74.8f);
 
 	// 画角の設定(60度)
-	float m_Angle = Math::ToRadians(60.0f);
+	m_Angle = Math::ToRadians(60.0f);
 
 	// アスペクト比の計算	
-	float m_Aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
+	m_Aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
 }
 
 GarageCamera::~GarageCamera()

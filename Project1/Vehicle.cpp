@@ -183,7 +183,7 @@ void Vehicle::SetStatus(Status::Country Country, float Cost, float Hp, float Att
 
 void Vehicle::ShotPointOffsetLength(float length)
 {
-	m_GunLength = length
+	m_GunLength = length;
 }
 
 Panzer & Vehicle::panzer() const
