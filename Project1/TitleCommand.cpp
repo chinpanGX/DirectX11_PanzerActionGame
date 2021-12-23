@@ -33,7 +33,7 @@ void TitleCommand::Update()
 	// ‰‚ß‚Ì‰æ–Ê
 	if (m_TitleSystem->EState::BEGIN == state)
 	{
-		BeginInput();
+ 		BeginInput();
 	}
 	// 
 	else if (m_TitleSystem->EState::SELECT == state)
@@ -83,8 +83,8 @@ void TitleCommand::BeginInput()
 	if (GamePad::IsTrigger(0, BUTTON_RIGHT)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, BUTTON_LEFT)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, BUTTON_OPTION)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
-	if (GamePad::IsTrigger(0, TRIGGER_L2)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
-	if (GamePad::IsTrigger(0, TRIGGER_R2)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
+	//if (GamePad::IsTrigger(0, TRIGGER_L2)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
+	//if (GamePad::IsTrigger(0, TRIGGER_R2)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, BUTTON_L1)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, BUTTON_R1)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, LEFTSTICK_UP)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }

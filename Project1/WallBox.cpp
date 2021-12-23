@@ -15,8 +15,8 @@
 
 WallBox::WallBox()
 {
-	m_Transform = Actor::AddComponent<Transform>();
-	m_Collider = Actor::AddComponent<Collider>();
+	m_Transform = AddComponent<Transform>();
+	m_Collider = AddComponent<Collider>();
 }
 
 WallBox::~WallBox()

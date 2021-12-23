@@ -15,7 +15,7 @@
 
 Pivot::Pivot(Vehicle & vehicle) : m_Vehicle(vehicle)
 {
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle.status());
 }
 

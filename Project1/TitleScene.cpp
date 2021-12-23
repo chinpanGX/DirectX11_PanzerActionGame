@@ -18,6 +18,10 @@ void GameScene::Title::Init()
 	// オブジェクトの追加
 	AddGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
 	AddGameObject<GameBg::TitleBg>(ELayer::LAYER_2D_BG);
+	for (int32_t i = 0; i < 100; i++)
+	{
+		AddGameObject<Particle>(ELayer::LAYER_2D_BG);
+	}
 	AddGameObject<TitleCommand>(ELayer::LAYER_SYSTEM);
 	
 	// リソースのロード

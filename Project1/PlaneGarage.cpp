@@ -14,7 +14,7 @@
 
 PlaneGarage::PlaneGarage()
 {
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 	m_Renderer = std::make_unique<Renderer3D>(*Engine::Get().graphics(), m_Transform->position(), D3DXVECTOR3(0.0f,0.0f,0.0f), m_Transform->scale());
 }
 

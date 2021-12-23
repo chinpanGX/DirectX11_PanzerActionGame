@@ -72,12 +72,12 @@ void Bullet::Create(const D3DXVECTOR3 & Position, const D3DXVECTOR3 & Vector)
 	m_Frame = 240;
 	
 	// インスタンス生成
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 	m_Transform->position(Position);
 	m_Transform->scale(1.5f);
 
 	// コンポーネントの設定
-	m_Collider = Actor::AddComponent<Collider>();
+	m_Collider = AddComponent<Collider>();
 	D3DXVECTOR3 scale = m_Transform->scale() * 0.5f;
 	m_Collider->SetSphere3(*m_Transform, 1.0f);
 	m_Collider->SetAABB3(*m_Transform, scale);

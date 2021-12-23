@@ -47,7 +47,7 @@ Shadow::Shadow() : m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Ge
 	sd.pSysMem = vertex;
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
 
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 }
 
 Shadow::~Shadow()
@@ -74,7 +74,7 @@ void Shadow::Draw()
 
 	Actor::UpdateMatrix(*m_Transform);
 
-	m_Resource.SetTexture(0,"Effect");
+	m_Resource.SetTexture(0, "Effect");
 
 	// ブレンドステートは減算
 	m_Graphics.SetBlendStateSub();

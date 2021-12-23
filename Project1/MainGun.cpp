@@ -12,7 +12,7 @@
 
 MainGun::MainGun(const std::string & Tag) : Parts(Tag)
 {
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 }
 
 MainGun::~MainGun()

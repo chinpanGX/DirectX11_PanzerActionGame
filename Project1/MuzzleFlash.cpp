@@ -16,7 +16,7 @@
 
 MuzzleFlash::MuzzleFlash()
 {
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 }
 
 MuzzleFlash::~MuzzleFlash()

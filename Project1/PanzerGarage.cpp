@@ -14,7 +14,7 @@
 
 PanzerGarage::PanzerGarage() : m_Graphics(*Engine::Get().graphics())
 {
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 }
 
 PanzerGarage::~PanzerGarage()

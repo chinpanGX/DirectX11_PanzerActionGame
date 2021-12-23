@@ -11,7 +11,7 @@
 
 Body::Body(const std::string & Tag) : Parts(Tag)
 {
-	m_Transform = Actor::AddComponent<Transform>();
+	m_Transform = AddComponent<Transform>();
 }
 
 Body::~Body()
