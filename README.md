@@ -1,4 +1,9 @@
 # DirectX11-PanzerGame
 
+C++/DirectX11
+VisualStudio2017
+Blender
+GIMP
 
-制作開始 5月
+バージョン1　制作期間 5月中旬~8月末
+バージョン2　製作期間 11月~
