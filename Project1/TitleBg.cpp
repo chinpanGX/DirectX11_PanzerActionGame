@@ -12,16 +12,13 @@
 #include "TitleSystem.h"
 #include "TitleBg.h"
 
-namespace
-{
-	int32_t g_BeginSpan = 0;
-}
+int32_t Particle::m_BeginTypetoGenerateBeginScene = 0;
+int32_t Particle::m_BeginTypetoGenerateOtherBeginScene = 0;
 
 Particle::Particle()
 {
 	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Effect");
 	m_Transform = AddComponent<Transform>();
-	m_Angle = 0.0f;
 }
 
 Particle::~Particle()
@@ -43,9 +40,8 @@ void Particle::Begin()
 	m_Acceleration.y = 0.0f;
 	m_Acceleration.z = 0.0f;
 
-	m_Color = D3DXVECTOR4(myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), 0.5f);
-
-	m_Active = true;
+	m_Color = D3DXVECTOR4(myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), 1.0f, 1.0f);
+	m_Size = D3DXVECTOR2(55.0f, 20.0f);
 }
 
 void Particle::Update()
@@ -58,32 +54,14 @@ void Particle::Update()
 	}
 	else
 	{
+		// ライフが0になったときの処理
 		if (m_TitleSystem->GetState() == m_TitleSystem->BEGIN)
 		{
-			Begin();
+			BeginGenerateBeginScene();
 		}
 		else
 		{
-			switch (g_BeginSpan)
-			{
-			case 0:
-				Begin(0.0f - 50.0f, static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT)), 5.0f, 0.0f, 0.0f, 0.0f);
-				break;
-			case 1:
-				Begin(static_cast<float>(SCREEN_WIDTH) + 50.0f, static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT)), -5.0f, 0.0f, 0.0f, 0.0f);
-				break;
-			case 2:
-				Begin(static_cast<float>(myLib::Random::Rand_R(0, SCREEN_WIDTH)), 0.0f - 50.0f, 0.0f, 5.0f, 0.0f, 0.0f);
-				break;
-			case 3:
-				Begin(static_cast<float>(myLib::Random::Rand_R(0, SCREEN_WIDTH)), static_cast<float>(SCREEN_HEIGHT) + 50.0f, 0.0f, -5.0f, 0.0f, 0.0f);
-				break;
-			}
-			g_BeginSpan++;
-			if (g_BeginSpan > 3)
-			{
-				g_BeginSpan = 0;
-			}
+			BeginGenerateOtherBeginScene();
 		}
 	}
 }
@@ -94,14 +72,20 @@ void Particle::Event()
 
 void Particle::Draw()
 {
-	Engine::Get().graphics()->SetBlendStateSub();
-	
+	if (m_TitleSystem->GetState() == m_TitleSystem->BEGIN)
+	{
+		Engine::Get().graphics()->SetBlendStateSub();
+	}
+	else
+	{
+		Engine::Get().graphics()->SetBlendStateAdd();
+	}
+
 	D3DXVECTOR2 pos = D3DXVECTOR2(m_Transform->position().x, m_Transform->position().y);
-	D3DXVECTOR2 size = D3DXVECTOR2(50.0f, 50.0f);
 	D3DXVECTOR2 t1 = D3DXVECTOR2(0.0f, 0.0f);
 	D3DXVECTOR2 t2 = D3DXVECTOR2(1.0f, 1.0f);
 
-	m_Render->Draw(pos, size, t1, t2, m_Color);
+	m_Render->Draw(pos, m_Size, t1, t2, m_Color);
 
 	Engine::Get().graphics()->SetBlendStateDefault();
 }
@@ -111,9 +95,28 @@ void Particle::titleSystem(TitleSystem * p)
 	m_TitleSystem = p;
 }
 
-void Particle::Begin(float x, float y, float vx, float vy, float ax, float ay)
+void Particle::Begin(float y)
 {
 	m_Life = myLib::Random::Rand_R(50, 100);
+
+	m_Transform->position().x = 0.0f - 50.0f;
+	m_Transform->position().y = y;
+
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = myLib::Random::GetRandomXOR();
+	m_Velocity.z = 0.0f;
+
+	m_Acceleration.x = 1.0f;
+	m_Acceleration.y = 0.0f;
+	m_Acceleration.z = 0.0f;
+
+	m_Color = D3DXVECTOR4(0.0f, myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), 1.0f);
+	m_Size = D3DXVECTOR2(55.0f, 20.0f);
+}
+
+void Particle::Begin(float x, float y, float vx, float vy, float ax, float ay)
+{
+	m_Life = 50;
 
 	m_Transform->position().x = x;
 	m_Transform->position().y = y;
@@ -126,33 +129,51 @@ void Particle::Begin(float x, float y, float vx, float vy, float ax, float ay)
 	m_Acceleration.y = ay;
 	m_Acceleration.z = 0.0f;
 
-	m_Color = D3DXVECTOR4(myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), 0.5f);
-
-	m_Active = true;
+	m_Color = D3DXVECTOR4(0.0f, 1.0f, 0.0f, 0.0f);
+	m_Size = D3DXVECTOR2(50.0f, 50.0f);
 }
 
-void Particle::Velocity(float x, float y)
+void Particle::BeginGenerateBeginScene()
 {
-	m_Velocity.x = x;
-	m_Velocity.y = y;
-}
-
-void Particle::Acceleration(float x, float y)
-{
-	m_Acceleration.x = x;
-	m_Acceleration.y = y;
-}
-
-bool Particle::NotActive()
-{
-	// アクティブ状態でないならtrueを返す
-	if (m_Active == false)
+	switch (m_BeginTypetoGenerateBeginScene)
 	{
-		return true;
+	case 0:
+		Begin(static_cast<float>(myLib::Random::Rand_R(0, 150)));
+		break;
+	case 1:
+		Begin(static_cast<float>(myLib::Random::Rand_R(700, SCREEN_HEIGHT)));
+		break;
 	}
-	return false;
+	m_BeginTypetoGenerateBeginScene++;
+	if (m_BeginTypetoGenerateBeginScene > 1)
+	{
+		m_BeginTypetoGenerateBeginScene = 0;
+	}
 }
 
+void Particle::BeginGenerateOtherBeginScene()
+{
+	switch (m_BeginTypetoGenerateOtherBeginScene)
+	{
+	case 0:
+		Begin(0.0f - 50.0f, static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT)), 2.0f, 0.0f, 0.0f, 0.0f);
+		break;
+	case 1:
+		Begin(static_cast<float>(SCREEN_WIDTH) + 50.0f, static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT)), -2.0f, 0.0f, 0.0f, 0.0f);
+		break;
+	case 2:
+		Begin(static_cast<float>(myLib::Random::Rand_R(0, SCREEN_WIDTH)), 0.0f - 50.0f, 0.0f, 2.0f, 0.0f, 0.0f);
+		break;
+	case 3:
+		Begin(static_cast<float>(myLib::Random::Rand_R(0, SCREEN_WIDTH)), static_cast<float>(SCREEN_HEIGHT) + 50.0f, 0.0f, -2.0f, 0.0f, 0.0f);
+		break;
+	}
+	m_BeginTypetoGenerateOtherBeginScene++;
+	if (m_BeginTypetoGenerateOtherBeginScene > 3)
+	{
+		m_BeginTypetoGenerateOtherBeginScene = 0;
+	}
+}
 
 #pragma region TitleBg_method
 GameBg::TitleBg::TitleBg()

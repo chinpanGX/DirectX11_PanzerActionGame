@@ -17,21 +17,22 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-
 	void titleSystem(TitleSystem* p);
+	void Begin(float y);
 	void Begin(float x, float y, float vx, float vy, float ax, float ay);
-	void Velocity(float x, float y);
-	void Acceleration(float x, float y);
-	bool NotActive(); 
 private:
+	void BeginGenerateBeginScene();
+	void BeginGenerateOtherBeginScene();
+
 	D3DXVECTOR4 m_Color;
 	D3DXVECTOR3 m_Velocity;		// ‘¬“x
 	D3DXVECTOR3 m_Acceleration; // ‰Á‘¬“x
+	D3DXVECTOR2 m_Size;
 	std::unique_ptr<Renderer2D> m_Render;
 	TitleSystem* m_TitleSystem;
 	int32_t m_Life;
-	float m_Angle;
-	bool m_Active;
+	static int32_t m_BeginTypetoGenerateBeginScene;
+	static int32_t m_BeginTypetoGenerateOtherBeginScene;
 };
 
 namespace GameBg
