@@ -7,6 +7,7 @@
 #pragma once
 #include "GameBg.h"
 
+class TitleSystem;
 class Particle final : public Actor
 {
 public:
@@ -17,12 +18,17 @@ public:
 	void Event()override;
 	void Draw()override;
 
+	void titleSystem(TitleSystem* p);
+	void Begin(float x, float y, float vx, float vy, float ax, float ay);
+	void Velocity(float x, float y);
+	void Acceleration(float x, float y);
 	bool NotActive(); 
 private:
 	D3DXVECTOR4 m_Color;
 	D3DXVECTOR3 m_Velocity;		// ‘¬“x
 	D3DXVECTOR3 m_Acceleration; // ‰Á‘¬“x
 	std::unique_ptr<Renderer2D> m_Render;
+	TitleSystem* m_TitleSystem;
 	int32_t m_Life;
 	float m_Angle;
 	bool m_Active;
@@ -40,8 +46,10 @@ namespace GameBg
 		void Update()override;
 		void Event()override;
 		void Draw()override;
+		void titleSystem(TitleSystem* p);
 	private:
 		std::vector<Particle*> m_ParticleList;
-		class TitleSystem* m_TitleSystem = nullptr;
+		TitleSystem* m_TitleSystem = nullptr;
+		uint32_t m_State;
 	};
 }

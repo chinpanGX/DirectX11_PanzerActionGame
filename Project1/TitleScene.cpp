@@ -16,11 +16,12 @@
 void GameScene::Title::Init()
 {
 	// オブジェクトの追加
-	AddGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
-	AddGameObject<GameBg::TitleBg>(ELayer::LAYER_2D_BG);
+	TitleSystem* titlesystem = AddGameObject<TitleSystem>(ELayer::LAYER_2D_UI);
+	AddGameObject<GameBg::TitleBg>(ELayer::LAYER_2D_BG)->titleSystem(titlesystem);
+
 	for (int32_t i = 0; i < 100; i++)
 	{
-		AddGameObject<Particle>(ELayer::LAYER_2D_BG);
+		AddGameObject<Particle>(ELayer::LAYER_2D_BG)->titleSystem(titlesystem);
 	}
 	AddGameObject<TitleCommand>(ELayer::LAYER_SYSTEM);
 	
