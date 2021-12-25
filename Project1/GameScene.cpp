@@ -208,12 +208,12 @@ void GameScene::Tutorial::Unload()
 #pragma region GameScene::Game_method
 void GameScene::Game::Init()
 {
+	AddGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	AddGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	AddGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 	AddGameObject<GameStage>(ELayer::LAYER_3D_STAGE);
 	AddGameObject<GameBg::Scope>(ELayer::LAYER_2D_UI);
-	AddGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	AddGameObject<PauseCommand>(ELayer::LAYER_SYSTEM);
 	AddGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI);

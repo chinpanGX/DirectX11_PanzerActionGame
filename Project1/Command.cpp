@@ -27,7 +27,6 @@ GameCommand::GameCommand()
 GameCommand::~GameCommand() {}
 void GameCommand::Begin() 
 {
-
 	// カメラの操作
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	// プレイヤーの操作

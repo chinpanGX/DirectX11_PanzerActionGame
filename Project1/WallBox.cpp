@@ -72,18 +72,18 @@ D3DXVECTOR3 WallBox::OffsetLength(const OBB3 & obj)
 	auto pos = target.position();
 
 	// x
-	D3DXVECTOR3 direct = target.GetDirection(0);
-	float len = target.GetLength().x;
+	D3DXVECTOR3 direct = target.direction(OBB3::Vector::right);
+	float len = target.length(OBB3::Vector::right);
 	r += fabs(D3DXVec3Dot(&D3DXVECTOR3(direct * len), &m_Normal));
 
 	// y
-	direct = target.GetDirection(1);
-	len = target.GetLength().y;
+	direct = target.direction(OBB3::Vector::up);
+	len = target.length(OBB3::Vector::up);
 	r += fabs(D3DXVec3Dot(&D3DXVECTOR3(direct * len), &m_Normal));
 
 	// z
-	direct = target.GetDirection(2);
-	len = target.GetLength().z;
+	direct = target.direction(OBB3::Vector::forward);
+	len = target.length(OBB3::Vector::forward);
 	r += fabs(D3DXVec3Dot(&D3DXVECTOR3(direct * len), &m_Normal));
 
 	auto tmp = pos - m_PlanePoint;

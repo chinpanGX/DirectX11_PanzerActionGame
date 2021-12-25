@@ -98,8 +98,6 @@ void Player::Draw()
 	{
 		// デフォルトの設定
 		m_Resource.SetPixelShader("PixelLighting");
-		//m_Resource.SetPixelShader("Toon");
-		//m_Resource.SetTexture(1, "Toon");
 	}
 
 	// 描画
@@ -195,6 +193,8 @@ void Player::OnCollision()
 		{
 			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
 			{
+				moveComponent().Stop();
+				/*
 				if (m_Command->GetNowInput(InputCode::Forward))
 				{
 					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
@@ -203,6 +203,7 @@ void Player::OnCollision()
 				{
 					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
 				}
+				*/
 			}
 		}
 	}
@@ -217,6 +218,8 @@ void Player::OnCollision()
 			
 			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
 			{
+				moveComponent().Stop();
+				/*
 				if (m_Command->GetNowInput(InputCode::Forward))
 				{
 					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);
@@ -225,6 +228,7 @@ void Player::OnCollision()
 				{
 					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);			
 				}
+				*/
 			}
 		}
 		// 当たっていない

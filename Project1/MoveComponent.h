@@ -25,9 +25,11 @@ public:
 	void RotLeft(Transform& transform, float deltaTime);
 	void GunUp(Transform& transform, float deltaTime);
 	void GunDown(Transform& transform, float deltaTime);
-	
+	void Stop();
 private:
 	Status& m_Status;
-	float m_Speed = 0.0f;
+	class GameCommand* m_cmd = nullptr;
+	float m_Speed = 0.0f;			// ‘¬“x
+	float m_Acceleration = 1.0f; // ‰Á‘¬“x
 };
 

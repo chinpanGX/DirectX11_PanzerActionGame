@@ -249,18 +249,14 @@ OBB3::OBB3(const Transform & t, const D3DXVECTOR3 & Size)
 {
 	auto transform = t;
 	m_Position = transform.position();
-	m_Size = Size;
-
 	// 0,1,2 = x,y,z
-	m_Dir[0] = transform.right();
-	m_Dir[1] = transform.up();
-	m_Dir[2] = transform.forward();
+	m_Direction[Vector::right] = transform.right();
+	m_Direction[Vector::up] = transform.up();
+	m_Direction[Vector::forward] = transform.forward();
 
-	m_Min = m_Position - m_Size;
-	m_Max = m_Position + m_Size;
-	m_Length.x = Math::Abs(m_Max.x - m_Min.x) * 0.5f;
-	m_Length.y = Math::Abs(m_Max.y - m_Min.y) * 0.5f;
-	m_Length.z = Math::Abs(m_Max.z - m_Min.z) * 0.5f;
+	m_DirectLength[Vector::right] = Size.x;
+	m_DirectLength[Vector::up] = Size.y;
+	m_DirectLength[Vector::forward] = Size.z;
 }
 
 OBB3::~OBB3()
@@ -272,19 +268,13 @@ void OBB3::Update(const D3DXVECTOR3& Position, Transform & t)
 	auto& transform = t;
 	m_Position = Position;
 	// 0,1,2 = x,y,z
-	m_Dir[0] = transform.right();
-	m_Dir[1] = transform.up();
-	m_Dir[2] = transform.forward();
-	m_Min = m_Position - m_Size;
-	m_Max = m_Position + m_Size;
-	m_Length.x = Math::Abs(m_Max.x - m_Min.x) * 0.5f;
-	m_Length.y = Math::Abs(m_Max.y - m_Min.y) * 0.5f;
-	m_Length.z = Math::Abs(m_Max.z - m_Min.z) * 0.5f;
-}
+	m_Direction[Vector::right] = transform.right();
+	m_Direction[Vector::up] = transform.up();
+	m_Direction[Vector::forward] = transform.forward();}
 
 void OBB3::SystemDraw()
 {
-#if 1
+#if 0
 	auto& graphics = Engine::Get().graphics();
 	auto& resource = Engine::Get().resource();
 	resource->SetShader("NoLighting");
@@ -408,18 +398,14 @@ const D3DXVECTOR3 & OBB3::position() const
 	return m_Position;
 }
 
-const D3DXVECTOR3 & OBB3::GetDirection(int32_t Element)
+const D3DXVECTOR3 & OBB3::direction(Vector vector) const
 {
-	return m_Dir[Element];
+	return m_Direction[vector];
 }
 
-const D3DXVECTOR3 & OBB3::GetLength() const
+const float OBB3::length(Vector vector) const
 {
-	return m_Length;
-}
-const D3DXVECTOR3 & OBB3::GetSize() const
-{
-	return m_Size;
+	return m_DirectLength[vector];
 }
 #pragma endregion OBB3ÉÅÉ\ÉbÉh
 
@@ -543,19 +529,19 @@ bool Intersect(const OBB3 & a, const OBB3 & b)
 {
 	OBB3 obj_a = a;
 	OBB3 obj_b = b;
-	D3DXVECTOR3 Nae1 = obj_a.GetDirection(0);
-	D3DXVECTOR3 ae1 = Nae1 * obj_a.GetLength().x;
-	D3DXVECTOR3 Nae2 = obj_a.GetDirection(1);
-	D3DXVECTOR3 ae2 = Nae2 * obj_a.GetLength().y;
-	D3DXVECTOR3 Nae3 = obj_a.GetDirection(2);
-	D3DXVECTOR3 ae3 = Nae3 * obj_a.GetLength().z;
+	D3DXVECTOR3 Nae1 = obj_a.direction(OBB3::Vector::right);
+	D3DXVECTOR3 ae1 = Nae1 * obj_a.length(OBB3::Vector::right);
+	D3DXVECTOR3 Nae2 = obj_a.direction(OBB3::Vector::up);
+	D3DXVECTOR3 ae2 = Nae2 * obj_a.length(OBB3::Vector::up);
+	D3DXVECTOR3 Nae3 = obj_a.direction(OBB3::Vector::forward);
+	D3DXVECTOR3 ae3 = Nae3 * obj_a.length(OBB3::Vector::forward);
 
-	D3DXVECTOR3 Nbe1 = obj_b.GetDirection(0);
-	D3DXVECTOR3 be1 = Nae1 * obj_b.GetLength().x;
-	D3DXVECTOR3 Nbe2 = obj_b.GetDirection(1);
-	D3DXVECTOR3 be2 = Nae2 * obj_b.GetLength().y;
-	D3DXVECTOR3 Nbe3 = obj_b.GetDirection(2);
-	D3DXVECTOR3 be3 = Nae3 * obj_b.GetLength().z;
+	D3DXVECTOR3 Nbe1 = obj_b.direction(OBB3::Vector::right);
+	D3DXVECTOR3 be1 = Nae1 * obj_b.length(OBB3::Vector::right);
+	D3DXVECTOR3 Nbe2 = obj_b.direction(OBB3::Vector::up);
+	D3DXVECTOR3 be2 = Nae2 * obj_b.length(OBB3::Vector::up);
+	D3DXVECTOR3 Nbe3 = obj_b.direction(OBB3::Vector::forward);
+	D3DXVECTOR3 be3 = Nae3 * obj_b.length(OBB3::Vector::forward);
 
 	D3DXVECTOR3 Interval = obj_a.position() - obj_b.position();
 

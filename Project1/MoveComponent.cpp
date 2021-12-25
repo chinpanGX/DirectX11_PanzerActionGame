@@ -26,11 +26,15 @@ MoveComponent::~MoveComponent()
 
 void MoveComponent::Update()
 {
+	if (m_cmd == nullptr)
+	{
+		m_cmd = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
+	}
 	bool nowInput = false;
 	myLib::Timeline acc(0.0f, m_Status.speed(), m_Status.addForce());
 	for (int32_t i = 0; i < 2; i++)
 	{
-		nowInput = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM)->GetNowInput(i);
+		nowInput = m_cmd->GetNowInput(i);
 		if (nowInput == true) { break; }
 	}
 	// スピードアップ
@@ -96,4 +100,9 @@ void MoveComponent::GunDown(Transform & transform, float deltaTime)
 		GunRotation.x = m_Status.gunAngleDownMax();
 	}
 	transform.rotation(GunRotation);
+}
+
+void MoveComponent::Stop()
+{
+	m_Speed = 0.0f;
 }

@@ -59,22 +59,24 @@ private:
 class OBB3 final
 {
 public:
+	enum Vector
+	{
+		right,
+		up,
+		forward
+	};
 	OBB3() = delete;
 	OBB3(const class Transform& t, const D3DXVECTOR3& Size);
 	~OBB3();
 	void Update(const D3DXVECTOR3& Position, class Transform& t);
 	void SystemDraw();
 	const D3DXVECTOR3& position()const;
-	const D3DXVECTOR3& GetDirection(int32_t Element);
-	const D3DXVECTOR3& GetLength()const;
-	const D3DXVECTOR3& GetSize() const;
+	const D3DXVECTOR3& direction(Vector vector)const;
+	const float length(Vector vector)const;
 private:
 	D3DXVECTOR3 m_Position;
-	D3DXVECTOR3 m_Dir[3];
-	D3DXVECTOR3 m_Length;
-	D3DXVECTOR3 m_Size;
-	D3DXVECTOR3 m_Min;
-	D3DXVECTOR3 m_Max;
+	D3DXVECTOR3 m_Direction[3];
+	float m_DirectLength[3];
 };
 
 // “–‚½‚è”»’èŒŸ’m
