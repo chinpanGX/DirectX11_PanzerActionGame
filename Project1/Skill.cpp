@@ -84,6 +84,7 @@ void Skill::PlayEffect(Pawn * pawn)
 
 void Skill::Reset(Status & status)
 {
+	m_AlreadyUseble = false;
 	m_NowUse = false;
 	for (size_t i = 0; i < m_UseSkill.size(); ++i)
 	{

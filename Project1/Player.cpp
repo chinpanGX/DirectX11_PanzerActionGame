@@ -193,17 +193,8 @@ void Player::OnCollision()
 		{
 			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
 			{
-				moveComponent().Stop();
-				/*
-				if (m_Command->GetNowInput(InputCode::Forward))
-				{
-					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime);
-				}
-				if (m_Command->GetNowInput(InputCode::Backward))
-				{
-					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime);
-				}
-				*/
+				D3DXVECTOR3 reflection = moveComponent().velocity() * -1 * 2.0f;
+				vehicle().bodyTransform().position() += reflection;
 			}
 		}
 	}
@@ -218,17 +209,10 @@ void Player::OnCollision()
 			
 			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
 			{
-				moveComponent().Stop();
-				/*
-				if (m_Command->GetNowInput(InputCode::Forward))
-				{
-					moveComponent().MoveBackward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);
-				}
-				if (m_Command->GetNowInput(InputCode::Backward))
-				{
-					moveComponent().MoveForward(vehicle().bodyTransform(), Fps::Get().deltaTime * 1.2f);			
-				}
-				*/
+				D3DXVECTOR3 hitPosition = vehicle().bodyTransform().position() + moveComponent().velocity();
+
+				D3DXVECTOR3 reflection = moveComponent().velocity() * -1 * 2.0f;
+				vehicle().bodyTransform().position() = hitPosition + reflection;
 			}
 		}
 		// 当たっていない
