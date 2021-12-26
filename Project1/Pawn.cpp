@@ -42,7 +42,7 @@ void Pawn::Update()
 {
 	m_Reload->Update();
 	m_Vehicle->Update();
-	m_MoveComponent->Update();
+	m_MoveComponent->Update(m_Vehicle->bodyTransform());
 
 	auto colliderPosition = m_Vehicle->bodyTransform().position();
 	colliderPosition.y = m_Vehicle->bodyTransform().position().y + 1.0f;
@@ -161,9 +161,13 @@ void Pawn::BeginOverlap(Pawn* pPawn)
 			}
 			*/
 
-			pPawn->moveComponent().Stop();
-			auto tmp = pPawn->vehicle().bodyTransform().position() + w->OffsetLength(pPawn->vehicle().collider(0).GetOBB3());
-			pPawn->vehicle().bodyTransform().position(tmp);
+			//pPawn->moveComponent().Stop();
+			
+			D3DXVECTOR3 normal = w->OffsetLength(pPawn->vehicle().collider(0).GetOBB3()) * 2.0f;
+			D3DXVECTOR3 scratch = normal - pPawn->moveComponent().velocity();
+
+			
+			pPawn->vehicle().bodyTransform().position() += scratch * Fps::Get().deltaTime;
 		}		
 	}
 }

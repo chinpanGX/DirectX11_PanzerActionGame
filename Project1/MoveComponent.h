@@ -16,7 +16,7 @@ public:
 	MoveComponent() = delete;
 	MoveComponent(Status& status);
 	~MoveComponent();
-	void Update();
+	void Update(Transform& transform);
 
 	// アクション
 	void MoveForward(Transform & transform, float deltaTime);
@@ -26,9 +26,12 @@ public:
 	void GunUp(Transform& transform, float deltaTime);
 	void GunDown(Transform& transform, float deltaTime);
 	void Stop();
+
+	D3DXVECTOR3& velocity() ;
 private:
 	Status& m_Status;
 	class GameCommand* m_cmd = nullptr;
+	D3DXVECTOR3 m_Velocity;
 	float m_Speed = 0.0f;			// 速度
 	float m_Acceleration = 1.0f; // 加速度
 };

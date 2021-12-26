@@ -67,12 +67,8 @@ const float Pivot::GetTargetOffset() const
 
 void Pivot::Move()
 {
-	// 移動はボディの位置に合わせる
-	D3DXVECTOR3 pos = m_Transform->position();
-	D3DXVECTOR3 body = m_Vehicle.bodyTransform().position();
-	pos.x = body.x;
-	pos.z = body.z;
-	m_Transform->position(pos);
+	m_Transform->position().x = m_Vehicle.bodyTransform().position().x;
+	m_Transform->position().z = m_Vehicle.bodyTransform().position().z;
 }
 
 MoveComponent & Pivot::moveComponent() const

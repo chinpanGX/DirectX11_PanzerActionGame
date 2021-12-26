@@ -70,14 +70,14 @@
     <Filter Include="Actor\Base">
       <UniqueIdentifier>{650d7208-b803-4ee3-8e68-03ef5e7e8dc6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Result">
-      <UniqueIdentifier>{10880981-0a0a-4610-86d3-4389942a4f8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Camera">
       <UniqueIdentifier>{6beffdee-0ca4-4648-86fd-5f16515247c9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Actor\Panzer\Object">
       <UniqueIdentifier>{dbaa73f6-88ff-45f6-8e20-e36d5944e807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Result">
+      <UniqueIdentifier>{10880981-0a0a-4610-86d3-4389942a4f8d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
