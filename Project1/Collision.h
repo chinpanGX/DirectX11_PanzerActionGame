@@ -7,6 +7,7 @@
 
 -------------------------------------------------------------*/
 #pragma once
+#include "Transform.h"
 #include "myLib.h"
 
 // ‹…
@@ -68,12 +69,13 @@ public:
 	OBB3() = delete;
 	OBB3(const class Transform& t, const D3DXVECTOR3& Size);
 	~OBB3();
-	void Update(const D3DXVECTOR3& Position, class Transform& t);
+	void Update(const D3DXVECTOR3& Position, const Transform& t);
 	void SystemDraw();
 	const D3DXVECTOR3& position()const;
 	const D3DXVECTOR3& direction(Vector vector)const;
 	const float length(Vector vector)const;
 private:
+	Transform m_Transform;
 	D3DXVECTOR3 m_Position;
 	D3DXVECTOR3 m_Direction[3];
 	float m_DirectLength[3];

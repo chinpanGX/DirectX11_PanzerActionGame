@@ -263,49 +263,56 @@ OBB3::~OBB3()
 {
 }
 
-void OBB3::Update(const D3DXVECTOR3& Position, Transform & t)
+void OBB3::Update(const D3DXVECTOR3& Position, const Transform & t)
 {
-	auto& transform = t;
+	m_Transform = t;
 	m_Position = Position;
 	// 0,1,2 = x,y,z
-	m_Direction[Vector::right] = transform.right();
-	m_Direction[Vector::up] = transform.up();
-	m_Direction[Vector::forward] = transform.forward();}
+	m_Direction[Vector::right] = m_Transform.right();
+	m_Direction[Vector::up] = m_Transform.up();
+	m_Direction[Vector::forward] = m_Transform.forward();
+}
 
 void OBB3::SystemDraw()
 {
-#if 0
+#if 1
 	auto& graphics = Engine::Get().graphics();
 	auto& resource = Engine::Get().resource();
 	resource->SetShader("NoLighting");
 
 	// ’[‚Ì“_‚ğ‹‚ß‚é
-	m_Min = m_Position - m_Size;
-	m_Max = m_Position + m_Size;
+	D3DXVECTOR3 min, max;
+	min.x = m_Position.x - m_DirectLength[Vector::right];
+	min.y = m_Position.y - m_DirectLength[Vector::up];
+	min.z = m_Position.z - m_DirectLength[Vector::forward];
+
+	max.x = m_Position.x + m_DirectLength[Vector::right];
+	max.y = m_Position.y + m_DirectLength[Vector::up];
+	max.z = m_Position.z + m_DirectLength[Vector::forward];
 	
 	Debug::LineVertex v[8];
-	v[0].position = D3DXVECTOR3(m_Min.x, m_Max.y, m_Min.z);
+	v[0].position = D3DXVECTOR3(min.x, max.y, min.z);
 	v[0].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[0].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[1].position = D3DXVECTOR3(m_Max.x, m_Max.y, m_Min.z);
+	v[1].position = D3DXVECTOR3(max.x, max.y, min.z);
 	v[1].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[1].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[2].position = D3DXVECTOR3(m_Min.x, m_Min.y, m_Min.z);
+	v[2].position = D3DXVECTOR3(min.x, min.y, min.z);
 	v[2].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[2].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[3].position = D3DXVECTOR3(m_Max.x, m_Min.y, m_Min.z);
+	v[3].position = D3DXVECTOR3(max.x, min.y, min.z);
 	v[3].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[3].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[4].position = D3DXVECTOR3(m_Min.x, m_Max.y, m_Max.z);
+	v[4].position = D3DXVECTOR3(min.x, max.y, max.z);
 	v[4].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[4].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[5].position = D3DXVECTOR3(m_Max.x, m_Max.y, m_Max.z);
+	v[5].position = D3DXVECTOR3(max.x, max.y, max.z);
 	v[5].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[5].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[6].position = D3DXVECTOR3(m_Min.x, m_Min.y, m_Max.z);
+	v[6].position = D3DXVECTOR3(min.x, min.y, max.z);
 	v[6].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[6].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
-	v[7].position = D3DXVECTOR3(m_Max.x, m_Min.y, m_Max.z);
+	v[7].position = D3DXVECTOR3(max.x, min.y, max.z);
 	v[7].normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 	v[7].color = D3DXVECTOR4(1.0f, 0.0f, 0.0f, 1.0f);
 
@@ -372,6 +379,7 @@ void OBB3::SystemDraw()
 	graphics->GetDevice()->CreateBuffer(&bd2, &sd2, &pIB);
 
 	D3DXMATRIX world;
+
 	D3DXMatrixIdentity(&world);
 	graphics->SetWorldMatrix(world);
 
@@ -418,42 +426,11 @@ namespace
 	// •ª—£²‚É“Š‰e‚³‚ê‚½²¬•ª‚©‚ç“Š‰eü•ª’·‚ğZo
 	float LengthSeparateAxis(const D3DXVECTOR3& Sep, const D3DXVECTOR3& E1, const D3DXVECTOR3& E2, const D3DXVECTOR3& E3 = D3DXVECTOR3(0.0f, 0.0f, 0.0f))
 	{
-		/*
-		FLOAT r1 = fabs(D3DXVec3Dot(Sep, e1));
-		FLOAT r2 = fabs(D3DXVec3Dot(Sep, e2));
-		FLOAT r3 = e3 ? (fabs(D3DXVec3Dot(Sep, e3))) : 0;
-		return r1 + r2 + r3;
-		*/
 		float r1 = Math::Abs(D3DXVec3Dot(&Sep, &E1));
 		float r2 = Math::Abs(D3DXVec3Dot(&Sep, &E2));
 		float r3 = E3 ? Math::Abs(D3DXVec3Dot(&Sep, &E3)) : 0;
 		return r1 + r2 + r3;
 	}
-#if 0
-	bool TestSidePlane(float start, float end, float negd, const D3DXVECTOR3& norm, std::vector<std::pair<float, D3DXVECTOR3>>& out)
-	{
-		float denom = end - start;
-		if (Math::NearZero(denom))
-		{
-			return false;
-		}
-		else
-		{
-			float numer = -start + negd;
-			float t = numer / denom;
-			// Test that t is within bounds
-			if (t >= 0.0f && t <= 1.0f)
-			{
-				out.emplace_back(t, norm);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-	}
-#endif
 }
 
 bool Intersect(const Sphere3 & a, const Sphere3 & b)
