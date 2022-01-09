@@ -14,19 +14,26 @@ class Scene;
 class GameStageSetterFence final : public ISetterObject
 {
 public:
-	void Set(Scene* scene);
+	void Set(Scene* scene)override;
 };
 
 // BOXŒ^‚Ì•Ç
 class GameStageSetterWallBox final : public ISetterObject
 {
 public:
-	void Set(Scene* scene);
+	void Set(Scene* scene)override;
 };
 
 // •â‹‹’n“_
 class GameStageSetterSupply final : public ISetterObject
 {
 public:
-	void Set(Scene* scene);
+	void Set(Scene* scene)override;
+};
+
+// Šâ
+class GameStageSetterRock final : public ISetterObject
+{
+public:
+	void Set(Scene* scene)override;
 };

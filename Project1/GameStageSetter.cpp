@@ -5,6 +5,7 @@
 
 ---------------------------------------------------------------*/
 #include "Scene.h"
+#include "Rock.h"
 #include "Fence.h"
 #include "WallBox.h"
 #include "Supply.h"
@@ -76,4 +77,13 @@ void GameStageSetterSupply::Set(Scene * scene)
 	pos.x = -x;
 	rot.y = D3DXToRadian(180.0f);
 	scene->AddGameObject<Supply>(LAYER_3D_STAGE)->transform().Set(pos, scl, rot);
+}
+
+void GameStageSetterRock::Set(Scene * scene)
+{
+	auto size = D3DXVECTOR3(5.0f, 5.0f, 5.0f);
+
+
+	auto pos = D3DXVECTOR3(0.0f, 5.0f, 200.0f);
+	scene->AddGameObject<Rock>(LAYER_3D_STAGE)->transform().Set(pos, size);
 }

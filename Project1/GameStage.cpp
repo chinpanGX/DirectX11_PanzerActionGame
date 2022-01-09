@@ -19,6 +19,7 @@ GameStage::GameStage()
 	Stage::AddObject<GameStageSetterFence>();
 	Stage::AddObject<GameStageSetterWallBox>();
 	Stage::AddObject<GameStageSetterSupply>();
+	Stage::AddObject<GameStageSetterRock>();
 }
 
 GameStage::~GameStage()
