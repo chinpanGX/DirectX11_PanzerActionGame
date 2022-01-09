@@ -47,7 +47,7 @@ void GameBg::ResultBg::Draw()
 	{
 		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	}
-	m_Fade->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_State->GetAlpha()));
+	m_Fade->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_State->alpha()));
 }
 
 // Å‰‚ÉŒÄ‚Ño‚·
@@ -80,9 +80,9 @@ void GameBg::ResultUi::Begin()
 void GameBg::ResultUi::Update()
 {
 	auto& state = m_Bg->GetState();
-	m_Alpha = state.GetAlpha();
+	m_Alpha = state.alpha();
 	//	‘I‘ð‚µ‚Ä‚¢‚éˆÊ’u‚ÉˆÚ“®‚µ‚Ä•`‰æ
-	switch (state.GetSelect())
+	switch (state.select())
 	{
 	case 0:
 		m_Draw_y = 410.0f;

@@ -217,6 +217,7 @@
     <ClCompile Include="ResultBg.cpp" />
     <ClCompile Include="ResultCommand.cpp" />
     <ClCompile Include="ResultScene.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="SelectCommand.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Shadow.cpp" />
@@ -319,6 +320,7 @@
     <ClInclude Include="ResultCommand.h" />
     <ClInclude Include="ResultScene.h" />
     <ClInclude Include="ResultState.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SelectCommand.h" />
     <ClInclude Include="Shader.h" />

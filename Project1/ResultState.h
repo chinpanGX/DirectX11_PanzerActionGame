@@ -61,13 +61,13 @@ public:
 	}
 
 	// ‘I‘ð‚µ‚Ä‚¢‚é‚à‚Ì‚ð•Ô‚·
-	const int32_t GetSelect() const
+	const int32_t select() const
 	{
 		return m_Select;
 	}
 
 	// ƒ¿’l
-	const float GetAlpha() const
+	const float alpha() const
 	{
 		return m_Alpha;
 	}

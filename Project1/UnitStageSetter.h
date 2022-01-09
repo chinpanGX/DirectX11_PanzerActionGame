@@ -24,3 +24,9 @@ class StageSetterPlane final : public ISetterObject
 public:
 	void Set(Scene* scene);
 };
+
+class StageSetterGameWorld final : public ISetterObject
+{
+public:
+	void Set(Scene* scene);
+};

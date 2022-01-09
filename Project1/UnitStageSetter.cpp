@@ -26,3 +26,8 @@ void StageSetterPlane::Set(Scene * scene)
 {
 	scene->AddGameObject<Plane>(LAYER_3D_STAGE);
 }
+
+void StageSetterGameWorld::Set(Scene * scene)
+{
+	scene->AddGameObject<GameWorld>(LAYER_3D_STAGE);
+}

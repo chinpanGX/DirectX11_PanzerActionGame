@@ -271,6 +271,10 @@ void GameScene::Game::Load()
 	Engine::Get().resource()->LoadTexture("MiniMapMarker", "MiniMapMarker.png");
 	// モデル
 	Engine::Get().resource()->LoadModel("Supply", "hokyuu.obj");
+	Engine::Get().resource()->LoadModel("Rock_01", "Rock_01.obj");
+	Engine::Get().resource()->LoadModel("Rock_02", "Rock_02.obj");
+	Engine::Get().resource()->LoadModel("Rock_03", "Rock_03.obj");
+	
 }
 
 void GameScene::Game::Unload()
@@ -280,6 +284,10 @@ void GameScene::Game::Unload()
 	Engine::Get().resource()->UnloadTexture("MiniMapBg");
 	Engine::Get().resource()->UnloadTexture("MiniMapMarker");
 	Engine::Get().resource()->UnloadModel("Supply");
+	Engine::Get().resource()->UnloadModel("Rock_01");
+	Engine::Get().resource()->UnloadModel("Rock_02");
+	Engine::Get().resource()->UnloadModel("Rock_03");
+
 }
 
 #pragma endregion GameScene::Gameメソッド
