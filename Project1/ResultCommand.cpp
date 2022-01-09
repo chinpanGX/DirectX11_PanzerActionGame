@@ -56,7 +56,7 @@ void ResultCommand::InputKeyBoard()
 	else if (KeyBoard::IsTrigger(DIK_SPACE))
 	{
 		// 選択したシーンへ遷移
-		switch (state.GetSelect())
+		switch (state.select())
 		{
 		case 0:
 			Engine::Get().application()->SetScene<GameScene::Game>();
@@ -91,7 +91,7 @@ void ResultCommand::InputGamePad()
 	else if (GamePad::IsTrigger(0, BUTTON_2))
 	{
 		// 選択したシーンへ遷移
-		switch (state.GetSelect())
+		switch (state.select())
 		{
 		case 0:
 			Engine::Get().application()->SetScene<GameScene::Game>();
