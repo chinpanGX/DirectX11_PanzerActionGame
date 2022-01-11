@@ -8,6 +8,7 @@
 #include "GameBg.h"
 
 class TitleSystem;
+// タイトル画面のパーティクル
 class Particle final : public Actor
 {
 public:
@@ -18,11 +19,9 @@ public:
 	void Event()override;
 	void Draw()override;
 	void titleSystem(TitleSystem* p);
-	void Begin(float y);
-	void Begin(float x, float y, float vx, float vy, float ax, float ay);
 private:
-	void BeginGenerateBeginScene();
 	void BeginGenerateOtherBeginScene();
+	void Begin(float x, float y, float vx, float vy, float ax, float ay);
 
 	D3DXVECTOR4 m_Color;
 	D3DXVECTOR3 m_Velocity;		// 速度
@@ -31,7 +30,6 @@ private:
 	std::unique_ptr<Renderer2D> m_Render;
 	TitleSystem* m_TitleSystem;
 	int32_t m_Life;
-	static int32_t m_BeginTypetoGenerateBeginScene;
 	static int32_t m_BeginTypetoGenerateOtherBeginScene;
 };
 
