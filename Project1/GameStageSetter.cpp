@@ -81,9 +81,49 @@ void GameStageSetterSupply::Set(Scene * scene)
 
 void GameStageSetterRock::Set(Scene * scene)
 {
-	auto size = D3DXVECTOR3(5.0f, 5.0f, 5.0f);
+	m_Scene = scene;
+	SetBackGround();
+}
 
+// 背景用の岩を配置
+void GameStageSetterRock::SetBackGround()
+{
+	Set(-130.0f, 5.0f, 300.0f, 5.0f);
+	Set(-40.0f, 6.0f, 750.0f, 16.5f);
+	Set(-500.0f, 3.0, -300.0f, 13.0f);
+	Set(-320.0f, 2.5f, 30.0f, 15.0f);	
+	Set(50.0f, 5.0f, 400.0f, 15.0f);
+	Set(500.0f, 30.0f, 300.0f, 30.0f);
 
-	auto pos = D3DXVECTOR3(0.0f, 5.0f, 200.0f);
-	scene->AddGameObject<Rock>(LAYER_3D_STAGE)->transform().Set(pos, size);
+	for (int i = 0; i < m_ObjectCount; i++)
+	{
+		float angle = myLib::Random::Rand_R(0, 360);		
+		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock", m_Position[i], m_Size[i], angle, false);		
+	}
+
+	// リセット
+	m_ObjectCount = 0;
+	m_Position.clear();
+	m_Size.clear();
+
+	Set(180.0f, 0.0f, 700.0f, 80.0f);
+	Set(-420.0f, 0.0f, -80.0f, 17.0f);
+	Set(-340.0f, 0.0f, -400.0f, 28.0f);
+	Set(30.0f, 0.0f, -500.0f, 30.0f);
+
+	for (int i = 0; i < m_ObjectCount; i++)
+	{
+		float angle = myLib::Random::Rand_R(0, 360);
+		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock02", m_Position[i], m_Size[i], angle, false);
+	}
+
+	m_Position.clear();
+	m_Size.clear();
+}
+
+void GameStageSetterRock::Set(float x, float y, float z, float size)
+{
+	m_Position.emplace_back(D3DXVECTOR3(x, y, z));
+	m_Size.emplace_back(D3DXVECTOR3(size, size, size));
+	m_ObjectCount++;
 }

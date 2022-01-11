@@ -52,12 +52,6 @@
     <Filter Include="Actor\Panzer\Status">
       <UniqueIdentifier>{807da5a4-7edb-4730-aea5-7579917f26d5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor\Stage">
-      <UniqueIdentifier>{5bdccb4b-bad0-483a-8f04-692dcfc55d72}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Actor\Stage\Object">
-      <UniqueIdentifier>{202c51a1-56d5-4387-93af-732cda0b8042}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Actor\Pawn">
       <UniqueIdentifier>{5fe25600-264a-4af8-a755-c55c55068707}</UniqueIdentifier>
     </Filter>
@@ -78,6 +72,12 @@
     </Filter>
     <Filter Include="Actor\Result">
       <UniqueIdentifier>{10880981-0a0a-4610-86d3-4389942a4f8d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Result\Stage">
+      <UniqueIdentifier>{5bdccb4b-bad0-483a-8f04-692dcfc55d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\Result\Stage\Object">
+      <UniqueIdentifier>{202c51a1-56d5-4387-93af-732cda0b8042}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -146,34 +146,34 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="GameStage.cpp">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClCompile>
     <ClCompile Include="GameStageSetter.cpp">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClCompile>
     <ClCompile Include="TutorialStageSetter.cpp">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClCompile>
     <ClCompile Include="TutorialStage.cpp">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Fence.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="Grass.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="GrassField.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="Plane.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="PlaneGarage.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="Skydome.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="PanzerContainer.cpp">
       <Filter>Actor\Panzer</Filter>
@@ -233,13 +233,13 @@
       <Filter>Actor\Panzer\Object</Filter>
     </ClCompile>
     <ClCompile Include="StageObject.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="WallBox.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="UnitStageSetter.cpp">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Vehicle.cpp">
       <Filter>Actor\Panzer</Filter>
@@ -306,7 +306,7 @@
       <Filter>Resource</Filter>
     </ClCompile>
     <ClCompile Include="PanzerGarage.cpp">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Component</Filter>
@@ -330,7 +330,7 @@
       <Filter>Actor\2D\Game</Filter>
     </ClCompile>
     <ClCompile Include="Supply.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
     <ClCompile Include="PlayerBulletAmount.cpp">
       <Filter>Actor\2D\Game</Filter>
@@ -363,7 +363,7 @@
       <Filter>Actor\Bullet</Filter>
     </ClCompile>
     <ClCompile Include="Rock.cpp">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -447,34 +447,34 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="GameStageSetter.h">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClInclude>
     <ClInclude Include="GameStage.h">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClInclude>
     <ClInclude Include="TutorialStageSetter.h">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClInclude>
     <ClInclude Include="TutorialStage.h">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Fence.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="GrassField.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="Grass.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="Plane.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="PlaneGarage.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="Skydome.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="PanzerContainer.h">
       <Filter>Actor\Panzer</Filter>
@@ -546,16 +546,16 @@
       <Filter>GameManager</Filter>
     </ClInclude>
     <ClInclude Include="ISetterObject.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="Stage.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="StageObject.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="WallBox.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="Vehicle.h">
       <Filter>Actor\Panzer</Filter>
@@ -619,7 +619,7 @@
       <Filter>Actor\2D\Effect</Filter>
     </ClInclude>
     <ClInclude Include="PanzerGarage.h">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Collider.h">
       <Filter>Component</Filter>
@@ -649,7 +649,7 @@
       <Filter>Actor\2D\Game</Filter>
     </ClInclude>
     <ClInclude Include="Supply.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBulletAmount.h">
       <Filter>Actor\2D\Game</Filter>
@@ -661,7 +661,7 @@
       <Filter>Actor\Panzer\Skill</Filter>
     </ClInclude>
     <ClInclude Include="UnitStageSetter.h">
-      <Filter>Actor\Stage</Filter>
+      <Filter>Actor\Result\Stage</Filter>
     </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>Input</Filter>
@@ -682,7 +682,7 @@
       <Filter>Actor\Pawn</Filter>
     </ClInclude>
     <ClInclude Include="Rock.h">
-      <Filter>Actor\Stage\Object</Filter>
+      <Filter>Actor\Result\Stage\Object</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

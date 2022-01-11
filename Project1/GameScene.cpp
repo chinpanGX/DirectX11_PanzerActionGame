@@ -274,7 +274,13 @@ void GameScene::Game::Load()
 	Engine::Get().resource()->LoadModel("Rock_01", "Rock_01.obj");
 	Engine::Get().resource()->LoadModel("Rock_02", "Rock_02.obj");
 	Engine::Get().resource()->LoadModel("Rock_03", "Rock_03.obj");
-	
+	Engine::Get().resource()->LoadModel("Rock02_01", "Rock02_01.obj");
+	Engine::Get().resource()->LoadModel("Rock02_02", "Rock02_02.obj");
+	Engine::Get().resource()->LoadModel("Rock02_03", "Rock02_03.obj");	
+	Engine::Get().resource()->LoadModel("Rock03_01", "HalfRock_01.obj");
+	Engine::Get().resource()->LoadModel("Rock03_02", "HalfRock_02.obj");
+	Engine::Get().resource()->LoadModel("Rock03_03", "HalfRock_03.obj");
+
 }
 
 void GameScene::Game::Unload()
@@ -287,7 +293,12 @@ void GameScene::Game::Unload()
 	Engine::Get().resource()->UnloadModel("Rock_01");
 	Engine::Get().resource()->UnloadModel("Rock_02");
 	Engine::Get().resource()->UnloadModel("Rock_03");
-
+	Engine::Get().resource()->UnloadModel("Rock02_01");
+	Engine::Get().resource()->UnloadModel("Rock02_02");
+	Engine::Get().resource()->UnloadModel("Rock02_03");
+	Engine::Get().resource()->UnloadModel("Rock03_01");
+	Engine::Get().resource()->UnloadModel("Rock03_02");
+	Engine::Get().resource()->UnloadModel("Rock03_03");
 }
 
 #pragma endregion GameScene::Gameƒƒ\ƒbƒh
