@@ -27,20 +27,20 @@ Particle::~Particle()
 void Particle::Begin()
 {	
 	m_Life = myLib::Random::Rand_R(50, 100);
-
-	m_Transform->position().x = 0.0f - 50.0f;
-	m_Transform->position().y = static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT));
-
-	m_Velocity.x = 0.0f;
-	m_Velocity.y = myLib::Random::GetRandomXOR();
-	m_Velocity.z = 0.0f;
-
-	m_Acceleration.x = 1.0f;
-	m_Acceleration.y = 0.0f;
-	m_Acceleration.z = 0.0f;
-
-	m_Color = D3DXVECTOR4(myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), 1.0f, 1.0f);
-	m_Size = D3DXVECTOR2(55.0f, 20.0f);
+	//
+	//m_Transform->position().x = 0.0f - 50.0f;
+	//m_Transform->position().y = static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT));
+	//
+	//m_Velocity.x = 0.0f;
+	//m_Velocity.y = myLib::Random::GetRandomXOR();
+	//m_Velocity.z = 0.0f;
+	//
+	//m_Acceleration.x = 1.0f;
+	//m_Acceleration.y = 0.0f;
+	//m_Acceleration.z = 0.0f;
+	//
+	//m_Color = D3DXVECTOR4(myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), 1.0f, 1.0f);
+	//m_Size = D3DXVECTOR2(55.0f, 20.0f);
 }
 
 void Particle::Update()

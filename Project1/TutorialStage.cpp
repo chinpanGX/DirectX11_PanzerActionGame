@@ -22,6 +22,7 @@ TutorialStage::TutorialStage()
 	Stage::AddObject<StageSetterPlane>();
 	Stage::AddObject<TutorialStageSetterTarget>();
 	Stage::AddObject<TutorialStageSetterWall>();
+	Stage::AddObject<TutorialStageSetterSupply>();
 }
 
 TutorialStage::~TutorialStage()

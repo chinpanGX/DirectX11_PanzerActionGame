@@ -55,7 +55,6 @@ void MuzzleFlash::Draw()
 
 	// マトリクスの設定
 	// カメラの情報を取得する
-// マトリクスの設定
 	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	D3DXMATRIX view = camera->view();
 

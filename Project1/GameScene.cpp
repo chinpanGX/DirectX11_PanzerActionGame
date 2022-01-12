@@ -149,6 +149,7 @@ void GameScene::Tutorial::Init()
 	AddGameObject<PlayerUi::Hp>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
 	AddGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
+	AddGameObject<PlayerUi::BulletAmount>(ELayer::LAYER_2D_UI);
 	Load();
 	Begin();
 }
@@ -193,10 +194,13 @@ void GameScene::Tutorial::Load()
 	Engine::Get().resource()->LoadTexture("Target", "Target.png");
 	Engine::Get().resource()->LoadTexture("Ui04", "Ui04.png");
 	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
+	// ƒ‚ƒfƒ‹‚Ìƒ[ƒh
+	Engine::Get().resource()->LoadModel("Supply", "hokyuu.obj");
 }
 
 void GameScene::Tutorial::Unload()
 {
+	Engine::Get().resource()->UnloadModel("Supply");
 	Engine::Get().resource()->UnloadTexture("SkillEffect");
 	Engine::Get().resource()->UnloadTexture("Ui04");
 	Engine::Get().resource()->UnloadTexture("Target");

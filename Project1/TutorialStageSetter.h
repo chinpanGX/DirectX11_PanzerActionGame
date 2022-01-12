@@ -24,3 +24,9 @@ class TutorialStageSetterTarget final : public ISetterObject
 public:
 	void Set(Scene* scene)override;
 };
+
+class TutorialStageSetterSupply final : public ISetterObject
+{
+public:
+	void Set(Scene* scene)override;
+};

@@ -187,6 +187,9 @@ void MiniMap::Draw()
 	// マップの背景の描画
 	m_MarkerList[mapbg]->Draw(0.5f);
 
+	// プレイヤー以外のアイコンの描画
+	OtherIconDraw();
+
 	// プレイヤーの描画
 	auto size = D3DXVECTOR2(20.0f, 20.0f);
 	m_PlayerIcon->Draw(m_PlayerPosition, size, m_Player->pivot().transform().rotation().y);
