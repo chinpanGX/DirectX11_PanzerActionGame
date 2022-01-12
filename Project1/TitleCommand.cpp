@@ -17,7 +17,7 @@
 
 namespace
 {
-	bool g_EndSetting = false; // 設定済みかどうか
+	bool g_EndSetting = true; // false; // 設定済みかどうか
 }
 
 TitleCommand::TitleCommand() {}
@@ -43,19 +43,21 @@ void TitleCommand::Update()
 		if (g_EndSetting == false)
 		{
 			InputKeyBoard();
-			InputGamePad();
+			//InputGamePad();
 		}
 		else
 		{
 			g_IsInputGamePad ? InputGamePad() : InputKeyBoard();
 		}
 	}
+#if 0
 	else if (m_TitleSystem->EState::SETTING_SELECT == state || m_TitleSystem->EState::CHECK_INPUT == state)
 	{
 		// 最初はキーボードマウス、ゲームパッド両方入力できるようにする
 		InputKeyBoard();
-		InputGamePad();
+		//InputGamePad();
 	}
+#endif
 }
 void TitleCommand::Event() {}
 void TitleCommand::Draw() {}
@@ -104,6 +106,8 @@ void TitleCommand::InputKeyBoard()
 	// 選択画面のとき
 	if (m_TitleSystem->EState::SELECT == state)
 	{
+// 選択ができないようにする
+#if 0
 		// 選択
 		if (KeyBoard::IsTrigger(DIK_W))
 		{
@@ -115,6 +119,7 @@ void TitleCommand::InputKeyBoard()
 			Engine::Get().resource()->AudioPlay("Select", 1.0f);
 			m_TitleSystem->SelectButtom();
 		}
+#endif
 		// 決定
 		if (KeyBoard::IsTrigger(DIK_SPACE) || Mouse::LeftTrigger())
 		{
@@ -125,12 +130,14 @@ void TitleCommand::InputKeyBoard()
 				Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
 				Engine::Get().resource()->AudioPlay("Enter", 1.0f);
 			}
+#if 0
 			// 設定画面へ
 			else if (!m_TitleSystem->GetSelect())
 			{
 				Engine::Get().resource()->AudioPlay("Button", 1.0f);
 				m_TitleSystem->SetState(m_TitleSystem->EState::SETTING_SELECT);
 			}
+#endif
 		}
 		// 戻る
 		if (KeyBoard::IsTrigger(DIK_Q))
@@ -141,6 +148,7 @@ void TitleCommand::InputKeyBoard()
 
 	}
 
+#if 0
 	// 設定画面
 	if (m_TitleSystem->EState::SETTING_SELECT == state)
 	{
@@ -191,6 +199,7 @@ void TitleCommand::InputKeyBoard()
 			g_EndSetting = true;
 		}
 	}
+#endif 	
 }
 
 // ゲームパッドの入力
@@ -220,12 +229,14 @@ void TitleCommand::InputGamePad()
 				//　シーンチェンジ
 				Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
 			}
+#if 0 
 			// 設定画面へ
 			else if (!m_TitleSystem->GetSelect())
 			{
 				Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 				m_TitleSystem->SetState(m_TitleSystem->EState::SETTING_SELECT);
 			}
+#endif
 		}
 		// 戻る
 		if (GamePad::IsTrigger(0, BUTTON_3))
@@ -235,6 +246,8 @@ void TitleCommand::InputGamePad()
 		}
 
 	}
+// ゲームパッドは選択できないようにする
+#if 0
 	// 設定画面
 	if (m_TitleSystem->EState::SETTING_SELECT == state)
 	{
@@ -286,5 +299,6 @@ void TitleCommand::InputGamePad()
 			g_EndSetting = true;
 		}
 	}
+#endif
 }
 #pragma endregion TitleCommandのメソッド

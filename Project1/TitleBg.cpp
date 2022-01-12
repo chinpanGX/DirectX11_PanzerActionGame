@@ -160,12 +160,14 @@ void GameBg::TitleBg::Event()
 
 void GameBg::TitleBg::Draw()
 {
+#if 0
 	if (m_TitleSystem->EState::SETTING_SELECT == m_State || m_TitleSystem->EState::CHECK_INPUT == m_State)
 	{
 		// Setting‰æ–Ê
 		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
 	}
 	else
+#endif
 	{
 		// ƒ^ƒCƒgƒ‹‰æ–Ê
 		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.49f, 0.9f));

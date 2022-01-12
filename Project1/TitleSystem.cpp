@@ -62,10 +62,12 @@ void TitleSystem::Draw()
 		case EState::SELECT:
 			DrawSelect();
 			break;
+#if 0
 		// Setting画面
 		case EState::SETTING_SELECT:
 			DrawSetting();
 			break;
+#endif
 		// Deviceの変更のチェック
 		case EState::CHECK_INPUT:
 			DrawInput();
@@ -164,13 +166,13 @@ void TitleSystem::DrawSelect()
 	{
 		m_Render->Draw(D3DXVECTOR2(px, 600.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), alpha);
 		m_Render->Draw(D3DXVECTOR2(px, 600.0f), size, D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.125f), m_Color);
-		m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.125f), D3DXVECTOR2(0.25f, 0.245f), beginColor);
+		//m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.125f), D3DXVECTOR2(0.25f, 0.245f), beginColor);
 	}
 	else
 	{
 		m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.375f), D3DXVECTOR2(0.25f, 0.5f), alpha);
 		m_Render->Draw(D3DXVECTOR2(px, 600.0f), size, D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.125f), beginColor);
-		m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.125f), D3DXVECTOR2(0.25f, 0.245f), m_Color);
+		//m_Render->Draw(D3DXVECTOR2(px, 750.0f), size, D3DXVECTOR2(0.0f, 0.125f), D3DXVECTOR2(0.25f, 0.245f), m_Color);
 	}
 }
 

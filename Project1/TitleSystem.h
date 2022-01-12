@@ -44,7 +44,7 @@ public:
 	{
 		BEGIN, // 最初
 		SELECT,
-		SETTING_SELECT, // キーマウかパッドを選択
+		//SETTING_SELECT, // キーマウかパッドを選択
 		CHECK_INPUT
 	};
 private:
