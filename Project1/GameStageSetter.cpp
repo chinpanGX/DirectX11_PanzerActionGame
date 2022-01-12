@@ -97,7 +97,7 @@ void GameStageSetterRock::SetBackGround()
 
 	for (int i = 0; i < m_ObjectCount; i++)
 	{
-		float angle = myLib::Random::Rand_R(0, 360);		
+		float angle = static_cast<float>(myLib::Random::Rand_R(0, 360));		
 		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock", m_Position[i], m_Size[i], angle, false);		
 	}
 
@@ -113,7 +113,7 @@ void GameStageSetterRock::SetBackGround()
 
 	for (int i = 0; i < m_ObjectCount; i++)
 	{
-		float angle = myLib::Random::Rand_R(0, 360);
+		float angle = static_cast<float>(myLib::Random::Rand_R(0, 360));
 		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock02", m_Position[i], m_Size[i], angle, false);
 	}
 

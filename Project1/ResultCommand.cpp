@@ -31,7 +31,8 @@ void ResultCommand::Update()
 	m_Frame++;
 	if (m_Frame > 60)
 	{
-		g_IsInputGamePad ? InputGamePad() : InputKeyBoard();
+		InputKeyBoard();
+		//g_IsInputGamePad ? InputGamePad() : InputKeyBoard();
 	}
 }
 

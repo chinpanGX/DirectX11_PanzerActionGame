@@ -24,7 +24,11 @@ void SelectCommand::Begin()
 {
 	m_Ui = Engine::Get().application()->GetScene()->GetGameObject<GameBg::PanzerSelectUi>(ELayer::LAYER_2D_UI);
 }
-void SelectCommand::Update() { g_IsInputGamePad ? InputGamePad() : InputKeyBoard(); }
+void SelectCommand::Update() 
+{ 
+	InputKeyBoard();
+	//g_IsInputGamePad ? InputGamePad() : InputKeyBoard(); 
+}
 void SelectCommand::Event() {}
 void SelectCommand::Draw() {}
 const bool SelectCommand::GetSelect() const { return m_Select; }

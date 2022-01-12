@@ -38,8 +38,11 @@ void TitleCommand::Update()
 	// 
 	else if (m_TitleSystem->EState::SELECT == state)
 	{
+		InputKeyBoard();
+	}
 		// 最初はキーボードマウス、ゲームパッド両方入力できるようにする
 		// 設定済みで無ければ、両方入力できる
+#if 0
 		if (g_EndSetting == false)
 		{
 			InputKeyBoard();
@@ -47,10 +50,10 @@ void TitleCommand::Update()
 		}
 		else
 		{
-			g_IsInputGamePad ? InputGamePad() : InputKeyBoard();
+			
+			//g_IsInputGamePad ? InputGamePad() : InputKeyBoard();
 		}
 	}
-#if 0
 	else if (m_TitleSystem->EState::SETTING_SELECT == state || m_TitleSystem->EState::CHECK_INPUT == state)
 	{
 		// 最初はキーボードマウス、ゲームパッド両方入力できるようにする
@@ -74,7 +77,7 @@ void TitleCommand::BeginInput()
 			m_TitleSystem->SetState(m_TitleSystem->EState::SELECT);
 		}
 	}
-
+	/*
 	// ゲームパッド
 	if (GamePad::IsTrigger(0, BUTTON_1)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, BUTTON_2)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
@@ -97,6 +100,7 @@ void TitleCommand::BeginInput()
 	if (GamePad::IsTrigger(0, RIGHTSTICK_RIGHT)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, RIGHTSTICK_UP)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
 	if (GamePad::IsTrigger(0, RIGHTSTICK_DOWN)) { m_TitleSystem->SetState(m_TitleSystem->EState::SELECT); }
+	*/
 }
 
 // キーボードの入力
@@ -106,7 +110,7 @@ void TitleCommand::InputKeyBoard()
 	// 選択画面のとき
 	if (m_TitleSystem->EState::SELECT == state)
 	{
-// 選択ができないようにする
+// ゲームパッドは選択ができないようにする
 #if 0
 		// 選択
 		if (KeyBoard::IsTrigger(DIK_W))

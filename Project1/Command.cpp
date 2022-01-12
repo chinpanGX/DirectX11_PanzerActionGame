@@ -42,13 +42,12 @@ void GameCommand::Begin()
 
 void GameCommand::Update()
 {
-	float deltaTime = Fps::Get().deltaTime;
-
+	InputKeyboardAndMouse(Fps::Get().deltaTime);
+#if 0
 	if (!g_IsInputGamePad)
 	{
 		if (!m_Pause->NowPausing())
 		{
-			InputKeyboardAndMouse(deltaTime);
 		}
 	}
 	else if (g_IsInputGamePad)
@@ -58,6 +57,7 @@ void GameCommand::Update()
 			InputGamePad(deltaTime);
 		}
 	}
+#endif
 }
 
 void GameCommand::Event() {}
@@ -271,7 +271,8 @@ void PauseCommand::Begin()
 
 void PauseCommand::Update() 
 { 
-	g_IsInputGamePad ? InputGamePad() : InputKeyBoardAndMouse(); 
+	//g_IsInputGamePad ? InputGamePad() : InputKeyBoardAndMouse(); 
+	InputKeyBoardAndMouse();
 
 }
 void PauseCommand::Event() {}
