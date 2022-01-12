@@ -71,6 +71,8 @@ void ResultCommand::InputKeyBoard()
 	}
 }
 
+// ゲームパッドの入力
+#if 0
 void ResultCommand::InputGamePad()
 {
 	auto& state = m_Bg->GetState();
@@ -105,4 +107,5 @@ void ResultCommand::InputGamePad()
 		}
 	}
 }
+#endif
 #pragma endregion ResultCommandメソッド

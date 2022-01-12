@@ -108,6 +108,7 @@ void SelectCommand::InputKeyBoard()
 }
 
 // ゲームパッドの入力
+#if 0
 void SelectCommand::InputGamePad()
 {
 	// ゲーム説明を表示する
@@ -172,6 +173,6 @@ void SelectCommand::InputGamePad()
 			}
 		}
 	}
-
 }
+#endif
 #pragma endregion SelectCommandメソッド

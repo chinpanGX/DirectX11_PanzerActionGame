@@ -203,6 +203,7 @@ void TitleCommand::InputKeyBoard()
 }
 
 // ゲームパッドの入力
+#if 0
 void TitleCommand::InputGamePad()
 {
 	uint32_t state = m_TitleSystem->GetState();
@@ -229,14 +230,12 @@ void TitleCommand::InputGamePad()
 				//　シーンチェンジ
 				Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
 			}
-#if 0 
 			// 設定画面へ
 			else if (!m_TitleSystem->GetSelect())
 			{
 				Engine::Get().resource()->AudioPlay("Cancel", 1.0f);
 				m_TitleSystem->SetState(m_TitleSystem->EState::SETTING_SELECT);
 			}
-#endif
 		}
 		// 戻る
 		if (GamePad::IsTrigger(0, BUTTON_3))
@@ -246,8 +245,6 @@ void TitleCommand::InputGamePad()
 		}
 
 	}
-// ゲームパッドは選択できないようにする
-#if 0
 	// 設定画面
 	if (m_TitleSystem->EState::SETTING_SELECT == state)
 	{
@@ -299,6 +296,6 @@ void TitleCommand::InputGamePad()
 			g_EndSetting = true;
 		}
 	}
-#endif
 }
+#endif
 #pragma endregion TitleCommandのメソッド

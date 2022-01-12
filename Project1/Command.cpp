@@ -164,6 +164,7 @@ void GameCommand::InputKeyboardAndMouse(float deltaTime)
 }
 
 // ゲームパッドの入力
+#if 0 
 void GameCommand::InputGamePad(float deltaTime)
 {
 	// 入力状態をリセット
@@ -256,6 +257,7 @@ void GameCommand::InputGamePad(float deltaTime)
 		}
 	}
 }
+#endif
 #pragma endregion GameCommandメソッド
 
 
@@ -382,6 +384,8 @@ void PauseCommand::InputKeyBoardAndMouse()
 	}
 }
 
+// ゲームパッドの入力
+#if 0
 void PauseCommand::InputGamePad()
 {
 	if (!m_Pause->NowPausing())
@@ -482,4 +486,5 @@ void PauseCommand::InputGamePad()
 		}
 	}
 }
+#endif
 #pragma endregion PauseCommandメソッド
