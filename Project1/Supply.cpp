@@ -124,7 +124,7 @@ void CircleParticle::Draw()
 void CircleParticle::Generate(float x, float z)
 {
 	m_Transform->position().x = x;
-	m_Transform->position().y = .0f;
+	m_Transform->position().y = 0.0f;
 	m_Transform->position().z = z;
 }
 #pragma endregion パーティクル
@@ -147,11 +147,12 @@ void Supply::Begin()
 	m_Collider->SetSphere3(*m_Transform, m_Radius);
 	m_Collider->SetOBB3(*m_Transform, size);
 	
-	for (int i = 0; i < 120; i++)
+	float angle = 0;
+	for (int i = 0; i < 36; i++)
 	{
 		m_Particles.emplace_back(Engine::Get().application()->GetScene()->AddGameObject<CircleParticle>(ELayer::LAYER_2D_EFFECT));
 
-		float radius = m_Angle * 3.14f / 180.0f;
+		float radius = angle * 3.14f / 180.0f;
 
 		// 三角関数を使用し、円の位置を割り出す。
 		float add_x = cos(radius) * m_Radius;
@@ -162,7 +163,7 @@ void Supply::Begin()
 		float z = m_Transform->position().z + add_z;
 
 		m_Particles[i]->Generate(x, z);
-		m_Angle += 3.0f;
+		angle += 10.0f;
 	}
 }
 

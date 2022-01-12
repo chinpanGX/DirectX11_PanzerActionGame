@@ -55,6 +55,10 @@ namespace GameScene
 		void Draw()override;
 	private:
 		void Load()override;
+		void Thread_Audio();
+		void Thread_Texture();
+		void Thread_ModelA();
+		void Thread_ModelB();
 		void Unload()override;
 	};
 }

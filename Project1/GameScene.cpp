@@ -263,28 +263,53 @@ void GameScene::Game::Draw()
 
 void GameScene::Game::Load()
 {
+	// マルチスレッドでロード
+	std::thread thA(&GameScene::Game::Thread_Audio, this);
+	std::thread thB(&GameScene::Game::Thread_Texture, this);
+	std::thread thC(&GameScene::Game::Thread_ModelA, this);
+	std::thread thD(&GameScene::Game::Thread_ModelB, this);
+
+	// 終了まち
+	thA.join();
+	thB.join();
+	thC.join();
+	thD.join();
+}
+
+void GameScene::Game::Thread_Audio()
+{
 	// オーディオのロード
 	Engine::Get().resource()->AudioLoad("Select", false);
 	Engine::Get().resource()->AudioLoad("Idel", true);
 	Engine::Get().resource()->AudioLoad("Shot", false);
 	Engine::Get().resource()->AudioLoad("Skill", false);
 	Engine::Get().resource()->AudioLoad("Reload", false);
+}
+
+void GameScene::Game::Thread_Texture()
+{
 	// テクスチャのロード
 	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
 	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.dds");
 	Engine::Get().resource()->LoadTexture("MiniMapMarker", "MiniMapMarker.png");
-	// モデル
+}
+
+void GameScene::Game::Thread_ModelA()
+{
 	Engine::Get().resource()->LoadModel("Supply", "hokyuu.obj");
 	Engine::Get().resource()->LoadModel("Rock_01", "Rock_01.obj");
 	Engine::Get().resource()->LoadModel("Rock_02", "Rock_02.obj");
 	Engine::Get().resource()->LoadModel("Rock_03", "Rock_03.obj");
+}
+
+void GameScene::Game::Thread_ModelB()
+{
 	Engine::Get().resource()->LoadModel("Rock02_01", "Rock02_01.obj");
 	Engine::Get().resource()->LoadModel("Rock02_02", "Rock02_02.obj");
-	Engine::Get().resource()->LoadModel("Rock02_03", "Rock02_03.obj");	
+	Engine::Get().resource()->LoadModel("Rock02_03", "Rock02_03.obj");
 	Engine::Get().resource()->LoadModel("Rock03_01", "HalfRock_01.obj");
 	Engine::Get().resource()->LoadModel("Rock03_02", "HalfRock_02.obj");
 	Engine::Get().resource()->LoadModel("Rock03_03", "HalfRock_03.obj");
-
 }
 
 void GameScene::Game::Unload()

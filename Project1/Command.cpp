@@ -42,7 +42,10 @@ void GameCommand::Begin()
 
 void GameCommand::Update()
 {
-	InputKeyboardAndMouse(Fps::Get().deltaTime);
+	if (!m_Pause->NowPausing())
+	{
+		InputKeyboardAndMouse(Fps::Get().deltaTime);
+	}
 #if 0
 	if (!g_IsInputGamePad)
 	{
