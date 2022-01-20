@@ -83,7 +83,6 @@ void GameBg::PanzerSelectUi::Begin()
 
 void GameBg::PanzerSelectUi::Update()
 {
-	
 	// ã
 	if (m_Container->GetButton() == 1)
 	{
@@ -315,13 +314,9 @@ void GameBg::TutorialUi::Event()
 void GameBg::TutorialUi::Draw()
 {
 	D3DXVECTOR2 pos = D3DXVECTOR2(1700.0f, 600.0f);
-	D3DXVECTOR2 size = D3DXVECTOR2(256.0f, 256.0f);
-	if (g_IsInputGamePad == false)
-	{
-		m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.5f, 1.0f));
-	}
-	else 
-	{
-		m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
-	}
+	D3DXVECTOR2 size = D3DXVECTOR2(432.0f, 432.0f);
+	D3DXVECTOR2 min = D3DXVECTOR2(0.0f, 0.0f);
+	D3DXVECTOR2 max = D3DXVECTOR2(1.0f, 1.0f);
+
+	m_Renderer2D->Draw(pos, size, min, max);
 }

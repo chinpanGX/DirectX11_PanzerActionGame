@@ -14,7 +14,7 @@
 Parameters::Parameters()
 {
 	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
-	m_Bg = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Param", D3DXVECTOR2(1625.0f, 400.0f), D3DXVECTOR2(256.0f, 432.0f));
+	m_Bg = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Param", D3DXVECTOR2(1625.0f, 435.0f), D3DXVECTOR2(256.0f, 514.0f));
 }
 
 Parameters::~Parameters()

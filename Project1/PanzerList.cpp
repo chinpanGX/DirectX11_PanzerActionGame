@@ -331,7 +331,7 @@ Sherman::Sherman() : Vehicle("Sherman")
 	// ‚½‚Ü‚éŠÔ20.0f
 	skill().Begin(20.0f);	
 	// UŒ‚—ÍUP
-	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(1.3f));
+	skill().SetSkill(std::make_unique<UseSkill::AttackUp>(2.0f));
 	skill().SetSkill(std::make_unique<UseSkill::QuickReload>());
 
 	// ƒRƒŠƒWƒ‡ƒ“‚Ìİ’è
