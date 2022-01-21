@@ -101,6 +101,7 @@ void GameScene::PanzerSelect::Unload()
 	Engine::Get().resource()->UnloadTexture("SelectUi");
 	Engine::Get().resource()->UnloadTexture("Waffuru");
 	Engine::Get().resource()->UnloadTexture("SelectList");
+	Engine::Get().resource()->UnloadTexture("SkillList");
 	Engine::Get().resource()->AudioUnload();
 }
 
@@ -117,6 +118,7 @@ void GameScene::PanzerSelect::Thread_Texture_A()
 	Engine::Get().resource()->LoadTexture("SelectUi", "SelectUi.png");
 	Engine::Get().resource()->LoadTexture("Param", "Parameters.png");
 	Engine::Get().resource()->LoadTexture("Waffuru", "waffuru.tif");
+	Engine::Get().resource()->LoadTexture("SkillList", "SkillList.png");
 }
 
 void GameScene::PanzerSelect::Thread_Texture_B()
