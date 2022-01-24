@@ -52,8 +52,7 @@ namespace GameBg
 		void DrawGameRule(D3DXVECTOR2 pos, D3DXVECTOR2 size);	// ゲーム説明	
 
 		std::vector<D3DXVECTOR2> m_TexCoord;
-		std::unique_ptr<Renderer2D> m_List; // 戦車のリスト
-		std::unique_ptr<Renderer2D> m_Operation; // 操作方法UI
+		std::array<std::unique_ptr<Renderer2D>, 3> m_Render;
 		PanzerContainer* m_Container;
 		int32_t m_Page;
 		bool m_DrawFlag = false;

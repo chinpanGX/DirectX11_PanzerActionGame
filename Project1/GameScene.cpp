@@ -102,6 +102,7 @@ void GameScene::PanzerSelect::Unload()
 	Engine::Get().resource()->UnloadTexture("Waffuru");
 	Engine::Get().resource()->UnloadTexture("SelectList");
 	Engine::Get().resource()->UnloadTexture("SkillList");
+	Engine::Get().resource()->UnloadTexture("Ui05");
 	Engine::Get().resource()->AudioUnload();
 }
 
@@ -126,6 +127,7 @@ void GameScene::PanzerSelect::Thread_Texture_B()
 	Engine::Get().resource()->LoadTexture("Ui03", "Ui03.png");
 	Engine::Get().resource()->LoadTexture("Plane", "Plane.dds");	
 	Engine::Get().resource()->LoadTexture("SelectList", "psUI.png");
+	Engine::Get().resource()->LoadTexture("Ui05", "Ui05.png");
 }
 
 void GameScene::PanzerSelect::Thread_Model()
@@ -309,9 +311,9 @@ void GameScene::Game::Thread_ModelB()
 	Engine::Get().resource()->LoadModel("Rock02_01", "Rock02_01.obj");
 	Engine::Get().resource()->LoadModel("Rock02_02", "Rock02_02.obj");
 	Engine::Get().resource()->LoadModel("Rock02_03", "Rock02_03.obj");
-	Engine::Get().resource()->LoadModel("Rock03_01", "HalfRock_01.obj");
-	Engine::Get().resource()->LoadModel("Rock03_02", "HalfRock_02.obj");
-	Engine::Get().resource()->LoadModel("Rock03_03", "HalfRock_03.obj");
+	//Engine::Get().resource()->LoadModel("Rock03_01", "HalfRock_01.obj");
+	//Engine::Get().resource()->LoadModel("Rock03_02", "HalfRock_02.obj");
+	//Engine::Get().resource()->LoadModel("Rock03_03", "HalfRock_03.obj");
 }
 
 void GameScene::Game::Unload()
@@ -327,9 +329,9 @@ void GameScene::Game::Unload()
 	Engine::Get().resource()->UnloadModel("Rock02_01");
 	Engine::Get().resource()->UnloadModel("Rock02_02");
 	Engine::Get().resource()->UnloadModel("Rock02_03");
-	Engine::Get().resource()->UnloadModel("Rock03_01");
-	Engine::Get().resource()->UnloadModel("Rock03_02");
-	Engine::Get().resource()->UnloadModel("Rock03_03");
+	//Engine::Get().resource()->UnloadModel("Rock03_01");
+	//Engine::Get().resource()->UnloadModel("Rock03_02");
+	//Engine::Get().resource()->UnloadModel("Rock03_03");
 }
 
 #pragma endregion GameScene::Gameƒƒ\ƒbƒh

@@ -28,11 +28,11 @@ void Rock::Begin()
 void Rock::Update()
 {
 	m_Length = Math::Abs(D3DXVec3Length(&m_Transform->position()) - D3DXVec3Length(&m_Player->vehicle().bodyTransform().position()));
-	if (m_Length < 20.0f)
+	if (m_Length < 50.0f)
 	{
 		m_DrawModelName = m_ModelName + "_03";
 	}
-	else if(m_Length < 50.0f)
+	else if(m_Length < 100.0f)
 	{
 		m_DrawModelName = m_ModelName + "_02";
 	}

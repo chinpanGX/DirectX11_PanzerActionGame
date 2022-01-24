@@ -108,11 +108,12 @@ void GameStageSetterRock::Set(Scene * scene)
 void GameStageSetterRock::SetBackGround()
 {
 	Set(-130.0f, 5.0f, 300.0f, 5.0f);
-	Set(-40.0f, 6.0f, 750.0f, 16.5f);
-	Set(-500.0f, 3.0, -300.0f, 13.0f);
-	Set(-320.0f, 2.5f, 30.0f, 15.0f);	
-	Set(50.0f, 5.0f, 400.0f, 15.0f);
-	Set(500.0f, 30.0f, 300.0f, 30.0f);
+	Set(-250.0f, 6.0f, -330.0f, 16.5f);
+	Set(250.0f, 6.0f, -330.0f, 14.5f);
+	Set(-600.0f, 3.0, -300.0f, 13.0f);
+	Set(-620.0f, 2.5f, 30.0f, 15.0f);	
+	Set(50.0f, 5.0f, 350.0f, 15.0f);
+	Set(380.0f, 30.0f, 300.0f, 30.0f);
 
 	for (int i = 0; i < m_ObjectCount; i++)
 	{

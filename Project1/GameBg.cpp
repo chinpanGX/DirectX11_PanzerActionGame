@@ -57,8 +57,9 @@ void GameBg::Scope::Draw()
 GameBg::PanzerSelectUi::PanzerSelectUi()
 {
 	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "SelectUi");
-	m_Operation = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui03");
-	m_List = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "SelectList");
+	m_Render[0] = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui03");
+	m_Render[1] = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "SelectList");
+	m_Render[2] = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui05");
 	
 	// 戦車名のTexture座標
 	m_TexCoord = 
@@ -113,15 +114,8 @@ void GameBg::PanzerSelectUi::Draw()
 	auto op_pos = D3DXVECTOR2(960.0f, 960.0f);
 	auto op_size = D3DXVECTOR2(500.0f, 70.0f);
 	
-	// 操作方法の説明
-	if (g_IsInputGamePad == false)
-	{
-		m_Operation->Draw(op_pos, op_size, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
-	}
-	else
-	{
-		m_Operation->Draw(op_pos, op_size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
-	}
+	// 操作方法の説明	
+	m_Render[0]->Draw(op_pos, op_size, D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 	
 	// 戦車の名前
 	DrawPanzerName();
@@ -142,7 +136,7 @@ void GameBg::PanzerSelectUi::Down()
 void GameBg::PanzerSelectUi::Up()
 {
 	m_Page++;
-	if (m_Page > 2)
+	if (m_Page > 4)
 	{
 		Disable();
 	}
@@ -180,15 +174,15 @@ void GameBg::PanzerSelectUi::DrawPanzerName()
 	auto offset = D3DXVECTOR2(0.25f, 0.25f);
 	for (int32_t i = 0; i < 3; ++i)
 	{
-		m_List->Draw(D3DXVECTOR2(x, y * position[i]), D3DXVECTOR2(432.0f, 128.0f), m_TexCoord[i], m_TexCoord[i] + offset);
+		m_Render[1]->Draw(D3DXVECTOR2(x, y * position[i]), D3DXVECTOR2(432.0f, 128.0f), m_TexCoord[i], m_TexCoord[i] + offset);
 	}
 
 	// 配列の一番最後	
 	D3DXVECTOR2 end = m_TexCoord.back();
-	m_List->Draw(D3DXVECTOR2(x, y * position[3]), D3DXVECTOR2(432.0f, 128.0f), end, end + offset);
+	m_Render[1]->Draw(D3DXVECTOR2(x, y * position[3]), D3DXVECTOR2(432.0f, 128.0f), end, end + offset);
 
 	// 枠の描画
-	m_List->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(432.0f, 128.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.25f, 0.25f));
+	m_Render[1]->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(432.0f, 128.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.25f, 0.25f));
 }
 
 void GameBg::PanzerSelectUi::DrawGameRule(D3DXVECTOR2 pos, D3DXVECTOR2 size)
@@ -202,10 +196,16 @@ void GameBg::PanzerSelectUi::DrawGameRule(D3DXVECTOR2 pos, D3DXVECTOR2 size)
 			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.0f, 0.02f), D3DXVECTOR2(0.5f, 0.52f));
 			break;
 		case 1:
-			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
+			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f));			
 			break;
 		case 2:
-			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f));
+			m_Renderer2D->Draw(pos, size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
+			break;
+		case 3:
+			m_Render[2]->Draw(pos, size, D3DXVECTOR2(0.0, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
+			break;
+		case 4:
+			m_Render[2]->Draw(pos, size, D3DXVECTOR2(0.0, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 			break;
 		}
 	}
