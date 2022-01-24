@@ -51,7 +51,7 @@ void Player::Begin()
 	m_DrawSkill = scene->GetGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
 	m_Reload = scene->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
 	reload().Init();
-	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -220.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -180.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_EnteringSulpplyPoint = false;
 }
 

@@ -16,19 +16,38 @@
 */
 void GameStageSetterFence::Set(Scene * scene)
 {
-	for (int32_t i = 0; i < 40; i++)
-	{
-		// —”‚Ì¶¬
-		float x = (float)myLib::Random::Rand_R(-500, 500);
-		float z = (float)myLib::Random::Rand_R(-500, 500);
-		float angle = (float)myLib::Random::Rand_R(0, 360);
-		
-		// ‹‚ß‚½—”‚©‚çTransform‚ðÝ’è‚µ‚Ä‚¢‚­
-		D3DXVECTOR3 pos = D3DXVECTOR3(x, 0.0f, z);
-		D3DXVECTOR3 rot = D3DXVECTOR3(0.0f, angle, 0.0f);
+	D3DXVECTOR3 size = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
+	// ‹‚ß‚½—”‚©‚çTransform‚ðÝ’è‚µ‚Ä‚¢‚­
+	D3DXVECTOR3 pos;
+	D3DXVECTOR3 rot;
 
-		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, D3DXVECTOR3(1.0f,1.0f,1.0f), rot);
+	for (int32_t i = 0; i < 10; i++)
+	{
+		pos	= D3DXVECTOR3(180.0f - (i * 15.0f) , 0.0f, 130.0f);
+		rot = D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f);
+		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
 	}
+
+	for (int32_t i = 0; i < 10; i++)
+	{
+		pos = D3DXVECTOR3(180.0f - (i * 15.0f), 0.0f, -130.0f);
+		rot = D3DXVECTOR3(0.0f, 0.0, 0.0f);
+		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
+	}
+
+	for (int32_t i = 0; i < 10; i++)
+	{
+		pos = D3DXVECTOR3(-150.0f - (i * - 10.0f), 0.0f, 200.0f - (i * 20.0f));
+		rot = D3DXVECTOR3(0.0f, Math::ToRadians(45.0f), 0.0f);
+		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
+	}
+	
+	for (int32_t i = 0; i < 15; i++)
+	{
+		pos = D3DXVECTOR3(-100.0f - (i * -10.0f), 0.0f, -230.0f - (i * -20.0f));
+		rot = D3DXVECTOR3(0.0f, Math::ToRadians(330.0f), 0.0f);
+		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
+	}	
 }
 
 /*
