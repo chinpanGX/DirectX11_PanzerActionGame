@@ -28,14 +28,9 @@ private:
 class ISpawn
 {
 public:
-	ISpawn() = delete;
-	ISpawn(const D3DXVECTOR3& pos) : m_SpawnPoint(pos) {}
+	ISpawn() {}
 	virtual ~ISpawn() {}
 	virtual void SetSpawn() = 0;
-protected:
-	const D3DXVECTOR3& GetSpawnPoint() const { return m_SpawnPoint; }
-private:
-	D3DXVECTOR3 m_SpawnPoint;
 };
 
 // プレイヤーのスポーン
