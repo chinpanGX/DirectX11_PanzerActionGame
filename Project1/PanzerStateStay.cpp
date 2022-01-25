@@ -10,6 +10,7 @@
 #include "Engine.h"
 #include "Application.h"
 #include "Vehicle.h"
+#include "Reload.h"
 #include "Player.h"
 #include "PanzerStateStay.h"
 #include "PanzerStateMove.h"
@@ -50,6 +51,14 @@ void State::Stay::Update(Enemy* pEnemy, float deltaTime)
 	{
 		OutputDebugString("サーチ範囲\n");
 		pEnemy->ChangeState(std::make_unique<State::BodyRotation>());
+	}
+	else
+	{
+		// リロードが完了したら撃つ
+		if (pEnemy->reload().finishReload() == true)
+		{
+			pEnemy->ChangeState(std::make_unique<State::Shot>());
+		}
 	}
 }
 
