@@ -30,6 +30,7 @@ public:
 	
 	// ダメージ計算
 	void CalcuateDamege(class Pawn* Pawn);
+	void PlayerCalcuateDamege(class Pawn* Pawn);
 
 	// 撃つ
 	void Shot(const Transform& transform);

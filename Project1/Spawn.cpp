@@ -75,5 +75,5 @@ EnemySpawn::~EnemySpawn()
 void EnemySpawn::SetSpawn()
 {
 	float x = static_cast<float>(myLib::Random::Rand_R(-200, 200));
-	Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, 220.0f));
+	Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, 180.0f));
 }

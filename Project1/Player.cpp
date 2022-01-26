@@ -70,7 +70,7 @@ void Player::Event()
 		for (auto e : m_EnemyList)
 		{
 			// ダメージ計算
-			vehicle().CalcuateDamege(e);
+			vehicle().PlayerCalcuateDamege(e);
 			ResetCollisionEnter();
 		}
 	}

@@ -20,7 +20,7 @@ namespace State
 		void Begin(Player* pPlayer)override;
 		void Update(Enemy* pEnemy, float deltaTime)override;
 	private:
-		float m_Time = 0.0f;
+		int32_t m_Time = 0;
 		Player* m_Player;
 	};
 

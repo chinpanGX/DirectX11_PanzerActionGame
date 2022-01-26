@@ -28,8 +28,11 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	sd.OutputWindow = Engine::Get().GetHwnd();
 	sd.SampleDesc.Count = 4;
 	sd.SampleDesc.Quality = 0;
+#if _DEBUG
+	sd.Windowed = TRUE;
+#else
 	sd.Windowed = FALSE;
-	//sd.Windowed = TRUE;
+#endif
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // alt-enter fullscreen
 
 	hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &sd,

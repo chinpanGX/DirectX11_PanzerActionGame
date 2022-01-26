@@ -77,6 +77,19 @@ void Vehicle::CalcuateDamege(Pawn * Pawn)
 	}
 }
 
+void Vehicle::PlayerCalcuateDamege(Pawn * Pawn)
+{
+	float attackpt = 0.0f; // —^‚¦‚éƒ_ƒ[ƒW
+	auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+	for (auto bullet : bulletList)
+	{
+		// —”¶¬(50 ` 100)‚Ì•â³‚ð‚·‚é
+		int rand = myLib::Random::Rand_R(50, 100);
+		attackpt = (Pawn->vehicle().status().attack() * 1.5f) + rand * bullet->distdecay() - m_Status->defence();
+		CalculateHp(attackpt);
+	}
+}
+
 // Œ‚‚Â
 void Vehicle::Shot(const Transform & transform)
 {

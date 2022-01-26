@@ -50,15 +50,19 @@ void State::Stay::Update(Enemy* pEnemy, float deltaTime)
 	else if (m_PlayerToDistance < m_SearchRange)
 	{
 		OutputDebugString("サーチ範囲\n");
-		pEnemy->ChangeState(std::make_unique<State::BodyRotation>());
+		int32_t random = myLib::Random::Rand_R(0, 2);
+	//	if (random == 0)
+		{
+			pEnemy->ChangeState(std::make_unique<State::BodyRotation>());
+		}
+		//else
+		{
+			//pEnemy->ChangeState(std::make_unique<State::Forward>());
+		}
 	}
 	else
 	{
-		// リロードが完了したら撃つ
-		if (pEnemy->reload().finishReload() == true)
-		{
-			pEnemy->ChangeState(std::make_unique<State::Shot>());
-		}
+		pEnemy->ChangeState(std::make_unique<State::Forward>());
 	}
 }
 

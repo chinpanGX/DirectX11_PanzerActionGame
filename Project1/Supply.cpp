@@ -180,7 +180,7 @@ void Supply::Event()
 
 void Supply::Draw()
 {	
-	resource().SetPixelShader("PixelLighting");
+	resource().SetPixelShader("Default");
 	UpdateMatrix(*m_Transform);
 	resource().SetStaticModel("Supply");
 }

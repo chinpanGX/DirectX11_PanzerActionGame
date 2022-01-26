@@ -35,17 +35,20 @@ void State::Forward::Begin(Player * pPlayer)
 
 void State::Forward::Update(Enemy* pEnemy, float deltaTime)
 {
-	pEnemy->moveComponent().MoveForward(pEnemy->vehicle().bodyTransform(), deltaTime);
-	pEnemy->pivot().Move();
-
-	auto player = m_Player;
+	FrameCountDown();
+	if (GetFrameZeroFlag() == true)
+	{
+		pEnemy->ChangeState(std::make_unique<State::Stay>());
+	}
+	//for (int i = 0; i < 10; i++)
+	{
+		pEnemy->moveComponent().MoveForward(pEnemy->vehicle().bodyTransform(), deltaTime);
+		pEnemy->pivot().Move();
+	}
+	
+	auto player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	if (player)
 	{
-		float dir = FindTargetDirection(player, pEnemy, pEnemy->vehicle().bodyTransform().forward());
-		if (-5.0f > dir || dir > 5.0f)
-		{
-			pEnemy->ChangeState(std::make_unique<State::BodyRotation>());
-		}
 		// プレイヤーとCPUの距離を求める
 		D3DXVECTOR3 playerPosition = player->vehicle().bodyTransform().position();
 		D3DXVECTOR3 cpuPosition = pEnemy->vehicle().bodyTransform().position();
@@ -54,9 +57,14 @@ void State::Forward::Update(Enemy* pEnemy, float deltaTime)
 		// 距離が近くなったら,ステートを変える
 		if (dist < 100.0f)
 		{
-			pEnemy->ChangeState(std::make_unique<State::Stay>());
+			float dir = FindTargetDirection(player, pEnemy, pEnemy->vehicle().bodyTransform().forward());
+			if (-5.0f > dir || dir > 5.0f)
+			{
+				pEnemy->ChangeState(std::make_unique<State::Stay>());
+			}
 		}
 	}
+	
 }
 
 State::Backward::Backward()

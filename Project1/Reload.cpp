@@ -153,8 +153,8 @@ void CpuReload::Init()
 void CpuReload::Begin()
 {
 	Reload::BeginReload();
-	// リロードの時間⇒6秒固定
-	const float ReloadTime = 6.0f;
+	// リロードの時間⇒4秒固定
+	const float ReloadTime = 4.0f;
 	m_FinishReloadTime = ReloadTime * 60.0f;
 	m_NowReloadTime = 0.0f;
 }

@@ -23,7 +23,7 @@ namespace State
 		Player* m_Player;
 
 		float m_PlayerToDistance; // プレイヤーとの距離 
-		const float m_SearchRange = 600.0f; // サーチ範囲
+		const float m_SearchRange = 500.0f; // サーチ範囲
 		const float m_ShotRange = 300.0f;	// 射程範囲
 	};
 }
