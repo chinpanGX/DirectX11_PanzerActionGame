@@ -118,8 +118,11 @@ void PlayerReload::Update()
 			Reload::FinishReload();
 		}
 	}
-	// リロードストップ
-	ReloadStop();
+	else
+	{
+		// リロードストップ
+		ReloadStop();
+	}
 }
 
 void PlayerReload::ReloadStop()

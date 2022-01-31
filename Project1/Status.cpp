@@ -8,14 +8,26 @@
 ---------------------------------------------------------------*/
 #include "Status.h"
 
-Status::Status(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed)
-	: m_GunUpMax(0.26f), m_GunDownMax(0.03f), m_MaxHp(hp), m_Country(country), m_Cost(cost), m_Hp(hp),
-	m_Attack(attack), m_Defense(defence), m_Speed(speed), m_ReloadTime(reloadTime), m_RotSpeed(rotSpeed), m_AddTime(1.0f)
+Status::Status() : m_GunUpMax(0.26f), m_GunDownMax(0.03f), m_AddTime(1.0f)
 {
+
 }
 
 Status::~Status()
 {
+}
+
+void Status::Set(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed)
+{
+	m_Country = country;
+	m_Cost = cost;
+	m_MaxHp = hp;
+	m_Hp = hp;
+	m_Attack = attack;
+	m_Defense = defence;
+	m_Speed = speed;
+	m_ReloadTime = reloadTime;
+	m_RotSpeed = rotSpeed;
 }
 
 #pragma region _Getter&Setter_function_

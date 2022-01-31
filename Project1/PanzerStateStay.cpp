@@ -40,25 +40,17 @@ void State::Stay::Update(Enemy* pEnemy, float deltaTime)
 	D3DXVECTOR3 length = cpuPosition - playerPosition;
 	m_PlayerToDistance = D3DXVec3Length(&length);
 
+
 	// 射程範囲内
 	if (m_PlayerToDistance < m_ShotRange)
 	{
-		OutputDebugString("射程範囲\n");
+
 		pEnemy->ChangeState(std::make_unique<State::TurretRotation>());
 	}
 	// サーチ範囲内
 	else if (m_PlayerToDistance < m_SearchRange)
-	{
-		OutputDebugString("サーチ範囲\n");
-		int32_t random = myLib::Random::Rand_R(0, 2);
-	//	if (random == 0)
-		{
-			pEnemy->ChangeState(std::make_unique<State::BodyRotation>());
-		}
-		//else
-		{
-			//pEnemy->ChangeState(std::make_unique<State::Forward>());
-		}
+	{		
+		pEnemy->ChangeState(std::make_unique<State::BodyRotation>());		
 	}
 	else
 	{

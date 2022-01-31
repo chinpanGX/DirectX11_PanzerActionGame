@@ -17,6 +17,7 @@
 #include "PanzerStateStay.h"
 #include "Factory.h"
 #include "Pause.h"
+#include "Reload.h"
 #include "Player.h"
 #include "Skill.h"
 #include "Vehicle.h"
@@ -24,6 +25,7 @@
 #include "MoveComponent.h"
 #include "GameCamera.h"
 #include "Supply.h"
+#include "Bullet.h"
 #include "Enemy.h"
 
 Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
@@ -41,7 +43,8 @@ void Enemy::Begin()
 	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-
+	m_CpuReload = std::make_unique<CpuReload>();
+	m_CpuReload->Begin();
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
 	Pawn::SetStartPosition(this, D3DXVECTOR3(rand_x, 0.0f, 180.0f), D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	m_State = std::make_unique<State::Stay>();
@@ -52,6 +55,7 @@ void Enemy::Update()
 {
 	if(m_Pause->NowPausing()) { return; }	
 	m_State->Update(this, Fps::Get().deltaTime);
+	m_CpuReload->Update();
 	Pawn::Update();
 	OnCollision();
 }
@@ -60,7 +64,19 @@ void Enemy::Event()
 {
 	if (CollisionEnter())
 	{
-		vehicle().CalcuateDamege(m_Player);
+		float attackpt = 0.0f; // 与えるダメージ
+		auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+		for (auto bullet : bulletList)
+		{
+			// 乱数生成(50 ～ 100)の補正をする
+			int rand = myLib::Random::Rand_R(50, 100);
+			attackpt = m_Player->vehicle().status().attack() + rand * bullet->distdecay() - vehicle().status().defence();
+			// MAX状態のHPを取得する
+			float maxHp = vehicle().status().maxHp();
+			// 現在のHPから減算
+			float nowHp = vehicle().status().hp() - attackpt;
+			vehicle().status().hp(nowHp);
+		}
 		ResetCollisionEnter();
 	}
 	Pawn::CheckZeroHp(this);
@@ -101,10 +117,11 @@ void Enemy::ChangeState(std::unique_ptr<PanzerState> State)
 
 void Enemy::Respawn(const D3DXVECTOR3 & pos)
 {
-	Pawn::SetStartPosition(this, pos, D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
-	Pawn::RespawnSetMaxHP();
+	vehicle().skill().Reset(vehicle().status());
+	vehicle().status().hp(vehicle().status().maxHp());
+	// スキルの状態をリセット
+	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	this->ChangeState(std::make_unique<State::Stay>());
-	this->Update();
 }
 
 void Enemy::UseSkill()
@@ -122,6 +139,11 @@ bool Enemy::IsDraw() const
 	}
 	// 描画している
 	return true;
+}
+
+CpuReload & Enemy::reload() const
+{
+	return *m_CpuReload;
 }
 
 void Enemy::OnCollision()

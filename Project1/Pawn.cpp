@@ -40,7 +40,6 @@ void Pawn::Begin()
 
 void Pawn::Update()
 {
-	m_Reload->Update();
 	m_Vehicle->Update();
 	m_MoveComponent->Update(m_Vehicle->bodyTransform());
 
@@ -77,15 +76,6 @@ Pivot & Pawn::pivot() const
 	return *m_Pivot;
 }
 
-Reload & Pawn::reload() const
-{
-	if (!m_Reload)
-	{
-		throw std::domain_error("null");
-	}
-	return *m_Reload;
-}
-
 MoveComponent & Pawn::moveComponent() const
 {
 	if (!m_MoveComponent)
@@ -101,16 +91,7 @@ void Pawn::CheckZeroHp(Pawn* pawn)
 	if (m_Vehicle->status().hp() <= 0.0f)
 	{
 		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(pawn, m_Type);
-		// スキルの状態をリセット
-		m_Vehicle->skill().Reset(m_Vehicle->status());
-		// HPを最大にする
-		RespawnSetMaxHP();
 	}
-}
-
-void Pawn::RespawnSetMaxHP()
-{
-	m_Vehicle->status().hp(m_Vehicle->status().maxHp());
 }
 
 void Pawn::SetStartPosition(Pawn * pawn, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
@@ -129,15 +110,6 @@ void Pawn::Create()
 	m_Pivot = fPivot.Create(*m_Vehicle);
 	// 移動用コンポーネント
 	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->status());	
-
-	if (m_Type == 0)
-	{
-		m_Reload = std::make_unique<PlayerReload>();
-	}
-	else
-	{
-		m_Reload = std::make_unique<CpuReload>();
-	}
 }
 
 void Pawn::BeginOverlap(Pawn* pPawn)

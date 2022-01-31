@@ -20,10 +20,11 @@ public:
 		RU, // ロシア
 	};
 
-	Status() = delete;
-	// param = 国、Hp、攻撃力、防御力、移動速度、装填時間、回転速度
-	Status(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed);
+	Status();
 	~Status();
+
+	// param = 国、Hp、攻撃力、防御力、移動速度、装填時間、回転速度
+	void Set(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed);
 	
 	// 国
 	const Country& country() const;
@@ -67,7 +68,7 @@ public:
 	const float reloadTime()const;
 private:
 	Country m_Country;
-	const float m_MaxHp; // Max値
+	float m_MaxHp; // Max値
 	float m_ReloadTime; // リロードに必要な秒数
 	
 	float m_Cost; // 戦車のコスト

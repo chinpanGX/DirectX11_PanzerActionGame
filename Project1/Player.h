@@ -19,6 +19,7 @@ class GameCamera;
 class Enemy;
 class Pause;
 class Supply;
+class PlayerReload;
 class Player final : public Pawn
 {
 public:
@@ -36,7 +37,9 @@ public:
 	bool isBulletsUpperLimit(); // 弾の数が上限かどうか
 	bool enterSupplyPoint();	// 補給地点に入っている
 	int32_t amountBullets() const;
+	PlayerReload& reload()const;
 private:
+	void CalcuateDamege(Enemy* e);
 	void OnCollision()override;
 	void OnSound(); //	サウンドの設定
 
@@ -51,6 +54,7 @@ private:
 	PlayerUi::Reload* m_Reload;
 	Resource& m_Resource;
 	Graphics& m_Graphics;
+	std::unique_ptr<PlayerReload> m_PlayerReload = nullptr;
 
 	const int32_t m_AmountBuuletsMax = 24;	// 弾数の最大値 
 	int32_t m_AmountBullets = 24;			// 弾数

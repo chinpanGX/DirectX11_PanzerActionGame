@@ -63,33 +63,6 @@ void Vehicle::SetStartPosition(Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
 	pawn->vehicle().bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
 }
 
-// ダメージ計算
-void Vehicle::CalcuateDamege(Pawn * Pawn)
-{
-	float attackpt = 0.0f; // 与えるダメージ
-	auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
-	for (auto bullet : bulletList)
-	{
-		// 乱数生成(50 ～ 100)の補正をする
-		int rand = myLib::Random::Rand_R(50, 100);
-		attackpt = Pawn->vehicle().status().attack() + rand * bullet->distdecay() - m_Status->defence();
-		CalculateHp(attackpt);
-	}
-}
-
-void Vehicle::PlayerCalcuateDamege(Pawn * Pawn)
-{
-	float attackpt = 0.0f; // 与えるダメージ
-	auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
-	for (auto bullet : bulletList)
-	{
-		// 乱数生成(50 ～ 100)の補正をする
-		int rand = myLib::Random::Rand_R(50, 100);
-		attackpt = (Pawn->vehicle().status().attack() * 1.5f) + rand * bullet->distdecay() - m_Status->defence();
-		CalculateHp(attackpt);
-	}
-}
-
 // 撃つ
 void Vehicle::Shot(const Transform & transform)
 {
@@ -104,16 +77,6 @@ void Vehicle::Shot(const Transform & transform)
 	normalBullet->Create(pos, vector);
 }
 
-// HP計算 
-// "param" = AttackPoint : 与えられるダメージ
-void Vehicle::CalculateHp(float AttackPoint)
-{
-	// MAX状態のHPを取得する
-	float maxHp = m_Status->maxHp();
-	// 現在のHPから減算
-	float nowHp = m_Status->hp() - AttackPoint;
-	m_Status->hp(nowHp);
-}
 #pragma endregion Panzerのアクション
 
 // コリジョンの位置を更新
@@ -184,14 +147,18 @@ void Vehicle::SetPanzer()
 	Factory::FShadow fshadow;
 	m_Shadow = fshadow.Create();
 
+	// ステータス
+	m_Status = std::make_unique<Status>();
+
 	// スキルを生成
 	m_Skill = std::make_unique<Skill>();
+	
 }
 
 // ステータスを設定
 void Vehicle::SetStatus(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed)
 {
-	m_Status = std::make_unique<Status>(Country, Cost, Hp, Attack, Defence, Speed, Reload, RotSpeed);
+	m_Status->Set(Country, Cost, Hp, Attack, Defence, Speed, Reload, RotSpeed);
 }
 
 void Vehicle::ShotPointOffsetLength(float length)

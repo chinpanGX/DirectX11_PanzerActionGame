@@ -35,12 +35,6 @@ void State::Forward::Begin(Player * pPlayer)
 
 void State::Forward::Update(Enemy* pEnemy, float deltaTime)
 {
-	FrameCountDown();
-	if (GetFrameZeroFlag() == true)
-	{
-		pEnemy->ChangeState(std::make_unique<State::Stay>());
-	}
-	//for (int i = 0; i < 10; i++)
 	{
 		pEnemy->moveComponent().MoveForward(pEnemy->vehicle().bodyTransform(), deltaTime);
 		pEnemy->pivot().Move();
@@ -53,9 +47,9 @@ void State::Forward::Update(Enemy* pEnemy, float deltaTime)
 		D3DXVECTOR3 playerPosition = player->vehicle().bodyTransform().position();
 		D3DXVECTOR3 cpuPosition = pEnemy->vehicle().bodyTransform().position();
 		D3DXVECTOR3 tmp = cpuPosition - playerPosition;
-		float dist = D3DXVec3Length(&tmp);
+		float dist = Math::Abs(D3DXVec3Length(&tmp));
 		// 距離が近くなったら,ステートを変える
-		if (dist < 100.0f)
+		if (dist < 70.0f)
 		{
 			float dir = FindTargetDirection(player, pEnemy, pEnemy->vehicle().bodyTransform().forward());
 			if (-5.0f > dir || dir > 5.0f)
@@ -63,8 +57,17 @@ void State::Forward::Update(Enemy* pEnemy, float deltaTime)
 				pEnemy->ChangeState(std::make_unique<State::Stay>());
 			}
 		}
-	}
-	
+
+		if (Intersect(pEnemy->vehicle().collider(0).GetSphere3(), player->vehicle().collider(0).GetSphere3()))
+		{
+			if (Intersect(pEnemy->vehicle().collider(0).GetOBB3(), player->vehicle().collider(0).GetOBB3()))
+			{
+				pEnemy->moveComponent().MoveBackward(pEnemy->vehicle().bodyTransform(), deltaTime);
+				pEnemy->pivot().Move();
+				pEnemy->ChangeState(std::make_unique<State::Backward>());
+			}
+		}
+	}	
 }
 
 State::Backward::Backward()

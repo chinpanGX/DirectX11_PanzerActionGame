@@ -27,6 +27,7 @@
 #include "GameCamera.h"
 #include "Pivot.h"
 #include "Supply.h"
+#include "Bullet.h"
 #include "Player.h"
 #include "PlayerUi.h"
 
@@ -50,7 +51,8 @@ void Player::Begin()
 	m_Pause = scene->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 	m_DrawSkill = scene->GetGameObject<PlayerUi::DrawSkill>(ELayer::LAYER_2D_UI);
 	m_Reload = scene->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
-	reload().Init();
+	m_PlayerReload = std::make_unique<PlayerReload>();
+	m_PlayerReload->Init();
 	Pawn::SetStartPosition(this, D3DXVECTOR3(0.0f, 0.0f, -180.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_EnteringSulpplyPoint = false;
 }
@@ -59,6 +61,7 @@ void Player::Update()
 {
 	if(m_Pause->NowPausing()) { return; }
 	OnSound();
+	m_PlayerReload->Update();
 	Pawn::Update();
 	OnCollision();
 }
@@ -70,7 +73,19 @@ void Player::Event()
 		for (auto e : m_EnemyList)
 		{
 			// ダメージ計算
-			vehicle().PlayerCalcuateDamege(e);
+			float attackpt = 0.0f; // 与えるダメージ
+			auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+			for (auto bullet : bulletList)
+			{
+				// 乱数生成(75 ～ 120)の補正をする
+				int rand = myLib::Random::Rand_R(70, 120);
+				attackpt = (e->vehicle().status().attack()) + rand * bullet->distdecay() - vehicle().status().defence();			
+				// MAX状態のHPを取得する
+				float maxHp = vehicle().status().maxHp();
+				// 現在のHPから減算
+				float nowHp = vehicle().status().hp() - attackpt;
+				vehicle().status().hp(nowHp);
+			}
 			ResetCollisionEnter();
 		}
 	}
@@ -107,12 +122,11 @@ void Player::Draw()
 void Player::Respawn(const D3DXVECTOR3& pos)
 {
 	m_DrawSkill->Reset();
-	Pawn::SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
-	Pawn::RespawnSetMaxHP();
-	reload().Init();
+	vehicle().skill().Reset(vehicle().status());
+	vehicle().status().hp(vehicle().status().maxHp());
 	m_AmountBullets = m_AmountBuuletsMax;
+	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_Camera->Update();
-	this->Update();
 }
 
 void Player::UseSkill()
@@ -127,7 +141,7 @@ void Player::UseSkill()
 void Player::Shot()
 {
 	// リロードが終わっていない OR 弾数が0のとき　=> 撃てない
-	if (reload().finishReload() == false || m_AmountBullets == 0) 
+	if (m_PlayerReload->finishReload() == false || m_AmountBullets == 0) 
 	{ 
 		return; 
 	}
@@ -140,7 +154,7 @@ void Player::Shot()
 	Engine::Get().resource()->AudioPlay("Shot");
 	
 	// リロード開始
-	reload().Begin();
+	m_PlayerReload->Begin();
 
 	// リロードゲージの表示ON
 	m_Reload->BeginReload();
@@ -183,6 +197,15 @@ bool Player::enterSupplyPoint()
 int32_t Player::amountBullets() const
 {
 	return m_AmountBullets;
+}
+
+PlayerReload & Player::reload() const
+{
+	return *m_PlayerReload;
+}
+
+void Player::CalcuateDamege(Enemy * e)
+{
 }
 
 void Player::OnCollision()

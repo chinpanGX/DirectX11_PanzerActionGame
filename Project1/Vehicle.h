@@ -28,10 +28,6 @@ public:
 	void SetStartPosition(D3DXVECTOR3 pos, D3DXVECTOR3 rot); // ガレージで使う
 	void SetStartPosition(class Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot);
 	
-	// ダメージ計算
-	void CalcuateDamege(class Pawn* Pawn);
-	void PlayerCalcuateDamege(class Pawn* Pawn);
-
 	// 撃つ
 	void Shot(const Transform& transform);
 	
@@ -58,8 +54,6 @@ protected:
 	class Panzer& panzer() const;
 	const std::string& tag() const;
 private:
-	// HP計算
-	void CalculateHp(float AttackPoint); 
 	std::string m_Tag;
 	float m_GunLength; // 主砲の長さ
 	std::unique_ptr<class Shadow> m_Shadow;
