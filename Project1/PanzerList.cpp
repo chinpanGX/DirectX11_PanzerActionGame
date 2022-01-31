@@ -262,7 +262,7 @@ IV_H::IV_H() : Vehicle("IV-H")
 	Engine::Get().resource()->LoadModel("IV-HGun", "IVMainGun.obj");
 	// 戦車の設定
 	SetPanzer();
-	SetStatus(Status::Country::DE, 26.0f, 600.0f, 132.0f, 47.0f, 40.0f, 4.0f, 0.5f);
+	SetStatus(Status::Country::DE, 26.0f, 600.0f, 132.0f, 57.0f, 50.0f, 4.0f, 0.5f);
 	ShotPointOffsetLength(10.0f);
 
 	// スキルの設定
@@ -324,7 +324,7 @@ Sherman::Sherman() : Vehicle("Sherman")
 
 	// 戦車の設定
 	SetPanzer();
-	SetStatus(Status::Country::US, 27.0f, 570.0f, 126.0f, 44.0f, 48.0f, 4.0f, 0.6f);
+	SetStatus(Status::Country::US, 27.0f, 570.0f, 126.0f, 54.0f, 58.0f, 4.0f, 0.6f);
 	ShotPointOffsetLength(10.0f);
 
 	// スキルの設定

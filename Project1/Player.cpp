@@ -109,6 +109,8 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 	m_DrawSkill->Reset();
 	Pawn::SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	Pawn::RespawnSetMaxHP();
+	reload().Init();
+	m_AmountBullets = m_AmountBuuletsMax;
 	m_Camera->Update();
 	this->Update();
 }

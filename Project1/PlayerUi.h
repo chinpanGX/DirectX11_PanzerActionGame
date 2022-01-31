@@ -63,6 +63,7 @@ namespace PlayerUi
 
 		// クイックリロードが有効かどうか返す
 		const bool enableQuickReload()const;		
+		void enableQuickReload(bool flag);
 	private:
 		/* 更新処理のヘルパー関数 */
 		void NowReload();			// リロードの処理
@@ -95,6 +96,7 @@ namespace PlayerUi
 		bool m_NowStop = false; // ストップ中かどうか
 		bool m_NowReload = false; // リロード中かどうか
 		bool m_EnableQuickReload = false;
+		bool m_MatchCount;
 		bool m_Draw = false; // 描画するかどうか
 	};
 

@@ -101,7 +101,8 @@ void PlayerReload::Update()
 			{				
 				// クイックリロードが有効なカウント && スキルを使っていないとき
 				if(m_Count == m_EnableQuickReloadCount && m_UseSkill == false)
-				{
+				{					
+					m_Reload->enableQuickReload(false);
 					// リロードがストップする
 					m_Reload->Stop();
 					m_OnReloadStop = true;

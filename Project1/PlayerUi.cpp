@@ -222,6 +222,7 @@ namespace PlayerUi
 		// ゲージの描画開始
 		m_Draw = true;
 		m_DrawQuickGage = true;
+		m_MatchCount = true;
 	}
 
 	void Reload::Stop()
@@ -248,6 +249,11 @@ namespace PlayerUi
 	const bool Reload::enableQuickReload() const
 	{
 		return m_EnableQuickReload;
+	}
+
+	void Reload::enableQuickReload(bool flag)
+	{
+		m_MatchCount = flag;
 	}
 
 #pragma region _privateFunction_
@@ -330,7 +336,7 @@ namespace PlayerUi
 		Engine::Get().resource()->SetInputLayout("NoLighting");
 	
 		// クイックリロードが有効 またはリロードしていないとき
-		if (m_EnableQuickReload || m_NowReload == false)
+		if (m_EnableQuickReload && m_MatchCount || m_NowReload == false)
 		{			
 			Engine::Get().resource()->SetPixelShader("NoLighting");
 			color = D3DXVECTOR4(0.85f, 0.95f, 0.0f, 1.0);
