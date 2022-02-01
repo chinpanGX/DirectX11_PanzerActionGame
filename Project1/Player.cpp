@@ -123,7 +123,7 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 {
 	m_DrawSkill->Reset();
 	vehicle().skill().Reset(vehicle().status());
-	vehicle().status().hp(vehicle().status().maxHp());
+	vehicle().status().Reset();
 	m_AmountBullets = m_AmountBuuletsMax;
 	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_Camera->Update();

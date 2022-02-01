@@ -25,7 +25,8 @@ public:
 
 	// param = 国、Hp、攻撃力、防御力、移動速度、装填時間、回転速度
 	void Set(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed);
-	
+	void Reset();
+
 	// 国
 	const Country& country() const;
 
@@ -69,18 +70,23 @@ public:
 private:
 	Country m_Country;
 	float m_MaxHp; // Max値
+	float m_defaultReloadTime;
 	float m_ReloadTime; // リロードに必要な秒数
 	
 	float m_Cost; // 戦車のコスト
 	float m_Hp;		// Hp
+	float m_defaltAttack;
 	float m_Attack; // 攻撃力
+	float m_defaultDefence;
 	float m_Defense;  // 防御力
 
 	float m_AddTime; // リロードをする時間
 
+	float m_defaultSpeed;
 	float m_Speed; // 移動速度
 	float m_AddForce = 0.1f; // 加速度
 	float m_RotSpeed; // 回転速度
+
 
 	// 主砲の最大値
 	const float m_GunUpMax;

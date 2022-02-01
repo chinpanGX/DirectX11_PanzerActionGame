@@ -23,11 +23,24 @@ void Status::Set(Country country, float cost, float hp, float attack, float defe
 	m_Cost = cost;
 	m_MaxHp = hp;
 	m_Hp = hp;
+	m_defaltAttack = attack;
 	m_Attack = attack;
+	m_defaultDefence = defence;
 	m_Defense = defence;
+	m_defaultSpeed = speed;
 	m_Speed = speed;
+	m_defaultReloadTime = reloadTime;
 	m_ReloadTime = reloadTime;
 	m_RotSpeed = rotSpeed;
+}
+
+void Status::Reset()
+{
+	m_Hp = m_MaxHp;
+	m_Attack = m_defaltAttack;
+	m_Defense = m_defaultDefence;
+	m_Speed = m_defaultSpeed;
+	m_ReloadTime = m_defaultReloadTime;
 }
 
 #pragma region _Getter&Setter_function_

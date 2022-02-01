@@ -118,7 +118,7 @@ void Enemy::ChangeState(std::unique_ptr<PanzerState> State)
 void Enemy::Respawn(const D3DXVECTOR3 & pos)
 {
 	vehicle().skill().Reset(vehicle().status());
-	vehicle().status().hp(vehicle().status().maxHp());
+	vehicle().status().Reset();
 	// スキルの状態をリセット
 	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	this->ChangeState(std::make_unique<State::Stay>());
