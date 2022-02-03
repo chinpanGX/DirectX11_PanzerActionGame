@@ -27,19 +27,22 @@ void Rock::Begin()
 
 void Rock::Update()
 {
-	m_Length = Math::Abs(D3DXVec3Length(&m_Transform->position()) - D3DXVec3Length(&m_Player->vehicle().bodyTransform().position()));
-	if (m_Length < 50.0f)
+	m_Length = Math::Abs(D3DXVec3Length(&m_Transform->position()) - D3DXVec3Length(&m_Player->vehicle().bodyTransform().position())) * m_Transform->scale().x * 0.5f;
+	// ˆê”Ô‹ß‚¢
+	if (m_Length < 500.0f)
 	{
 		m_DrawModelName = m_ModelName + "_03";
 	}
-	else if(m_Length < 100.0f)
-	{
-		m_DrawModelName = m_ModelName + "_02";
-	}
-	else
+	// ˆê”Ô‰“‚¢
+	else if (m_Length > 1000.0f)
 	{
 		m_DrawModelName = m_ModelName + "_01";
 	}
+	else 
+	{
+		m_DrawModelName = m_ModelName + "_02";
+	}
+	
 }
 
 void Rock::Event()
