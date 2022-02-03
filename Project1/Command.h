@@ -48,6 +48,7 @@ public:
 	void Draw()override;
 	// 今入力しているか
 	bool GetNowInput(int32_t i) const;
+	bool nowReplenishBullet() const;
 private:
 	void InputKeyboardAndMouse(float deltaTime);
 	void InputGamePad(float deltaTime);
@@ -61,6 +62,8 @@ private:
 	std::unique_ptr<Controller> m_Controller;
 	class Player* m_Player;
 	class Pause* m_Pause;
+	
+	bool m_NowReplenishBullet;
 };
 
 // ポーズ中のコマンド

@@ -109,6 +109,15 @@ void Player::Draw()
 		m_Graphics.SetParameter(uv);
 		
 	}
+	// 補給中
+	else if(m_Command->nowReplenishBullet())
+	{
+		m_Resource.SetPixelShader("ToonAnim");
+		m_Resource.SetTexture(1, "ToonAnim");
+		m_Param.x += 0.5f;
+		m_Param.y += 0.05f;
+		m_Graphics.SetParameter(m_Param);
+	}
 	else
 	{
 		// デフォルトの設定
@@ -239,11 +248,15 @@ void Player::OnCollision()
 				D3DXVECTOR3 reflection = moveComponent().velocity() * -1 * 2.0f;
 				vehicle().bodyTransform().position() = hitPosition + reflection;
 			}
+
+			// ループを抜ける
+			break;
 		}
 		// 当たっていない
-		else
+		else 
 		{
 			m_EnteringSulpplyPoint = false;
+			m_NowReplenish = false;
 		}
 	}
 	BeginOverlap(this);

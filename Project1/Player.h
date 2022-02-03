@@ -62,5 +62,6 @@ private:
 	float m_Volume = 0.0f;					// サウンドの大きさ	
 	bool m_Audioplay = false;
 	bool m_EnteringSulpplyPoint;			// 補給地点に入っている
+	bool m_NowReplenish = false;
 };
 

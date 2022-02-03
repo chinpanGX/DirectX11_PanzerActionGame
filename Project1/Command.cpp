@@ -67,6 +67,11 @@ void GameCommand::Event() {}
 void GameCommand::Draw() {}
 bool GameCommand::GetNowInput(int32_t i) const { return m_NowInput[i]; }
 
+bool GameCommand::nowReplenishBullet() const
+{
+	return m_NowReplenishBullet;
+}
+
 // キーボード入力
 void GameCommand::InputKeyboardAndMouse(float deltaTime)
 {
@@ -81,17 +86,16 @@ void GameCommand::InputKeyboardAndMouse(float deltaTime)
 	m_Mouse.y = (Mouse::GetMouseY() - m_OldMouse.y) * 0.08f;
 	m_Mouse.x = (Mouse::GetMouseX() - m_OldMouse.x) * 0.02f;
 
-	bool nowReplenishBullet = false;
-
+	m_NowReplenishBullet = false;
 	// 補給
 	if (KeyBoard::IsPress(DIK_R))
 	{
 		// 補給中であることを知らせる
-		nowReplenishBullet = m_Controller->ReplenishBullet();
+		m_NowReplenishBullet = m_Controller->ReplenishBullet();
 	}
 
 	// 補給をしていなければ、他の動作が可能
-	if (nowReplenishBullet == false)
+	if (m_NowReplenishBullet == false)
 	{
 
 		// カメラモードをFPSにする

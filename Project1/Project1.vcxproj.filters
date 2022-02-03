@@ -669,9 +669,6 @@
     <ClInclude Include="Command.h">
       <Filter>Input</Filter>
     </ClInclude>
-    <ClInclude Include="TitleCommand.h">
-      <Filter>Input</Filter>
-    </ClInclude>
     <ClInclude Include="ResultCommand.h">
       <Filter>Input</Filter>
     </ClInclude>
@@ -683,6 +680,9 @@
     </ClInclude>
     <ClInclude Include="Rock.h">
       <Filter>Actor\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="TitleCommand.h">
+      <Filter>Input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
