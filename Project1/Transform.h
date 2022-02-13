@@ -31,18 +31,18 @@ public:
 	}
 
 	// プロパティ
-	inline D3DXVECTOR3& position() { return this->m_Position; }
-	inline D3DXVECTOR3& rotation() { return this->m_Rotation; }
-	inline D3DXVECTOR3& scale()	   { return this->m_Scale; }
+	inline D3DXVECTOR3& GetPosition() { return this->m_Position; }
+	inline D3DXVECTOR3& GetRotation() { return this->m_Rotation; }
+	inline D3DXVECTOR3& GetScale()	   { return this->m_Scale; }
 	
-	inline void position(D3DXVECTOR3 pos)    { this->m_Position = pos; }
-	inline void rotation(D3DXVECTOR3 rot) { this->m_Rotation = rot; }
-	inline void scale(D3DXVECTOR3 scl)	      { this->m_Scale = scl; }
+	inline void SetPosition(D3DXVECTOR3 pos)    { this->m_Position = pos; }
+	inline void SetRotation(D3DXVECTOR3 rot)	{ this->m_Rotation = rot; }
+	inline void SetScale(D3DXVECTOR3 scl)	    { this->m_Scale = scl; }
 	
-	inline void position(float x, float y, float z)			{ this->m_Position = D3DXVECTOR3(x, y, z); }
-	inline void rotation(float x, float y, float z, float w){ this->m_Rotation = D3DXVECTOR3(x, y, z); }
-	inline void scale(float s)								{ this->m_Scale = D3DXVECTOR3(s, s, s); }
-	inline void scale(float x, float y, float z)			{ this->m_Scale = D3DXVECTOR3(x, y, z); }
+	inline void SetPosition(float x, float y, float z)			{ this->m_Position = D3DXVECTOR3(x, y, z); }
+	inline void SetRotation(float x, float y, float z, float w)	{ this->m_Rotation = D3DXVECTOR3(x, y, z); }
+	inline void SetScale(float s)								{ this->m_Scale = D3DXVECTOR3(s, s, s); }
+	inline void SetScale(float x, float y, float z)				{ this->m_Scale = D3DXVECTOR3(x, y, z); }
 
 	// ベクトルを返す
 	inline D3DXVECTOR3 right()

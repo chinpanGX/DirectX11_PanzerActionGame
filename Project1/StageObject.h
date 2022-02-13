@@ -17,10 +17,10 @@ public:
 	void Event()override;
 	void Draw()override;
 protected:
-	class Resource& resource()const;
+	class Resource& GetResource()const;
 	// ”¼Œa
-	void radius(float r);
-	float radius() const;
+	void SetRadius(float Radius);
+	float GetRadius() const;
 private:
 	class Resource& m_Resource;
 	float m_Radius; // ‘å‚«‚³‚Ì”¼Œa

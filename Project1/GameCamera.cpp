@@ -12,7 +12,7 @@
 #include "Pivot.h"
 
 #pragma region CameCamera_method
-GameCamera::GameCamera() : m_Position(D3DXVECTOR3(0.0f, 5.0f, -8.0f)), m_Target(D3DXVECTOR3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().graphics()), m_EnableFpsMode(false)
+GameCamera::GameCamera() : m_Position(D3DXVECTOR3(0.0f, 5.0f, -8.0f)), m_Target(D3DXVECTOR3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().GetGraphics()), m_EnableFpsMode(false)
 {
 	m_Aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
 }
@@ -24,25 +24,25 @@ GameCamera::~GameCamera()
 
 void GameCamera::Begin()
 {
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 }
 
 void GameCamera::Update()
 {
-	const auto& pivot = m_Player->pivot();
+	const auto& pivot = m_Player->GetPivot();
 
 	// FPSモード
 	if (m_EnableFpsMode)
 	{
-		m_Position = pivot.transform().position() + (pivot.transform().forward() * pivot.GetFpsOffset());
-		m_Target = pivot.transform().position() + (pivot.transform().forward() * pivot.GetTargetOffset());
+		m_Position = pivot.GetTransform().GetPosition() + (pivot.GetTransform().forward() * pivot.GetFpsOffset());
+		m_Target = pivot.GetTransform().GetPosition() + (pivot.GetTransform().forward() * pivot.GetTargetOffset());
 	}
 	// TPSモード	
 	else
 	{
 		auto offset = D3DXVECTOR3(0.0f, 5.0f, 0.0f);
-		m_Position = pivot.transform().position() + (-pivot.transform().forward() * pivot.GetTpsOffset()) + offset;
-		m_Target = pivot.transform().position() + (pivot.transform().forward() * pivot.GetTargetOffset());
+		m_Position = pivot.GetTransform().GetPosition() + (-pivot.GetTransform().forward() * pivot.GetTpsOffset()) + offset;
+		m_Target = pivot.GetTransform().GetPosition() + (pivot.GetTransform().forward() * pivot.GetTargetOffset());
 	}
 
 }
@@ -156,12 +156,12 @@ bool GameCamera::NotDrawObject(const D3DXVECTOR3& TargetPosition, float Radius)
 	return false;
 }
 
-const D3DXMATRIX& GameCamera::view() const
+const D3DXMATRIX& GameCamera::GetView() const
 {
 	return m_View;
 }
 
-const D3DXVECTOR3& GameCamera::position() const
+const D3DXVECTOR3& GameCamera::GetPosition() const
 {
 	return m_Position;
 }

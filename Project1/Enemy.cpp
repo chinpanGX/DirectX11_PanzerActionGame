@@ -28,7 +28,7 @@
 #include "Bullet.h"
 #include "Enemy.h"
 
-Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
+Enemy::Enemy() : Pawn(Factory::FVehicle::EType::E_CPU), m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
 {
 	Pawn::Create();	
 }
@@ -39,10 +39,10 @@ Enemy::~Enemy()
 
 void Enemy::Begin()
 {
-	m_SupplyList = Engine::Get().application()->GetScene()->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
-	m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	m_SupplyList = Engine::Get().GetApplication()->GetScene()->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
+	m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 	m_CpuReload = std::make_unique<CpuReload>();
 	m_CpuReload->Begin();
 	float rand_x = (float)myLib::Random::Rand_R(-100, 100);
@@ -65,17 +65,17 @@ void Enemy::Event()
 	if (CollisionEnter())
 	{
 		float attackpt = 0.0f; // 与えるダメージ
-		auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+		auto bulletList = Engine::Get().GetApplication()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
 		for (auto bullet : bulletList)
 		{
 			// 乱数生成(50 ～ 100)の補正をする
 			int rand = myLib::Random::Rand_R(50, 100);
-			attackpt = m_Player->vehicle().status().attack() + rand * bullet->distdecay() - vehicle().status().defence();
+			attackpt = m_Player->GetVehicle().GetStatus().attack() + rand * bullet->distdecay() - GetVehicle().GetStatus().defence();
 			// MAX状態のHPを取得する
-			float maxHp = vehicle().status().maxHp();
+			float maxHp = GetVehicle().GetStatus().maxHp();
 			// 現在のHPから減算
-			float nowHp = vehicle().status().hp() - attackpt;
-			vehicle().status().hp(nowHp);
+			float nowHp = GetVehicle().GetStatus().hp() - attackpt;
+			GetVehicle().GetStatus().hp(nowHp);
 		}
 		ResetCollisionEnter();
 	}
@@ -84,19 +84,19 @@ void Enemy::Event()
 
 void Enemy::Draw()
 {
-	m_IsNotDraw = m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius());
+	m_IsNotDraw = m_Camera->NotDrawObject(GetPivot().GetTransform().GetPosition(), GetVehicle().GetCollider(0).GetSphere3().GetRadius());
 	if (m_IsNotDraw) { return; }
 
 	// シェーダーの設定
 	m_Resource.SetVertexShader("PixelLighting");
 	m_Resource.SetInputLayout("PixelLighting");
 	// スキルを使っているか
-	if (vehicle().skill().useSkillNow())
+	if (GetVehicle().GetSkill().useSkillNow())
 	{
 		// スキルを使っているときの設定
 		m_Resource.SetPixelShader("ToonAnim");
 		m_Resource.SetTexture(1, "ToonAnim");
-		D3DXVECTOR4 uv = vehicle().skill().uv();
+		D3DXVECTOR4 uv = GetVehicle().GetSkill().uv();
 		m_Graphics.SetParameter(uv);
 	}
 	else
@@ -106,7 +106,7 @@ void Enemy::Draw()
 		//m_Resource.SetPixelShader("Toon");
 		//m_Resource.SetTexture(1, "Toon");
 	}
-	vehicle().Draw();
+	GetVehicle().Draw();
 }
 
 void Enemy::ChangeState(std::unique_ptr<PanzerState> State)
@@ -115,10 +115,10 @@ void Enemy::ChangeState(std::unique_ptr<PanzerState> State)
 	m_State->Begin(m_Player);
 }
 
-void Enemy::Respawn(const D3DXVECTOR3 & pos)
+void Enemy::ResPawn(const D3DXVECTOR3 & pos)
 {
-	vehicle().skill().Reset(vehicle().status());
-	vehicle().status().Reset();
+	GetVehicle().GetSkill().Reset(GetVehicle().GetStatus());
+	GetVehicle().GetStatus().Reset();
 	// スキルの状態をリセット
 	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	this->ChangeState(std::make_unique<State::Stay>());
@@ -126,8 +126,8 @@ void Enemy::Respawn(const D3DXVECTOR3 & pos)
 
 void Enemy::UseSkill()
 {
-	vehicle().skill().Enable(this);
-	vehicle().skill().PlayEffect(this);
+	GetVehicle().GetSkill().Enable(this);
+	GetVehicle().GetSkill().PlayEffect(this);
 }
 
 bool Enemy::IsDraw() const
@@ -141,7 +141,7 @@ bool Enemy::IsDraw() const
 	return true;
 }
 
-CpuReload & Enemy::reload() const
+CpuReload & Enemy::GetReload() const
 {
 	return *m_CpuReload;
 }

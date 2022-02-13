@@ -25,7 +25,7 @@ namespace PlayerUi
 #pragma region DrawSkill_method
 	DrawSkill::DrawSkill()
 	{
-		m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
+		m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 	}
 
 	DrawSkill::~DrawSkill()
@@ -34,15 +34,15 @@ namespace PlayerUi
 
 	void DrawSkill::Begin()
 	{
-		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-		m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+		m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+		m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
 		// 増加する量
-		float t = m_Player->vehicle().skill().timeToActivateSkill();
+		float t = m_Player->GetVehicle().GetSkill().timeToActivateSkill();
 		m_AddAmount = m_MaxDrawSize / t * Fps::Get().deltaTime;
 		
 		// 減らす量
-		m_TimeLimit = m_Player->vehicle().skill().timeLimit();
+		m_TimeLimit = m_Player->GetVehicle().GetSkill().timeLimit();
 		m_SubAmount = m_MaxDrawSize / m_TimeLimit * Fps::Get().deltaTime + 0.2f;
 
 		m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
@@ -54,7 +54,7 @@ namespace PlayerUi
 		if (m_Pause->NowPausing()) { return; }
 		
 		// スキルを使ったかどうか
-		m_Use = m_Player->vehicle().skill().useSkillNow();
+		m_Use = m_Player->GetVehicle().GetSkill().useSkillNow();
 		// ゲージを増やす
 		AddGage();
 		Use();
@@ -86,7 +86,7 @@ namespace PlayerUi
 	void DrawSkill::AddGage()
 	{
 		// まだスキルが使える状態じゃない
-		if (m_Player->vehicle().skill().alreadyUseble() == false)
+		if (m_Player->GetVehicle().GetSkill().alreadyUseble() == false)
 		{
 			// ゲージを増やす
 			m_DrawSize += m_AddAmount;
@@ -131,9 +131,9 @@ namespace PlayerUi
 #pragma region _Reload_
 	Reload::Reload()
 	{
-		m_QuickReload = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Gage");
-		m_ReloadIcon = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Reload");
-		m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
+		m_QuickReload = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Gage");
+		m_ReloadIcon = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Reload");
+		m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 		float center = static_cast<float>(SCREEN_WIDTH / 2);
 		m_GagePosition = D3DXVECTOR2((center - 300.0f), 750.0f);		
 		m_QuickRangePosition = D3DXVECTOR2(center, 750.0f);
@@ -146,11 +146,11 @@ namespace PlayerUi
 
 	void Reload::Begin()
 	{
-		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-		m_Pause = Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
+		m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+		m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
 		// リロード時間の取得
-		float t = m_Player->vehicle().status().reloadTime();
+		float t = m_Player->GetVehicle().GetStatus().reloadTime();
 		// 増える量を計算
 		m_DefaultAmount = m_MaxSizeAmount / t * Fps::Get().deltaTime;
 
@@ -251,9 +251,9 @@ namespace PlayerUi
 		return m_EnableQuickReload;
 	}
 
-	void Reload::enableQuickReload(bool flag)
+	void Reload::enableQuickReload(bool Flag)
 	{
-		m_MatchCount = flag;
+		m_MatchCount = Flag;
 	}
 
 #pragma region _privateFunction_
@@ -272,7 +272,7 @@ namespace PlayerUi
 
 		// ゲージをとアイコンの更新		
 		// スキルを使用中
-		if (m_Player->vehicle().skill().useSkillNow())
+		if (m_Player->GetVehicle().GetSkill().useSkillNow())
 		{
 			AddGageAndMoveIcon(m_QuickAmount);
 		}
@@ -293,7 +293,7 @@ namespace PlayerUi
 	// リロード完了
 	void Reload::Finish()
 	{
-		if (m_Player->reload().finishReload())
+		if (m_Player->GetReload().finishReload())
 		{
 			m_NowGageAmount = m_MaxSizeAmount;
 			m_IconPosition.x = m_GagePosition.x + m_MaxSizeAmount;
@@ -332,18 +332,18 @@ namespace PlayerUi
 		D3DXVECTOR4 color;
 
 		// デフォルトの設定
-		Engine::Get().resource()->SetVertexShader("NoLighting");
-		Engine::Get().resource()->SetInputLayout("NoLighting");
+		Engine::Get().GetResource()->SetVertexShader("NoLighting");
+		Engine::Get().GetResource()->SetInputLayout("NoLighting");
 	
 		// クイックリロードが有効 またはリロードしていないとき
 		if (m_EnableQuickReload && m_MatchCount || m_NowReload == false)
 		{			
-			Engine::Get().resource()->SetPixelShader("NoLighting");
+			Engine::Get().GetResource()->SetPixelShader("NoLighting");
 			color = D3DXVECTOR4(0.85f, 0.95f, 0.0f, 1.0);
 		}	
 		else
 		{
-			Engine::Get().resource()->SetPixelShader("GrayScaleTexture");
+			Engine::Get().GetResource()->SetPixelShader("GrayScaleTexture");
 			color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0);
 		}
 		// アイコン
@@ -355,7 +355,7 @@ namespace PlayerUi
 #pragma region _HPGage_
 	Hp::Hp()
 	{
-		m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
+		m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 	}
 
 	Hp::~Hp()
@@ -364,15 +364,15 @@ namespace PlayerUi
 
 	void Hp::Begin()
 	{
-		m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+		m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 		// 実際のHPとMAXのサイズから描画する比率を求める
-		m_DrawRatioAmount = m_MaxDrawSize / m_Player->vehicle().status().maxHp();
+		m_DrawRatioAmount = m_MaxDrawSize / m_Player->GetVehicle().GetStatus().maxHp();
 	}
 
 	void Hp::Update()
 	{
 		// 現在のHP
-		m_NowHpAmount = m_Player->vehicle().status().hp();
+		m_NowHpAmount = m_Player->GetVehicle().GetStatus().hp();
 		// 更新前のHPと比較する
 		if (m_OldHpAmount != m_NowHpAmount)
 		{

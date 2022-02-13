@@ -13,7 +13,7 @@
 
 Scene* Fade::m_Next = nullptr;
 
-Fade::Fade(Application & app, Resource & res, Fps & fps) : m_App(app), m_Resource(res), m_Fps(fps), m_Time(0.5f)
+Fade::Fade(Application & App, Resource & Res, Fps & Fps) : m_App(App), m_Resource(Res), m_Fps(Fps), m_Time(0.5f)
 {
 	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Bg", Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f));
 }
@@ -60,9 +60,9 @@ void Fade::Draw()
 	m_Renderer2D->Draw(m_Alpha);
 }
 
-void Fade::SetNextScene(Scene* next)
+void Fade::SetNextScene(Scene* Next)
 {
-	m_Next = next;
+	m_Next = Next;
 }
 
 Scene * Fade::GetNextScene() const
@@ -70,9 +70,9 @@ Scene * Fade::GetNextScene() const
 	return m_Next;
 }
 
-void Fade::SetState(const EState & state)
+void Fade::SetState(const EState & State)
 {
-	m_State = state;
+	m_State = State;
 }
 
 Fade::EState Fade::GetState() const

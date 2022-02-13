@@ -19,10 +19,10 @@ LoadTexture::~LoadTexture()
 
 }
 
-void LoadTexture::Load(const std::string& name)
+void LoadTexture::Load(const std::string& Name)
 { 
 	// テクスチャの読み込み
-	D3DX11CreateShaderResourceViewFromFile(Engine::Get().graphics()->GetDevice().Get(), (LPSTR)name.c_str(), NULL, NULL, m_Texture.GetAddressOf(), NULL);
+	D3DX11CreateShaderResourceViewFromFile(Engine::Get().GetGraphics()->GetDevice().Get(), (LPSTR)Name.c_str(), NULL, NULL, m_Texture.GetAddressOf(), NULL);
 	assert(m_Texture);
 }
 

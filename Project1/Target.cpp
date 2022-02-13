@@ -26,17 +26,17 @@ Target::~Target()
 
 void Target::Begin()
 {
-	m_Transform->scale(5.0f, 5.0f, 1.0f);
+	m_Transform->SetScale(5.0f, 5.0f, 1.0f);
 	m_Collider->SetSphere3(*m_Transform, 5.0f);
 }
 
 void Target::Update()
 {
 	// ポーズ中
-	if (Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
+	if (Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
 	// 弾
-	auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+	auto bulletList = Engine::Get().GetApplication()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
 	for (auto bullet : bulletList)
 	{
 		if (bullet)
@@ -45,7 +45,7 @@ void Target::Update()
 			if (m_NotDraw == false)
 			{
 				// 衝突検知
-				if (Intersect(bullet->collider().GetSphere3(), m_Collider->GetSphere3()))
+				if (Intersect(bullet->GetCollider().GetSphere3(), m_Collider->GetSphere3()))
 				{
 					// 弾のオブジェクトに通知
 					bullet->OnCollisionEnter();
@@ -81,8 +81,8 @@ void Target::Draw()
 	if (!m_NotDraw) 
 	{
 		// マトリクスの設定
-		auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-		D3DXMATRIX view = camera->view();
+		auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+		D3DXMATRIX view = camera->GetView();
 
 		// ビューの逆行列
 		D3DXMATRIX invView;
@@ -92,8 +92,8 @@ void Target::Draw()
 		invView._43 = 0.0f;
 
 		D3DXMATRIX scale, trans;
-		Math::Matrix::MatrixScaling(&scale, m_Transform->scale());
-		Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
+		Math::Matrix::MatrixScaling(&scale, m_Transform->GetScale());
+		Math::Matrix::MatrixTranslation(&trans, m_Transform->GetPosition());
 		D3DXMATRIX world = scale * trans;
 		m_Graphics.SetWorldMatrix(world);
 

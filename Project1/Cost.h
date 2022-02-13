@@ -14,7 +14,7 @@ class Cost final : public DrawNumber
 public:
 	Cost();
 	~Cost();
-	void Draw(int32_t value)override;
+	void Draw(int32_t Value)override;
 private:
 	float m_Cost;
 };

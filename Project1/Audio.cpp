@@ -63,18 +63,18 @@ Audio::~Audio()
 	CoUninitialize();
 }
 
-// ロード処理(name = ファイル名, loop = ループするかどうか)
-void Audio::Load(const std::string & name, bool loop)
+// ロード処理(Name = ファイル名, loop = ループするかどうか)
+void Audio::Load(const std::string & Name, bool Loop)
 {
-	m_Map[name] = std::make_unique<LoadAudio>();
-	std::string file = "Asset\\Audio\\" + name + ".wav";
-	m_Map[name]->Load(file, loop, m_xAudio2);
+	m_Map[Name] = std::make_unique<LoadAudio>();
+	std::string file = "Asset\\Audio\\" + Name + ".wav";
+	m_Map[Name]->Load(file, Loop, m_xAudio2);
 }
 
 // 指定のものだけアンロード
-void Audio::Unload(const std::string & name)
+void Audio::Unload(const std::string & Name)
 {
-	m_Map[name]->Unload();
+	m_Map[Name]->Unload();
 }
 
 // すべてアンロード
@@ -95,14 +95,14 @@ void Audio::Unload()
 	}
 }
 
-void Audio::Play(const std::string & name, float volume)
+void Audio::Play(const std::string & Name, float Volume)
 {
 	// 再生するオーディオを探す
-	auto itr = m_Map.find(name);
+	auto itr = m_Map.find(Name);
 	// キーが見つかったら再生
 	if (itr != m_Map.end())
 	{
-		itr->second->SetVolume(volume);
+		itr->second->SetVolume(Volume);
 		itr->second->Play();
 	}
 	else
@@ -119,13 +119,13 @@ void Audio::Stop()
 	}
 }
 
-void Audio::SetVolume(const std::string & name, float volume)
+void Audio::SetVolume(const std::string & Name, float Volume)
 {
 	// 再生するオーディオを探す
-	auto itr = m_Map.find(name);
+	auto itr = m_Map.find(Name);
 	// キーが見つかったら再生
 	if (itr != m_Map.end())
 	{
-		itr->second->SetVolume(volume);
+		itr->second->SetVolume(Volume);
 	}
 }

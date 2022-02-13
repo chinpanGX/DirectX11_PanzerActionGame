@@ -55,7 +55,7 @@ class Model final : public Loader
 {
 public:
 	Model() = delete;
-	Model(Graphics & graphics);
+	Model(Graphics & Graphics);
 	~Model();
 	void Load(const std::string& name)override;
 	void Unload();
@@ -77,7 +77,7 @@ class LoadVertexShader final : public Loader
 {
 public:
 	LoadVertexShader() = delete;
-	LoadVertexShader(Graphics & graphics);
+	LoadVertexShader(Graphics & Graphics);
 	~LoadVertexShader();
 	void Load(const std::string& FileName)override;
 	ComPtr<ID3D11VertexShader> GetVertexShader() const;
@@ -93,7 +93,7 @@ class LoadPixelShader final : public Loader
 {
 public:
 	LoadPixelShader() = delete;
-	LoadPixelShader(Graphics & graphics);
+	LoadPixelShader(Graphics & Graphics);
 	~LoadPixelShader();
 	void Load(const std::string& name)override;
 	ComPtr<ID3D11PixelShader> GetPixelShader() const;

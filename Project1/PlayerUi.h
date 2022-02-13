@@ -63,7 +63,7 @@ namespace PlayerUi
 
 		// クイックリロードが有効かどうか返す
 		const bool enableQuickReload()const;		
-		void enableQuickReload(bool flag);
+		void enableQuickReload(bool Flag);
 	private:
 		/* 更新処理のヘルパー関数 */
 		void NowReload();			// リロードの処理

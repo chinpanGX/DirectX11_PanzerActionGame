@@ -37,18 +37,18 @@ void State::BodyRotation::Begin(Player * pPlayer)
 
 void State::BodyRotation::Update(Enemy* pEnemy, float deltaTime)
 {
-	float dir = FindTargetDirection(m_Player, pEnemy, pEnemy->vehicle().bodyTransform().forward());
+	float dir = FindTargetDirection(m_Player, pEnemy, pEnemy->GetVehicle().GetBodyTransform().forward());
 	// 右旋回
 	if (dir > 0.0f)
 	{
-		pEnemy->moveComponent().RotRight(pEnemy->vehicle().bodyTransform(), deltaTime);
-		pEnemy->pivot().moveComponent().RotRight(pEnemy->pivot().transform(), deltaTime);
+		pEnemy->GetMoveComponent().RotRight(pEnemy->GetVehicle().GetBodyTransform(), deltaTime);
+		pEnemy->GetPivot().GetMoveComponent().RotRight(pEnemy->GetPivot().GetTransform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pEnemy->moveComponent().RotLeft(pEnemy->vehicle().bodyTransform(), deltaTime);
-		pEnemy->pivot().moveComponent().RotLeft(pEnemy->pivot().transform(), deltaTime);
+		pEnemy->GetMoveComponent().RotLeft(pEnemy->GetVehicle().GetBodyTransform(), deltaTime);
+		pEnemy->GetPivot().GetMoveComponent().RotLeft(pEnemy->GetPivot().GetTransform(), deltaTime);
 	}
 
 	// -0.5f ～　0.5fの間になったら、移動ステートへ
@@ -76,22 +76,22 @@ void State::TurretRotation::Begin(Player * pPlayer)
 
 void State::TurretRotation::Update(Enemy* pEnemy, float deltaTime)
 {
-	float dir = FindTargetDirection(m_Player, pEnemy, pEnemy->pivot().transform().forward());
+	float dir = FindTargetDirection(m_Player, pEnemy, pEnemy->GetPivot().GetTransform().forward());
 	// 右旋回
 	if (dir > 0.0f)
 	{
-		pEnemy->moveComponent().RotRight(pEnemy->vehicle().turretTransform(), deltaTime);
-		pEnemy->pivot().moveComponent().RotRight(pEnemy->pivot().transform(), deltaTime);
+		pEnemy->GetMoveComponent().RotRight(pEnemy->GetVehicle().GetTurretTransform(), deltaTime);
+		pEnemy->GetPivot().GetMoveComponent().RotRight(pEnemy->GetPivot().GetTransform(), deltaTime);
 	}
 	// 左旋回
 	else
 	{
-		pEnemy->moveComponent().RotLeft(pEnemy->vehicle().turretTransform(), deltaTime);
-		pEnemy->pivot().moveComponent().RotLeft(pEnemy->pivot().transform(), deltaTime);
+		pEnemy->GetMoveComponent().RotLeft(pEnemy->GetVehicle().GetTurretTransform(), deltaTime);
+		pEnemy->GetPivot().GetMoveComponent().RotLeft(pEnemy->GetPivot().GetTransform(), deltaTime);
 	}
 
 	// スキルが使える状態なら、使う
-	if (pEnemy->vehicle().skill().alreadyUseble())
+	if (pEnemy->GetVehicle().GetSkill().alreadyUseble())
 	{
 		pEnemy->UseSkill();
 		pEnemy->ChangeState(std::make_unique<State::Stay>());
@@ -101,7 +101,7 @@ void State::TurretRotation::Update(Enemy* pEnemy, float deltaTime)
 	if (-0.5f < dir && dir < 0.5f)
 	{
 		// リロードが完了したら撃つ
-		if (pEnemy->reload().finishReload() == true)
+		if (pEnemy->GetReload().finishReload() == true)
 		{
 			pEnemy->ChangeState(std::make_unique<State::Shot>());
 		}

@@ -16,7 +16,7 @@ class DrawTimerMinute final : public DrawNumber
 public:
 	DrawTimerMinute();
 	~DrawTimerMinute();
-	void Draw(int32_t value)override;
+	void Draw(int32_t Value)override;
 };
 
 // •b
@@ -25,7 +25,7 @@ class DrawTimerSecond final : public DrawNumber
 public:
 	DrawTimerSecond();
 	~DrawTimerSecond();
-	void Draw(int32_t value)override;
+	void Draw(int32_t Value)override;
 };
 
 namespace GameBg

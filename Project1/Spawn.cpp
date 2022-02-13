@@ -13,67 +13,67 @@
 #include "Vehicle.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "Spawn.h"
+#include "SPawn.h"
 
-Respawn::Respawn()
+ResPawn::ResPawn()
 {
-	m_Spawn.emplace_back(std::make_unique<PlayerSpawn>());
-	m_Spawn.emplace_back(std::make_unique<EnemySpawn>());
+	m_SPawn.emplace_back(std::make_unique<PlayerSPawn>());
+	m_SPawn.emplace_back(std::make_unique<EnemySPawn>());
 }
 
-Respawn::~Respawn()
-{
-}
-
-void Respawn::Begin()
+ResPawn::~ResPawn()
 {
 }
 
-void Respawn::Update(GameManager * manager, Pawn * pawn, int32_t Type)
+void ResPawn::Begin()
 {
-	if (!manager->GetGameEnd()) // falseならゲーム終了ではないので、リスポーンする
+}
+
+void ResPawn::Update(GameManager * Manager, Pawn * Pawn, int32_t Type)
+{
+	if (!Manager->GetGameEnd()) // falseならゲーム終了ではないので、リスポーンする
 	{
 		switch (Type)
 		{
 		case ID::E_Player:
-			m_Spawn[ID::E_Player]->SetSpawn();
+			m_SPawn[ID::E_Player]->SetSPawn();
 			break;
 		case ID::E_Enemy1:
-			m_Spawn[ID::E_Enemy1]->SetSpawn();
+			m_SPawn[ID::E_Enemy1]->SetSPawn();
 			break;
 		}
 	}
 }
 
-const bool Respawn::GetRespawn() const
+const bool ResPawn::GetResPawn() const
 {
-	return m_IsRespawn;
+	return m_IsResPawn;
 }
 
-PlayerSpawn::PlayerSpawn()
-{
-}
-
-PlayerSpawn::~PlayerSpawn()
+PlayerSPawn::PlayerSPawn()
 {
 }
 
-void PlayerSpawn::SetSpawn()
+PlayerSPawn::~PlayerSPawn()
+{
+}
+
+void PlayerSPawn::SetSPawn()
 {
 	float x = static_cast<float>(myLib::Random::Rand_R(-200, 200));
-	Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, -220.0f));
+	Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->ResPawn(D3DXVECTOR3(x, 0.0f, -220.0f));
 }
 
-EnemySpawn::EnemySpawn()
+EnemySPawn::EnemySPawn()
 {
 }
 
-EnemySpawn::~EnemySpawn()
+EnemySPawn::~EnemySPawn()
 {
 }
 
-void EnemySpawn::SetSpawn()
+void EnemySPawn::SetSPawn()
 {
 	float x = static_cast<float>(myLib::Random::Rand_R(-200, 200));
-	Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, 180.0f));
+	Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->ResPawn(D3DXVECTOR3(x, 0.0f, 180.0f));
 }

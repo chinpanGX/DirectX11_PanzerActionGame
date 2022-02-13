@@ -47,30 +47,30 @@ std::unique_ptr<class Vehicle> Factory::FVehicle::Create(int32_t Type)
 	return nullptr;
 }
 
-std::unique_ptr<class Vehicle> Factory::FVehicle::Create(const std::string & name)
+std::unique_ptr<class Vehicle> Factory::FVehicle::Create(const std::string & Name)
 {
 	// 戦車のリストから一致したものをつくる
-	if (name == m_PanzerNameList[0])
+	if (Name == m_PanzerNameList[0])
 	{
 		return std::make_unique<Tiger>();
 	}
-	else if (name == m_PanzerNameList[1])
+	else if (Name == m_PanzerNameList[1])
 	{
 		return std::make_unique<Centurion>();
 	}
-	else if (name == m_PanzerNameList[2])
+	else if (Name == m_PanzerNameList[2])
 	{
 		return std::make_unique<Patton>();
 	}
-	else if (name == m_PanzerNameList[3])
+	else if (Name == m_PanzerNameList[3])
 	{
 		return std::make_unique<T_34_85>();
 	}
-	else if (name == m_PanzerNameList[4])
+	else if (Name == m_PanzerNameList[4])
 	{
 		return std::make_unique<IV_H>();
 	}
-	else if(name == m_PanzerNameList[5])
+	else if(Name == m_PanzerNameList[5])
 	{
 		return std::make_unique<Sherman>();
 	}
@@ -85,16 +85,16 @@ std::unique_ptr<class Panzer> Factory::FPanzer::Create(const std::string & Panze
 }
 
 // 戦車
-std::unique_ptr<class Pivot> Factory::FPivot::Create(Vehicle & vehicle)
+std::unique_ptr<class Pivot> Factory::FPivot::Create(Vehicle & Vehicle)
 {
 	//　パイロットの設定
-	std::unique_ptr<Pivot> tmp = std::make_unique<Pivot>(vehicle);
-	auto pos = vehicle.bodyTransform().position();
+	std::unique_ptr<Pivot> tmp = std::make_unique<Pivot>(Vehicle);
+	auto pos = Vehicle.GetBodyTransform().GetPosition();
 	pos.y += 5.0f;
 	
 	// 初期位置の設定
-	tmp->transform().position(pos);
-	tmp->transform().rotation(vehicle.bodyTransform().rotation());
+	tmp->GetTransform().SetPosition(pos);
+	tmp->GetTransform().SetRotation(Vehicle.GetBodyTransform().GetRotation());
 	return tmp;
 }
 

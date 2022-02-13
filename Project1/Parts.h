@@ -24,8 +24,8 @@ public:
 protected:
 	const std::string& tag() const;
 	D3DXMATRIX m_WorldMatrix;
-	class Resource& resource() const;
-	class Graphics& graphics() const;
+	class Resource& GetResource() const;
+	class Graphics& GetGraphics() const;
 private:
 	std::string m_Tagname; // É^ÉOñº
 	class Resource& m_Resource;

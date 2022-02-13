@@ -29,26 +29,26 @@ RemainGage::~RemainGage()
 
 void RemainGage::Begin()
 {
-	m_Gage = Engine::Get().application()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI);
+	m_Gage = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::DrawGage>(ELayer::LAYER_2D_UI);
 }
 
-void RemainGage::Update(GameManager* manager, Pawn * pawn, int32_t type)
+void RemainGage::Update(GameManager* Manager, Pawn * Pawn, int32_t Type)
 {
-	float cost = pawn->vehicle().status().cost();
-	float nowgage = GetGage(type) - (cost * 10.0f);
+	float cost = Pawn->GetVehicle().GetStatus().cost();
+	float nowgage = GetGage(Type) - (cost * 10.0f);
 	// ゲージが残っていないので、リスポーンできない
 	if (nowgage <= 0.0f)
 	{
 		nowgage = 0.0f;
-		manager->SetWinner(type);
-		manager->GameSet(); // ゲーム終了
+		Manager->SetWinner(Type);
+		Manager->GameSet(); // ゲーム終了
 	}
-	SetGage(nowgage, type);
+	SetGage(nowgage, Type);
 }
 
-void RemainGage::SetGage(float gage, int32_t type)
+void RemainGage::SetGage(float gage, int32_t Type)
 {
-	switch (type)
+	switch (Type)
 	{
 		// プレイヤー側
 	case 0:
@@ -66,9 +66,9 @@ void RemainGage::SetGage(float gage, int32_t type)
 	}
 }
 
-const float RemainGage::GetGage(int32_t type) const
+const float RemainGage::GetGage(int32_t Type) const
 {
-	switch (type)
+	switch (Type)
 	{
 	case 0:
 		return m_PlayerGage;
@@ -83,7 +83,7 @@ const float RemainGage::GetGage(int32_t type) const
 
 GameBg::DrawGage::DrawGage()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().graphics(), *Engine::Get().resource());
+	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 }
 
 GameBg::DrawGage::~DrawGage()

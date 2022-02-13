@@ -9,7 +9,7 @@
 
 ---------------------------------------------------------------*/
 #include "AudioManager.h"
-#include "Spawn.h"
+#include "SPawn.h"
 #include "Gage.h"
 #include "Player.h"
 #include "Vehicle.h"
@@ -33,7 +33,7 @@ GameManager::GameManager()
 {
 	m_Manager.emplace_back(std::make_unique<GameAudio>());
 	m_Manager.emplace_back(std::make_unique<RemainGage>());
-	m_Manager.emplace_back(std::make_unique<Respawn>());
+	m_Manager.emplace_back(std::make_unique<ResPawn>());
 }
 
 GameManager::~GameManager()
@@ -55,7 +55,7 @@ void GameManager::Update()
 	// ƒQ[ƒ€‚ªI—¹‚µ‚½‚çAƒŠƒUƒ‹ƒgƒV[ƒ“‚Ö‘JˆÚ
 	if (m_GameEnd)
 	{
-		Engine::Get().application()->SetScene<GameScene::Result>();
+		Engine::Get().GetApplication()->SetScene<GameScene::Result>();
 	}
 }
 
@@ -67,10 +67,10 @@ void GameManager::Draw()
 {
 }
 
-void GameManager::BeginEvent(Pawn * pawn, int32_t Id)
+void GameManager::BeginEvent(Pawn * Pawn, int32_t Id)
 {
-	m_Manager[1]->Update(this, pawn, Id);
-	m_Manager[2]->Update(this, pawn, Id);
+	m_Manager[1]->Update(this, Pawn, Id);
+	m_Manager[2]->Update(this, Pawn, Id);
 }
 
 void GameManager::GameSet()
@@ -84,10 +84,10 @@ const bool GameManager::GetGameEnd() const
 }
 
 
-void GameManager::SetWinner(int32_t type)
+void GameManager::SetWinner(int32_t Type)
 {
 	// ‚Ç‚¿‚ç‚ªŸ‚Á‚½‚©Œˆ‚ß‚é
-	int32_t i = type;
+	int32_t i = Type;
 	switch (i)
 	{
 		// “G‚ÌŸ—˜
@@ -109,7 +109,7 @@ ResultManager::ResultManager()
 	audio->Begin(g_PlayerWinner);
 	
 	// ”wŒi‚Ì’Ç‰Á
-	Engine::Get().application()->GetScene()->AddGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->Begin(g_PlayerWinner);
+	Engine::Get().GetApplication()->GetScene()->AddGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG)->Begin(g_PlayerWinner);
 }
 
 void ResultManager::Begin()

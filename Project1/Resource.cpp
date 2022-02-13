@@ -11,7 +11,7 @@
 #include "Utility.h"
 
 
-Resource::Resource(Graphics & graphics) : m_Graphics(graphics)
+Resource::Resource(Graphics & Graphics) : m_Graphics(Graphics)
 {
 	// 各種リソースを管理しているオブジェクト
 	m_Audio = std::make_unique<Audio>();
@@ -39,14 +39,14 @@ Resource::~Resource()
 	m_StaticModel->Unload("WallFence");
 }
 
-void Resource::LoadTexture(const std::string & tag, const std::string & filename)
+void Resource::LoadTexture(const std::string & Tag, const std::string & FileName)
 {
-	m_Texture->Load(tag, filename);
+	m_Texture->Load(Tag, FileName);
 }
 
-void Resource::UnloadTexture(const std::string & tag)
+void Resource::UnloadTexture(const std::string & Tag)
 {
-	m_Texture->Unload(tag);
+	m_Texture->Unload(Tag);
 }
 
 #pragma region 共通で使うリソースのロード
@@ -77,21 +77,21 @@ void Resource::LoadModel_ThreadA()
 }
 #pragma endregion 共通で使うリソースのロード
 
-void Resource::LoadModel(const std::string & tag, const std::string & filename)
+void Resource::LoadModel(const std::string & Tag, const std::string & FileName)
 {
-	m_StaticModel->Load(tag, filename);
+	m_StaticModel->Load(Tag, FileName);
 }
 
-void Resource::UnloadModel(const std::string & tag)
+void Resource::UnloadModel(const std::string & Tag)
 {
-	m_StaticModel->Unload(tag);
+	m_StaticModel->Unload(Tag);
 }
 #pragma endregion モデルのロード
 
 #pragma region AudioSystem
-void Resource::AudioLoad(const std::string & tag, bool loop)
+void Resource::AudioLoad(const std::string & Tag, bool Loop)
 {
-	m_Audio->Load(tag, loop);
+	m_Audio->Load(Tag, Loop);
 }
 
 void Resource::AudioUnload()
@@ -100,9 +100,9 @@ void Resource::AudioUnload()
 }
 
 // オーディオの操作
-void Resource::AudioPlay(const std::string & tag, float volume)
+void Resource::AudioPlay(const std::string & Tag, float Volume)
 {
-	m_Audio->Play(tag, volume);
+	m_Audio->Play(Tag, Volume);
 }
 
 void Resource::AudioStop()
@@ -110,9 +110,9 @@ void Resource::AudioStop()
 	m_Audio->Stop();
 }
 
-void Resource::AudioSetVolume(const std::string & tag, float volume)
+void Resource::AudioSetVolume(const std::string & Tag, float Volume)
 {
-	m_Audio->SetVolume(tag, volume);
+	m_Audio->SetVolume(Tag, Volume);
 }
 #pragma endregion オーディオ関係
 

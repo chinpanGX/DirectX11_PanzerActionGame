@@ -15,19 +15,19 @@ class Controller final
 {
 public:
 	Controller() = delete;
-	Controller(Player* pPlayer, GameCamera* pCamera, Pivot* pPivot);
+	Controller(Player* Player, GameCamera* Camera, Pivot* Pivot);
 	~Controller();
 
-	void FpsCameraMode(bool fpsMode);	// カメラモード
+	void FpsCameraMode(bool FpsMode);	// カメラモード
 	//　移動
-	void MoveForward(float deltaTime);
-	void MoveBackward(float deltaTime);
-	void RotRight(float deltaTime);
-	void RotLeft(float deltaTime);
-	void RotTurretRight(float deltaTime);
-	void RotTurretLeft(float deltaTime);
-	void RotMaingunUp(float deltaTime);
-	void RotMaingunDown(float deltaTime);
+	void MoveForward(float DeltaTime);
+	void MoveBackward(float DeltaTime);
+	void RotRight(float DeltaTime);
+	void RotLeft(float DeltaTime);
+	void RotTurretRight(float DeltaTime);
+	void RotTurretLeft(float DeltaTime);
+	void RotMaingunUp(float DeltaTime);
+	void RotMaingunDown(float DeltaTime);
 	// 砲撃
 	void Shot();
 	// スキル

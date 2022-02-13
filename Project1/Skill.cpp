@@ -62,7 +62,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		if (m_Effect)
 		{
 			// エフェクトの位置を戦車に合わせる
-			m_Effect->transform().position(position);
+			m_Effect->GetTransform().SetPosition(position);
 			// アニメーションを再生する
 			PlayAnim();
 		}
@@ -75,11 +75,11 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 	}
 }
 
-void Skill::PlayEffect(Pawn * pawn)
+void Skill::PlayEffect(Pawn * Pawn)
 {
-	auto pos = pawn->vehicle().bodyTransform().position();
-	m_Effect = Engine::Get().application()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
-	m_Effect->transform().position(pos);
+	auto pos = Pawn->GetVehicle().GetBodyTransform().GetPosition();
+	m_Effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
+	m_Effect->GetTransform().SetPosition(pos);
 }
 
 void Skill::Reset(Status & status)
@@ -105,7 +105,7 @@ void Skill::SetTime(float amount)
 	m_Amount = amount;
 }
 
-void Skill::Enable(Pawn* pawn)
+void Skill::Enable(Pawn* Pawn)
 {
 	// すでにスキルが使える状態
 	if (m_AlreadyUseble)

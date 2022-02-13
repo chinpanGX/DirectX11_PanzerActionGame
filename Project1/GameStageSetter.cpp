@@ -14,7 +14,7 @@
 /*
 	柵のオブジェクトの設置する
 */
-void GameStageSetterFence::Set(Scene * scene)
+void GameStageSetterFence::Set(Scene * Scene)
 {
 	D3DXVECTOR3 size = D3DXVECTOR3(1.0f, 1.0f, 1.0f);
 	// 求めた乱数からTransformを設定していく
@@ -25,35 +25,35 @@ void GameStageSetterFence::Set(Scene * scene)
 	{
 		pos	= D3DXVECTOR3(180.0f - (i * 15.0f) , 0.0f, 130.0f);
 		rot = D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f);
-		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
+		Scene->AddGameObject<Fence>(LAYER_3D_STAGE)->GetTransform().Set(pos, size, rot);
 	}
 
 	for (int32_t i = 0; i < 10; i++)
 	{
 		pos = D3DXVECTOR3(180.0f - (i * 15.0f), 0.0f, -130.0f);
 		rot = D3DXVECTOR3(0.0f, 0.0, 0.0f);
-		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
+		Scene->AddGameObject<Fence>(LAYER_3D_STAGE)->GetTransform().Set(pos, size, rot);
 	}
 
 	for (int32_t i = 0; i < 10; i++)
 	{
 		pos = D3DXVECTOR3(-150.0f - (i * - 10.0f), 0.0f, 200.0f - (i * 20.0f));
 		rot = D3DXVECTOR3(0.0f, Math::ToRadians(45.0f), 0.0f);
-		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
+		Scene->AddGameObject<Fence>(LAYER_3D_STAGE)->GetTransform().Set(pos, size, rot);
 	}
 	
 	for (int32_t i = 0; i < 15; i++)
 	{
 		pos = D3DXVECTOR3(-100.0f - (i * -10.0f), 0.0f, -230.0f - (i * -20.0f));
 		rot = D3DXVECTOR3(0.0f, Math::ToRadians(330.0f), 0.0f);
-		scene->AddGameObject<Fence>(LAYER_3D_STAGE)->transform().Set(pos, size, rot);
+		Scene->AddGameObject<Fence>(LAYER_3D_STAGE)->GetTransform().Set(pos, size, rot);
 	}	
 }
 
 /*
 	BOX型の壁
 */
-void GameStageSetterWallBox::Set(Scene * scene)
+void GameStageSetterWallBox::Set(Scene * Scene)
 {
 	// サイズは固定
 	D3DXVECTOR3 size = D3DXVECTOR3(5.0f, 5.0f, 5.0f);
@@ -68,17 +68,17 @@ void GameStageSetterWallBox::Set(Scene * scene)
 		D3DXVECTOR3 Left = D3DXVECTOR3(290.0f, 0.0f, -300.0f + 10.0f * i);
 
 		// 壁を配置
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Far, size, g_NegUnitZ);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Near, size, g_UnitZ);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Right, size, g_UnitX);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Left, size, g_NegUnitX);				
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Far, size, g_NegUnitZ);
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Near, size, g_UnitZ);
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Right, size, g_UnitX);
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Left, size, g_NegUnitX);				
 #if 0
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, 150.0f), size);
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, 150.0f), size);		
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(150.0f, 0.0f, -30.0f * i), size);		
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-150.0f, 0.0f, -30.0f * i), size);		
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, -150.0f), size);		
-		scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f), size);
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, 150.0f), size);
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, 150.0f), size);		
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(150.0f, 0.0f, -30.0f * i), size);		
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-150.0f, 0.0f, -30.0f * i), size);		
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, -150.0f), size);		
+		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f), size);
 #endif
 	}
 }
@@ -86,21 +86,21 @@ void GameStageSetterWallBox::Set(Scene * scene)
 /*
 	サプライ
 */
-void GameStageSetterSupply::Set(Scene * scene)
+void GameStageSetterSupply::Set(Scene * Scene)
 {
 	float x = 250.0f;
 	D3DXVECTOR3 pos = D3DXVECTOR3(x, 0.0f, 0.0f);
 	D3DXVECTOR3 scl = D3DXVECTOR3(3.0f, 3.0f, 3.0f);
 	D3DXVECTOR3 rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	scene->AddGameObject<Supply>(LAYER_3D_STAGE)->transform().Set(pos, scl, rot);
+	Scene->AddGameObject<Supply>(LAYER_3D_STAGE)->GetTransform().Set(pos, scl, rot);
 	pos.x = -x;
 	rot.y = D3DXToRadian(180.0f);
-	scene->AddGameObject<Supply>(LAYER_3D_STAGE)->transform().Set(pos, scl, rot);
+	Scene->AddGameObject<Supply>(LAYER_3D_STAGE)->GetTransform().Set(pos, scl, rot);
 }
 
-void GameStageSetterRock::Set(Scene * scene)
+void GameStageSetterRock::Set(Scene * Scene)
 {
-	m_Scene = scene;
+	m_Scene = Scene;
 	SetBackGround();
 }
 
@@ -112,8 +112,8 @@ void GameStageSetterRock::SetBackGround()
 	Set(250.0f, 6.0f, -330.0f, 14.5f);
 	Set(-600.0f, 3.0, -300.0f, 13.0f);
 	Set(-620.0f, 2.5f, 30.0f, 15.0f);	
-	Set(50.0f, 5.0f, 350.0f, 15.0f);
 	Set(380.0f, 30.0f, 300.0f, 30.0f);
+	Set(50.0f, 5.0f, 350.0f, 15.0f);
 
 	for (int i = 0; i < m_ObjectCount; i++)
 	{

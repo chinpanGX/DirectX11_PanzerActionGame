@@ -34,10 +34,10 @@ void Vehicle::Begin()
 void Vehicle::Update()
 {
 	m_Panzer->Update();
-	m_Shadow->transform().position(m_Panzer->GetBody().transform().position());
-	m_Shadow->transform().position().y = 0.01f;
-	m_Shadow->transform().scale(8.0f, 0.0f, 10.0f);
-	m_Skill->Update(*m_Status, m_Panzer->GetBody().transform().position());
+	m_Shadow->GetTransform().SetPosition(m_Panzer->GetBody().GetTransform().GetPosition());
+	m_Shadow->GetTransform().GetPosition().y = 0.01f;
+	m_Shadow->GetTransform().SetScale(8.0f, 0.0f, 10.0f);
+	m_Skill->Update(*m_Status, m_Panzer->GetBody().GetTransform().GetPosition());
 }
 
 void Vehicle::Draw()
@@ -50,42 +50,42 @@ void Vehicle::Draw()
 }
 
 // スタート位置を決める
-void Vehicle::SetStartPosition(D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+void Vehicle::SetStartPosition(const D3DXVECTOR3& Pos, const D3DXVECTOR3& Rot)
 {
-	this->bodyTransform().position(pos);
-	this->bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
+	this->GetBodyTransform().SetPosition(Pos);
+	this->GetBodyTransform().SetRotation(Rot.x, Rot.y, Rot.z, 1.0f);
 }
 
-void Vehicle::SetStartPosition(Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot)
+void Vehicle::SetStartPosition(Pawn* Pawn, const D3DXVECTOR3& Pos, const D3DXVECTOR3& Rot)
 {
 	m_Panzer->Begin();
-	pawn->vehicle().bodyTransform().position(pos);
-	pawn->vehicle().bodyTransform().rotation(rot.x, rot.y, rot.z, 1.0f);
+	Pawn->GetVehicle().GetBodyTransform().SetPosition(Pos);
+	Pawn->GetVehicle().GetBodyTransform().SetRotation(Rot.x, Rot.y, Rot.z, 1.0f);
 }
 
 // 撃つ
-void Vehicle::Shot(const Transform & transform)
+void Vehicle::Shot(const Transform & Transform)
 {
-	auto t = transform;
+	auto t = Transform;
 	// 発射位置
-	D3DXVECTOR3 pos = t.position() + t.forward() * m_GunLength;
+	D3DXVECTOR3 pos = t.GetPosition() + t.forward() * m_GunLength;
 	// 飛んでいく方向ベクトル
 	D3DXVECTOR3 vector = t.forward();
 	
 	// Bulletのインスタンスを生成する
-	auto normalBullet = Engine::Get().application()->GetScene()->AddGameObject<Bullet>(LAYER_3D_ACTOR);
+	auto normalBullet = Engine::Get().GetApplication()->GetScene()->AddGameObject<Bullet>(LAYER_3D_ACTOR);
 	normalBullet->Create(pos, vector);
 }
 
 #pragma endregion Panzerのアクション
 
 // コリジョンの位置を更新
-void Vehicle::ColiisionUpdate(int32_t Element, const D3DXVECTOR3 & Position, Transform & t)
+void Vehicle::ColiisionUpdate(int32_t Element, const D3DXVECTOR3 & Position, Transform & Transform)
 {
-	m_Collider[Element]->Update(Position, t);
+	m_Collider[Element]->Update(Position, Transform);
 }
 
-Collider & Vehicle::collider(int32_t Element) const
+Collider & Vehicle::GetCollider(int32_t Element) const
 {
 	if (!m_Collider[Element])
 	{
@@ -94,27 +94,27 @@ Collider & Vehicle::collider(int32_t Element) const
 	return *m_Collider[Element];
 }
 
-const uint32_t Vehicle::colliderNum() const
+const uint32_t Vehicle::GetColliderNum() const
 {
 	return m_Collider.size();
 }
 
-Transform & Vehicle::bodyTransform() const
+Transform & Vehicle::GetBodyTransform() const
 {
-	return m_Panzer->GetBody().transform();
+	return m_Panzer->GetBody().GetTransform();
 }
 
-Transform & Vehicle::turretTransform() const
+Transform & Vehicle::GetTurretTransform() const
 {
-	return m_Panzer->GetTurret().transform();
+	return m_Panzer->GetTurret().GetTransform();
 }
 
-Transform & Vehicle::gunTransform() const
+Transform & Vehicle::GetGunTransform() const
 {
-	return m_Panzer->GetMainGun().transform();
+	return m_Panzer->GetMainGun().GetTransform();
 }
 
-Status & Vehicle::status() const
+Status & Vehicle::GetStatus() const
 {
 	// nullcheck
 	if (!m_Status)
@@ -124,7 +124,7 @@ Status & Vehicle::status() const
 	return *m_Status;
 }
 
-Skill & Vehicle::skill() const
+Skill & Vehicle::GetSkill() const
 {
 	// nullcheck
 	if (!m_Skill)
@@ -161,9 +161,9 @@ void Vehicle::SetStatus(Status::Country Country, float Cost, float Hp, float Att
 	m_Status->Set(Country, Cost, Hp, Attack, Defence, Speed, Reload, RotSpeed);
 }
 
-void Vehicle::ShotPointOffsetLength(float length)
+void Vehicle::ShotPointOffsetLength(float Length)
 {
-	m_GunLength = length;
+	m_GunLength = Length;
 }
 
 Panzer & Vehicle::panzer() const

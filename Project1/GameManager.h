@@ -33,14 +33,14 @@ public:
 	void Draw()override;
 
 	// イベント開始
-	void BeginEvent(class Pawn* pawn, int32_t Id);
+	void BeginEvent(class Pawn* Pawn, int32_t Id);
 	
 	// ゲーム終了
 	void GameSet();
 	const bool GetGameEnd()const;
 
 	// どちらが勝ったか
-	void SetWinner(int32_t type);
+	void SetWinner(int32_t Type);
 private:
 	// trueでゲーム終了
 	bool m_GameEnd = false;

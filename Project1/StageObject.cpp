@@ -8,7 +8,7 @@
 #include "Resource.h"
 #include "StageObject.h"
 
-StageObject::StageObject() : m_Resource(*Engine::Get().resource())
+StageObject::StageObject() : m_Resource(*Engine::Get().GetResource())
 {
 }
 
@@ -32,7 +32,7 @@ void StageObject::Draw()
 {
 }
 
-Resource & StageObject::resource() const
+Resource & StageObject::GetResource() const
 {
 	return m_Resource;
 }
@@ -40,12 +40,12 @@ Resource & StageObject::resource() const
 /*
 	setter/getter
 */
-void StageObject::radius(float r)
+void StageObject::SetRadius(float Radius)
 {
-	m_Radius = r;
+	m_Radius = Radius;
 }
 
-float StageObject::radius() const
+float StageObject::GetRadius() const
 {
 	return m_Radius;
 }

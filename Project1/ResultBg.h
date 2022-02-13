@@ -20,7 +20,7 @@ namespace GameBg
 		void Update()override;
 		void Event()override;
 		void Draw()override;
-		void Begin(bool winner);
+		void Begin(bool Winner);
 		class ResultState& GetState() const;
 	private:
 		std::unique_ptr<Renderer2D> m_Fade;

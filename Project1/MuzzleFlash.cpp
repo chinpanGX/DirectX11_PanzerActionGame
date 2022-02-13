@@ -30,7 +30,7 @@ void MuzzleFlash::Begin()
 
 void MuzzleFlash::Update()
 {
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
+	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
 	Effect::Update();
 	// フレーム数が16になったら消去
@@ -55,8 +55,8 @@ void MuzzleFlash::Draw()
 
 	// マトリクスの設定
 	// カメラの情報を取得する
-	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	D3DXMATRIX view = camera->view();
+	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	D3DXMATRIX view = camera->GetView();
 
 	// ビューの逆行列
 	D3DXMATRIX invView;
@@ -67,8 +67,8 @@ void MuzzleFlash::Draw()
 
 	// 座標変換
 	D3DXMATRIX world, scale, rot, trans;
-	Math::Matrix::MatrixScaling(&scale, transform().scale());
-	Math::Matrix::MatrixTranslation(&trans, transform().position());
+	Math::Matrix::MatrixScaling(&scale, GetTransform().GetScale());
+	Math::Matrix::MatrixTranslation(&trans, GetTransform().GetPosition());
 	world = scale * invView * trans;
 	m_Graphics.SetWorldMatrix(world);
 

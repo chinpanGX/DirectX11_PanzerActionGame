@@ -16,7 +16,7 @@ class PlayerBulletAmount final : public DrawNumber
 public:
 	PlayerBulletAmount();
 	~PlayerBulletAmount();
-	void Draw(int value)override;
+	void Draw(int Value)override;
 };
 
 // プレイヤーの撃てる弾数の最大数を表示
@@ -25,7 +25,7 @@ class PlayerBulletAmountMax final : public DrawNumber
 public:
 	PlayerBulletAmountMax();
 	~PlayerBulletAmountMax();
-	void Draw(int value)override;
+	void Draw(int Value)override;
 };
 
 // 区切りのスラッシュ

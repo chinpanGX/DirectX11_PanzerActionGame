@@ -13,7 +13,7 @@ class LoadTexture final : public Loader
 public:
 	LoadTexture();
 	~LoadTexture();
-	void Load(const std::string& name)override;
+	void Load(const std::string& Name)override;
 	const ComPtr<ID3D11ShaderResourceView> GetTexture()const;
 private:
 	ComPtr<ID3D11ShaderResourceView> m_Texture;

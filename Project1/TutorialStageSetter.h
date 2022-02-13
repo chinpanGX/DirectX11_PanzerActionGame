@@ -15,18 +15,18 @@ class Scene;
 class TutorialStageSetterWall final : public ISetterObject
 {
 public:
-	void Set(Scene* scene)override;
+	void Set(Scene* Scene)override;
 };
 
 // ìIÇÃê›íu
 class TutorialStageSetterTarget final : public ISetterObject
 {
 public:
-	void Set(Scene* scene)override;
+	void Set(Scene* Scene)override;
 };
 
 class TutorialStageSetterSupply final : public ISetterObject
 {
 public:
-	void Set(Scene* scene)override;
+	void Set(Scene* Scene)override;
 };

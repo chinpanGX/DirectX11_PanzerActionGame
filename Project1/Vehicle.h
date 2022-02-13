@@ -12,6 +12,7 @@
 #include <memory>
 #include <array>
 
+class Collider;
 class Skill;
 class Vehicle : public DefaultObject
 {
@@ -25,30 +26,30 @@ public:
 	void Event()override {}
 
 	// 初期位置を決める
-	void SetStartPosition(D3DXVECTOR3 pos, D3DXVECTOR3 rot); // ガレージで使う
-	void SetStartPosition(class Pawn* pawn, D3DXVECTOR3 pos, D3DXVECTOR3 rot);
+	void SetStartPosition(const D3DXVECTOR3& Pos, const D3DXVECTOR3& Rot); // ガレージで使う
+	void SetStartPosition(class Pawn* Pawn, const D3DXVECTOR3& Pos, const D3DXVECTOR3& Rot);
 	
 	// 撃つ
 	void Shot(const Transform& transform);
 	
 	//　当たり判定関係
-	void ColiisionUpdate(int32_t Element, const D3DXVECTOR3& Position, Transform& t);
-	Collider& collider(int32_t Element) const;
-	const uint32_t colliderNum() const;
+	void ColiisionUpdate(int32_t Element, const D3DXVECTOR3& Position, Transform& Transform);
+	Collider& GetCollider(int32_t Element) const;
+	const uint32_t GetColliderNum() const;
 
-	class Transform& bodyTransform() const;
-	class Transform& turretTransform() const;
-	class Transform& gunTransform() const;
-	Status& status() const;
-	Skill& skill() const;
+	class Transform& GetBodyTransform() const;
+	class Transform& GetTurretTransform() const;
+	class Transform& GetGunTransform() const;
+	Status& GetStatus() const;
+	Skill& GetSkill() const;
 protected:
-	std::array<std::unique_ptr<class Collider>, 2> m_Collider;
+	std::array<std::unique_ptr<Collider>, 2> m_Collider;
 
 	// ステータスの設定
 	void SetPanzer();
 	void SetStatus(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed);
 	// 弾がでる位置の補正値を決める
-	void ShotPointOffsetLength(float length);
+	void ShotPointOffsetLength(float Length);
 
 	//　戦車
 	class Panzer& panzer() const;

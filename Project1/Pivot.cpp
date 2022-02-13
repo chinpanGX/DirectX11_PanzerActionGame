@@ -16,7 +16,7 @@
 Pivot::Pivot(Vehicle & vehicle) : m_Vehicle(vehicle)
 {
 	m_Transform = AddComponent<Transform>();
-	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle.status());
+	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle.GetStatus());
 }
 
 Pivot::~Pivot()
@@ -46,8 +46,8 @@ void Pivot::SetStartPosition(D3DXVECTOR3 Position, D3DXVECTOR3 Rot)
 {
 	auto tmp = Position;
 	tmp.y += 5.0f;
-	m_Transform->position(tmp);
-	m_Transform->rotation(Rot.x, Rot.y, Rot.z, 1.0f);
+	m_Transform->SetPosition(tmp);
+	m_Transform->SetRotation(Rot.x, Rot.y, Rot.z, 1.0f);
 }
 
 const float Pivot::GetTpsOffset() const
@@ -67,11 +67,11 @@ const float Pivot::GetTargetOffset() const
 
 void Pivot::Move()
 {
-	m_Transform->position().x = m_Vehicle.bodyTransform().position().x;
-	m_Transform->position().z = m_Vehicle.bodyTransform().position().z;
+	m_Transform->GetPosition().x = m_Vehicle.GetBodyTransform().GetPosition().x;
+	m_Transform->GetPosition().z = m_Vehicle.GetBodyTransform().GetPosition().z;
 }
 
-MoveComponent & Pivot::moveComponent() const
+MoveComponent & Pivot::GetMoveComponent() const
 {
 	if (!m_MoveComponent)
 	{

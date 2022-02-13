@@ -15,9 +15,9 @@ class Renderer2D final
 public:
 	Renderer2D() = delete;
 	// テクスチャのみ設定
-	Renderer2D(Graphics& graphics, Resource& resource, const std::string& Tag);
+	Renderer2D(Graphics& Graphics, Resource& resource, const std::string& Tag);
 	// プロパティ設定をすべて設定
-	Renderer2D(Graphics& graphics, Resource& resource, const std::string& Tag, const D3DXVECTOR2& pos, const D3DXVECTOR2& size, 
+	Renderer2D(Graphics& Graphics, Resource& resource, const std::string& Tag, const D3DXVECTOR2& pos, const D3DXVECTOR2& size, 
 		const D3DXVECTOR2& ul = D3DXVECTOR2(0.0f, 0.0f), const D3DXVECTOR2& lr = D3DXVECTOR2(1.0f, 1.0f));
 	~Renderer2D();
 
@@ -44,7 +44,7 @@ class Render
 {
 public:
 	Render() = delete;
-	Render(Graphics& graphics, Resource& resource);
+	Render(Graphics& Graphics, Resource& resource);
 	~Render();
 	void Draw(float param, const D3DXVECTOR2& pos, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 	void Draw(float param, const D3DXVECTOR2& pos, float size_y, const std::string& texture, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));

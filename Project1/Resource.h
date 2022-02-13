@@ -17,12 +17,12 @@ class Resource final
 {
 public:
 	Resource() = delete;
-	Resource(Graphics& graphics);
+	Resource(Graphics& Graphics);
 	~Resource();
 
 	// テクスチャのロード
-	void LoadTexture(const std::string& tag, const std::string& filename);
-	void UnloadTexture(const std::string& tag);
+	void LoadTexture(const std::string& Tag, const std::string& FileName);
+	void UnloadTexture(const std::string& Tag);
 
 	// 共通で使うリソースのロード・アンロード
 	void LoadTexture_ThreadA();
@@ -31,17 +31,17 @@ public:
 	void Unload();
 	
 	// モデルのロード
-	void LoadModel(const std::string& tag, const std::string& filename);
-	void UnloadModel(const std::string& tag);
+	void LoadModel(const std::string& Tag, const std::string& FileName);
+	void UnloadModel(const std::string& Tag);
 
 	//　オーディオ
-	void AudioLoad(const std::string& tag, bool loop);
+	void AudioLoad(const std::string& Tag, bool Loop);
 	void AudioUnload();	// アンロード
 
 	// オーディオの操作
-	void AudioPlay(const std::string& tag, float volume = 1.0f);
+	void AudioPlay(const std::string& Tag, float Volume = 1.0f);
 	void AudioStop();
-	void AudioSetVolume(const std::string& tag, float volume);
+	void AudioSetVolume(const std::string& Tag, float Volume);
 
 	// テクスチャ
 	void SetTexture(int slot, const std::string& Tag); // slot = 設定するスロット、ID = 格納ID

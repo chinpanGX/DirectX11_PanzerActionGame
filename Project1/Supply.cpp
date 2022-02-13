@@ -14,7 +14,7 @@
 #include "GameCamera.h"
 
 #pragma region パーティクル
-CircleParticle::CircleParticle() : m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
+CircleParticle::CircleParticle() : m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
 {
 	// 頂点作成
 	Vertex3D vertex[4];
@@ -86,8 +86,8 @@ void CircleParticle::Draw()
 	m_Graphics.SetBlendStateAdd();
 
 	// マトリクスの設定
-	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	D3DXMATRIX view = camera->view();
+	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	D3DXMATRIX view = camera->GetView();
 
 	// ビューの逆行列
 	D3DXMATRIX invView;
@@ -98,8 +98,8 @@ void CircleParticle::Draw()
 	
 	// 座標変換
 	D3DXMATRIX world, scale, rot, trans;
-	Math::Matrix::MatrixScaling(&scale, transform().scale());
-	Math::Matrix::MatrixTranslation(&trans, transform().position());
+	Math::Matrix::MatrixScaling(&scale, GetTransform().GetScale());
+	Math::Matrix::MatrixTranslation(&trans, GetTransform().GetPosition());
 	world = scale * invView * trans;
 	m_Graphics.SetWorldMatrix(world);
 
@@ -123,9 +123,9 @@ void CircleParticle::Draw()
 
 void CircleParticle::Generate(float x, float z)
 {
-	m_Transform->position().x = x;
-	m_Transform->position().y = 0.0f;
-	m_Transform->position().z = z;
+	m_Transform->GetPosition().x = x;
+	m_Transform->GetPosition().y = 0.0f;
+	m_Transform->GetPosition().z = z;
 }
 #pragma endregion パーティクル
 
@@ -150,7 +150,7 @@ void Supply::Begin()
 	float angle = 0;
 	for (int i = 0; i < 36; i++)
 	{
-		m_Particles.emplace_back(Engine::Get().application()->GetScene()->AddGameObject<CircleParticle>(ELayer::LAYER_2D_EFFECT));
+		m_Particles.emplace_back(Engine::Get().GetApplication()->GetScene()->AddGameObject<CircleParticle>(ELayer::LAYER_2D_EFFECT));
 
 		float radius = angle * 3.14f / 180.0f;
 
@@ -159,8 +159,8 @@ void Supply::Begin()
 		float add_z = sin(radius) * m_Radius;
 
 		// 結果ででた位置を中心位置に加算し、それを描画位置とする
-		float x = m_Transform->position().x + add_x;
-		float z = m_Transform->position().z + add_z;
+		float x = m_Transform->GetPosition().x + add_x;
+		float z = m_Transform->GetPosition().z + add_z;
 
 		m_Particles[i]->Generate(x, z);
 		angle += 10.0f;
@@ -169,9 +169,9 @@ void Supply::Begin()
 
 void Supply::Update()
 {
-	auto colliderPosition = m_Transform->position();
-	colliderPosition.y = m_Transform->position().y + 2.0f;
-	m_Collider->Update(colliderPosition, *m_Transform);
+	auto ColliderPosition = m_Transform->GetPosition();
+	ColliderPosition.y = m_Transform->GetPosition().y + 2.0f;
+	m_Collider->Update(ColliderPosition, *m_Transform);
 }
 
 void Supply::Event()
@@ -180,7 +180,7 @@ void Supply::Event()
 
 void Supply::Draw()
 {	
-	resource().SetPixelShader("Default");
+	GetResource().SetPixelShader("Default");
 	UpdateMatrix(*m_Transform);
-	resource().SetStaticModel("Supply");
+	GetResource().SetStaticModel("Supply");
 }

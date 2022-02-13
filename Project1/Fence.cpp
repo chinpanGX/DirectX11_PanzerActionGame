@@ -27,11 +27,11 @@ Fence::~Fence()
 
 void Fence::Begin()
 {
-	m_EnemyList = Engine::Get().application()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	m_EnemyList = Engine::Get().GetApplication()->GetScene()->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 
-	StageObject::radius(8.0f);
+	StageObject::SetRadius(8.0f);
 	m_Collider->SetAABB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 	m_Collider->SetOBB3(*m_Transform, D3DXVECTOR3(8.0f, 6.0f, 2.0f));
 }
@@ -40,11 +40,11 @@ void Fence::Update()
 {
 	Actor::UpdateCollision(*m_Collider);
 	// プレイヤー
-	OnCollisionToVehicle(m_Player->vehicle());
+	OnCollisionToVehicle(m_Player->GetVehicle());
 	// エネミー
 	for(auto enemy : m_EnemyList)
 	{
-		OnCollisionToVehicle(enemy->vehicle());
+		OnCollisionToVehicle(enemy->GetVehicle());
 	}
 }
 
@@ -58,19 +58,16 @@ void Fence::Event()
 
 void Fence::Draw()
 {
-	if (m_Camera->NotDrawObject(m_Transform->position(), StageObject::radius()))
-	{
-		return;
-	}
+	if (m_Camera->NotDrawObject(m_Transform->GetPosition(), StageObject::GetRadius())) { return; }
 
-	resource().SetShader("Default");
+	GetResource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	resource().SetStaticModel("Fence");
+	GetResource().SetStaticModel("Fence");
 }
 
 void Fence::OnCollisionToVehicle(const Vehicle & Vehicle)
 {
-	if (Intersect(m_Collider->GetOBB3(), Vehicle.collider(0).GetOBB3()))
+	if (Intersect(m_Collider->GetOBB3(), Vehicle.GetCollider(0).GetOBB3()))
 	{
 		OnCollisionEnter();
 	}

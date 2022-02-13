@@ -28,7 +28,7 @@ void MoveComponent::Update(Transform& transform)
 {
 	if (m_cmd == nullptr)
 	{
-		m_cmd = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
+		m_cmd = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 	}
 	bool nowInput = false;
 	myLib::Timeline acc(0.0f, m_Status.speed(), m_Status.addForce());
@@ -55,43 +55,43 @@ void MoveComponent::MoveForward(Transform & transform, float deltaTime)
 	// 進むベクトル
 	m_Velocity = transform.forward() * m_Speed * deltaTime;	
 
-	transform.position().x += m_Velocity.x;
-	transform.position().z += m_Velocity.z;
+	transform.GetPosition().x += m_Velocity.x;
+	transform.GetPosition().z += m_Velocity.z;
 }
 
 void MoveComponent::MoveBackward(Transform & transform, float deltaTime)
 {
 	m_Velocity = -transform.forward() * m_Speed * deltaTime;
 
-	transform.position().x += m_Velocity.x;
-	transform.position().z += m_Velocity.z;
+	transform.GetPosition().x += m_Velocity.x;
+	transform.GetPosition().z += m_Velocity.z;
 }
 
 void MoveComponent::RotRight(Transform & transform, float deltaTime)
 {
-	transform.rotation().y += m_Status.rotSpeed() * deltaTime;
+	transform.GetRotation().y += m_Status.rotSpeed() * deltaTime;
 }
 
 void MoveComponent::RotLeft(Transform & transform, float deltaTime)
 {	
-	transform.rotation().y -= m_Status.rotSpeed() * deltaTime;	
+	transform.GetRotation().y -= m_Status.rotSpeed() * deltaTime;	
 }
 
 void MoveComponent::GunUp(Transform & transform, float deltaTime)
 {
-	transform.rotation().x -= m_Status.rotSpeed() * 0.9f * deltaTime;
-	if (transform.rotation().x <= -m_Status.gunAngleUpMax())
+	transform.GetRotation().x -= m_Status.rotSpeed() * 0.9f * deltaTime;
+	if (transform.GetRotation().x <= -m_Status.gunAngleUpMax())
 	{
-		transform.rotation().x = -m_Status.gunAngleUpMax();
+		transform.GetRotation().x = -m_Status.gunAngleUpMax();
 	}
 }
 
 void MoveComponent::GunDown(Transform & transform, float deltaTime)
 {
-	transform.rotation().x += m_Status.rotSpeed() * 0.9f * deltaTime;
-	if (transform.rotation().x >= m_Status.gunAngleDownMax())
+	transform.GetRotation().x += m_Status.rotSpeed() * 0.9f * deltaTime;
+	if (transform.GetRotation().x >= m_Status.gunAngleDownMax())
 	{
-		transform.rotation().x = m_Status.gunAngleDownMax();
+		transform.GetRotation().x = m_Status.gunAngleDownMax();
 	}
 }
 

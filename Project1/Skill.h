@@ -26,12 +26,12 @@ public:
 	void Update(Status& status, const D3DXVECTOR3& position);
 
 	// エフェクトの再生
-	void PlayEffect(Pawn* pawn);
+	void PlayEffect(Pawn* Pawn);
 
 	// スキルゲージがたまる時間
 	void SetTime(float amount); //　進める時間
 	// スキルを使う
-	void Enable(Pawn* pawn);
+	void Enable(Pawn* Pawn);
 	// リセット
 	void Reset(Status& status);	  
 

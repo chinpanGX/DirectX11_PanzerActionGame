@@ -14,7 +14,7 @@ class Effect : public Actor
 public:
 	Effect();
 	// テクスチャ座標を設定
-	Effect(D3DXVECTOR2 texMin, D3DXVECTOR2 texMax);
+	Effect(D3DXVECTOR2 TexMin, D3DXVECTOR2 TexMax);
 	virtual ~Effect();
 	void Begin()override;
 	void Update()override;
@@ -22,7 +22,7 @@ public:
 	void Draw()override;
 protected:
 	// MapとUnmapをする　
-	void MapAndUnmap(float x, float y); // 引数(テクスチャ座標のx,y)
+	void MapAndUnmap(float Pos_x, float Pos_y); // 引数(テクスチャ座標のx,y)
 	uint32_t GetFrame() const { return m_Frame; }
 	class Resource& m_Resource;
 	class Graphics& m_Graphics;

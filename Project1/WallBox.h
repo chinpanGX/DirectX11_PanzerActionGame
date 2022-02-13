@@ -31,7 +31,7 @@ public:
 	void Set(const D3DXVECTOR3& Pos, const D3DXVECTOR3& Size, int Normal = 10);
 
 	// ‚ß‚è‚ñ‚¾‹——£‚ğ•Ô‚·
-	D3DXVECTOR3 OffsetLength(const class OBB3& obj);
+	D3DXVECTOR3 OffsetLength(const class OBB3& Obj);
 
 private:
 	// •½–Ê‚ğ‚Â‚­‚é

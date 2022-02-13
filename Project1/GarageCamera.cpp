@@ -12,7 +12,7 @@
 #include "GarageCamera.h"
 #include "Input.h"
 
-GarageCamera::GarageCamera() : m_Graphics(*Engine::Get().graphics())
+GarageCamera::GarageCamera() : m_Graphics(*Engine::Get().GetGraphics())
 {
 	m_Position = D3DXVECTOR3(15.2f, 6.5f, 2.3f);
 	m_Target = D3DXVECTOR3(-43.3f, 3.0f, 74.8f);

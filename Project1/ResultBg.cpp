@@ -47,13 +47,13 @@ void GameBg::ResultBg::Draw()
 	{
 		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	}
-	m_Fade->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_State->alpha()));
+	m_Fade->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_State->GetAlpha()));
 }
 
 // Å‰‚ÉŒÄ‚Ño‚·
-void GameBg::ResultBg::Begin(bool winner)
+void GameBg::ResultBg::Begin(bool Winner)
 {
-	m_flag = winner;
+	m_flag = Winner;
 }
 
 ResultState & GameBg::ResultBg::GetState() const
@@ -74,15 +74,15 @@ GameBg::ResultUi::~ResultUi()
 
 void GameBg::ResultUi::Begin()
 {
-	m_Bg = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG);
+	m_Bg = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG);
 }
 
 void GameBg::ResultUi::Update()
 {
-	auto& state = m_Bg->GetState();
-	m_Alpha = state.alpha();
+	auto& State = m_Bg->GetState();
+	m_Alpha = State.GetAlpha();
 	//	‘I‘ð‚µ‚Ä‚¢‚éˆÊ’u‚ÉˆÚ“®‚µ‚Ä•`‰æ
-	switch (state.select())
+	switch (State.GetSelect())
 	{
 	case 0:
 		m_Draw_y = 410.0f;
@@ -105,11 +105,11 @@ void GameBg::ResultUi::Draw()
 	// •Ï”
 	float x = 1920.0f * 0.5f;
 	D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
-	D3DXVECTOR2 texMin = D3DXVECTOR2(0.0f, 0.375f);
-	D3DXVECTOR2 texMax = D3DXVECTOR2(0.25f, 0.5f);
+	D3DXVECTOR2 TexMin = D3DXVECTOR2(0.0f, 0.375f);
+	D3DXVECTOR2 TexMax = D3DXVECTOR2(0.25f, 0.5f);
 	D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha);
 
-	m_Marker->Draw(D3DXVECTOR2(x, m_Draw_y), size, texMin, texMax, color);
+	m_Marker->Draw(D3DXVECTOR2(x, m_Draw_y), size, TexMin, TexMax, color);
 
 	// ”wŒi‚ªˆÃ‚­‚È‚Á‚½‚çA•\Ž¦‚·‚é
 	if (m_Alpha >= 0.7f)

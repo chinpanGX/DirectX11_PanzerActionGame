@@ -7,6 +7,7 @@
 #pragma once
 #include "StageObject.h"
 
+class GameCamera;
 class Player;
 class Rock final : public StageObject
 {
@@ -22,6 +23,7 @@ private:
 	std::string m_DrawModelName;
 	std::string m_ModelName;
 	Player* m_Player;
+	GameCamera* m_Camera;
 	float m_Length;
 };
 

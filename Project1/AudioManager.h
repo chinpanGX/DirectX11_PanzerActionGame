@@ -16,7 +16,7 @@ public:
 	GameAudio();
 	~GameAudio();
 	void Begin()override;
-	void Update(GameManager* manager, Pawn* pawn, int32_t Type)override;
+	void Update(GameManager* Manager, Pawn* Pawn, int32_t Type)override;
 };
 
 // ƒŠƒUƒ‹ƒgBGM
@@ -26,6 +26,6 @@ public:
 	ResultAudio();
 	~ResultAudio();
 	void Begin()override;
-	void Update(GameManager* manager, Pawn* pawn, int32_t Type)override;
+	void Update(GameManager* Manager, Pawn* Pawn, int32_t Type)override;
 	void Begin(bool IsPlayerWin);
 };

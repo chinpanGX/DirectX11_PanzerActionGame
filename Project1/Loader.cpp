@@ -15,7 +15,7 @@
 #pragma comment(lib, "shlwapi.lib")
 
 #pragma region _Model_
-Model::Model(Graphics & graphics) : m_Graphics(graphics), m_VertexBuffer(nullptr), m_IndexBuffer(nullptr)
+Model::Model(Graphics & Graphics) : m_Graphics(Graphics), m_VertexBuffer(nullptr), m_IndexBuffer(nullptr)
 {
 
 }
@@ -63,7 +63,7 @@ void Model::Load(const std::string& name)
 		m_SubsetArray[i].StartIndex = model.SubsetArray[i].StartIndex;
 		m_SubsetArray[i].IndexNum = model.SubsetArray[i].IndexNum;
 		m_SubsetArray[i].Material.Material = model.SubsetArray[i].Material.Material;
-		D3DX11CreateShaderResourceViewFromFile(Engine::Get().graphics()->GetDevice().Get(), model.SubsetArray[i].Material.TextureName,
+		D3DX11CreateShaderResourceViewFromFile(Engine::Get().GetGraphics()->GetDevice().Get(), model.SubsetArray[i].Material.TextureName,
 			NULL, NULL, m_SubsetArray[i].Material.Texture.GetAddressOf(), NULL);
 		assert(m_SubsetArray[i].Material.Texture);
 	}
@@ -438,7 +438,7 @@ void Model::LoadMaterial(const std::string& FileName, ModelMaterial ** MaterialA
 #pragma endregion _ObjÉtÉ@ÉCÉãÇÃì«Ç›çûÇ›_
 
 #pragma region _VertexShader_
-LoadVertexShader::LoadVertexShader(Graphics & graphics) : m_Graphics(graphics), m_VertexShader(nullptr), m_InputLayout(nullptr)
+LoadVertexShader::LoadVertexShader(Graphics & Graphics) : m_Graphics(Graphics), m_VertexShader(nullptr), m_InputLayout(nullptr)
 {
 
 }
@@ -486,7 +486,7 @@ Microsoft::WRL::ComPtr<ID3D11InputLayout> LoadVertexShader::GetInputLayout() con
 #pragma endregion _VertexShaderÇÃì«Ç›çûÇ›_
 
 #pragma region _PixelShader_
-LoadPixelShader::LoadPixelShader(Graphics & graphics) : m_Graphics(graphics), m_PixelShader(nullptr)
+LoadPixelShader::LoadPixelShader(Graphics & Graphics) : m_Graphics(Graphics), m_PixelShader(nullptr)
 {
 }
 

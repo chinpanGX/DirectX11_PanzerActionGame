@@ -26,7 +26,7 @@ std::string PanzerContainer::m_CpuofSelectedPanzer; // 敵が選んだ戦車
 PanzerContainer::PanzerContainer() : m_Choose(0)
 {
 	m_PanzerName = PanzerNameList().Get().panzerList();
-	m_SkillList = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "SkillList");
+	m_SkillList = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "SkillList");
 	m_TexCoord = { 0.0f, 0.166f, 0.332f, 0.5f, 0.66f, 0.832f, 1.0f };
 }
 
@@ -61,12 +61,12 @@ void PanzerContainer::Update()
 	// 登録状態を更新する
 	m_PlayerofSelectedPanzer = m_PanzerName[m_Choose];
 	// パラメータ取得
-	m_Cost = m_Map[m_PanzerName[m_Choose]]->status().cost();
-	m_Hp = m_Map[m_PanzerName[m_Choose]]->status().hp();
-	m_Attack = m_Map[m_PanzerName[m_Choose]]->status().attack();
-	m_Defence = 1.5f * m_Map[m_PanzerName[m_Choose]]->status().defence();
-	m_Speed = 3.0f * m_Map[m_PanzerName[m_Choose]]->status().speed();
-	m_Reload = 300.0f - (20.0f * m_Map[m_PanzerName[m_Choose]]->status().reloadTime());
+	m_Cost = m_Map[m_PanzerName[m_Choose]]->GetStatus().cost();
+	m_Hp = m_Map[m_PanzerName[m_Choose]]->GetStatus().hp();
+	m_Attack = m_Map[m_PanzerName[m_Choose]]->GetStatus().attack();
+	m_Defence = 1.5f * m_Map[m_PanzerName[m_Choose]]->GetStatus().defence();
+	m_Speed = 3.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().speed();
+	m_Reload = 300.0f - (20.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().reloadTime());
 }
 
 void PanzerContainer::Event()

@@ -17,7 +17,7 @@ public:
 		E_OUT
 	};
 	Fade() = delete ;
-	Fade(class Application& app, class Resource& res, class Fps& fps);
+	Fade(class Application& App, class Resource& Res, class Fps& Fps);
 	~Fade();
 	void Begin()override;
 	void Update()override;
@@ -26,9 +26,9 @@ public:
 	bool ChackState(); // ステートがNONEならfalseを返す
 
 	// プロパティのゲッター/セッター
-	void SetNextScene(class Scene* next);
+	void SetNextScene(class Scene* Next);
 	Scene* GetNextScene() const;
-	void SetState(const EState& state);
+	void SetState(const EState& State);
 	EState GetState() const;
 private:
 	static class Scene* m_Next;

@@ -41,12 +41,12 @@ class Audio final
 public:
 	Audio();
 	~Audio();
-	void Load(const std::string& name, bool loop);
-	void Unload(const std::string& name);
+	void Load(const std::string& Name, bool Loop);
+	void Unload(const std::string& Name);
 	void Unload();
-	void Play(const std::string& tag, float volume = 1.0f);
+	void Play(const std::string& Tag, float Volume = 1.0f);
 	void Stop();
-	void SetVolume(const std::string& name, float volume);
+	void SetVolume(const std::string& Name, float volume);
 private:
 	std::unordered_map<std::string, std::unique_ptr<LoadAudio>> m_Map;
 	IXAudio2* m_xAudio2;

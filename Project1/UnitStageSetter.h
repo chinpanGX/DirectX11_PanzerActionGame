@@ -15,18 +15,18 @@ class Scene;
 class StageSetterSkydome final : public ISetterObject
 {
 public:
-	void Set(Scene* scene);
+	void Set(Scene* Scene);
 };
 
 // ’n–Ê
 class StageSetterPlane final : public ISetterObject
 {
 public:
-	void Set(Scene* scene);
+	void Set(Scene* Scene);
 };
 
 class StageSetterGameWorld final : public ISetterObject
 {
 public:
-	void Set(Scene* scene);
+	void Set(Scene* Scene);
 };

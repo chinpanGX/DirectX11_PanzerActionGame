@@ -22,7 +22,7 @@ namespace
 	int g_Height[g_LineNum][g_LastBlock];
 }
 
-Plane::Plane() : m_Graphics(*Engine::Get().graphics())
+Plane::Plane() : m_Graphics(*Engine::Get().GetGraphics())
 {
 	// í∏ì_èÓïÒÇÃê›íË
 	for (int x = 0; x <= g_BlockNum; x++)
@@ -91,7 +91,7 @@ Plane::Plane() : m_Graphics(*Engine::Get().graphics())
 
 	// TransformÇÃí«â¡
 	m_Transform = AddComponent<Transform>();
-	m_Transform->scale(1000.0f);
+	m_Transform->SetScale(1000.0f);
 }
 
 Plane::~Plane()
@@ -115,9 +115,9 @@ void Plane::Event()
 
 void Plane::Draw()
 {
-	resource().SetShader("NoLighting");
+	GetResource().SetShader("NoLighting");
 	
-	resource().SetTexture(0, "Grass");
+	GetResource().SetTexture(0, "Grass");
 	
 	UINT stride = sizeof(Vertex3D);
 	UINT offset = 0;
@@ -142,7 +142,7 @@ void Plane::Draw()
 	m_Graphics.GetDeviceContext()->DrawIndexed(g_IndexNum, 0, 0);
 }
 
-GameWorld::GameWorld() : m_Graphics(*Engine::Get().graphics())
+GameWorld::GameWorld() : m_Graphics(*Engine::Get().GetGraphics())
 {
 	// í∏ì_èÓïÒÇÃê›íË
 	for (int x = 0; x <= g_BlockNum; x++)
@@ -211,7 +211,7 @@ GameWorld::GameWorld() : m_Graphics(*Engine::Get().graphics())
 
 	// TransformÇÃí«â¡
 	m_Transform = AddComponent<Transform>();
-	m_Transform->scale(1000.0f);
+	m_Transform->SetScale(1000.0f);
 }
 
 GameWorld::~GameWorld()
@@ -232,9 +232,9 @@ void GameWorld::Event()
 
 void GameWorld::Draw()
 {
-	resource().SetShader("NoLighting");
+	GetResource().SetShader("NoLighting");
 
-	resource().SetTexture(0, "Grass");
+	GetResource().SetTexture(0, "Grass");
 
 	UINT stride = sizeof(Vertex3D);
 	UINT offset = 0;

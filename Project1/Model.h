@@ -15,7 +15,7 @@ namespace Prefabs
 	{
 	public:
 		ModelPool() = delete;
-		ModelPool(class Graphics& graphics);
+		ModelPool(class Graphics& Graphics);
 		~ModelPool();
 		void Draw(const std::string& Tag);
 		void Load(const std::string& Tag, const std::string& FileName);

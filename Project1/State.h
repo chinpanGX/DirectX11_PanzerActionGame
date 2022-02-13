@@ -46,6 +46,6 @@ class BulletState : public StateBase
 public:
 	inline BulletState() : StateBase(256) {}
 	inline virtual ~BulletState() {}
-	virtual void Update(class Bullet* Bullet, float deltaTime) = 0;
+	virtual void Update(class Bullet* Bullet, float DeltaTime) = 0;
 };
 

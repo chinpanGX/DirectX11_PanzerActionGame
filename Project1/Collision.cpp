@@ -71,8 +71,8 @@ AABB3::~AABB3() {}
 void AABB3::SystemDraw()
 {
 #if 0
-	auto& graphics = Engine::Get().graphics();
-	auto& resource = Engine::Get().resource();
+	auto& Graphics = Engine::Get().GetGraphics();
+	auto& resource = Engine::Get().GetResource();
 	resource->SetShader("NoLighting");
 	
 	m_Min = GetMin();
@@ -147,7 +147,7 @@ void AABB3::SystemDraw()
 	sd.pSysMem = v;
 	sd.SysMemPitch = 0;
 	sd.SysMemSlicePitch = 0;
-	graphics->GetDevice()->CreateBuffer(&bd, &sd, &pVB);
+	Graphics->GetDevice()->CreateBuffer(&bd, &sd, &pVB);
 	
 	D3D11_BUFFER_DESC bd2;
 	ZeroMemory(&bd2, sizeof(bd2));
@@ -164,24 +164,24 @@ void AABB3::SystemDraw()
 	sd2.SysMemPitch = 0;
 	sd2.SysMemSlicePitch = 0;
 	
-	graphics->GetDevice()->CreateBuffer(&bd2, &sd2, &pIB);
+	Graphics->GetDevice()->CreateBuffer(&bd2, &sd2, &pIB);
 	
 	D3DXMATRIX world;
 	D3DXMatrixIsIdentity(&world);
-	graphics->SetWorldMatrix(world);
+	Graphics->SetWorldMatrix(world);
 	
 	UINT stride = sizeof(Debug::LineVertex);
 	UINT offset = 0;
-	graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, &pVB, &stride, &offset);
+	Graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, &pVB, &stride, &offset);
 	
 	// インデックスバッファ設定
-	graphics->GetDeviceContext()->IASetIndexBuffer(pIB, DXGI_FORMAT_R32_UINT, 0);
+	Graphics->GetDeviceContext()->IASetIndexBuffer(pIB, DXGI_FORMAT_R32_UINT, 0);
 	
 	// プリミティブトポロジ設定
-	graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	Graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 	
 	// ポリゴン描画
-	graphics->GetDeviceContext()->DrawIndexed(24, 0, 0);	
+	Graphics->GetDeviceContext()->DrawIndexed(24, 0, 0);	
 	
 	SAFE_RELEASE(pVB);
 	SAFE_RELEASE(pIB);
@@ -248,7 +248,7 @@ void AABB3::UpdateMinMax(const D3DXVECTOR3 & Point)
 OBB3::OBB3(const Transform & t, const D3DXVECTOR3 & Size)
 {
 	auto transform = t;
-	m_Position = transform.position();
+	m_Position = transform.GetPosition();
 	// 0,1,2 = x,y,z
 	m_Direction[Vector::right] = transform.right();
 	m_Direction[Vector::up] = transform.up();
@@ -276,8 +276,8 @@ void OBB3::Update(const D3DXVECTOR3& Position, const Transform & t)
 void OBB3::SystemDraw()
 {
 #if 1
-	auto& graphics = Engine::Get().graphics();
-	auto& resource = Engine::Get().resource();
+	auto& Graphics = Engine::Get().GetGraphics();
+	auto& resource = Engine::Get().GetResource();
 	resource->SetShader("NoLighting");
 
 	// 端の点を求める
@@ -359,7 +359,7 @@ void OBB3::SystemDraw()
 	sd.pSysMem = v;
 	sd.SysMemPitch = 0;
 	sd.SysMemSlicePitch = 0;
-	graphics->GetDevice()->CreateBuffer(&bd, &sd, &pVB);
+	Graphics->GetDevice()->CreateBuffer(&bd, &sd, &pVB);
 
 	D3D11_BUFFER_DESC bd2;
 	ZeroMemory(&bd2, sizeof(bd2));
@@ -376,32 +376,32 @@ void OBB3::SystemDraw()
 	sd2.SysMemPitch = 0;
 	sd2.SysMemSlicePitch = 0;
 
-	graphics->GetDevice()->CreateBuffer(&bd2, &sd2, &pIB);
+	Graphics->GetDevice()->CreateBuffer(&bd2, &sd2, &pIB);
 
 	D3DXMATRIX world;
 
 	D3DXMatrixIdentity(&world);
-	graphics->SetWorldMatrix(world);
+	Graphics->SetWorldMatrix(world);
 
 	UINT stride = sizeof(Debug::LineVertex);
 	UINT offset = 0;
-	graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, &pVB, &stride, &offset);
+	Graphics->GetDeviceContext()->IASetVertexBuffers(0, 1, &pVB, &stride, &offset);
 
 	// インデックスバッファ設定
-	graphics->GetDeviceContext()->IASetIndexBuffer(pIB, DXGI_FORMAT_R32_UINT, 0);
+	Graphics->GetDeviceContext()->IASetIndexBuffer(pIB, DXGI_FORMAT_R32_UINT, 0);
 
 	// プリミティブトポロジ設定
-	graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+	Graphics->GetDeviceContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
 
 	// ポリゴン描画
-	graphics->GetDeviceContext()->DrawIndexed(24, 0, 0);
+	Graphics->GetDeviceContext()->DrawIndexed(24, 0, 0);
 
 	SAFE_RELEASE(pVB);
 	SAFE_RELEASE(pIB);
 #endif
 }
 
-const D3DXVECTOR3 & OBB3::position() const
+const D3DXVECTOR3 & OBB3::GetPosition() const
 {
 	return m_Position;
 }
@@ -473,7 +473,7 @@ bool Intersect(const AABB3 & a, const AABB3 & b)
 
 bool Intersect(const Sphere3 & s, const OBB3 & b)
 {
-	D3DXVECTOR3 dist = b.position() - s.GetCenter();
+	D3DXVECTOR3 dist = b.GetPosition() - s.GetCenter();
 	float dot = D3DXVec3Dot(&dist, &dist);
 	if (dot <= s.GetRadius() * s.GetRadius())
 	{
@@ -520,7 +520,7 @@ bool Intersect(const OBB3 & a, const OBB3 & b)
 	D3DXVECTOR3 Nbe3 = obj_b.direction(OBB3::Vector::forward);
 	D3DXVECTOR3 be3 = Nae3 * obj_b.length(OBB3::Vector::forward);
 
-	D3DXVECTOR3 Interval = obj_a.position() - obj_b.position();
+	D3DXVECTOR3 Interval = obj_a.GetPosition() - obj_b.GetPosition();
 
 	// 分離軸 : ae1
 	float rA = D3DXVec3Length(&ae1);

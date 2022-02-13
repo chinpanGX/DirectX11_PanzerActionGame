@@ -31,7 +31,7 @@
 #include "Player.h"
 #include "PlayerUi.h"
 
-Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
+Player::Player() : Pawn(Factory::FVehicle::EType::E_PLAYER), m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
 {
 	Pawn::Create();
 }
@@ -43,7 +43,7 @@ Player::~Player()
 
 void Player::Begin()
 {
-	auto scene = Engine::Get().application()->GetScene();
+	auto scene = Engine::Get().GetApplication()->GetScene();
 	m_EnemyList = scene->GetGameObjects<Enemy>(ELayer::LAYER_3D_ACTOR);
 	m_SupplyList = scene->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
 	m_Command = scene->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
@@ -74,17 +74,17 @@ void Player::Event()
 		{
 			// ダメージ計算
 			float attackpt = 0.0f; // 与えるダメージ
-			auto bulletList = Engine::Get().application()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
+			auto bulletList = Engine::Get().GetApplication()->GetScene()->GetGameObjects<Bullet>(ELayer::LAYER_3D_ACTOR);
 			for (auto bullet : bulletList)
 			{
 				// 乱数生成(75 ～ 120)の補正をする
 				int rand = myLib::Random::Rand_R(70, 120);
-				attackpt = (e->vehicle().status().attack()) + rand * bullet->distdecay() - vehicle().status().defence();			
+				attackpt = (e->GetVehicle().GetStatus().attack()) + rand * bullet->distdecay() - GetVehicle().GetStatus().defence();			
 				// MAX状態のHPを取得する
-				float maxHp = vehicle().status().maxHp();
+				float maxHp = GetVehicle().GetStatus().maxHp();
 				// 現在のHPから減算
-				float nowHp = vehicle().status().hp() - attackpt;
-				vehicle().status().hp(nowHp);
+				float nowHp = GetVehicle().GetStatus().hp() - attackpt;
+				GetVehicle().GetStatus().hp(nowHp);
 			}
 			ResetCollisionEnter();
 		}
@@ -94,23 +94,24 @@ void Player::Event()
 
 void Player::Draw()
 {
-	if (m_Camera->NotDrawObject(pivot().transform().position(), vehicle().collider(0).GetSphere3().GetRadius())) { return; }
+	// 描画できるか
+	if (m_Camera->NotDrawObject(GetPivot().GetTransform().GetPosition(), GetVehicle().GetCollider(0).GetSphere3().GetRadius())) { return; }
 	
 	// シェーダーの設定
 	m_Resource.SetVertexShader("PixelLighting");
 	m_Resource.SetInputLayout("PixelLighting");
 	// スキルを使っているか
-	if (vehicle().skill().useSkillNow())
+	if (GetVehicle().GetSkill().useSkillNow())
 	{
 		// スキルを使っているときの設定
 		m_Resource.SetPixelShader("ToonAnim");
 		m_Resource.SetTexture(1, "ToonAnim");
-		D3DXVECTOR4 uv = vehicle().skill().uv();
+		D3DXVECTOR4 uv = GetVehicle().GetSkill().uv();
 		m_Graphics.SetParameter(uv);
 		
 	}
 	// 補給中
-	else if(m_Command->nowReplenishBullet())
+	else if(m_Command->NowReplenishBullet())
 	{
 		m_Resource.SetPixelShader("ToonAnim");
 		m_Resource.SetTexture(1, "ToonAnim");
@@ -125,14 +126,14 @@ void Player::Draw()
 	}
 
 	// 描画
-	vehicle().Draw();
+	GetVehicle().Draw();
 }
 
-void Player::Respawn(const D3DXVECTOR3& pos)
+void Player::ResPawn(const D3DXVECTOR3& pos)
 {
 	m_DrawSkill->Reset();
-	vehicle().skill().Reset(vehicle().status());
-	vehicle().status().Reset();
+	GetVehicle().GetSkill().Reset(GetVehicle().GetStatus());
+	GetVehicle().GetStatus().Reset();
 	m_AmountBullets = m_AmountBuuletsMax;
 	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_Camera->Update();
@@ -140,10 +141,10 @@ void Player::Respawn(const D3DXVECTOR3& pos)
 
 void Player::UseSkill()
 {
-	if (vehicle().skill().alreadyUseble() == false) { return; }
+	if (GetVehicle().GetSkill().alreadyUseble() == false) { return; }
 	// スキルを使う
-	vehicle().skill().Enable(this);	
-	vehicle().skill().PlayEffect(this);
+	GetVehicle().GetSkill().Enable(this);	
+	GetVehicle().GetSkill().PlayEffect(this);
 	m_Resource.AudioPlay("Skill");
 }
 
@@ -158,9 +159,9 @@ void Player::Shot()
 	m_AmountBullets--;
 
 	// 射撃
-	vehicle().Shot(pivot().transform());
+	GetVehicle().Shot(GetPivot().GetTransform());
 	// オーディオ
-	Engine::Get().resource()->AudioPlay("Shot");
+	Engine::Get().GetResource()->AudioPlay("Shot");
 	
 	// リロード開始
 	m_PlayerReload->Begin();
@@ -188,7 +189,7 @@ void Player::ReplenishBullets()
 }
 
 
-bool Player::isBulletsUpperLimit()
+bool Player::GetIsBulletsUpperLimit()
 {
 	// 弾の数が上限かどうか
 	if (m_AmountBullets >= m_AmountBuuletsMax)
@@ -198,22 +199,22 @@ bool Player::isBulletsUpperLimit()
 	return false; // 上限ではない⇒補給できる
 }
 
-bool Player::enterSupplyPoint()
+bool Player::GetEnterSupplyPoint()
 {
 	return m_EnteringSulpplyPoint;
 }
 
-int32_t Player::amountBullets() const
+int32_t Player::GetAmountBullets() const
 {
 	return m_AmountBullets;
 }
 
-PlayerReload & Player::reload() const
+PlayerReload & Player::GetReload() const
 {
 	return *m_PlayerReload;
 }
 
-void Player::CalcuateDamege(Enemy * e)
+void Player::CalcuateDamege(Enemy * Enemy)
 {
 }
 
@@ -223,12 +224,12 @@ void Player::OnCollision()
 	for(auto enemy : m_EnemyList)
 	if (enemy)
 	{
-		if (Intersect(vehicle().collider(0).GetSphere3(), enemy->vehicle().collider(0).GetSphere3()))
+		if (Intersect(GetVehicle().GetCollider(0).GetSphere3(), enemy->GetVehicle().GetCollider(0).GetSphere3()))
 		{
-			if (Intersect(vehicle().collider(0).GetOBB3(), enemy->vehicle().collider(0).GetOBB3()))
+			if (Intersect(GetVehicle().GetCollider(0).GetOBB3(), enemy->GetVehicle().GetCollider(0).GetOBB3()))
 			{
-				D3DXVECTOR3 reflection = moveComponent().velocity() * -1 * 2.0f;
-				vehicle().bodyTransform().position() += reflection;
+				D3DXVECTOR3 reflection = GetMoveComponent().velocity() * -1 * 2.0f;
+				GetVehicle().GetBodyTransform().GetPosition() += reflection;
 			}
 		}
 	}
@@ -236,17 +237,17 @@ void Player::OnCollision()
 	// 補給地点との当たり判定
 	for (auto supply : m_SupplyList)
 	{
-		if (Intersect(vehicle().collider(0).GetSphere3(), supply->collider().GetSphere3()))
+		if (Intersect(GetVehicle().GetCollider(0).GetSphere3(), supply->GetCollider().GetSphere3()))
 		{
 			// ここで通知する
 			m_EnteringSulpplyPoint = true;
 			
-			if (Intersect(vehicle().collider(0).GetOBB3(), supply->collider().GetOBB3()))
+			if (Intersect(GetVehicle().GetCollider(0).GetOBB3(), supply->GetCollider().GetOBB3()))
 			{
-				D3DXVECTOR3 hitPosition = vehicle().bodyTransform().position() + moveComponent().velocity();
+				D3DXVECTOR3 hitPosition = GetVehicle().GetBodyTransform().GetPosition() + GetMoveComponent().velocity();
 
-				D3DXVECTOR3 reflection = moveComponent().velocity() * -1 * 2.0f;
-				vehicle().bodyTransform().position() = hitPosition + reflection;
+				D3DXVECTOR3 reflection = GetMoveComponent().velocity() * -1 * 2.0f;
+				GetVehicle().GetBodyTransform().GetPosition() = hitPosition + reflection;
 			}
 
 			// ループを抜ける

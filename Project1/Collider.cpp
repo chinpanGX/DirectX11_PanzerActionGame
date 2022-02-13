@@ -59,7 +59,7 @@ void Collider::SystemDraw()
 void Collider::SetSphere3(const Transform & t, const float & Radius)
 {
 	auto transform = t;
-	m_sphere = std::make_unique<Sphere3>(transform.position(), Radius);
+	m_sphere = std::make_unique<Sphere3>(transform.GetPosition(), Radius);
 }
 
 const Sphere3 & Collider::GetSphere3() const
@@ -74,7 +74,7 @@ const Sphere3 & Collider::GetSphere3() const
 void Collider::SetAABB3(const Transform& t, const D3DXVECTOR3 & Size)
 {
 	auto transform = t;
-	m_aabb = std::make_unique<AABB3>(transform.position(), Size);
+	m_aabb = std::make_unique<AABB3>(transform.GetPosition(), Size);
 }
 
 const AABB3& Collider::GetAABB3() const

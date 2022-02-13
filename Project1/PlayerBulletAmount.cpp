@@ -28,12 +28,12 @@ PlayerBulletAmount::~PlayerBulletAmount()
 {
 }
 
-void PlayerBulletAmount::Draw(int value)
+void PlayerBulletAmount::Draw(int Value)
 {
 	for (int32_t i = 0; i < Getdigit(); ++i)
 	{
-		int num = value % 10;
-		value /= 10;
+		int num = Value % 10;
+		Value /= 10;
 		NumberDraw(D3DXVECTOR2(g_PivotDrawPosition.x - 75.0f + ((GetSize() - 20.0f) * (Getdigit() - (i + 1))), g_PivotDrawPosition.y), num);
 	}
 }
@@ -46,17 +46,17 @@ PlayerBulletAmountMax::~PlayerBulletAmountMax()
 {
 }
 
-void PlayerBulletAmountMax::Draw(int value)
+void PlayerBulletAmountMax::Draw(int Value)
 {
 	for (int32_t i = 0; i < Getdigit(); ++i)
 	{
-		int num = value % 10;
-		value /= 10;
+		int num = Value % 10;
+		Value /= 10;
 		NumberDraw(D3DXVECTOR2(g_PivotDrawPosition.x + 35.0f + ((GetSize() - 20.0f) * (Getdigit() - (i + 1))), g_PivotDrawPosition.y), num);
 	}
 }
 
-DrawSlash::DrawSlash() : m_Graphics(*Engine::Get().graphics()), m_Resource(*Engine::Get().resource())
+DrawSlash::DrawSlash() : m_Graphics(*Engine::Get().GetGraphics()), m_Resource(*Engine::Get().GetResource())
 {
 	// マトリクスの計算を使って、スラッシュを作る
 	float x = 5.0f;
@@ -142,14 +142,14 @@ PlayerUi::BulletAmount::~BulletAmount()
 
 void PlayerUi::BulletAmount::Begin()
 {
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 	// 最初に最大数をもらっておく
-	m_BulletValueMax = m_Player->amountBullets();
+	m_BulletValueMax = m_Player->GetAmountBullets();
 }
 
 void PlayerUi::BulletAmount::Update()
 {
-	m_BulletsValue = m_Player->amountBullets();
+	m_BulletsValue = m_Player->GetAmountBullets();
 }
 
 void PlayerUi::BulletAmount::Event()

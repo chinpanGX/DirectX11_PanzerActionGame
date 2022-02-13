@@ -25,7 +25,7 @@ namespace Factory
 		FVehicle();
 		~FVehicle();
 		std::unique_ptr<class Vehicle> Create(int32_t Type);
-		std::unique_ptr<class Vehicle> Create(const std::string& name);		
+		std::unique_ptr<class Vehicle> Create(const std::string& Name);		
 
 	private:
 		// íÔ‚Ì–¼‘O‚ÌƒŠƒXƒg
@@ -43,7 +43,7 @@ namespace Factory
 	class FPivot final
 	{
 	public:
-		std::unique_ptr<class Pivot> Create(class Vehicle& vehicle);
+		std::unique_ptr<class Pivot> Create(class Vehicle& Vehicle);
 	};
 
 	// ‰e

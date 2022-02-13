@@ -71,7 +71,7 @@ public:
 	~OBB3();
 	void Update(const D3DXVECTOR3& Position, const Transform& t);
 	void SystemDraw();
-	const D3DXVECTOR3& position()const;
+	const D3DXVECTOR3& GetPosition()const;
 	const D3DXVECTOR3& direction(Vector vector)const;
 	const float length(Vector vector)const;
 private:

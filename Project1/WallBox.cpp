@@ -25,7 +25,7 @@ WallBox::~WallBox()
 
 void WallBox::Begin()
 {
-	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	m_Camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 }
 
 void WallBox::Update()
@@ -39,37 +39,37 @@ void WallBox::Event()
 
 void WallBox::Draw()
 {
-	if (m_Camera->NotDrawObject(m_Transform->position(), StageObject::radius()))
+	if (m_Camera->NotDrawObject(m_Transform->GetPosition(), StageObject::GetRadius()))
 	{
 		return;
 	}
 
-	resource().SetShader("Default");
+	GetResource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	resource().SetStaticModel("WallFence");
+	GetResource().SetStaticModel("WallFence");
 }
 
 void WallBox::Set(const D3DXVECTOR3 & Pos, const D3DXVECTOR3 & Size, int Normal)
 {
 	m_Transform->Set(Pos, Size);
-	m_Collider->SetOBB3(*m_Transform, m_Transform->scale());
-	m_Collider->SetAABB3(*m_Transform, m_Transform->scale());
+	m_Collider->SetOBB3(*m_Transform, m_Transform->GetScale());
+	m_Collider->SetAABB3(*m_Transform, m_Transform->GetScale());
 	
 	// •`‰æ”¼Œa
-	StageObject::radius(D3DXVec3Length(&Size));
+	StageObject::SetRadius(D3DXVec3Length(&Size));
 
 	// ‚ß‚è‚İ–h~‚Ì•½–Ê‚ğì‚é
 	CreatePlane(Normal);
 }
 
-D3DXVECTOR3 WallBox::OffsetLength(const OBB3 & obj)
+D3DXVECTOR3 WallBox::OffsetLength(const OBB3 & Obj)
 {
 	// ‚ß‚è‚ñ‚¾‹——£
  	float length = 0.0f;
 
 	float r = 0.0f; //@‹ßÚ‹——£
-	OBB3 target = obj;
-	auto pos = target.position();
+	OBB3 target = Obj;
+	auto pos = target.GetPosition();
 
 	// x
 	D3DXVECTOR3 direct = target.direction(OBB3::Vector::right);
@@ -109,8 +109,8 @@ D3DXVECTOR3 WallBox::OffsetLength(const OBB3 & obj)
 
 void WallBox::CreatePlane(int Normal)
 {
-	D3DXVECTOR3 pos = m_Transform->position();
-	D3DXVECTOR3 size = m_Transform->scale();
+	D3DXVECTOR3 pos = m_Transform->GetPosition();
+	D3DXVECTOR3 size = m_Transform->GetScale();
 
 	// –@ü‚ÌŒü‚«‚Æ•½–Ê‚ÌˆÊ’u‚ğŒˆ‚ß‚é
 	switch (Normal)

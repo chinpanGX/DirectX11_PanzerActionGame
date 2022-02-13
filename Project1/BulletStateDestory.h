@@ -13,6 +13,6 @@ class BulletStateDestory final : public BulletState
 {
 public:
 	~BulletStateDestory();
-	void Update(class Bullet* Bullet, float deltaTime)override;
+	void Update(class Bullet* Bullet, float DeltaTime)override;
 };
 

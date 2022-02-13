@@ -14,7 +14,7 @@ class BulletStateMove final : public BulletState
 public:
 	BulletStateMove();
 	~BulletStateMove();
-	void Update(Bullet* Bullet, float deltaTime)override;
+	void Update(Bullet* Bullet, float DeltaTime)override;
 private:
 	void Destory(Bullet* Bullet);
 };

@@ -12,41 +12,41 @@
 #include <vector>
 
 // リスポーン
-class Respawn final : public IManager
+class ResPawn final : public IManager
 {
 public:
-	Respawn();
-	~Respawn();
+	ResPawn();
+	~ResPawn();
 	void Begin()override;
-	void Update(GameManager* manager, Pawn* pawn, int32_t Type)override;
-	const bool GetRespawn() const;
+	void Update(GameManager* Manager, Pawn* Pawn, int32_t Type)override;
+	const bool GetResPawn() const;
 private:
-	std::vector<std::unique_ptr<class ISpawn>> m_Spawn;
-	bool m_IsRespawn = false; // trueでリスポーンする
+	std::vector<std::unique_ptr<class ISPawn>> m_SPawn;
+	bool m_IsResPawn = false; // trueでリスポーンする
 };
 
-class ISpawn
+class ISPawn
 {
 public:
-	ISpawn() {}
-	virtual ~ISpawn() {}
-	virtual void SetSpawn() = 0;
+	ISPawn() {}
+	virtual ~ISPawn() {}
+	virtual void SetSPawn() = 0;
 };
 
 // プレイヤーのスポーン
-class PlayerSpawn final : public ISpawn
+class PlayerSPawn final : public ISPawn
 {
 public:
-	PlayerSpawn();
-	~PlayerSpawn();
-	void SetSpawn()override;
+	PlayerSPawn();
+	~PlayerSPawn();
+	void SetSPawn()override;
 };
 
 // エネミーのスポーン
-class EnemySpawn final : public ISpawn
+class EnemySPawn final : public ISPawn
 {
 public:
-	EnemySpawn();
-	~EnemySpawn();
-	 void SetSpawn()override;
+	EnemySPawn();
+	~EnemySPawn();
+	 void SetSPawn()override;
 };

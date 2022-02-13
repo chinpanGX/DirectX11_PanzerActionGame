@@ -41,12 +41,12 @@ void Pawn::Begin()
 void Pawn::Update()
 {
 	m_Vehicle->Update();
-	m_MoveComponent->Update(m_Vehicle->bodyTransform());
+	m_MoveComponent->Update(m_Vehicle->GetBodyTransform());
 
-	auto colliderPosition = m_Vehicle->bodyTransform().position();
-	colliderPosition.y = m_Vehicle->bodyTransform().position().y + 1.0f;
-	m_Vehicle->ColiisionUpdate(0, colliderPosition, m_Vehicle->bodyTransform());
-	m_Vehicle->ColiisionUpdate(1, m_Pivot->transform().position(), m_Pivot->transform());
+	auto ColliderPosition = m_Vehicle->GetBodyTransform().GetPosition();
+	ColliderPosition.y = m_Vehicle->GetBodyTransform().GetPosition().y + 1.0f;
+	m_Vehicle->ColiisionUpdate(0, ColliderPosition, m_Vehicle->GetBodyTransform());
+	m_Vehicle->ColiisionUpdate(1, m_Pivot->GetTransform().GetPosition(), m_Pivot->GetTransform());
 }
 
 void Pawn::Event()
@@ -58,7 +58,7 @@ void Pawn::Draw()
 	
 }
 
-Vehicle & Pawn::vehicle() const
+Vehicle & Pawn::GetVehicle() const
 {
 	if (!m_Vehicle)
 	{
@@ -67,7 +67,7 @@ Vehicle & Pawn::vehicle() const
 	return *m_Vehicle;
 }
 
-Pivot & Pawn::pivot() const
+Pivot & Pawn::GetPivot() const
 {
 	if (!m_Pivot)
 	{
@@ -76,7 +76,7 @@ Pivot & Pawn::pivot() const
 	return *m_Pivot;
 }
 
-MoveComponent & Pawn::moveComponent() const
+MoveComponent & Pawn::GetMoveComponent() const
 {
 	if (!m_MoveComponent)
 	{
@@ -85,19 +85,19 @@ MoveComponent & Pawn::moveComponent() const
 	return *m_MoveComponent;
 }
 
-void Pawn::CheckZeroHp(Pawn* pawn)
+void Pawn::CheckZeroHp(Pawn* Pawn)
 {
 	// 0以下になったら、ゲームマネージャーに知らせる
-	if (m_Vehicle->status().hp() <= 0.0f)
+	if (m_Vehicle->GetStatus().hp() <= 0.0f)
 	{
-		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(pawn, m_Type);
+		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(Pawn, m_Type);
 	}
 }
 
-void Pawn::SetStartPosition(Pawn * pawn, const D3DXVECTOR3& pos, const D3DXVECTOR3& rot)
+void Pawn::SetStartPosition(Pawn * Pawn, const D3DXVECTOR3& Pos, const D3DXVECTOR3& Rot)
 {
-	m_Vehicle->SetStartPosition(pawn, pos, rot);
-	m_Pivot->SetStartPosition(pos, rot);
+	m_Vehicle->SetStartPosition(Pawn, Pos, Rot);
+	m_Pivot->SetStartPosition(Pos, Rot);
 }
 
 void Pawn::Create()
@@ -109,20 +109,20 @@ void Pawn::Create()
 	Factory::FPivot fPivot;
 	m_Pivot = fPivot.Create(*m_Vehicle);
 	// 移動用コンポーネント
-	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->status());	
+	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle->GetStatus());	
 }
 
-void Pawn::BeginOverlap(Pawn* pPawn)
+void Pawn::BeginOverlap(Pawn* Pawn)
 {
 	// 壁との当たり判定
-	auto wallFence = Engine::Get().application()->GetScene()->GetGameObjects<WallBox>(ELayer::LAYER_3D_STAGE);
+	auto wallFence = Engine::Get().GetApplication()->GetScene()->GetGameObjects<WallBox>(ELayer::LAYER_3D_STAGE);
 	for (auto w : wallFence)
 	{
-		if (Intersect(pPawn->vehicle().collider(0).GetOBB3(), w->collider().GetOBB3()))
+		if (Intersect(Pawn->GetVehicle().GetCollider(0).GetOBB3(), w->GetCollider().GetOBB3()))
 		{
-			D3DXVECTOR3 normal = w->OffsetLength(pPawn->vehicle().collider(0).GetOBB3()) * 2.0f;
-			D3DXVECTOR3 scratch = normal - pPawn->moveComponent().velocity();
-			pPawn->vehicle().bodyTransform().position() += scratch * Fps::Get().deltaTime;
+			D3DXVECTOR3 normal = w->OffsetLength(Pawn->GetVehicle().GetCollider(0).GetOBB3()) * 2.0f;
+			D3DXVECTOR3 scratch = normal - Pawn->GetMoveComponent().velocity();
+			Pawn->GetVehicle().GetBodyTransform().GetPosition() += scratch * Fps::Get().deltaTime;
 		}		
 	}
 }

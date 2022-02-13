@@ -32,4 +32,5 @@ private:
 	class GameBg::PanzerSelectUi* m_Ui;
 	bool m_Select = true; // trueで戦車選択、falseでゲーム選択
 	bool m_Mode;
+	bool m_Enter;
 };

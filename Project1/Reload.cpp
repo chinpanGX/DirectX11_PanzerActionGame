@@ -46,9 +46,9 @@ PlayerReload::~PlayerReload()
 void PlayerReload::Init()
 {
 	// オブジェクトの取得
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	m_Reload = Engine::Get().application()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
-	m_Command = Engine::Get().application()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
+	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Reload = Engine::Get().GetApplication()->GetScene()->GetGameObject<PlayerUi::Reload>(ELayer::LAYER_2D_UI);
+	m_Command = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 }
 
 void PlayerReload::Begin()
@@ -57,8 +57,8 @@ void PlayerReload::Begin()
 	Reload::BeginReload();
 	m_NowReloadTime = 0.0f;
 	// 今スキルを使っているかどうか
-	m_UseSkill = m_Player->vehicle().skill().useSkillNow();
-	m_FinishReloadTime = m_Player->vehicle().status().reloadTime() * 60.0f;
+	m_UseSkill = m_Player->GetVehicle().GetSkill().useSkillNow();
+	m_FinishReloadTime = m_Player->GetVehicle().GetStatus().reloadTime() * 60.0f;
 	m_OnReloadStop = false;
 	m_Time = 0.0f;
 	m_Count = 0;
@@ -73,12 +73,12 @@ void PlayerReload::Update()
 		if (m_UseSkill == false)
 		{
 			// 途中でスキルを使う可能性があるので、更新してみる
-			m_UseSkill = m_Player->vehicle().skill().useSkillNow();
-			m_FinishReloadTime = m_Player->vehicle().status().reloadTime() * 60.0f;
+			m_UseSkill = m_Player->GetVehicle().GetSkill().useSkillNow();
+			m_FinishReloadTime = m_Player->GetVehicle().GetStatus().reloadTime() * 60.0f;
 		}		
 
 		// 時間を計測
-		m_NowReloadTime += m_Player->vehicle().status().addTime();
+		m_NowReloadTime += m_Player->GetVehicle().GetStatus().addTime();
 		
 		// クイックリロードが有効中
 		bool enableQuickReload = m_Reload->enableQuickReload();
@@ -90,7 +90,7 @@ void PlayerReload::Update()
 				// リロードが終了する
 				Reload::FinishReload();
 				m_Reload->SuccessQuickReload();
-				Engine::Get().resource()->AudioPlay("Reload");
+				Engine::Get().GetResource()->AudioPlay("Reload");
 			}
 		}
 		// 有効じゃないとき

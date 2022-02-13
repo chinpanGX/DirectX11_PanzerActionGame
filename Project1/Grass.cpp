@@ -19,7 +19,7 @@ Grass::~Grass()
 
 void Grass::Begin()
 {
-	m_Transform->position(0.0f, 1.0f, 0.0f);
+	m_Transform->SetPosition(0.0f, 1.0f, 0.0f);
 }
 
 void Grass::Update()
@@ -32,7 +32,7 @@ void Grass::Event()
 
 void Grass::Draw()
 {
-	resource().SetShader("Default");
+	GetResource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	resource().SetStaticModel("Grass");
+	GetResource().SetStaticModel("Grass");
 }

@@ -49,7 +49,7 @@ namespace GameBg
 	private:
 		// ï`âÊ
 		void DrawPanzerName();	// êÌé‘ÇÃñºëO
-		void DrawGameRule(D3DXVECTOR2 pos, D3DXVECTOR2 size);	// ÉQÅ[ÉÄê‡ñæ	
+		void DrawGameRule(D3DXVECTOR2 Pos, D3DXVECTOR2 Size);	// ÉQÅ[ÉÄê‡ñæ	
 
 		std::vector<D3DXVECTOR2> m_TexCoord;
 		std::array<std::unique_ptr<Renderer2D>, 3> m_Render;
@@ -71,8 +71,8 @@ namespace GameBg
 		bool SetMode(bool f); 
 	private:		
 		// ï`âÊ
-		void DrawFrame(D3DXVECTOR2 pos, float size_y);	// îwåiògÇÃì_ñ≈
-		void DrawModeName(D3DXVECTOR2 pos, float size_y);	// ÉQÅ[ÉÄÉÇÅ[Éh
+		void DrawFrame(D3DXVECTOR2 Pos, float Size_y);	// îwåiògÇÃì_ñ≈
+		void DrawModeName(D3DXVECTOR2 Pos, float Size_y);	// ÉQÅ[ÉÄÉÇÅ[Éh
 
 		std::unique_ptr<Renderer2D> m_Renderer;
 		SelectCommand* m_Command;

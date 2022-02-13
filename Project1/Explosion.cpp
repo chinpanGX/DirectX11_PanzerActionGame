@@ -17,7 +17,7 @@
 Explosion::Explosion() : Effect()
 {
 	m_Transform = AddComponent<Transform>();
-	m_Transform->scale(10.0f);
+	m_Transform->SetScale(10.0f);
 }
 
 Explosion::~Explosion()
@@ -32,7 +32,7 @@ void Explosion::Begin()
 void Explosion::Update()
 {
 	// ポーズ中かどうか
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
+	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
 
 	Effect::Update();
@@ -57,8 +57,8 @@ void Explosion::Draw()
 	Effect::MapAndUnmap(x, y);
 	
 	// マトリクスの設定
-	auto camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	D3DXMATRIX view = camera->view();
+	auto camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	D3DXMATRIX view = camera->GetView();
 
 	// ビューの逆行列
 	D3DXMATRIX invView;
@@ -69,8 +69,8 @@ void Explosion::Draw()
 
 	// 座標変換
 	D3DXMATRIX world, scale, rot, trans;
-	Math::Matrix::MatrixScaling(&scale, transform().scale());
-	Math::Matrix::MatrixTranslation(&trans, transform().position());
+	Math::Matrix::MatrixScaling(&scale, GetTransform().GetScale());
+	Math::Matrix::MatrixTranslation(&trans, GetTransform().GetPosition());
 	world = scale * invView * trans;
 	m_Graphics.SetWorldMatrix(world);
 

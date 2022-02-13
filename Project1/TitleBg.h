@@ -18,7 +18,7 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void titleSystem(TitleSystem* p);
+	void SetTitleSystem(TitleSystem* Title);
 private:
 	void BeginGenerateOtherBeginScene();
 	void Begin(float x, float y, float vx, float vy, float ax, float ay);
@@ -45,7 +45,7 @@ namespace GameBg
 		void Update()override;
 		void Event()override;
 		void Draw()override;
-		void titleSystem(TitleSystem* p);
+		void SetTitleSystem(TitleSystem* Title);
 	private:
 		std::vector<Particle*> m_ParticleList;
 		TitleSystem* m_TitleSystem = nullptr;

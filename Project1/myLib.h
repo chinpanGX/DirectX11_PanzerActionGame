@@ -63,15 +63,15 @@ namespace Math
 	}
 
 	template <typename T>
-	inline T Clamp(const T& value, const T& lower, const T& upper)
+	inline T Clamp(const T& Value, const T& lower, const T& upper)
 	{
-		return Min(upper, Max(lower, value));
+		return Min(upper, Max(lower, Value));
 	}
 
 
-	inline float Abs(float value)
+	inline float Abs(float Value)
 	{
-		return fabs(value);
+		return fabs(Value);
 	}
 
 	inline float Cos(float angle)
@@ -89,9 +89,9 @@ namespace Math
 		return tanf(angle);
 	}
 
-	inline float Acos(float value)
+	inline float Acos(float Value)
 	{
-		return acosf(value);
+		return acosf(Value);
 	}
 
 	inline float Atan2(float y, float x)
@@ -110,9 +110,9 @@ namespace Math
 		return (1 - f) * a + f* b;
 	}
 
-	inline float Sqrt(float value)
+	inline float Sqrt(float Value)
 	{
-		return sqrtf(value);
+		return sqrtf(Value);
 	}
 
 	inline float Fmod(float numer, float denom)

@@ -22,7 +22,7 @@ ResultCommand::ResultCommand() {}
 ResultCommand::~ResultCommand() {}
 void ResultCommand::Begin()
 {
-	m_Bg = Engine::Get().application()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG);
+	m_Bg = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG);
 }
 
 void ResultCommand::Update()
@@ -40,33 +40,33 @@ void ResultCommand::Event() {}
 void ResultCommand::Draw() {}
 void ResultCommand::InputKeyBoard()
 {
-	auto& state = m_Bg->GetState();
+	auto& State = m_Bg->GetState();
 	// 次のシーンを選択
 	if (KeyBoard::IsTrigger(DIK_W))
 	{
-		Engine::Get().resource()->AudioPlay("Select", 1.0f);
-		state.SelectTop();
+		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		State.SelectTop();
 
 	}
 	else if (KeyBoard::IsTrigger(DIK_S))
 	{
-		Engine::Get().resource()->AudioPlay("Select", 1.0f);
-		state.SelectDown();
+		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		State.SelectDown();
 	}
 	// 決定
 	else if (KeyBoard::IsTrigger(DIK_SPACE))
 	{
 		// 選択したシーンへ遷移
-		switch (state.select())
+		switch (State.GetSelect())
 		{
 		case 0:
-			Engine::Get().application()->SetScene<GameScene::Game>();
+			Engine::Get().GetApplication()->SetScene<GameScene::Game>();
 			break;
 		case 1:
-			Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
+			Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>();
 			break;
 		case 2:
-			Engine::Get().application()->SetScene<GameScene::Title>();
+			Engine::Get().GetApplication()->SetScene<GameScene::Title>();
 			break;
 		}
 	}
@@ -76,34 +76,34 @@ void ResultCommand::InputKeyBoard()
 #if 0
 void ResultCommand::InputGamePad()
 {
-	auto& state = m_Bg->GetState();
+	auto& State = m_Bg->GetState();
 	// 次のシーンを選択
 	if (GamePad::IsTrigger(0, LEFTSTICK_UP) || GamePad::IsTrigger(0, BUTTON_UP))
 	{
-		Engine::Get().resource()->AudioPlay("Select", 1.0f);
-		state.SelectTop();
+		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		State.SelectTop();
 
 	}
 	else if (GamePad::IsTrigger(0, LEFTSTICK_DOWN) || GamePad::IsTrigger(0, BUTTON_DOWN))
 	{
-		Engine::Get().resource()->AudioPlay("Select", 1.0f);
-		state.SelectDown();
+		Engine::Get().GetResource()->AudioPlay("Select", 1.0f);
+		State.SelectDown();
 
 	}
 	// 決定
 	else if (GamePad::IsTrigger(0, BUTTON_2))
 	{
 		// 選択したシーンへ遷移
-		switch (state.select())
+		switch (State.GetSelect())
 		{
 		case 0:
-			Engine::Get().application()->SetScene<GameScene::Game>();
+			Engine::Get().GetApplication()->SetScene<GameScene::Game>();
 			break;
 		case 1:
-			Engine::Get().application()->SetScene<GameScene::PanzerSelect>();
+			Engine::Get().GetApplication()->SetScene<GameScene::PanzerSelect>();
 			break;
 		case 2:
-			Engine::Get().application()->SetScene<GameScene::Title>();
+			Engine::Get().GetApplication()->SetScene<GameScene::Title>();
 			break;
 		}
 	}

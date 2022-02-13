@@ -23,9 +23,9 @@ public:
 	void Run();
 
 	const HWND& GetHwnd() const;
-	const std::shared_ptr<Graphics> graphics() const;
-	const std::shared_ptr<Resource> resource() const;
-	const std::shared_ptr<Application> application() const;
+	const std::shared_ptr<Graphics> GetGraphics() const;
+	const std::shared_ptr<Resource> GetResource() const;
+	const std::shared_ptr<Application> GetApplication() const;
 protected:
 	Engine();
 	~Engine();

@@ -16,7 +16,7 @@ int32_t Particle::m_BeginTypetoGenerateOtherBeginScene = 0;
 
 Particle::Particle()
 {
-	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Effect");
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Effect");
 	m_Transform = AddComponent<Transform>();
 }
 
@@ -28,8 +28,8 @@ void Particle::Begin()
 {	
 	m_Life = myLib::Random::Rand_R(50, 100);
 	//
-	//m_Transform->position().x = 0.0f - 50.0f;
-	//m_Transform->position().y = static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT));
+	//m_Transform->GetPosition().x = 0.0f - 50.0f;
+	//m_Transform->GetPosition().y = static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT));
 	//
 	//m_Velocity.x = 0.0f;
 	//m_Velocity.y = myLib::Random::GetRandomXOR();
@@ -49,7 +49,7 @@ void Particle::Update()
 	if (m_Life > 0)
 	{
 		m_Velocity += m_Acceleration;
-		m_Transform->position() += m_Velocity;
+		m_Transform->GetPosition() += m_Velocity;
 	}
 	else
 	{
@@ -64,28 +64,28 @@ void Particle::Event()
 void Particle::Draw()
 {
 	// â¡éZçáê¨
-	Engine::Get().graphics()->SetBlendStateAdd();
+	Engine::Get().GetGraphics()->SetBlendStateAdd();
 	
-	D3DXVECTOR2 pos = D3DXVECTOR2(m_Transform->position().x, m_Transform->position().y);
+	D3DXVECTOR2 pos = D3DXVECTOR2(m_Transform->GetPosition().x, m_Transform->GetPosition().y);
 	D3DXVECTOR2 t1 = D3DXVECTOR2(0.0f, 0.0f);
 	D3DXVECTOR2 t2 = D3DXVECTOR2(1.0f, 1.0f);
 
 	m_Render->Draw(pos, m_Size, t1, t2, m_Color);
 
-	Engine::Get().graphics()->SetBlendStateDefault();
+	Engine::Get().GetGraphics()->SetBlendStateDefault();
 }
 
-void Particle::titleSystem(TitleSystem * p)
+void Particle::SetTitleSystem(TitleSystem * Title)
 {
-	m_TitleSystem = p;
+	m_TitleSystem = Title;
 }
 
 void Particle::Begin(float x, float y, float vx, float vy, float ax, float ay)
 {
 	m_Life = 50;
 
-	m_Transform->position().x = x;
-	m_Transform->position().y = y;
+	m_Transform->GetPosition().x = x;
+	m_Transform->GetPosition().y = y;
 
 	m_Velocity.x = vx;
 	m_Velocity.y = vy;
@@ -173,8 +173,8 @@ void GameBg::TitleBg::Draw()
 		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.49f, 0.9f));
 	}
 }
-void GameBg::TitleBg::titleSystem(TitleSystem * p)
+void GameBg::TitleBg::SetTitleSystem(TitleSystem * Title)
 {
-	m_TitleSystem = p;
+	m_TitleSystem = Title;
 }
 #pragma endregion TitleBgÉÅÉ\ÉbÉh

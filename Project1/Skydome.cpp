@@ -12,7 +12,7 @@
 #include "Renderer3D.h"
 #include "Skydome.h"
 
-Skydome::Skydome() : m_RotationSpeed(0.05f), m_Graphics(*Engine::Get().graphics())
+Skydome::Skydome() : m_RotationSpeed(0.05f), m_Graphics(*Engine::Get().GetGraphics())
 {
 	m_Transform = AddComponent<Transform>();
 }
@@ -23,15 +23,15 @@ Skydome::~Skydome()
 
 void Skydome::Begin()
 {
-	m_Camera = Engine::Get().application()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
-	m_Transform->position(0.0f, -1.0f, 0.0f);
-	m_Transform->scale(0.3f);
+	m_Camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
+	m_Transform->SetPosition(0.0f, -1.0f, 0.0f);
+	m_Transform->SetScale(0.3f);
 }
 
 void Skydome::Update()
 {
 	// スカイドームを回転させて、動いているように見せる
-	m_Transform->rotation().y += Math::ToRadians(m_RotationSpeed);
+	m_Transform->GetRotation().y += Math::ToRadians(m_RotationSpeed);
 }
 
 void Skydome::Event()
@@ -40,25 +40,25 @@ void Skydome::Event()
 
 void Skydome::Draw()
 {
-	resource().SetShader("NoLighting");
+	GetResource().SetShader("NoLighting");
 	// マトリクスの更新
 	UpdateMatrix();
-	resource().SetStaticModel("Sky");	
+	GetResource().SetStaticModel("Sky");	
 }
 
 #pragma region private_method
 void Skydome::UpdateMatrix()
 {
 	// カメラの位置を取得する
-	D3DXVECTOR3 pos = m_Camera->position();
+	D3DXVECTOR3 pos = m_Camera->GetPosition();
 
 	// 錯覚維持のためにスカイドームがカメラの中心に来るようにする
 	// マトリクス設定
 
 	// 座標変換
 	D3DXMATRIX scale, rot, trans;
-	Math::Matrix::MatrixScaling(&scale, m_Transform->scale());
-	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
+	Math::Matrix::MatrixScaling(&scale, m_Transform->GetScale());
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->GetRotation());
 	Math::Matrix::MatrixTranslation(&trans, pos);
 	D3DXMATRIX world = scale * rot * trans;
 	m_Graphics.SetWorldMatrix(world);

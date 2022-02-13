@@ -28,9 +28,9 @@ DrawTimerMinute::~DrawTimerMinute()
 {
 }
 
-void DrawTimerMinute::Draw(int32_t value)
+void DrawTimerMinute::Draw(int32_t Value)
 {
-	NumberDraw(D3DXVECTOR2(g_PivotPosition.x - 45.0f, g_PivotPosition.y), value);
+	NumberDraw(D3DXVECTOR2(g_PivotPosition.x - 45.0f, g_PivotPosition.y), Value);
 }
 #pragma endregion DrawTimerMinute_メソッド
 
@@ -43,12 +43,12 @@ DrawTimerSecond::~DrawTimerSecond()
 {
 }
 
-void DrawTimerSecond::Draw(int32_t value) 
+void DrawTimerSecond::Draw(int32_t Value) 
 {
 	for (int32_t i = 0; i < Getdigit(); ++i)
 	{
-		int num = value % 10;
-		value /= 10;
+		int num = Value % 10;
+		Value /= 10;
 		NumberDraw(D3DXVECTOR2(g_PivotPosition.x + 15.0f + ((GetSize() - 30.0f) * (Getdigit() - (i + 1))), g_PivotPosition.y), num);
 	}
 }
@@ -77,7 +77,7 @@ void GameBg::Timer::Begin()
 void GameBg::Timer::Update()
 {
 	// ボーズ中なら、タイマーをストップ
-	if(Engine::Get().application()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
+	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
 
 	m_NowTime -= Fps::Get().deltaTime;
@@ -103,7 +103,7 @@ void GameBg::Timer::Update()
 	if (m_NowTime < 0.0f)
 	{
 		// 制限時間になっても戦力ゲージが０になっていないため、敗北
-		Engine::Get().application()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->GameSet();
+		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->GameSet();
 	}
 
 	// 時間の設定

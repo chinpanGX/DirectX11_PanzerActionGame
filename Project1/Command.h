@@ -48,7 +48,7 @@ public:
 	void Draw()override;
 	// ¡“ü—Í‚µ‚Ä‚¢‚é‚©
 	bool GetNowInput(int32_t i) const;
-	bool nowReplenishBullet() const;
+	bool NowReplenishBullet() const;
 private:
 	void InputKeyboardAndMouse(float deltaTime);
 	void InputGamePad(float deltaTime);

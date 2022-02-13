@@ -35,8 +35,8 @@ void State::Stay::Begin(Player * pPlayer)
 void State::Stay::Update(Enemy* pEnemy, float deltaTime)
 {
 	// 距離を求める
-	const auto& cpuPosition = pEnemy->vehicle().bodyTransform().position();
-	const auto& playerPosition = m_Player->vehicle().bodyTransform().position();
+	const auto& cpuPosition = pEnemy->GetVehicle().GetBodyTransform().GetPosition();
+	const auto& playerPosition = m_Player->GetVehicle().GetBodyTransform().GetPosition();
 	D3DXVECTOR3 length = cpuPosition - playerPosition;
 	m_PlayerToDistance = D3DXVec3Length(&length);
 
@@ -61,7 +61,7 @@ void State::Stay::Update(Enemy* pEnemy, float deltaTime)
 float FindTargetDirection(Player * pTarget, Enemy* pEnemy, const D3DXVECTOR3& forward)
 {
 	// プレイヤーとエネミーの距離を測る
-	D3DXVECTOR3 dist = pEnemy->vehicle().bodyTransform().position() - pTarget->vehicle().bodyTransform().position();
+	D3DXVECTOR3 dist = pEnemy->GetVehicle().GetBodyTransform().GetPosition() - pTarget->GetVehicle().GetBodyTransform().GetPosition();
 	D3DXVECTOR3 cross;
 	// pivotの前ベクトルとdistの外積を求める
 	D3DXVec3Cross(&cross, &forward, &dist);

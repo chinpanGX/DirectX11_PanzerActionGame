@@ -150,17 +150,17 @@ const HWND & Engine::GetHwnd() const
 	return m_hwnd;
 }
 
-const std::shared_ptr<class Graphics> Engine::graphics() const
+const std::shared_ptr<class Graphics> Engine::GetGraphics() const
 {
 	return m_Graphics;
 }
 
-const std::shared_ptr<class Resource> Engine::resource() const
+const std::shared_ptr<class Resource> Engine::GetResource() const
 {
 	return m_Resource;
 }
 
-const std::shared_ptr<class Application> Engine::application() const
+const std::shared_ptr<class Application> Engine::GetApplication() const
 {
 	return m_Application;
 }

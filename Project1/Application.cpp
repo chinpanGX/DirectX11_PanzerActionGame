@@ -15,9 +15,9 @@
 #include "Application.h"
 #include <time.h>
 
-Application::Application(Graphics & graphics) : m_Graphics(graphics), m_Fade(nullptr), m_Scene(nullptr)
+Application::Application(Graphics & Graphics) : m_Graphics(Graphics), m_Fade(nullptr), m_Scene(nullptr)
 {
-	m_Fade = std::make_unique<Fade>(*this, *Engine::Get().resource(), Fps::Get());
+	m_Fade = std::make_unique<Fade>(*this, *Engine::Get().GetResource(), Fps::Get());
 	
 	PanzerNameList::Get().Register(); // êÌé‘ÇÃñºëOÇìoò^
 	

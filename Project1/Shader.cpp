@@ -7,16 +7,16 @@
 #include "Shader.h"
 #include <vector>
 
-VertexShader::VertexShader(Graphics & graphics)
+VertexShader::VertexShader(Graphics & Graphics)
 {
 	std::string assetname = "Asset/Shader/";
 
 	// メモリ確保
-	m_Map["Default"] = std::make_unique<LoadVertexShader>(graphics);
-	m_Map["NoLighting"] = std::make_unique<LoadVertexShader>(graphics);
-	m_Map["Texture"] = std::make_unique<LoadVertexShader>(graphics);
-	m_Map["Mapping"] = std::make_unique<LoadVertexShader>(graphics);
-	m_Map["PixelLighting"] = std::make_unique<LoadVertexShader>(graphics);
+	m_Map["Default"] = std::make_unique<LoadVertexShader>(Graphics);
+	m_Map["NoLighting"] = std::make_unique<LoadVertexShader>(Graphics);
+	m_Map["Texture"] = std::make_unique<LoadVertexShader>(Graphics);
+	m_Map["Mapping"] = std::make_unique<LoadVertexShader>(Graphics);
+	m_Map["PixelLighting"] = std::make_unique<LoadVertexShader>(Graphics);
 	
 	// タグ登録とロード
 	m_Map["Default"]->Load(assetname + "vertexLightingVS.cso");
@@ -40,18 +40,18 @@ ID3D11InputLayout * VertexShader::GetInputLayout(const std::string & Tag)
 	return m_Map[Tag]->GetInputLayout().Get();
 }
 
-PixelShader::PixelShader(Graphics & graphics)
+PixelShader::PixelShader(Graphics & Graphics)
 {
 	std::string assetname = "Asset/Shader/";
 	
 	// メモリ確保、タグ登録とロード
-	m_Map["Default"] = std::make_unique<LoadPixelShader>(graphics);
-	m_Map["NoLighting"] = std::make_unique<LoadPixelShader>(graphics);
-	m_Map["Mapping"] = std::make_unique<LoadPixelShader>(graphics);
-	m_Map["PixelLighting"] = std::make_unique<LoadPixelShader>(graphics);
-	m_Map["Toon"] = std::make_unique<LoadPixelShader>(graphics);
-	m_Map["ToonAnim"] = std::make_unique<LoadPixelShader>(graphics);
-	m_Map["GrayScaleTexture"] = std::make_unique<LoadPixelShader>(graphics);
+	m_Map["Default"] = std::make_unique<LoadPixelShader>(Graphics);
+	m_Map["NoLighting"] = std::make_unique<LoadPixelShader>(Graphics);
+	m_Map["Mapping"] = std::make_unique<LoadPixelShader>(Graphics);
+	m_Map["PixelLighting"] = std::make_unique<LoadPixelShader>(Graphics);
+	m_Map["Toon"] = std::make_unique<LoadPixelShader>(Graphics);
+	m_Map["ToonAnim"] = std::make_unique<LoadPixelShader>(Graphics);
+	m_Map["GrayScaleTexture"] = std::make_unique<LoadPixelShader>(Graphics);
 	
 	m_Map["Default"]->Load(assetname + "vertexLightingPS.cso");
 	m_Map["NoLighting"]->Load(assetname + "unlitTexturePS.cso");

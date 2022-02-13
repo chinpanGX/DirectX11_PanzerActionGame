@@ -18,7 +18,7 @@
 #include "Graphics.h"
 #include "Fence.h"
 
-Panzer::Panzer(const std::string & PanzerTag) : m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
+Panzer::Panzer(const std::string & PanzerTag) : m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
 {
 	m_Body = std::make_unique<Body>(PanzerTag);
 	m_Turret = std::make_unique<Turret>(PanzerTag);

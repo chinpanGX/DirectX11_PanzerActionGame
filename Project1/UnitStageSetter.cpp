@@ -14,20 +14,20 @@
 /*
 	スカイドーム
 */
-void StageSetterSkydome::Set(Scene * scene)
+void StageSetterSkydome::Set(Scene * Scene)
 {
-	scene->AddGameObject<Skydome>(LAYER_3D_STAGE);
+	Scene->AddGameObject<Skydome>(LAYER_3D_STAGE);
 }
 
 /*
 	地面
 */
-void StageSetterPlane::Set(Scene * scene)
+void StageSetterPlane::Set(Scene * Scene)
 {
-	scene->AddGameObject<Plane>(LAYER_3D_STAGE);
+	Scene->AddGameObject<Plane>(LAYER_3D_STAGE);
 }
 
-void StageSetterGameWorld::Set(Scene * scene)
+void StageSetterGameWorld::Set(Scene * Scene)
 {
-	scene->AddGameObject<GameWorld>(LAYER_3D_STAGE);
+	Scene->AddGameObject<GameWorld>(LAYER_3D_STAGE);
 }

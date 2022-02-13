@@ -10,7 +10,7 @@
 #include "Graphics.h"
 #include "Bg.h"
 
-Bg::Bg() : m_Resource(*Engine::Get().resource()), m_Graphics(*Engine::Get().graphics())
+Bg::Bg() : m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
 {
 	m_Size = D3DXVECTOR2(static_cast<float>(SCREEN_WIDTH), static_cast<float>(SCREEN_HEIGHT));
 }

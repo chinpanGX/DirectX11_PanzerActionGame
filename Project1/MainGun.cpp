@@ -36,15 +36,15 @@ void MainGun::Event()
 void MainGun::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
-	graphics().SetWorldMatrix(m_WorldMatrix);
-	resource().SetStaticModel(Parts::tag() + "Gun");
+	GetGraphics().SetWorldMatrix(m_WorldMatrix);
+	GetResource().SetStaticModel(Parts::tag() + "Gun");
 }
 
 void MainGun::UpdateMatrix(const D3DXMATRIX & ParentMatirx)
 {
 	D3DXMATRIX rot, trans;
-	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->rotation());
-	Math::Matrix::MatrixTranslation(&trans, m_Transform->position());
+	Math::Matrix::MatrixRotationRollPitchYaw(&rot, m_Transform->GetRotation());
+	Math::Matrix::MatrixTranslation(&trans, m_Transform->GetPosition());
 	auto local = rot * trans;
 	m_WorldMatrix = local * ParentMatirx;
 }

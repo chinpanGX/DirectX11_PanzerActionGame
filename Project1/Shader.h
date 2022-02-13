@@ -11,7 +11,7 @@ class VertexShader final
 {
 public:
 	VertexShader() = delete;
-	VertexShader(Graphics& graphics);
+	VertexShader(Graphics& Graphics);
 	~VertexShader();
 	ID3D11VertexShader* GetVertexShader(const std::string& Tag);
 	ID3D11InputLayout* GetInputLayout(const std::string& Tag);
@@ -24,7 +24,7 @@ class PixelShader final
 {
 public:
 	PixelShader() = delete;
-	PixelShader(Graphics& graphics);
+	PixelShader(Graphics& Graphics);
 	~PixelShader();
 	ID3D11PixelShader* GetPixelShader(const std::string& Tag);
 private:
@@ -37,7 +37,7 @@ class GeometryShader final
 public:
 	// ジオメトリシェーダー
 	GeometryShader();
-	GeometryShader(Graphics& graphics);
+	GeometryShader(Graphics& Graphics);
 	~GeometryShader();
 	ID3D11GeometryShader* GetGeometryShader();
 private:
@@ -49,7 +49,7 @@ class ComputeShader final
 {
 public:
 	ComputeShader();
-	ComputeShader(Graphics& graphics);
+	ComputeShader(Graphics& Graphics);
 	~ComputeShader();
 	ID3D11ComputeShader* GetComputeShader();
 private:

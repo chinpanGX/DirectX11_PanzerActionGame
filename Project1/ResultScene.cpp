@@ -43,15 +43,15 @@ void GameScene::Result::Draw()
 
 void GameScene::Result::Load()
 {
-	Engine::Get().resource()->LoadTexture("Ui02", "Ui02.png");
-	Engine::Get().resource()->LoadTexture("ResultBg", "ResultBg.png");
-	Engine::Get().resource()->AudioLoad("Select", false);
+	Engine::Get().GetResource()->LoadTexture("Ui02", "Ui02.png");
+	Engine::Get().GetResource()->LoadTexture("ResultBg", "ResultBg.png");
+	Engine::Get().GetResource()->AudioLoad("Select", false);
 }
 
 void GameScene::Result::Unload()
 {
-	Engine::Get().resource()->UnloadTexture("ResultBg");
-	Engine::Get().resource()->UnloadTexture("Ui02");
-	Engine::Get().resource()->AudioUnload();
+	Engine::Get().GetResource()->UnloadTexture("ResultBg");
+	Engine::Get().GetResource()->UnloadTexture("Ui02");
+	Engine::Get().GetResource()->AudioUnload();
 }
 #pragma endregion GameScene::Resultƒƒ\ƒbƒh

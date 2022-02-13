@@ -14,7 +14,7 @@
 
 Pause::Pause()
 {
-	m_RenderBg = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Bg");
+	m_RenderBg = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Bg");
 }
 
 Pause::~Pause()
@@ -162,7 +162,7 @@ void Pause::ChangeState(std::unique_ptr<PauseState> State)
 #pragma region Keepon
 Keepon::Keepon()
 {
-	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui");
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Ui");
 }
 
 void Keepon::Draw(Pause * Pause)
@@ -182,7 +182,7 @@ void Keepon::Draw(Pause * Pause)
 #pragma region Operation 
 Operation::Operation()
 {
-	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui");
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Ui");
 }
 
 void Operation::Draw(Pause * Pause)
@@ -219,7 +219,7 @@ void Operation::Draw(Pause * Pause)
 #pragma region GameEnd
 GameEnd::GameEnd()
 {
-	m_Render = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Ui");
+	m_Render = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Ui");
 }
 
 void GameEnd::Draw(Pause * Pause)

@@ -29,17 +29,17 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void Respawn(const D3DXVECTOR3& pos)override;
+	void ResPawn(const D3DXVECTOR3& pos)override;
 	void UseSkill();
 	void Shot();
 
 	void ReplenishBullets();	// 弾を補給する 
-	bool isBulletsUpperLimit(); // 弾の数が上限かどうか
-	bool enterSupplyPoint();	// 補給地点に入っている
-	int32_t amountBullets() const;
-	PlayerReload& reload()const;
+	bool GetIsBulletsUpperLimit(); // 弾の数が上限かどうか
+	bool GetEnterSupplyPoint();	// 補給地点に入っている
+	int32_t GetAmountBullets() const;
+	PlayerReload& GetReload()const;
 private:
-	void CalcuateDamege(Enemy* e);
+	void CalcuateDamege(Enemy* Enemy);
 	void OnCollision()override;
 	void OnSound(); //	サウンドの設定
 

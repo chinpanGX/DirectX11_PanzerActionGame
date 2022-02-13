@@ -20,7 +20,7 @@
 #include "Utility.h"
 
 #pragma region _PlayerIcon
-PlayerIcon::PlayerIcon() : m_Graphics(*Engine::Get().graphics()), m_Resource(*Engine::Get().resource())
+PlayerIcon::PlayerIcon() : m_Graphics(*Engine::Get().GetGraphics()), m_Resource(*Engine::Get().GetResource())
 {
 	Vertex3D vertex[4];
 	vertex[0].Position = D3DXVECTOR3(-1.0f, -1.0f, 0.0f);
@@ -58,20 +58,21 @@ PlayerIcon::~PlayerIcon()
 {
 }
 
-void PlayerIcon::Draw(D3DXVECTOR2 pos, D3DXVECTOR2 size, float rot)
+void PlayerIcon::Draw(D3DXVECTOR2 Pos, D3DXVECTOR2 Size, float Rot)
 {
 	D3DXMATRIX mat[4];
-	D3DXMatrixTranslation(&mat[0], -size.x, -size.y, 0.0f); // 左上
-	D3DXMatrixTranslation(&mat[1], size.x, -size.y, 0.0f);	// 右上
-	D3DXMatrixTranslation(&mat[2], -size.x, size.y, 0.0f);	// 左下	
-	D3DXMatrixTranslation(&mat[3], size.x, size.y, 0.0f);	// 右下
+	D3DXMatrixTranslation(&mat[0], -Size.x, -Size.y, 0.0f); // 左上
+	D3DXMatrixTranslation(&mat[0], -Size.x, -Size.y, 0.0f); // 左上
+	D3DXMatrixTranslation(&mat[1], Size.x, -Size.y, 0.0f);	// 右上
+	D3DXMatrixTranslation(&mat[2], -Size.x, Size.y, 0.0f);	// 左下	
+	D3DXMatrixTranslation(&mat[3], Size.x, Size.y, 0.0f);	// 右下
 	
 	D3DXMATRIX mtrans, mrot, mworld;
 	float px[4], py[4];
 
 	// マトリクスの計算
-	D3DXMatrixTranslation(&mtrans, pos.x, pos.y, 0.0f);
-	D3DXMatrixRotationZ(&mrot, rot);
+	D3DXMatrixTranslation(&mtrans, Pos.x, Pos.y, 0.0f);
+	D3DXMatrixRotationZ(&mrot, Rot);
 	for (int i = 0; i < 4; i++)
 	{
 		mworld = mat[i] *  mrot * mtrans;
@@ -130,9 +131,9 @@ namespace
 MiniMap::MiniMap()
 {
 	m_MarkerList.resize(3);
-	m_MarkerList[framebg] = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "MiniMapBg");
-	m_MarkerList[mapbg] = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "Gage");
-	m_MarkerList[othermarker] = std::make_unique<Renderer2D>(*Engine::Get().graphics(), *Engine::Get().resource(), "MiniMapMarker");
+	m_MarkerList[framebg] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "MiniMapBg");
+	m_MarkerList[mapbg] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Gage");
+	m_MarkerList[othermarker] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "MiniMapMarker");
 	m_PlayerIcon = std::make_unique<PlayerIcon>();
 }
 
@@ -142,9 +143,9 @@ MiniMap::~MiniMap()
 
 void MiniMap::Begin()
 {
-	m_SupplyList = Engine::Get().application()->GetScene()->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
-	m_Enemy = Engine::Get().application()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
+	m_SupplyList = Engine::Get().GetApplication()->GetScene()->GetGameObjects<Supply>(ELayer::LAYER_3D_STAGE);
+	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
+	m_Enemy = Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR);
 
 	// マップの縮小率　1/2倍
 	m_Shrink = 0.5f; 
@@ -167,12 +168,12 @@ void MiniMap::Update()
 {
 	// x座標は正負を反転させる
 	// プレイヤーの位置
-	m_PlayerPosition.x = m_Position.x - m_Player->vehicle().bodyTransform().position().x * m_Shrink * -1;
-	m_PlayerPosition.y = m_Position.y - m_Player->vehicle().bodyTransform().position().z * m_Shrink;
+	m_PlayerPosition.x = m_Position.x - m_Player->GetVehicle().GetBodyTransform().GetPosition().x * m_Shrink * -1;
+	m_PlayerPosition.y = m_Position.y - m_Player->GetVehicle().GetBodyTransform().GetPosition().z * m_Shrink;
 
 	// エネミーの位置
-	m_EnemyPosition.x = m_Position.x - m_Enemy->vehicle().bodyTransform().position().x * m_Shrink * -1;
-	m_EnemyPosition.y = m_Position.y - m_Enemy->vehicle().bodyTransform().position().z * m_Shrink;
+	m_EnemyPosition.x = m_Position.x - m_Enemy->GetVehicle().GetBodyTransform().GetPosition().x * m_Shrink * -1;
+	m_EnemyPosition.y = m_Position.y - m_Enemy->GetVehicle().GetBodyTransform().GetPosition().z * m_Shrink;
 }
 
 void MiniMap::Event()
@@ -192,7 +193,7 @@ void MiniMap::Draw()
 
 	// プレイヤーの描画
 	auto size = D3DXVECTOR2(20.0f, 20.0f);
-	m_PlayerIcon->Draw(m_PlayerPosition, size, m_Player->pivot().transform().rotation().y);
+	m_PlayerIcon->Draw(m_PlayerPosition, size, m_Player->GetPivot().GetTransform().GetRotation().y);
 }
 
 void MiniMap::OtherIconDraw()
@@ -204,8 +205,8 @@ void MiniMap::OtherIconDraw()
 	{
 		// ミニマップの描画する位置
 		D3DXVECTOR2 pos;
-		pos.x = m_Position.x - supply->transform().position().x * m_Shrink;
-		pos.y = m_Position.y - supply->transform().position().z * m_Shrink;
+		pos.x = m_Position.x - supply->GetTransform().GetPosition().x * m_Shrink;
+		pos.y = m_Position.y - supply->GetTransform().GetPosition().z * m_Shrink;
 		// アイコンの大きさ
 		auto size = D3DXVECTOR2(30.0f, 30.0f);
 

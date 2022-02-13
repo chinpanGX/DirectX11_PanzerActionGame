@@ -19,7 +19,7 @@ public:
 	~PlayerIcon();
 	// param name
 	// pos = "•`‰æˆÊ’u", size = "•`‰æƒTƒCƒY", rot = "‰ñ“]"
-	void Draw(D3DXVECTOR2 pos, D3DXVECTOR2 size, float rot);
+	void Draw(D3DXVECTOR2 Pos, D3DXVECTOR2 Size, float Rot);
 private:	
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
 	Graphics& m_Graphics;

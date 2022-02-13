@@ -9,6 +9,7 @@
 #include "Resource.h"
 #include "Vehicle.h"
 #include "Player.h"
+#include "GameCamera.h"
 #include "Rock.h"
 
 Rock::Rock()
@@ -22,12 +23,13 @@ Rock::~Rock()
 
 void Rock::Begin()
 {
-	m_Player = Engine::Get().application()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);	
+	m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);	
+	m_Camera = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCamera>(ELayer::LAYER_CAMERA);
 }
 
 void Rock::Update()
 {
-	m_Length = Math::Abs(D3DXVec3Length(&m_Transform->position()) - D3DXVec3Length(&m_Player->vehicle().bodyTransform().position())) * m_Transform->scale().x * 0.5f;
+	m_Length = Math::Abs(D3DXVec3Length(&m_Transform->GetPosition()) - D3DXVec3Length(&m_Player->GetVehicle().GetBodyTransform().GetPosition())) * m_Transform->GetScale().x * 0.5f;
 	// ˆê”Ô‹ß‚¢
 	if (m_Length < 500.0f)
 	{
@@ -51,9 +53,11 @@ void Rock::Event()
 
 void Rock::Draw()
 {
-	resource().SetShader("Default");
+	if (m_Camera->NotDrawObject(m_Transform->GetPosition(), m_Transform->GetScale().x)) { return; }
+	
+	GetResource().SetShader("Default");
 	UpdateMatrix(*m_Transform);
-	resource().SetStaticModel(m_DrawModelName);
+	GetResource().SetStaticModel(m_DrawModelName);
 }
 
 void Rock::Create(const std::string & modelName, D3DXVECTOR3 pos, D3DXVECTOR3 size, float degAngle, bool onCollider)

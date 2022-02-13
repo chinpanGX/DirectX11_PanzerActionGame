@@ -35,17 +35,17 @@ void State::Shot::Begin(Player * pPlayer)
 void State::Shot::Update(Enemy* pEnemy, float deltaTime)
 {
 	// リロードが終わっていないなら撃てない
-	if (pEnemy->reload().finishReload() == false) 
+	if (pEnemy->GetReload().finishReload() == false) 
 	{
 		// ステート変更
 		pEnemy->ChangeState(std::make_unique<State::Stay>());
 	}
 
-	pEnemy->vehicle().Shot(pEnemy->pivot().transform());
+	pEnemy->GetVehicle().Shot(pEnemy->GetPivot().GetTransform());
 	// オーディオを鳴らす
 	PlayAudio(pEnemy);
 	// リロード開始
-	pEnemy->reload().Begin();
+	pEnemy->GetReload().Begin();
 
 	// ステート変更
 	pEnemy->ChangeState(std::make_unique<State::Stay>());
@@ -54,9 +54,9 @@ void State::Shot::Update(Enemy* pEnemy, float deltaTime)
 void State::Shot::PlayAudio(Enemy* pEnemy)
 {
 	// プレイヤーの位置を取得
-	D3DXVECTOR3 playerPos = m_Player->vehicle().bodyTransform().position();
+	D3DXVECTOR3 playerPos = m_Player->GetVehicle().GetBodyTransform().GetPosition();
 	// CPUの位置を取得
-	D3DXVECTOR3 cpuPos = pEnemy->vehicle().bodyTransform().position();
+	D3DXVECTOR3 cpuPos = pEnemy->GetVehicle().GetBodyTransform().GetPosition();
 
 	// プレイヤーとCPU間の距離を取り,2倍する
 	D3DXVECTOR3 length = cpuPos - playerPos;
@@ -67,5 +67,5 @@ void State::Shot::PlayAudio(Enemy* pEnemy)
 	// ボリュームの最大値-距離から求めた値
 	float volume = 1.0f - d;
 
-	Engine::Get().resource()->AudioPlay("Shot", volume);
+	Engine::Get().GetResource()->AudioPlay("Shot", volume);
 }

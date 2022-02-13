@@ -45,8 +45,8 @@ void GameScene::PanzerSelect::Init()
 	AddGameObject<GameBg::Mode>(ELayer::LAYER_2D_BG);
 
 	// BGMのロードと再生
-	Engine::Get().resource()->AudioLoad("PanzerSelect", true);
-	Engine::Get().resource()->AudioPlay("PanzerSelect", 0.6f);
+	Engine::Get().GetResource()->AudioLoad("PanzerSelect", true);
+	Engine::Get().GetResource()->AudioPlay("PanzerSelect", 0.6f);
 
 	// リソースのロード
 	Load();
@@ -68,12 +68,12 @@ void GameScene::PanzerSelect::Draw()
 	D3DXVec4Normalize(&light.Direction, &light.Direction);
 	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
 	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	Engine::Get().graphics()->SetLight(light);
+	Engine::Get().GetGraphics()->SetLight(light);
 
 	Scene::Draw();
 
 	light.Enable = false;
-	Engine::Get().graphics()->SetLight(light);
+	Engine::Get().GetGraphics()->SetLight(light);
 }
 
 #pragma region private_Fuc
@@ -94,46 +94,46 @@ void GameScene::PanzerSelect::Load()
 
 void GameScene::PanzerSelect::Unload()
 {
-	Engine::Get().resource()->UnloadModel("PanzerGarage");
-	Engine::Get().resource()->UnloadTexture("Plane");
-	Engine::Get().resource()->UnloadTexture("Ui03");
-	Engine::Get().resource()->UnloadModel("Param");
-	Engine::Get().resource()->UnloadTexture("SelectUi");
-	Engine::Get().resource()->UnloadTexture("Waffuru");
-	Engine::Get().resource()->UnloadTexture("SelectList");
-	Engine::Get().resource()->UnloadTexture("SkillList");
-	Engine::Get().resource()->UnloadTexture("Ui05");
-	Engine::Get().resource()->AudioUnload();
+	Engine::Get().GetResource()->UnloadModel("PanzerGarage");
+	Engine::Get().GetResource()->UnloadTexture("Plane");
+	Engine::Get().GetResource()->UnloadTexture("Ui03");
+	Engine::Get().GetResource()->UnloadModel("Param");
+	Engine::Get().GetResource()->UnloadTexture("SelectUi");
+	Engine::Get().GetResource()->UnloadTexture("Waffuru");
+	Engine::Get().GetResource()->UnloadTexture("SelectList");
+	Engine::Get().GetResource()->UnloadTexture("SkillList");
+	Engine::Get().GetResource()->UnloadTexture("Ui05");
+	Engine::Get().GetResource()->AudioUnload();
 }
 
 void GameScene::PanzerSelect::Thread_Audio()
 {
-	Engine::Get().resource()->AudioLoad("Select", false);
-	Engine::Get().resource()->AudioLoad("Enter", false);
-	Engine::Get().resource()->AudioLoad("Cancel", false);
-	Engine::Get().resource()->AudioLoad("Button", false);
+	Engine::Get().GetResource()->AudioLoad("Select", false);
+	Engine::Get().GetResource()->AudioLoad("Enter", false);
+	Engine::Get().GetResource()->AudioLoad("Cancel", false);
+	Engine::Get().GetResource()->AudioLoad("Button", false);
 }
 
 void GameScene::PanzerSelect::Thread_Texture_A()
 {
-	Engine::Get().resource()->LoadTexture("SelectUi", "SelectUi.png");
-	Engine::Get().resource()->LoadTexture("Param", "Parameters.png");
-	Engine::Get().resource()->LoadTexture("Waffuru", "waffuru.tif");
-	Engine::Get().resource()->LoadTexture("SkillList", "SkillList.png");
+	Engine::Get().GetResource()->LoadTexture("SelectUi", "SelectUi.png");
+	Engine::Get().GetResource()->LoadTexture("Param", "Parameters.png");
+	Engine::Get().GetResource()->LoadTexture("Waffuru", "waffuru.tif");
+	Engine::Get().GetResource()->LoadTexture("SkillList", "SkillList.png");
 }
 
 void GameScene::PanzerSelect::Thread_Texture_B()
 {
-	Engine::Get().resource()->LoadTexture("Ui03", "Ui03.png");
-	Engine::Get().resource()->LoadTexture("Plane", "Plane.dds");	
-	Engine::Get().resource()->LoadTexture("SelectList", "psUI.png");
-	Engine::Get().resource()->LoadTexture("Ui05", "Ui05.png");
+	Engine::Get().GetResource()->LoadTexture("Ui03", "Ui03.png");
+	Engine::Get().GetResource()->LoadTexture("Plane", "Plane.dds");	
+	Engine::Get().GetResource()->LoadTexture("SelectList", "psUI.png");
+	Engine::Get().GetResource()->LoadTexture("Ui05", "Ui05.png");
 }
 
 void GameScene::PanzerSelect::Thread_Model()
 {
 	// モデル
-	Engine::Get().resource()->LoadModel("PanzerGarage", "souko.obj");
+	Engine::Get().GetResource()->LoadModel("PanzerGarage", "souko.obj");
 }
 
 #pragma endregion GameScene::PanzerSelectメソッド
@@ -178,37 +178,37 @@ void GameScene::Tutorial::Draw()
 	D3DXVec4Normalize(&light.Direction, &light.Direction);
 	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
 	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	Engine::Get().graphics()->SetLight(light);
+	Engine::Get().GetGraphics()->SetLight(light);
 
 	Scene::Draw();
 
 	light.Enable = false;
-	Engine::Get().graphics()->SetLight(light);
+	Engine::Get().GetGraphics()->SetLight(light);
 }
 
 void GameScene::Tutorial::Load()
 {
 	// オーディオのロード
-	Engine::Get().resource()->AudioLoad("Select", false);
-	Engine::Get().resource()->AudioLoad("Shot", false);
-	Engine::Get().resource()->AudioLoad("Idel", true);
-	Engine::Get().resource()->AudioLoad("Skill", false);
-	Engine::Get().resource()->AudioLoad("Reload", false);
+	Engine::Get().GetResource()->AudioLoad("Select", false);
+	Engine::Get().GetResource()->AudioLoad("Shot", false);
+	Engine::Get().GetResource()->AudioLoad("Idel", true);
+	Engine::Get().GetResource()->AudioLoad("Skill", false);
+	Engine::Get().GetResource()->AudioLoad("Reload", false);
 	// テクスチャのロード
-	Engine::Get().resource()->LoadTexture("Target", "Target.png");
-	Engine::Get().resource()->LoadTexture("Ui04", "Ui04.png");
-	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
+	Engine::Get().GetResource()->LoadTexture("Target", "Target.png");
+	Engine::Get().GetResource()->LoadTexture("Ui04", "Ui04.png");
+	Engine::Get().GetResource()->LoadTexture("SkillEffect", "Skill.png");
 	// モデルのロード
-	Engine::Get().resource()->LoadModel("Supply", "hokyuu.obj");
+	Engine::Get().GetResource()->LoadModel("Supply", "hokyuu.obj");
 }
 
 void GameScene::Tutorial::Unload()
 {
-	Engine::Get().resource()->UnloadModel("Supply");
-	Engine::Get().resource()->UnloadTexture("SkillEffect");
-	Engine::Get().resource()->UnloadTexture("Ui04");
-	Engine::Get().resource()->UnloadTexture("Target");
-	Engine::Get().resource()->AudioUnload();
+	Engine::Get().GetResource()->UnloadModel("Supply");
+	Engine::Get().GetResource()->UnloadTexture("SkillEffect");
+	Engine::Get().GetResource()->UnloadTexture("Ui04");
+	Engine::Get().GetResource()->UnloadTexture("Target");
+	Engine::Get().GetResource()->AudioUnload();
 }
 #pragma endregion private関数
 #pragma endregion GameScene::Tutorialメソッド
@@ -257,12 +257,12 @@ void GameScene::Game::Draw()
 	light.Position = D3DXVECTOR4(0.0f, 100.0f, 0.0f, 0.0f);
 	light.Ambient = D3DXVECTOR4(0.1f, 0.1f, 0.1f, 1.0f);
 	light.Diffuse = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);
-	Engine::Get().graphics()->SetLight(light);
+	Engine::Get().GetGraphics()->SetLight(light);
 
 	Scene::Draw();
 
 	light.Enable = false;
-	Engine::Get().graphics()->SetLight(light);
+	Engine::Get().GetGraphics()->SetLight(light);
 }
 
 void GameScene::Game::Load()
@@ -283,55 +283,55 @@ void GameScene::Game::Load()
 void GameScene::Game::Thread_Audio()
 {
 	// オーディオのロード
-	Engine::Get().resource()->AudioLoad("Select", false);
-	Engine::Get().resource()->AudioLoad("Idel", true);
-	Engine::Get().resource()->AudioLoad("Shot", false);
-	Engine::Get().resource()->AudioLoad("Skill", false);
-	Engine::Get().resource()->AudioLoad("Reload", false);
+	Engine::Get().GetResource()->AudioLoad("Select", false);
+	Engine::Get().GetResource()->AudioLoad("Idel", true);
+	Engine::Get().GetResource()->AudioLoad("Shot", false);
+	Engine::Get().GetResource()->AudioLoad("Skill", false);
+	Engine::Get().GetResource()->AudioLoad("Reload", false);
 }
 
 void GameScene::Game::Thread_Texture()
 {
 	// テクスチャのロード
-	Engine::Get().resource()->LoadTexture("SkillEffect", "Skill.png");
-	Engine::Get().resource()->LoadTexture("MiniMapBg", "MiniMapBg.dds");
-	Engine::Get().resource()->LoadTexture("MiniMapMarker", "MiniMapMarker.png");
+	Engine::Get().GetResource()->LoadTexture("SkillEffect", "Skill.png");
+	Engine::Get().GetResource()->LoadTexture("MiniMapBg", "MiniMapBg.dds");
+	Engine::Get().GetResource()->LoadTexture("MiniMapMarker", "MiniMapMarker.png");
 }
 
 void GameScene::Game::Thread_ModelA()
 {
-	Engine::Get().resource()->LoadModel("Supply", "hokyuu.obj");
-	Engine::Get().resource()->LoadModel("Rock_01", "Rock_01.obj");
-	Engine::Get().resource()->LoadModel("Rock_02", "Rock_02.obj");
-	Engine::Get().resource()->LoadModel("Rock_03", "Rock_03.obj");
+	Engine::Get().GetResource()->LoadModel("Supply", "hokyuu.obj");
+	Engine::Get().GetResource()->LoadModel("Rock_01", "Rock_01.obj");
+	Engine::Get().GetResource()->LoadModel("Rock_02", "Rock_02.obj");
+	Engine::Get().GetResource()->LoadModel("Rock_03", "Rock_03.obj");
 }
 
 void GameScene::Game::Thread_ModelB()
 {
-	Engine::Get().resource()->LoadModel("Rock02_01", "Rock02_01.obj");
-	Engine::Get().resource()->LoadModel("Rock02_02", "Rock02_02.obj");
-	Engine::Get().resource()->LoadModel("Rock02_03", "Rock02_03.obj");
-	//Engine::Get().resource()->LoadModel("Rock03_01", "HalfRock_01.obj");
-	//Engine::Get().resource()->LoadModel("Rock03_02", "HalfRock_02.obj");
-	//Engine::Get().resource()->LoadModel("Rock03_03", "HalfRock_03.obj");
+	Engine::Get().GetResource()->LoadModel("Rock02_01", "Rock02_01.obj");
+	Engine::Get().GetResource()->LoadModel("Rock02_02", "Rock02_02.obj");
+	Engine::Get().GetResource()->LoadModel("Rock02_03", "Rock02_03.obj");
+	//Engine::Get().GetResource()->LoadModel("Rock03_01", "HalfRock_01.obj");
+	//Engine::Get().GetResource()->LoadModel("Rock03_02", "HalfRock_02.obj");
+	//Engine::Get().GetResource()->LoadModel("Rock03_03", "HalfRock_03.obj");
 }
 
 void GameScene::Game::Unload()
 {
-	Engine::Get().resource()->AudioUnload();
-	Engine::Get().resource()->UnloadTexture("SkillEffect");
-	Engine::Get().resource()->UnloadTexture("MiniMapBg");
-	Engine::Get().resource()->UnloadTexture("MiniMapMarker");
-	Engine::Get().resource()->UnloadModel("Supply");
-	Engine::Get().resource()->UnloadModel("Rock_01");
-	Engine::Get().resource()->UnloadModel("Rock_02");
-	Engine::Get().resource()->UnloadModel("Rock_03");
-	Engine::Get().resource()->UnloadModel("Rock02_01");
-	Engine::Get().resource()->UnloadModel("Rock02_02");
-	Engine::Get().resource()->UnloadModel("Rock02_03");
-	//Engine::Get().resource()->UnloadModel("Rock03_01");
-	//Engine::Get().resource()->UnloadModel("Rock03_02");
-	//Engine::Get().resource()->UnloadModel("Rock03_03");
+	Engine::Get().GetResource()->AudioUnload();
+	Engine::Get().GetResource()->UnloadTexture("SkillEffect");
+	Engine::Get().GetResource()->UnloadTexture("MiniMapBg");
+	Engine::Get().GetResource()->UnloadTexture("MiniMapMarker");
+	Engine::Get().GetResource()->UnloadModel("Supply");
+	Engine::Get().GetResource()->UnloadModel("Rock_01");
+	Engine::Get().GetResource()->UnloadModel("Rock_02");
+	Engine::Get().GetResource()->UnloadModel("Rock_03");
+	Engine::Get().GetResource()->UnloadModel("Rock02_01");
+	Engine::Get().GetResource()->UnloadModel("Rock02_02");
+	Engine::Get().GetResource()->UnloadModel("Rock02_03");
+	//Engine::Get().GetResource()->UnloadModel("Rock03_01");
+	//Engine::Get().GetResource()->UnloadModel("Rock03_02");
+	//Engine::Get().GetResource()->UnloadModel("Rock03_03");
 }
 
 #pragma endregion GameScene::Gameメソッド

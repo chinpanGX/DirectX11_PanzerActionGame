@@ -7,8 +7,8 @@
 #include "Graphics.h"
 #include "Renderer3D.h"
 
-Renderer3D::Renderer3D(Graphics& graphics, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale) 
-	: m_Graphics(graphics), m_VertexBuffer(nullptr), m_Position(pos), m_Rotation(rot), m_Scale(scale)
+Renderer3D::Renderer3D(Graphics& Graphics, D3DXVECTOR3 pos, D3DXVECTOR3 rot, D3DXVECTOR3 scale) 
+	: m_Graphics(Graphics), m_VertexBuffer(nullptr), m_Position(pos), m_Rotation(rot), m_Scale(scale)
 {
 	
 }
@@ -43,11 +43,11 @@ void Renderer3D::Draw()
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
 
-void Renderer3D::CreatePlane(float distance, int uvtiling, D3DXVECTOR2 tex)
+void Renderer3D::CreatePlane(float Distance, int UvTiling, D3DXVECTOR2 tex)
 {
-	float pos = distance;
-	float w = tex.x * (float)uvtiling;
-	float h = tex.y * (float)uvtiling;
+	float pos = Distance;
+	float w = tex.x * (float)UvTiling;
+	float h = tex.y * (float)UvTiling;
 	Vertex3D Vertex[4];
 	Vertex[0].Position = D3DXVECTOR3(-pos, 0.0f, pos);
 	Vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -82,11 +82,11 @@ void Renderer3D::CreatePlane(float distance, int uvtiling, D3DXVECTOR2 tex)
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
 }
 
-void Renderer3D::CreateWall(float distance, int uvtiling, D3DXVECTOR2 tex)
+void Renderer3D::CreateWall(float Distance, int UvTiling, D3DXVECTOR2 Tex)
 {
-	float pos = distance;
-	float w = tex.x * (float)uvtiling;
-	float h = tex.y * (float)uvtiling;
+	float pos = Distance;
+	float w = Tex.x * (float)UvTiling;
+	float h = Tex.y * (float)UvTiling;
 	Vertex3D Vertex[4];
 	Vertex[0].Position = D3DXVECTOR3(-pos, pos, 0.0f);
 	Vertex[0].Normal = D3DXVECTOR3(0.0f, 1.0f, 0.0f);

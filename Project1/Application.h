@@ -12,7 +12,7 @@ class Graphics;
 class Application final
 {
 public:
-	Application(Graphics& graphics);
+	Application(Graphics& Graphics);
 	~Application();
 	void Init();
 	void Update();

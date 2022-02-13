@@ -10,8 +10,8 @@
 #include "Renderer2D.h"
 #include "Utility.h"
 
-Renderer2D::Renderer2D(Graphics & graphics, Resource& resource, const std::string& Tag) 
-	: m_Graphics(graphics), m_Resource(resource), m_Texture(Tag)
+Renderer2D::Renderer2D(Graphics & Graphics, Resource& resource, const std::string& Tag) 
+	: m_Graphics(Graphics), m_Resource(resource), m_Texture(Tag)
 {
 	Vertex3D vertex[4];
 	vertex[0].Position = D3DXVECTOR3(-1.0f, 1.0f, 0.0f);
@@ -51,8 +51,8 @@ Renderer2D::Renderer2D(Graphics & graphics, Resource& resource, const std::strin
 	ThrowIfFailed(hr, "m_VertexBuffer is Failed");
 }
 
-Renderer2D::Renderer2D(Graphics & graphics, Resource & resource, const std::string & Tag, const D3DXVECTOR2 & pos, const D3DXVECTOR2 & size, const D3DXVECTOR2 & ul, const D3DXVECTOR2 & lr)
-	: m_Graphics(graphics), m_Resource(resource), m_Texture(Tag)
+Renderer2D::Renderer2D(Graphics & Graphics, Resource & resource, const std::string & Tag, const D3DXVECTOR2 & pos, const D3DXVECTOR2 & size, const D3DXVECTOR2 & ul, const D3DXVECTOR2 & lr)
+	: m_Graphics(Graphics), m_Resource(resource), m_Texture(Tag)
 {
 	Vertex3D vertex[4];
 	vertex[0].Position = D3DXVECTOR3(pos.x - size.x * 0.5f, pos.y - size.y * 0.5f, 0.0f);
@@ -273,7 +273,7 @@ void Renderer2D::Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3D
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
 
-Render::Render(Graphics & graphics, Resource & resource) : m_Graphics(graphics), m_Resource(resource)
+Render::Render(Graphics & Graphics, Resource & resource) : m_Graphics(Graphics), m_Resource(resource)
 {
 	Vertex3D vertex[4];
 	vertex[0].Position = D3DXVECTOR3(-1.0f, 1.0f, 0.0f);

@@ -18,7 +18,7 @@
 #include "Resource.h"
 #include "PlayerUi.h"
 
-Controller::Controller(Player * pPlayer, GameCamera * pCamera, Pivot* pPivot) : m_Player(pPlayer), m_Camera(pCamera), m_Pivot(pPivot)
+Controller::Controller(Player * Player, GameCamera * Camera, Pivot* Pivot) : m_Player(Player), m_Camera(Camera), m_Pivot(Pivot)
 {
 	
 }
@@ -27,57 +27,57 @@ Controller::~Controller()
 {
 }
 
-void Controller::FpsCameraMode(bool fpsMode)
+void Controller::FpsCameraMode(bool FpsMode)
 {
-	m_Camera->EnableFpsMode(fpsMode);
+	m_Camera->EnableFpsMode(FpsMode);
 }
 
-void Controller::MoveForward(float deltaTime)
+void Controller::MoveForward(float DeltaTime)
 {
-	m_Player->moveComponent().MoveForward(m_Player->vehicle().bodyTransform(), deltaTime);
+	m_Player->GetMoveComponent().MoveForward(m_Player->GetVehicle().GetBodyTransform(), DeltaTime);
 	m_Pivot->Move();
 }
 
-void Controller::MoveBackward(float deltaTime)
+void Controller::MoveBackward(float DeltaTime)
 {
-	m_Player->moveComponent().MoveBackward(m_Player->vehicle().bodyTransform(), deltaTime);
+	m_Player->GetMoveComponent().MoveBackward(m_Player->GetVehicle().GetBodyTransform(), DeltaTime);
 	m_Pivot->Move();
 }
 
-void Controller::RotRight(float deltaTime)
+void Controller::RotRight(float DeltaTime)
 {
-	m_Player->moveComponent().RotRight(m_Player->vehicle().bodyTransform(), deltaTime);
-	m_Pivot->moveComponent().RotRight(m_Pivot->transform(), deltaTime);
+	m_Player->GetMoveComponent().RotRight(m_Player->GetVehicle().GetBodyTransform(), DeltaTime);
+	m_Pivot->GetMoveComponent().RotRight(m_Pivot->GetTransform(), DeltaTime);
 }
 
-void Controller::RotLeft(float deltaTime)
+void Controller::RotLeft(float DeltaTime)
 {
-	m_Player->moveComponent().RotLeft(m_Player->vehicle().bodyTransform(), deltaTime);
-	m_Pivot->moveComponent().RotLeft(m_Pivot->transform(), deltaTime);
+	m_Player->GetMoveComponent().RotLeft(m_Player->GetVehicle().GetBodyTransform(), DeltaTime);
+	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->GetTransform(), DeltaTime);
 }
 
-void Controller::RotTurretRight(float deltaTime)
+void Controller::RotTurretRight(float DeltaTime)
 {
-	m_Player->moveComponent().RotRight(m_Player->vehicle().turretTransform(), deltaTime);
-	m_Pivot->moveComponent().RotRight(m_Pivot->transform(), deltaTime);
+	m_Player->GetMoveComponent().RotRight(m_Player->GetVehicle().GetTurretTransform(), DeltaTime);
+	m_Pivot->GetMoveComponent().RotRight(m_Pivot->GetTransform(), DeltaTime);
 }
 
-void Controller::RotTurretLeft(float deltaTime)
+void Controller::RotTurretLeft(float DeltaTime)
 {
-	m_Player->moveComponent().RotLeft(m_Player->vehicle().turretTransform(), deltaTime);
-	m_Pivot->moveComponent().RotLeft(m_Pivot->transform(), deltaTime);
+	m_Player->GetMoveComponent().RotLeft(m_Player->GetVehicle().GetTurretTransform(), DeltaTime);
+	m_Pivot->GetMoveComponent().RotLeft(m_Pivot->GetTransform(), DeltaTime);
 }
 
-void Controller::RotMaingunUp(float deltaTime)
+void Controller::RotMaingunUp(float DeltaTime)
 {
-	m_Player->moveComponent().GunUp(m_Player->vehicle().gunTransform(), deltaTime);
-	m_Pivot->moveComponent().GunUp(m_Pivot->transform(), deltaTime);
+	m_Player->GetMoveComponent().GunUp(m_Player->GetVehicle().GetGunTransform(), DeltaTime);
+	m_Pivot->GetMoveComponent().GunUp(m_Pivot->GetTransform(), DeltaTime);
 }
 
-void Controller::RotMaingunDown(float deltaTime)
+void Controller::RotMaingunDown(float DeltaTime)
 {
-	m_Player->moveComponent().GunDown(m_Player->vehicle().gunTransform(), deltaTime);
-	m_Pivot->moveComponent().GunDown(m_Pivot->transform(), deltaTime);
+	m_Player->GetMoveComponent().GunDown(m_Player->GetVehicle().GetGunTransform(), DeltaTime);
+	m_Pivot->GetMoveComponent().GunDown(m_Pivot->GetTransform(), DeltaTime);
 }
 
 void Controller::Shot()
@@ -94,7 +94,7 @@ void Controller::UseSkill()
 bool Controller::ReplenishBullet()
 {
 	// •â‹‹”ÍˆÍ‚É“ü‚Á‚Ä‚¢‚é‚© && ’e”‚ªãŒÀ‚Å‚Í‚È‚¢
-	if (m_Player->enterSupplyPoint() && m_Player->isBulletsUpperLimit() == false)
+	if (m_Player->GetEnterSupplyPoint() && m_Player->GetIsBulletsUpperLimit() == false)
 	{
 		m_Player->ReplenishBullets();
 		return true;

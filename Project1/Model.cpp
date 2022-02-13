@@ -8,7 +8,7 @@
 #include "Engine.h"
 #include "Model.h"
 
-Prefabs::ModelPool::ModelPool(Graphics & graphics) : m_Graphics(graphics)
+Prefabs::ModelPool::ModelPool(Graphics & Graphics) : m_Graphics(Graphics)
 {
 	
 }

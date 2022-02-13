@@ -26,8 +26,8 @@ public:
 	void Draw()override;
 	
 	// Getter
-	Transform& transform() const;
-	Collider& collider() const;
+	Transform& GetTransform() const;
+	Collider& GetCollider() const;
 protected:
 
 	template<typename T>

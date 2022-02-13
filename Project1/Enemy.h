@@ -26,10 +26,10 @@ public:
 	void Event()override;
 	void Draw()override;
 	void ChangeState(std::unique_ptr<PanzerState> State);
-	void Respawn(const D3DXVECTOR3& pos)override;
+	void ResPawn(const D3DXVECTOR3& Pos)override;
 	void UseSkill();
 	bool IsDraw() const;
-	CpuReload& reload()const;
+	CpuReload& GetReload()const;
 private:
 	void OnCollision()override;
 	
