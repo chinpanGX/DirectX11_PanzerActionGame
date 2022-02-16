@@ -9,18 +9,18 @@
 
 class TitleSystem;
 // タイトル画面のパーティクル
-class Particle final : public Actor
+class TitleParticle final : public Actor
 {
 public:
-	Particle();
-	~Particle();
+	TitleParticle();
+	~TitleParticle();
 	void Begin()override;
 	void Update()override;
 	void Event()override;
 	void Draw()override;
 	void SetTitleSystem(TitleSystem* Title);
 private:
-	void BeginGenerateOtherBeginScene();
+	void Generate();
 	void Begin(float x, float y, float vx, float vy, float ax, float ay);
 
 	D3DXVECTOR4 m_Color;
@@ -30,7 +30,7 @@ private:
 	std::unique_ptr<Renderer2D> m_Render;
 	TitleSystem* m_TitleSystem;
 	int32_t m_Life;
-	static int32_t m_BeginTypetoGenerateOtherBeginScene;
+	static int32_t m_TypeToGenerate;
 };
 
 namespace GameBg
@@ -47,7 +47,7 @@ namespace GameBg
 		void Draw()override;
 		void SetTitleSystem(TitleSystem* Title);
 	private:
-		std::vector<Particle*> m_ParticleList;
+		std::vector<TitleParticle*> m_ParticleList;
 		TitleSystem* m_TitleSystem = nullptr;
 		uint32_t m_State;
 	};

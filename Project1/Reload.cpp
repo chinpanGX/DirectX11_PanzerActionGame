@@ -81,7 +81,7 @@ void PlayerReload::Update()
 		m_NowReloadTime += m_Player->GetVehicle().GetStatus().addTime();
 		
 		// クイックリロードが有効中
-		bool enableQuickReload = m_Reload->enableQuickReload();
+		bool enableQuickReload = m_Reload->GetEnableQuickReload();
 		if (enableQuickReload)
 		{
 			// 左クリックをすると
@@ -102,7 +102,7 @@ void PlayerReload::Update()
 				// クイックリロードが有効なカウント && スキルを使っていないとき
 				if(m_Count == m_EnableQuickReloadCount && m_UseSkill == false)
 				{					
-					m_Reload->enableQuickReload(false);
+					m_Reload->SetEnableQuickReload(false);
 					// リロードがストップする
 					m_Reload->Stop();
 					m_OnReloadStop = true;

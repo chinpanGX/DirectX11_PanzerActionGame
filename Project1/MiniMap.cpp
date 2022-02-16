@@ -19,7 +19,7 @@
 #include "MiniMap.h"
 #include "Utility.h"
 
-#pragma region _PlayerIcon
+#pragma region _PlayerIcon_method
 PlayerIcon::PlayerIcon() : m_Graphics(*Engine::Get().GetGraphics()), m_Resource(*Engine::Get().GetResource())
 {
 	Vertex3D vertex[4];
@@ -58,7 +58,7 @@ PlayerIcon::~PlayerIcon()
 {
 }
 
-void PlayerIcon::Draw(D3DXVECTOR2 Pos, D3DXVECTOR2 Size, float Rot)
+void PlayerIcon::Draw(D3DXVECTOR2 Position, D3DXVECTOR2 Size, float Rot)
 {
 	D3DXMATRIX mat[4];
 	D3DXMatrixTranslation(&mat[0], -Size.x, -Size.y, 0.0f); // 左上
@@ -71,7 +71,7 @@ void PlayerIcon::Draw(D3DXVECTOR2 Pos, D3DXVECTOR2 Size, float Rot)
 	float px[4], py[4];
 
 	// マトリクスの計算
-	D3DXMatrixTranslation(&mtrans, Pos.x, Pos.y, 0.0f);
+	D3DXMatrixTranslation(&mtrans, Position.x, Position.y, 0.0f);
 	D3DXMatrixRotationZ(&mrot, Rot);
 	for (int i = 0; i < 4; i++)
 	{
@@ -123,17 +123,21 @@ void PlayerIcon::Draw(D3DXVECTOR2 Pos, D3DXVECTOR2 Size, float Rot)
 #pragma region _MiniMap_
 namespace
 {
-	uint32_t framebg = 0;
-	uint32_t mapbg = 1;
-	uint32_t othermarker = 2;
+	uint32_t g_FrameBg = 0;
+	uint32_t g_MapBg = 1;
+	uint32_t g_OtherIcon = 2;
 }
 
 MiniMap::MiniMap()
 {
 	m_MarkerList.resize(3);
-	m_MarkerList[framebg] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "MiniMapBg");
-	m_MarkerList[mapbg] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Gage");
-	m_MarkerList[othermarker] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "MiniMapMarker");
+	// 枠線
+	m_MarkerList[g_FrameBg] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "MiniMapBg");
+	// マップ背景
+	m_MarkerList[g_MapBg] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Gage");
+	// プレイヤー以外のアイコン
+	m_MarkerList[g_OtherIcon] = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "MiniMapMarker");
+	// プレイヤーのアイコン
 	m_PlayerIcon = std::make_unique<PlayerIcon>();
 }
 
@@ -156,12 +160,12 @@ void MiniMap::Begin()
 
 	// ミニマップの設定
 	auto size = D3DXVECTOR2(m_MapSize, m_MapSize);
-	m_MarkerList[mapbg]->SetVertex(m_Position, size);
+	m_MarkerList[g_MapBg]->SetVertex(m_Position, size);
 
 	// 背景の設定
 	// 背景テクスチャの大きさ
 	size = D3DXVECTOR2(m_MapSize + 20.0f, m_MapSize + 20.0f);
-	m_MarkerList[framebg]->SetVertex(m_Position, size);
+	m_MarkerList[g_FrameBg]->SetVertex(m_Position, size);
 }
 
 void MiniMap::Update()
@@ -183,10 +187,10 @@ void MiniMap::Event()
 void MiniMap::Draw()
 {	
 	// ミニマップの背景枠の描画
-	m_MarkerList[framebg]->Draw();
+	m_MarkerList[g_FrameBg]->Draw();
 
 	// マップの背景の描画
-	m_MarkerList[mapbg]->Draw(0.5f);
+	m_MarkerList[g_MapBg]->Draw(0.5f);
 
 	// プレイヤー以外のアイコンの描画
 	OtherIconDraw();
@@ -211,7 +215,7 @@ void MiniMap::OtherIconDraw()
 		auto size = D3DXVECTOR2(30.0f, 30.0f);
 
 		// 描画
-		m_MarkerList[othermarker]->Draw(pos, size, texmin, texmax);
+		m_MarkerList[g_OtherIcon]->Draw(pos, size, texmin, texmax);
 	}
 
 	// 敵を描画しているかチェック
@@ -224,7 +228,7 @@ void MiniMap::OtherIconDraw()
 		auto size = D3DXVECTOR2(20.0f, 20.0f);
 
 		// 描画
-		m_MarkerList[othermarker]->Draw(m_EnemyPosition, size, texmin, texmax);
+		m_MarkerList[g_OtherIcon]->Draw(m_EnemyPosition, size, texmin, texmax);
 	}
 }
 #pragma endregion _ミニマップ_

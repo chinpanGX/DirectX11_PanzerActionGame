@@ -105,11 +105,11 @@ void GameBg::ResultUi::Draw()
 	// •Ï”
 	float x = 1920.0f * 0.5f;
 	D3DXVECTOR2 size = D3DXVECTOR2(512.0f, 128.0f);
-	D3DXVECTOR2 TexMin = D3DXVECTOR2(0.0f, 0.375f);
-	D3DXVECTOR2 TexMax = D3DXVECTOR2(0.25f, 0.5f);
+	D3DXVECTOR2 texMin = D3DXVECTOR2(0.0f, 0.375f);
+	D3DXVECTOR2 texMax = D3DXVECTOR2(0.25f, 0.5f);
 	D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha);
 
-	m_Marker->Draw(D3DXVECTOR2(x, m_Draw_y), size, TexMin, TexMax, color);
+	m_Marker->Draw(D3DXVECTOR2(x, m_Draw_y), size, texMin, texMax, color);
 
 	// ”wŒi‚ªˆÃ‚­‚È‚Á‚½‚çA•\Ž¦‚·‚é
 	if (m_Alpha >= 0.7f)

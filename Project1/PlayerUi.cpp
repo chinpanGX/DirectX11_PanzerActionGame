@@ -246,12 +246,12 @@ namespace PlayerUi
 	}
 
 	// リロードが有効かどうか
-	const bool Reload::enableQuickReload() const
+	const bool Reload::GetEnableQuickReload() const
 	{
 		return m_EnableQuickReload;
 	}
 
-	void Reload::enableQuickReload(bool Flag)
+	void Reload::SetEnableQuickReload(bool Flag)
 	{
 		m_MatchCount = Flag;
 	}
@@ -284,10 +284,10 @@ namespace PlayerUi
 		
 	}
 
-	void Reload::AddGageAndMoveIcon(float amount)
+	void Reload::AddGageAndMoveIcon(float Amount)
 	{
-		m_NowGageAmount += amount;
-		m_IconPosition.x += amount;
+		m_NowGageAmount += Amount;
+		m_IconPosition.x += Amount;
 	}
 
 	// リロード完了

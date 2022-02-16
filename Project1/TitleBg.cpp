@@ -12,75 +12,65 @@
 #include "TitleSystem.h"
 #include "TitleBg.h"
 
-int32_t Particle::m_BeginTypetoGenerateOtherBeginScene = 0;
+#pragma region _TitleParticle_method
+int32_t TitleParticle::m_TypeToGenerate = 0;
 
-Particle::Particle()
+TitleParticle::TitleParticle()
 {
 	m_Render = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Effect");
 	m_Transform = AddComponent<Transform>();
 }
 
-Particle::~Particle()
+TitleParticle::~TitleParticle()
 {
 }
 
-void Particle::Begin()
+void TitleParticle::Begin()
 {	
 	m_Life = myLib::Random::Rand_R(50, 100);
-	//
-	//m_Transform->GetPosition().x = 0.0f - 50.0f;
-	//m_Transform->GetPosition().y = static_cast<float>(myLib::Random::Rand_R(0, SCREEN_HEIGHT));
-	//
-	//m_Velocity.x = 0.0f;
-	//m_Velocity.y = myLib::Random::GetRandomXOR();
-	//m_Velocity.z = 0.0f;
-	//
-	//m_Acceleration.x = 1.0f;
-	//m_Acceleration.y = 0.0f;
-	//m_Acceleration.z = 0.0f;
-	//
-	//m_Color = D3DXVECTOR4(myLib::Random::GetRandomXORf(), myLib::Random::GetRandomXORf(), 1.0f, 1.0f);
-	//m_Size = D3DXVECTOR2(55.0f, 20.0f);
 }
 
-void Particle::Update()
+void TitleParticle::Update()
 {
 	m_Life--;
+	
 	if (m_Life > 0)
 	{
+		// 位置を更新
 		m_Velocity += m_Acceleration;
 		m_Transform->GetPosition() += m_Velocity;
 	}
+	// ライフが０になったら、生成する
 	else
 	{
-		BeginGenerateOtherBeginScene();
+		Generate();
 	}
 }
 
-void Particle::Event()
+void TitleParticle::Event()
 {
 }
 
-void Particle::Draw()
+void TitleParticle::Draw()
 {
 	// 加算合成
 	Engine::Get().GetGraphics()->SetBlendStateAdd();
 	
 	D3DXVECTOR2 pos = D3DXVECTOR2(m_Transform->GetPosition().x, m_Transform->GetPosition().y);
-	D3DXVECTOR2 t1 = D3DXVECTOR2(0.0f, 0.0f);
-	D3DXVECTOR2 t2 = D3DXVECTOR2(1.0f, 1.0f);
+	D3DXVECTOR2 texMin = D3DXVECTOR2(0.0f, 0.0f);
+	D3DXVECTOR2 texMax = D3DXVECTOR2(1.0f, 1.0f);
 
-	m_Render->Draw(pos, m_Size, t1, t2, m_Color);
+	m_Render->Draw(pos, m_Size, texMin, texMax, m_Color);
 
 	Engine::Get().GetGraphics()->SetBlendStateDefault();
 }
 
-void Particle::SetTitleSystem(TitleSystem * Title)
+void TitleParticle::SetTitleSystem(TitleSystem * Title)
 {
 	m_TitleSystem = Title;
 }
 
-void Particle::Begin(float x, float y, float vx, float vy, float ax, float ay)
+void TitleParticle::Begin(float x, float y, float vx, float vy, float ax, float ay)
 {
 	m_Life = 50;
 
@@ -100,10 +90,10 @@ void Particle::Begin(float x, float y, float vx, float vy, float ax, float ay)
 }
 
 // パーティクルを発生させる
-void Particle::BeginGenerateOtherBeginScene()
+void TitleParticle::Generate()
 {
 	// 発生位置
-	switch (m_BeginTypetoGenerateOtherBeginScene)
+	switch (m_TypeToGenerate)
 	{
 		// 左
 	case 0:
@@ -123,14 +113,15 @@ void Particle::BeginGenerateOtherBeginScene()
 		break;
 	}
 	// 次の生成位置を設定
-	m_BeginTypetoGenerateOtherBeginScene++;
+	m_TypeToGenerate++;
 	
 	// 変数をリセットする
-	if (m_BeginTypetoGenerateOtherBeginScene > 3)
+	if (m_TypeToGenerate > 3)
 	{
-		m_BeginTypetoGenerateOtherBeginScene = 0;
+		m_TypeToGenerate = 0;
 	}
 }
+#pragma endregion TitleParticleメソッド
 
 #pragma region TitleBg_method
 GameBg::TitleBg::TitleBg()
@@ -160,18 +151,8 @@ void GameBg::TitleBg::Event()
 
 void GameBg::TitleBg::Draw()
 {
-#if 0
-	if (m_TitleSystem->EState::SETTING_SELECT == m_State || m_TitleSystem->EState::CHECK_INPUT == m_State)
-	{
-		// Setting画面
-		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 1.0f));
-	}
-	else
-#endif
-	{
-		// タイトル画面
-		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.49f, 0.9f));
-	}
+	// タイトル画面
+	m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.49f, 0.9f));
 }
 void GameBg::TitleBg::SetTitleSystem(TitleSystem * Title)
 {

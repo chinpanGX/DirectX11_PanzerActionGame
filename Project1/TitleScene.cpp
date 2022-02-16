@@ -21,7 +21,7 @@ void GameScene::Title::Init()
 
 	for (int32_t i = 0; i < 100; i++)
 	{
-		AddGameObject<Particle>(ELayer::LAYER_2D_BG)->SetTitleSystem(titlesystem);
+		AddGameObject<TitleParticle>(ELayer::LAYER_2D_BG)->SetTitleSystem(titlesystem);
 	}
 	AddGameObject<TitleCommand>(ELayer::LAYER_SYSTEM);
 	

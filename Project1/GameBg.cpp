@@ -105,11 +105,11 @@ void GameBg::PanzerSelectUi::Event()
 
 void GameBg::PanzerSelectUi::Draw()
 {
-	D3DXVECTOR2 Pos = Bg::GetSize() * 0.5f;
+	D3DXVECTOR2 Position = Bg::GetSize() * 0.5f;
 	D3DXVECTOR2 Size = Bg::GetSize();
 
 	// ”wŒi
-	m_Renderer2D->Draw(Pos, Size, D3DXVECTOR2(0.5f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
+	m_Renderer2D->Draw(Position, Size, D3DXVECTOR2(0.5f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 
 	auto op_pos = D3DXVECTOR2(960.0f, 960.0f);
 	auto op_size = D3DXVECTOR2(500.0f, 70.0f);
@@ -121,7 +121,7 @@ void GameBg::PanzerSelectUi::Draw()
 	DrawPanzerName();
 
 	// ƒQ[ƒ€à–¾
-	DrawGameRule(Pos, Size);
+	DrawGameRule(Position, Size);
 }
 
 void GameBg::PanzerSelectUi::Down()
@@ -185,7 +185,7 @@ void GameBg::PanzerSelectUi::DrawPanzerName()
 	m_Render[1]->Draw(D3DXVECTOR2(x, y), D3DXVECTOR2(432.0f, 128.0f), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(0.25f, 0.25f));
 }
 
-void GameBg::PanzerSelectUi::DrawGameRule(D3DXVECTOR2 Pos, D3DXVECTOR2 Size)
+void GameBg::PanzerSelectUi::DrawGameRule(D3DXVECTOR2 Position, D3DXVECTOR2 Size)
 {
 	// ƒQ[ƒ€‚Ìà–¾
 	if (m_DrawFlag)
@@ -193,19 +193,19 @@ void GameBg::PanzerSelectUi::DrawGameRule(D3DXVECTOR2 Pos, D3DXVECTOR2 Size)
 		switch (m_Page)
 		{
 		case 0:
-			m_Renderer2D->Draw(Pos, Size, D3DXVECTOR2(0.0f, 0.02f), D3DXVECTOR2(0.5f, 0.52f));
+			m_Renderer2D->Draw(Position, Size, D3DXVECTOR2(0.0f, 0.02f), D3DXVECTOR2(0.5f, 0.52f));
 			break;
 		case 1:
-			m_Renderer2D->Draw(Pos, Size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f));			
+			m_Renderer2D->Draw(Position, Size, D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f));			
 			break;
 		case 2:
-			m_Renderer2D->Draw(Pos, Size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
+			m_Renderer2D->Draw(Position, Size, D3DXVECTOR2(0.5f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 			break;
 		case 3:
-			m_Render[2]->Draw(Pos, Size, D3DXVECTOR2(0.0, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
+			m_Render[2]->Draw(Position, Size, D3DXVECTOR2(0.0, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 			break;
 		case 4:
-			m_Render[2]->Draw(Pos, Size, D3DXVECTOR2(0.0, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
+			m_Render[2]->Draw(Position, Size, D3DXVECTOR2(0.0, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 			break;
 		}
 	}
@@ -269,23 +269,23 @@ bool GameBg::Mode::SetMode(bool f)
 	return m_Mode;
 }
 
-void GameBg::Mode::DrawFrame(D3DXVECTOR2 Pos, float Size_y)
+void GameBg::Mode::DrawFrame(D3DXVECTOR2 Position, float Size_y)
 {
 	auto Size = D3DXVECTOR2(512.0f, Size_y);
 	auto ul = D3DXVECTOR2(0.0f, 0.375f);
 	auto lr = D3DXVECTOR2(0.25f, 0.5f);
-	m_Renderer->Draw(Pos, Size, ul, lr, D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
+	m_Renderer->Draw(Position, Size, ul, lr, D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
 }
 
-void GameBg::Mode::DrawModeName(D3DXVECTOR2 Pos, float Size_y)
+void GameBg::Mode::DrawModeName(D3DXVECTOR2 Position, float Size_y)
 {
 	if (m_Mode)
 	{
-		m_Renderer2D->Draw(Pos, D3DXVECTOR2(432.0f, Size_y), D3DXVECTOR2(0.25f, 0.25f), D3DXVECTOR2(0.5f, 0.5f));
+		m_Renderer2D->Draw(Position, D3DXVECTOR2(432.0f, Size_y), D3DXVECTOR2(0.25f, 0.25f), D3DXVECTOR2(0.5f, 0.5f));
 	}
 	else
 	{
-		m_Renderer2D->Draw(Pos, D3DXVECTOR2(432.0f, Size_y), D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.25f));
+		m_Renderer2D->Draw(Position, D3DXVECTOR2(432.0f, Size_y), D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.25f));
 	}
 }
 #pragma endregion Mode_method

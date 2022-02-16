@@ -62,12 +62,12 @@ namespace PlayerUi
 		void SuccessQuickReload();	// クイックリロード成功
 
 		// クイックリロードが有効かどうか返す
-		const bool enableQuickReload()const;		
-		void enableQuickReload(bool Flag);
+		const bool GetEnableQuickReload()const;		
+		void SetEnableQuickReload(bool Flag);
 	private:
 		/* 更新処理のヘルパー関数 */
 		void NowReload();			// リロードの処理
-		void AddGageAndMoveIcon(float amount);	// ゲージを増やす処理とアイコンを増やす
+		void AddGageAndMoveIcon(float Amount);	// ゲージを増やす処理とアイコンを増やす
 		void Finish();				// リロード終了
 		void SwitchNotDraw();		// 非表示にする
 
