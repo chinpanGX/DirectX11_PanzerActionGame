@@ -129,13 +129,13 @@ void Player::Draw()
 	GetVehicle().Draw();
 }
 
-void Player::ResPawn(const D3DXVECTOR3& pos)
+void Player::Respawn(const D3DXVECTOR3& Position)
 {
 	m_DrawSkill->Reset();
 	GetVehicle().GetSkill().Reset(GetVehicle().GetStatus());
 	GetVehicle().GetStatus().Reset();
 	m_AmountBullets = m_AmountBuuletsMax;
-	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
+	SetStartPosition(this, Position, D3DXVECTOR3(0.0f, 0.0f, 0.0f));
 	m_Camera->Update();
 }
 
@@ -228,7 +228,7 @@ void Player::OnCollision()
 		{
 			if (Intersect(GetVehicle().GetCollider(0).GetOBB3(), enemy->GetVehicle().GetCollider(0).GetOBB3()))
 			{
-				D3DXVECTOR3 reflection = GetMoveComponent().velocity() * -1 * 2.0f;
+				D3DXVECTOR3 reflection = GetMoveComponent().GetVelocity() * -1 * 2.0f;
 				GetVehicle().GetBodyTransform().GetPosition() += reflection;
 			}
 		}
@@ -244,9 +244,9 @@ void Player::OnCollision()
 			
 			if (Intersect(GetVehicle().GetCollider(0).GetOBB3(), supply->GetCollider().GetOBB3()))
 			{
-				D3DXVECTOR3 hitPosition = GetVehicle().GetBodyTransform().GetPosition() + GetMoveComponent().velocity();
+				D3DXVECTOR3 hitPosition = GetVehicle().GetBodyTransform().GetPosition() + GetMoveComponent().GetVelocity();
 
-				D3DXVECTOR3 reflection = GetMoveComponent().velocity() * -1 * 2.0f;
+				D3DXVECTOR3 reflection = GetMoveComponent().GetVelocity() * -1 * 2.0f;
 				GetVehicle().GetBodyTransform().GetPosition() = hitPosition + reflection;
 			}
 

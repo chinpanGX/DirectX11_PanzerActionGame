@@ -60,21 +60,14 @@ void Rock::Draw()
 	GetResource().SetStaticModel(m_DrawModelName);
 }
 
-void Rock::Create(const std::string & modelName, D3DXVECTOR3 pos, D3DXVECTOR3 size, float degAngle, bool onCollider)
+void Rock::Create(const std::string & ModelName, D3DXVECTOR3 Position, D3DXVECTOR3 Size, float DegAngle)
 {
 	// モデルの名前
-	m_ModelName = modelName;
+	m_ModelName = ModelName;
 	// 表示するモデルの名前と番号
 	m_DrawModelName = m_ModelName + "_03";
 
 	// トランスフォームの設定
-	auto rotation = D3DXVECTOR3(0.0f, Math::ToRadians(degAngle), 0.0f);
-	m_Transform->Set(pos, size, rotation);
-
-	// コライダーを追加する
-	if (onCollider)
-	{
-		m_Collider = AddComponent<Collider>();
-		m_Collider->SetOBB3(*m_Transform, size);
-	}
+	auto rotation = D3DXVECTOR3(0.0f, Math::ToRadians(DegAngle), 0.0f);
+	m_Transform->Set(Position, Size, rotation);
 }

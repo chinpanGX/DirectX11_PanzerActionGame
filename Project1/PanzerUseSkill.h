@@ -15,8 +15,8 @@ namespace State
 	public:
 		UseSkill();
 		~UseSkill();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	};
 }
 

@@ -27,15 +27,15 @@ State::Stay::~Stay()
 {
 }
 
-void State::Stay::Begin(Player * pPlayer)
+void State::Stay::Begin(Player * Player)
 {
-	m_Player = pPlayer;
+	m_Player = Player;
 }
 
-void State::Stay::Update(Enemy* pEnemy, float deltaTime)
+void State::Stay::Update(Enemy* Enemy, float DeltaTime)
 {
 	// 距離を求める
-	const auto& cpuPosition = pEnemy->GetVehicle().GetBodyTransform().GetPosition();
+	const auto& cpuPosition = Enemy->GetVehicle().GetBodyTransform().GetPosition();
 	const auto& playerPosition = m_Player->GetVehicle().GetBodyTransform().GetPosition();
 	D3DXVECTOR3 length = cpuPosition - playerPosition;
 	m_PlayerToDistance = D3DXVec3Length(&length);
@@ -45,23 +45,23 @@ void State::Stay::Update(Enemy* pEnemy, float deltaTime)
 	if (m_PlayerToDistance < m_ShotRange)
 	{
 
-		pEnemy->ChangeState(std::make_unique<State::TurretRotation>());
+		Enemy->ChangeState(std::make_unique<State::TurretRotation>());
 	}
 	// サーチ範囲内
 	else if (m_PlayerToDistance < m_SearchRange)
 	{		
-		pEnemy->ChangeState(std::make_unique<State::BodyRotation>());		
+		Enemy->ChangeState(std::make_unique<State::BodyRotation>());		
 	}
 	else
 	{
-		pEnemy->ChangeState(std::make_unique<State::Forward>());
+		Enemy->ChangeState(std::make_unique<State::Forward>());
 	}
 }
 
-float FindTargetDirection(Player * pTarget, Enemy* pEnemy, const D3DXVECTOR3& forward)
+float FindTargetDirection(Player * pTarget, Enemy* Enemy, const D3DXVECTOR3& forward)
 {
 	// プレイヤーとエネミーの距離を測る
-	D3DXVECTOR3 dist = pEnemy->GetVehicle().GetBodyTransform().GetPosition() - pTarget->GetVehicle().GetBodyTransform().GetPosition();
+	D3DXVECTOR3 dist = Enemy->GetVehicle().GetBodyTransform().GetPosition() - pTarget->GetVehicle().GetBodyTransform().GetPosition();
 	D3DXVECTOR3 cross;
 	// pivotの前ベクトルとdistの外積を求める
 	D3DXVec3Cross(&cross, &forward, &dist);

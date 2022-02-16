@@ -17,10 +17,10 @@ namespace State
 	public:
 		Shot();
 		~Shot();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	private:
-		void PlayAudio(Enemy* pEnemy);
+		void PlayAudio(Enemy* Enemy);
 		Player* m_Player;
 	};
 }

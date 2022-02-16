@@ -18,8 +18,8 @@ namespace State
 	public:
 		BodyRotation();
 		~BodyRotation();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	private:
 		class Player* m_Player;
 	};
@@ -30,8 +30,8 @@ namespace State
 	public:
 		TurretRotation();
 		~TurretRotation();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	private:
 		class Player* m_Player;
 	};
@@ -42,7 +42,7 @@ namespace State
 	public:
 		GunRotation();
 		~GunRotation();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	};
 }

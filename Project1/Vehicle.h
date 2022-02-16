@@ -52,8 +52,8 @@ protected:
 	void ShotPointOffsetLength(float Length);
 
 	//@íÔ
-	class Panzer& panzer() const;
-	const std::string& tag() const;
+	class Panzer& GetPanzer() const;
+	const std::string& GetTag() const;
 private:
 	std::string m_Tag;
 	float m_GunLength; // å–C‚Ì’·‚³

@@ -23,7 +23,7 @@ public:
 	void Event()override;
 	void Draw()override;
 	
-	virtual void ResPawn(const D3DXVECTOR3& pos) = 0;
+	virtual void Respawn(const D3DXVECTOR3& Position) = 0;
 	Vehicle& GetVehicle() const;
 	Pivot& GetPivot()const;
 	MoveComponent& GetMoveComponent()const;
@@ -33,7 +33,7 @@ protected:
 	// Hpがゼロはチェック
 	void CheckZeroHp(Pawn* Pawn);
 	// 位置の設定
-	void SetStartPosition(Pawn* Pawn, const D3DXVECTOR3& Pos, const D3DXVECTOR3& Rot);
+	void SetStartPosition(Pawn* Pawn, const D3DXVECTOR3& Position, const D3DXVECTOR3& Rotation);
 	// 生成
 	void Create();
 	

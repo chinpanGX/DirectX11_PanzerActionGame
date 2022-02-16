@@ -17,8 +17,8 @@ namespace State
 	public:
 		Forward();
 		~Forward();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	private:
 		int32_t m_Time = 0;
 		Player* m_Player;
@@ -29,7 +29,7 @@ namespace State
 	public:
 		Backward();
 		~Backward();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	};
 }

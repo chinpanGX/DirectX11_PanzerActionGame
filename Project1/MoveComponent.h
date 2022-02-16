@@ -27,7 +27,7 @@ public:
 	void GunDown(Transform& transform, float deltaTime);
 	void Stop();
 
-	D3DXVECTOR3& velocity() ;
+	const D3DXVECTOR3& GetVelocity() const;
 private:
 	Status& m_Status;
 	class GameCommand* m_cmd = nullptr;

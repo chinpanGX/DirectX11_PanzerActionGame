@@ -33,7 +33,7 @@ GameManager::GameManager()
 {
 	m_Manager.emplace_back(std::make_unique<GameAudio>());
 	m_Manager.emplace_back(std::make_unique<RemainGage>());
-	m_Manager.emplace_back(std::make_unique<ResPawn>());
+	m_Manager.emplace_back(std::make_unique<Respawn>());
 }
 
 GameManager::~GameManager()

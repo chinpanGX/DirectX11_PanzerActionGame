@@ -29,7 +29,7 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void ResPawn(const D3DXVECTOR3& pos)override;
+	void Respawn(const D3DXVECTOR3& Positiom)override;
 	void UseSkill();
 	void Shot();
 

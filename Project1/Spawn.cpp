@@ -15,21 +15,21 @@
 #include "Enemy.h"
 #include "SPawn.h"
 
-ResPawn::ResPawn()
+Respawn::Respawn()
 {
 	m_SPawn.emplace_back(std::make_unique<PlayerSPawn>());
 	m_SPawn.emplace_back(std::make_unique<EnemySPawn>());
 }
 
-ResPawn::~ResPawn()
+Respawn::~Respawn()
 {
 }
 
-void ResPawn::Begin()
+void Respawn::Begin()
 {
 }
 
-void ResPawn::Update(GameManager * Manager, Pawn * Pawn, int32_t Type)
+void Respawn::Update(GameManager * Manager, Pawn * Pawn, int32_t Type)
 {
 	if (!Manager->GetGameEnd()) // falseならゲーム終了ではないので、リスポーンする
 	{
@@ -45,7 +45,7 @@ void ResPawn::Update(GameManager * Manager, Pawn * Pawn, int32_t Type)
 	}
 }
 
-const bool ResPawn::GetResPawn() const
+const bool Respawn::GetResPawn() const
 {
 	return m_IsResPawn;
 }
@@ -61,7 +61,7 @@ PlayerSPawn::~PlayerSPawn()
 void PlayerSPawn::SetSPawn()
 {
 	float x = static_cast<float>(myLib::Random::Rand_R(-200, 200));
-	Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->ResPawn(D3DXVECTOR3(x, 0.0f, -220.0f));
+	Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, -220.0f));
 }
 
 EnemySPawn::EnemySPawn()
@@ -75,5 +75,5 @@ EnemySPawn::~EnemySPawn()
 void EnemySPawn::SetSPawn()
 {
 	float x = static_cast<float>(myLib::Random::Rand_R(-200, 200));
-	Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->ResPawn(D3DXVECTOR3(x, 0.0f, 180.0f));
+	Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, 180.0f));
 }

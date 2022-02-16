@@ -204,9 +204,9 @@ void AABB3::Update(const D3DXVECTOR3 & Position, const D3DXVECTOR3& Rot)
 	m_Max = m_Center + m_Size;
 }
 
-bool AABB3::Contains(const D3DXVECTOR3 & point) const
+bool AABB3::Contains(const D3DXVECTOR3 & Point) const
 {
-	bool outside = point.x < m_Min.x || point.y < m_Min.y || point.z < m_Min.z || point.x > m_Max.x || point.y > m_Max.y || point.z > m_Max.z;
+	bool outside = Point.x < m_Min.x || Point.y < m_Min.y || Point.z < m_Min.z || Point.x > m_Max.x || Point.y > m_Max.y || Point.z > m_Max.z;
 	// pointÇÕBoxÇÃíÜÇ…Ç†ÇÈ
 	return !outside;
 }
@@ -245,9 +245,9 @@ void AABB3::UpdateMinMax(const D3DXVECTOR3 & Point)
 
 // OBB3
 #pragma region OBB3_method
-OBB3::OBB3(const Transform & t, const D3DXVECTOR3 & Size)
+OBB3::OBB3(const Transform & Transform, const D3DXVECTOR3 & Size)
 {
-	auto transform = t;
+	auto transform = Transform;
 	m_Position = transform.GetPosition();
 	// 0,1,2 = x,y,z
 	m_Direction[Vector::right] = transform.right();
@@ -263,9 +263,9 @@ OBB3::~OBB3()
 {
 }
 
-void OBB3::Update(const D3DXVECTOR3& Position, const Transform & t)
+void OBB3::Update(const D3DXVECTOR3& Position, const Transform & Transform)
 {
-	m_Transform = t;
+	m_Transform = Transform;
 	m_Position = Position;
 	// 0,1,2 = x,y,z
 	m_Direction[Vector::right] = m_Transform.right();
@@ -406,14 +406,14 @@ const D3DXVECTOR3 & OBB3::GetPosition() const
 	return m_Position;
 }
 
-const D3DXVECTOR3 & OBB3::direction(Vector vector) const
+const D3DXVECTOR3 & OBB3::GetDirection(Vector Vector) const
 {
-	return m_Direction[vector];
+	return m_Direction[Vector];
 }
 
-const float OBB3::length(Vector vector) const
+const float OBB3::GetLength(Vector Vector) const
 {
-	return m_DirectLength[vector];
+	return m_DirectLength[Vector];
 }
 #pragma endregion OBB3ÉÅÉ\ÉbÉh
 
@@ -506,19 +506,19 @@ bool Intersect(const OBB3 & a, const OBB3 & b)
 {
 	OBB3 obj_a = a;
 	OBB3 obj_b = b;
-	D3DXVECTOR3 Nae1 = obj_a.direction(OBB3::Vector::right);
-	D3DXVECTOR3 ae1 = Nae1 * obj_a.length(OBB3::Vector::right);
-	D3DXVECTOR3 Nae2 = obj_a.direction(OBB3::Vector::up);
-	D3DXVECTOR3 ae2 = Nae2 * obj_a.length(OBB3::Vector::up);
-	D3DXVECTOR3 Nae3 = obj_a.direction(OBB3::Vector::forward);
-	D3DXVECTOR3 ae3 = Nae3 * obj_a.length(OBB3::Vector::forward);
+	D3DXVECTOR3 Nae1 = obj_a.GetDirection(OBB3::Vector::right);
+	D3DXVECTOR3 ae1 = Nae1 * obj_a.GetLength(OBB3::Vector::right);
+	D3DXVECTOR3 Nae2 = obj_a.GetDirection(OBB3::Vector::up);
+	D3DXVECTOR3 ae2 = Nae2 * obj_a.GetLength(OBB3::Vector::up);
+	D3DXVECTOR3 Nae3 = obj_a.GetDirection(OBB3::Vector::forward);
+	D3DXVECTOR3 ae3 = Nae3 * obj_a.GetLength(OBB3::Vector::forward);
 
-	D3DXVECTOR3 Nbe1 = obj_b.direction(OBB3::Vector::right);
-	D3DXVECTOR3 be1 = Nae1 * obj_b.length(OBB3::Vector::right);
-	D3DXVECTOR3 Nbe2 = obj_b.direction(OBB3::Vector::up);
-	D3DXVECTOR3 be2 = Nae2 * obj_b.length(OBB3::Vector::up);
-	D3DXVECTOR3 Nbe3 = obj_b.direction(OBB3::Vector::forward);
-	D3DXVECTOR3 be3 = Nae3 * obj_b.length(OBB3::Vector::forward);
+	D3DXVECTOR3 Nbe1 = obj_b.GetDirection(OBB3::Vector::right);
+	D3DXVECTOR3 be1 = Nae1 * obj_b.GetLength(OBB3::Vector::right);
+	D3DXVECTOR3 Nbe2 = obj_b.GetDirection(OBB3::Vector::up);
+	D3DXVECTOR3 be2 = Nae2 * obj_b.GetLength(OBB3::Vector::up);
+	D3DXVECTOR3 Nbe3 = obj_b.GetDirection(OBB3::Vector::forward);
+	D3DXVECTOR3 be3 = Nae3 * obj_b.GetLength(OBB3::Vector::forward);
 
 	D3DXVECTOR3 Interval = obj_a.GetPosition() - obj_b.GetPosition();
 

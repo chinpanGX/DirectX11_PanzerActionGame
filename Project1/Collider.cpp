@@ -27,7 +27,7 @@ Collider::~Collider()
 }
 
 // ˆÊ’u‚ÌXV
-void Collider::Update(const D3DXVECTOR3& Position, Transform & t)
+void Collider::Update(const D3DXVECTOR3& Position, Transform & Transform)
 {
 	if (m_sphere)
 	{
@@ -39,7 +39,7 @@ void Collider::Update(const D3DXVECTOR3& Position, Transform & t)
 	}
 	if (m_obb)
 	{
-		m_obb->Update(Position, t);
+		m_obb->Update(Position, Transform);
 	}
 }
 

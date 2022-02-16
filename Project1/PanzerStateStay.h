@@ -17,8 +17,8 @@ namespace State
 	public:
 		Stay();
 		~Stay();
-		void Begin(Player* pPlayer)override;
-		void Update(Enemy* pEnemy, float deltaTime)override;
+		void Begin(Player* Player)override;
+		void Update(Enemy* Enemy, float DeltaTime)override;
 	private:
 		Player* m_Player;
 
@@ -29,4 +29,4 @@ namespace State
 }
 
 // ターゲットが左右どちらにいるかを調べる
-float FindTargetDirection(Player* target, Enemy* pEnemy, const D3DXVECTOR3& forward);
+float FindTargetDirection(Player* target, Enemy* Enemy, const D3DXVECTOR3& forward);

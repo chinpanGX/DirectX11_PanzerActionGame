@@ -18,7 +18,7 @@ public:
 	void Update()override;
 	void Event()override;
 	void Draw()override;
-	void Create(const std::string& modelName, D3DXVECTOR3 pos, D3DXVECTOR3 size, float degAngle, bool onCollider);
+	void Create(const std::string& ModelName, D3DXVECTOR3 Position, D3DXVECTOR3 Size, float DegAngle);
 private:
 	std::string m_DrawModelName;
 	std::string m_ModelName;

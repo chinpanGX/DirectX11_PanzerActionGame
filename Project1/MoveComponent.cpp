@@ -100,7 +100,7 @@ void MoveComponent::Stop()
 	m_Speed = 0.0f;
 }
 
-D3DXVECTOR3 & MoveComponent::velocity()
+const D3DXVECTOR3 & MoveComponent::GetVelocity() const
 {
 	return m_Velocity;
 }

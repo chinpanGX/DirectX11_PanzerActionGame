@@ -19,13 +19,13 @@ State::UseSkill::~UseSkill()
 {
 }
 
-void State::UseSkill::Begin(Player * pPlayer)
+void State::UseSkill::Begin(Player * Player)
 {
 }
 
-void State::UseSkill::Update(Enemy* pEnemy, float deltaTime)
+void State::UseSkill::Update(Enemy* Enemy, float DeltaTime)
 {
 	// ƒXƒLƒ‹‚ðŽg‚¤
-	pEnemy->UseSkill();
-	pEnemy->ChangeState(std::make_unique<State::Stay>());
+	Enemy->UseSkill();
+	Enemy->ChangeState(std::make_unique<State::Stay>());
 }

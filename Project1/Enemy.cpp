@@ -102,9 +102,7 @@ void Enemy::Draw()
 	else
 	{
 		// デフォルトの設定
-		m_Resource.SetPixelShader("PixelLighting");
-		//m_Resource.SetPixelShader("Toon");
-		//m_Resource.SetTexture(1, "Toon");
+		m_Resource.SetPixelShader("PixelLighting");		
 	}
 	GetVehicle().Draw();
 }
@@ -115,12 +113,12 @@ void Enemy::ChangeState(std::unique_ptr<PanzerState> State)
 	m_State->Begin(m_Player);
 }
 
-void Enemy::ResPawn(const D3DXVECTOR3 & pos)
+void Enemy::Respawn(const D3DXVECTOR3 & Position)
 {
 	GetVehicle().GetSkill().Reset(GetVehicle().GetStatus());
 	GetVehicle().GetStatus().Reset();
 	// スキルの状態をリセット
-	SetStartPosition(this, pos, D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
+	SetStartPosition(this, Position, D3DXVECTOR3(0.0f, Math::ToRadians(180.0f), 0.0f));
 	this->ChangeState(std::make_unique<State::Stay>());
 }
 

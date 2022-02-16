@@ -41,7 +41,7 @@ public:
 
 	void Update(const D3DXVECTOR3& Position);
 	void Update(const D3DXVECTOR3 & Position, const D3DXVECTOR3& Rot);
-	bool Contains(const D3DXVECTOR3& point) const;
+	bool Contains(const D3DXVECTOR3& Point) const;
 	float MinDistSq(const D3DXVECTOR3& Position)const;
 	// Getter
 	const D3DXVECTOR3& GetMin() const;
@@ -67,13 +67,13 @@ public:
 		forward
 	};
 	OBB3() = delete;
-	OBB3(const class Transform& t, const D3DXVECTOR3& Size);
+	OBB3(const class Transform& Transform, const D3DXVECTOR3& Size);
 	~OBB3();
-	void Update(const D3DXVECTOR3& Position, const Transform& t);
+	void Update(const D3DXVECTOR3& Position, const Transform& Transform);
 	void SystemDraw();
 	const D3DXVECTOR3& GetPosition()const;
-	const D3DXVECTOR3& direction(Vector vector)const;
-	const float length(Vector vector)const;
+	const D3DXVECTOR3& GetDirection(Vector Vector)const;
+	const float GetLength(Vector Vector)const;
 private:
 	Transform m_Transform;
 	D3DXVECTOR3 m_Position;

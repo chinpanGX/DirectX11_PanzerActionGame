@@ -12,6 +12,6 @@ class ISetterObject
 {
 public:
 	virtual ~ISetterObject(){}
-	virtual void Set(class Scene* scene) = 0;
+	virtual void Set(class Scene* Scene) = 0;
 };
 

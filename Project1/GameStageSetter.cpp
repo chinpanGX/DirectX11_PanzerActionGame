@@ -72,14 +72,6 @@ void GameStageSetterWallBox::Set(Scene * Scene)
 		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Near, size, g_UnitZ);
 		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Right, size, g_UnitX);
 		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(Left, size, g_NegUnitX);				
-#if 0
-		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, 150.0f), size);
-		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, 150.0f), size);		
-		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(150.0f, 0.0f, -30.0f * i), size);		
-		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-150.0f, 0.0f, -30.0f * i), size);		
-		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(30.0f * i, 0.0f, -150.0f), size);		
-		Scene->AddGameObject<WallBox>(LAYER_3D_STAGE)->Set(D3DXVECTOR3(-30.0f * i, 0.0f, -150.0f), size);
-#endif
 	}
 }
 
@@ -118,7 +110,7 @@ void GameStageSetterRock::SetBackGround()
 	for (int i = 0; i < m_ObjectCount; i++)
 	{
 		float angle = static_cast<float>(myLib::Random::Rand_R(0, 360));		
-		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock", m_Position[i], m_Size[i], angle, false);		
+		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock", m_Position[i], m_Size[i], angle);		
 	}
 
 	// ƒŠƒZƒbƒg
@@ -134,7 +126,7 @@ void GameStageSetterRock::SetBackGround()
 	for (int i = 0; i < m_ObjectCount; i++)
 	{
 		float angle = static_cast<float>(myLib::Random::Rand_R(0, 360));
-		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock02", m_Position[i], m_Size[i], angle, false);
+		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock02", m_Position[i], m_Size[i], angle);
 	}
 
 	m_Position.clear();

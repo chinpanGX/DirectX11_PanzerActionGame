@@ -12,11 +12,11 @@
 #include <vector>
 
 // ƒŠƒXƒ|[ƒ“
-class ResPawn final : public IManager
+class Respawn final : public IManager
 {
 public:
-	ResPawn();
-	~ResPawn();
+	Respawn();
+	~Respawn();
 	void Begin()override;
 	void Update(GameManager* Manager, Pawn* Pawn, int32_t Type)override;
 	const bool GetResPawn() const;

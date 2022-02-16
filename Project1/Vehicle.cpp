@@ -166,7 +166,7 @@ void Vehicle::ShotPointOffsetLength(float Length)
 	m_GunLength = Length;
 }
 
-Panzer & Vehicle::panzer() const
+Panzer & Vehicle::GetPanzer() const
 {
 	// nullcheck
 	if (!m_Panzer) 
@@ -176,7 +176,7 @@ Panzer & Vehicle::panzer() const
 	return *m_Panzer;
 }
 
-const std::string & Vehicle::tag() const
+const std::string & Vehicle::GetTag() const
 {
 	return m_Tag;
 }

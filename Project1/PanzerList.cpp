@@ -41,9 +41,9 @@ Tiger::Tiger() : Vehicle("Tiger")
 	// Colliderの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(panzer().GetBody().GetTransform(), 6.0f);
-	m_Collider[0]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(5.0f, 3.0f, 7.0f));
-	m_Collider[1]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(5.0f, 3.0f, 7.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
 }
 
 Tiger::~Tiger()
@@ -98,9 +98,9 @@ Centurion::Centurion() : Vehicle("Centurion")
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(panzer().GetBody().GetTransform(), 8.0f);
-	m_Collider[0]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(5.0f, 3.0f, 8.0f));
-	m_Collider[1]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 8.0f);
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(5.0f, 3.0f, 8.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
 }
 
 Centurion::~Centurion()
@@ -156,9 +156,9 @@ Patton::Patton() : Vehicle("Patton")
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(panzer().GetBody().GetTransform(), 8.0f);
-	m_Collider[0]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
-	m_Collider[1]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 8.0f);
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 3.0f, 8.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
 }
 
 Patton::~Patton()
@@ -216,10 +216,10 @@ T_34_85::T_34_85() : Vehicle("T-34/85")
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(panzer().GetBody().GetTransform(), 6.0f);
-	m_Collider[0]->SetAABB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_Collider[0]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f)); 
-	m_Collider[1]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
+	m_Collider[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 4.0f, 7.0f)); 
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(3.0f, 2.0f, 2.0f));
 }
 
 T_34_85::~T_34_85()
@@ -279,10 +279,10 @@ IV_H::IV_H() : Vehicle("IV-H")
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(panzer().GetBody().GetTransform(), 6.0f);
-	m_Collider[0]->SetAABB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_Collider[0]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
-	m_Collider[1]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
+	m_Collider[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 4.0f, 6.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
 }
 
 IV_H::~IV_H()
@@ -337,10 +337,10 @@ Sherman::Sherman() : Vehicle("Sherman")
 	// コリジョンの設定
 	m_Collider[0] = std::make_unique<Collider>();
 	m_Collider[1] = std::make_unique<Collider>();
-	m_Collider[0]->SetSphere3(panzer().GetBody().GetTransform(), 6.0f);
-	m_Collider[0]->SetAABB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
-	m_Collider[0]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
-	m_Collider[1]->SetOBB3(panzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
+	m_Collider[0]->SetSphere3(GetPanzer().GetBody().GetTransform(), 6.0f);
+	m_Collider[0]->SetAABB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 5.0f, 4.0f));
+	m_Collider[0]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(4.0f, 3.0f, 5.0f));
+	m_Collider[1]->SetOBB3(GetPanzer().GetBody().GetTransform(), D3DXVECTOR3(2.0f, 1.0f, 2.0f));
 }
 
 Sherman::~Sherman()

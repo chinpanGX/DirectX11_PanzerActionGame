@@ -94,10 +94,10 @@ void Pawn::CheckZeroHp(Pawn* Pawn)
 	}
 }
 
-void Pawn::SetStartPosition(Pawn * Pawn, const D3DXVECTOR3& Pos, const D3DXVECTOR3& Rot)
+void Pawn::SetStartPosition(Pawn * Pawn, const D3DXVECTOR3& Position, const D3DXVECTOR3& Rotation)
 {
-	m_Vehicle->SetStartPosition(Pawn, Pos, Rot);
-	m_Pivot->SetStartPosition(Pos, Rot);
+	m_Vehicle->SetStartPosition(Pawn, Position, Rotation);
+	m_Pivot->SetStartPosition(Position, Rotation);
 }
 
 void Pawn::Create()
@@ -121,7 +121,7 @@ void Pawn::BeginOverlap(Pawn* Pawn)
 		if (Intersect(Pawn->GetVehicle().GetCollider(0).GetOBB3(), w->GetCollider().GetOBB3()))
 		{
 			D3DXVECTOR3 normal = w->OffsetLength(Pawn->GetVehicle().GetCollider(0).GetOBB3()) * 2.0f;
-			D3DXVECTOR3 scratch = normal - Pawn->GetMoveComponent().velocity();
+			D3DXVECTOR3 scratch = normal - Pawn->GetMoveComponent().GetVelocity();
 			Pawn->GetVehicle().GetBodyTransform().GetPosition() += scratch * Fps::Get().deltaTime;
 		}		
 	}

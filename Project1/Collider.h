@@ -16,7 +16,7 @@ class Collider final
 public:
 	Collider();
 	~Collider();
-	void Update(const D3DXVECTOR3& Position, class Transform& t);
+	void Update(const D3DXVECTOR3& Position, class Transform& Transform);
 	void SystemDraw();
 	// Sphere3
 	void SetSphere3(const Transform& t, const float& Radius);
