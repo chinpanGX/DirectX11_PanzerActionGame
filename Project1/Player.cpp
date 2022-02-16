@@ -79,12 +79,12 @@ void Player::Event()
 			{
 				// 乱数生成(75 ～ 120)の補正をする
 				int rand = myLib::Random::Rand_R(70, 120);
-				attackpt = (e->GetVehicle().GetStatus().attack()) + rand * bullet->distdecay() - GetVehicle().GetStatus().defence();			
+				attackpt = (e->GetVehicle().GetStatus().GetAttack()) + rand * bullet->GetDistdecay() - GetVehicle().GetStatus().GetDefence();			
 				// MAX状態のHPを取得する
-				float maxHp = GetVehicle().GetStatus().maxHp();
+				float maxHp = GetVehicle().GetStatus().GetMaxHp();
 				// 現在のHPから減算
-				float nowHp = GetVehicle().GetStatus().hp() - attackpt;
-				GetVehicle().GetStatus().hp(nowHp);
+				float nowHp = GetVehicle().GetStatus().GetHp() - attackpt;
+				GetVehicle().GetStatus().SetHp(nowHp);
 			}
 			ResetCollisionEnter();
 		}
@@ -101,12 +101,12 @@ void Player::Draw()
 	m_Resource.SetVertexShader("PixelLighting");
 	m_Resource.SetInputLayout("PixelLighting");
 	// スキルを使っているか
-	if (GetVehicle().GetSkill().useSkillNow())
+	if (GetVehicle().GetSkill().GetUseSkillNow())
 	{
 		// スキルを使っているときの設定
 		m_Resource.SetPixelShader("ToonAnim");
 		m_Resource.SetTexture(1, "ToonAnim");
-		D3DXVECTOR4 uv = GetVehicle().GetSkill().uv();
+		D3DXVECTOR4 uv = GetVehicle().GetSkill().GetTexUV();
 		m_Graphics.SetParameter(uv);
 		
 	}
@@ -141,7 +141,7 @@ void Player::ResPawn(const D3DXVECTOR3& pos)
 
 void Player::UseSkill()
 {
-	if (GetVehicle().GetSkill().alreadyUseble() == false) { return; }
+	if (GetVehicle().GetSkill().GetAlreadyUseble() == false) { return; }
 	// スキルを使う
 	GetVehicle().GetSkill().Enable(this);	
 	GetVehicle().GetSkill().PlayEffect(this);
@@ -151,7 +151,7 @@ void Player::UseSkill()
 void Player::Shot()
 {
 	// リロードが終わっていない OR 弾数が0のとき　=> 撃てない
-	if (m_PlayerReload->finishReload() == false || m_AmountBullets == 0) 
+	if (m_PlayerReload->GetFinishReload() == false || m_AmountBullets == 0) 
 	{ 
 		return; 
 	}

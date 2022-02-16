@@ -61,12 +61,12 @@ void PanzerContainer::Update()
 	// 登録状態を更新する
 	m_PlayerofSelectedPanzer = m_PanzerName[m_Choose];
 	// パラメータ取得
-	m_Cost = m_Map[m_PanzerName[m_Choose]]->GetStatus().cost();
-	m_Hp = m_Map[m_PanzerName[m_Choose]]->GetStatus().hp();
-	m_Attack = m_Map[m_PanzerName[m_Choose]]->GetStatus().attack();
-	m_Defence = 1.5f * m_Map[m_PanzerName[m_Choose]]->GetStatus().defence();
-	m_Speed = 3.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().speed();
-	m_Reload = 300.0f - (20.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().reloadTime());
+	m_Cost = m_Map[m_PanzerName[m_Choose]]->GetStatus().GetCost();
+	m_Hp = m_Map[m_PanzerName[m_Choose]]->GetStatus().GetHp();
+	m_Attack = m_Map[m_PanzerName[m_Choose]]->GetStatus().GetAttack();
+	m_Defence = 1.5f * m_Map[m_PanzerName[m_Choose]]->GetStatus().GetDefence();
+	m_Speed = 3.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().GetSpeed();
+	m_Reload = 300.0f - (20.0f * m_Map[m_PanzerName[m_Choose]]->GetStatus().GetReloadTime());
 }
 
 void PanzerContainer::Event()

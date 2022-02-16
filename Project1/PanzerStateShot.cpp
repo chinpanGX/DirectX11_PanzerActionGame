@@ -35,7 +35,7 @@ void State::Shot::Begin(Player * pPlayer)
 void State::Shot::Update(Enemy* pEnemy, float deltaTime)
 {
 	// リロードが終わっていないなら撃てない
-	if (pEnemy->GetReload().finishReload() == false) 
+	if (pEnemy->GetReload().GetFinishReload() == false) 
 	{
 		// ステート変更
 		pEnemy->ChangeState(std::make_unique<State::Stay>());

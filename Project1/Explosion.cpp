@@ -14,22 +14,22 @@
 #include "GameCamera.h"
 #include "Pause.h"
 
-Explosion::Explosion() : Effect()
+Billboard::Explosion::Explosion() : Effect()
 {
 	m_Transform = AddComponent<Transform>();
 	m_Transform->SetScale(10.0f);
 }
 
-Explosion::~Explosion()
+Billboard::Explosion::~Explosion()
 {
 }
 
-void Explosion::Begin()
+void Billboard::Explosion::Begin()
 {
 	
 }
 
-void Explosion::Update()
+void Billboard::Explosion::Update()
 {
 	// ポーズ中かどうか
 	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
@@ -43,11 +43,11 @@ void Explosion::Update()
 	}
 }
 
-void Explosion::Event()
+void Billboard::Explosion::Event()
 {
 }
 
-void Explosion::Draw()
+void Billboard::Explosion::Draw()
 {	
 	// テクスチャ座標を計算
 	float x = Effect::GetFrame() % 4 * (1.0f / 4.0f);
@@ -80,7 +80,7 @@ void Explosion::Draw()
 	m_Graphics.SetMaterial(m);
 
 	// テクスチャの設定
-	m_Resource.SetTexture(0, "Explosion");
+	m_Resource.SetTexture(0, "Billboard::Explosion");
 	
 	Effect::Draw();
 }

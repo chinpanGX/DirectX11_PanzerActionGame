@@ -26,7 +26,7 @@ Resource::~Resource()
 	m_Texture->Unload("Bg");
 	m_Texture->Unload("Ui");
 	m_Texture->Unload("Grass");
-	m_Texture->Unload("Explosion");
+	m_Texture->Unload("Billboard::Explosion");
 	m_Texture->Unload("Reload");
 	m_Texture->Unload("Gage");
 	m_Texture->Unload("Effect");
@@ -55,7 +55,7 @@ void Resource::LoadTexture_ThreadA()
 	m_Texture->Load("Bg", "Bg.png");
 	m_Texture->Load("Ui", "Ui01.png");
 	m_Texture->Load("Grass", "grass.dds");
-	m_Texture->Load("Explosion", "explosion.png");
+	m_Texture->Load("Billboard::Explosion", "explosion.png");
 	m_Texture->Load("Reload", "BulletIcon.png");
 }
 

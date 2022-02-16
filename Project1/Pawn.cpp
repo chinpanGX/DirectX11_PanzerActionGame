@@ -88,7 +88,7 @@ MoveComponent & Pawn::GetMoveComponent() const
 void Pawn::CheckZeroHp(Pawn* Pawn)
 {
 	// 0以下になったら、ゲームマネージャーに知らせる
-	if (m_Vehicle->GetStatus().hp() <= 0.0f)
+	if (m_Vehicle->GetStatus().GetHp() <= 0.0f)
 	{
 		Engine::Get().GetApplication()->GetScene()->GetGameObject<GameManager>(ELayer::LAYER_SYSTEM)->BeginEvent(Pawn, m_Type);
 	}

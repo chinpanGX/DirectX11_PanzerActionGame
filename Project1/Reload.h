@@ -13,7 +13,7 @@ public:
 	virtual void Init() = 0; // 初期化処理
 	virtual void Begin() = 0; // リロード開始
 	virtual void Update() = 0; // 更新
-	const bool finishReload() const;
+	const bool GetFinishReload() const;
 protected:
 	void BeginReload();
 	void FinishReload();

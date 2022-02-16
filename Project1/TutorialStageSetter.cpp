@@ -38,13 +38,13 @@ void TutorialStageSetterWall::Set(Scene * Scene)
 void TutorialStageSetterTarget::Set(Scene * Scene)
 {
 	// GameObject‚ÌƒŠƒXƒg‚É’Ç‰Á->ˆÊ’u‚ÌÝ’è
-	Scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(0.0f, 10.0f, 150.0f);
+	Scene->AddGameObject<Billboard::Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(0.0f, 10.0f, 150.0f);
 	for (int32_t i = 1; i < 3; ++i)
 	{
-		Scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(40.0f * i, 5.0f, 100.0f);
-		Scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(-40.0f * i, 5.0f, 100.0f);
-		Scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(40.0f * i, 25.0f, 200.0f);
-		Scene->AddGameObject<Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(-40.0f * i, 25.0f, 200.0f);
+		Scene->AddGameObject<Billboard::Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(40.0f * i, 5.0f, 100.0f);
+		Scene->AddGameObject<Billboard::Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(-40.0f * i, 5.0f, 100.0f);
+		Scene->AddGameObject<Billboard::Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(40.0f * i, 25.0f, 200.0f);
+		Scene->AddGameObject<Billboard::Target>(LAYER_2D_EFFECT)->GetTransform().SetPosition(-40.0f * i, 25.0f, 200.0f);
 	}
 }
 

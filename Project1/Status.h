@@ -24,49 +24,49 @@ public:
 	~Status();
 
 	// param = 国、Hp、攻撃力、防御力、移動速度、装填時間、回転速度
-	void Set(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed);
+	void Set(Country Country, float Cost, float Hp, float Attack, float Defence, float peed, float reloadTime, float rotSpeed);
 	void Reset();
 
 	// 国
-	const Country& country() const;
+	const Country& GetCountry() const;
 
 	// コスト
-	const float cost() const;
+	const float GetCost() const;
 
 	// HP
-	const float maxHp()const;
-	void hp(float Hp);
-	const float hp() const;
+	const float GetMaxHp()const;
+	void SetHp(float Hp);
+	const float GetHp() const;
 
 	// 攻撃力
-	void attack(float Attack);
-	const float attack()const;
+	void SetAttack(float Attack);
+	const float GetAttack()const;
 
 	// 防御力
-	void defence(float Defence);
-	const float defence()const;
+	void SetDefence(float Defence);
+	const float GetDefence()const;
 
 	// 移動速度
-	void speed(float Speed);
-	const float speed() const;
-	
+	void SetSpeed(float Speed);
+	const float GetSpeed() const;
+
 	// 加速度
-	void addForce(float force);
-	const float addForce() const;
+	void SetAddForce(float Force);
+	const float GetAddForce() const;
 
 	// 回転速度
-	const float rotSpeed() const;
+	const float GetRotSpeed() const;
 	
 	// 主砲の最大角度
-	const float gunAngleUpMax() const;
-	const float gunAngleDownMax() const;
+	const float GetGunAngleUpMax() const;
+	const float GetGunAngleDownMax() const;
 
 	// リロード関係
-	void reloadAddTime(float AddTime);	
-	const float addTime()const;
+	void SetAddTime(float AddTime);	
+	const float GetAddTime()const;
 
-	void reloadTime(float time);
-	const float reloadTime()const;
+	void SetReloadTime(float time);
+	const float GetReloadTime()const;
 private:
 	Country m_Country;
 	float m_MaxHp; // Max値

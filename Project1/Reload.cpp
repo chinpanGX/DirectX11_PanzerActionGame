@@ -28,7 +28,7 @@ void Reload::FinishReload()
 	m_FinishReload = true;
 }
 
-const bool Reload::finishReload() const
+const bool Reload::GetFinishReload() const
 {
 	return m_FinishReload;
 }
@@ -57,8 +57,8 @@ void PlayerReload::Begin()
 	Reload::BeginReload();
 	m_NowReloadTime = 0.0f;
 	// 今スキルを使っているかどうか
-	m_UseSkill = m_Player->GetVehicle().GetSkill().useSkillNow();
-	m_FinishReloadTime = m_Player->GetVehicle().GetStatus().reloadTime() * 60.0f;
+	m_UseSkill = m_Player->GetVehicle().GetSkill().GetUseSkillNow();
+	m_FinishReloadTime = m_Player->GetVehicle().GetStatus().GetReloadTime() * 60.0f;
 	m_OnReloadStop = false;
 	m_Time = 0.0f;
 	m_Count = 0;
@@ -67,18 +67,18 @@ void PlayerReload::Begin()
 void PlayerReload::Update()
 {
 	// リロードが完了していない状態
-	if(Reload::finishReload() == false && m_OnReloadStop == false)
+	if(Reload::GetFinishReload() == false && m_OnReloadStop == false)
 	{
 		// 開始時点でスキルまだ使っていない
 		if (m_UseSkill == false)
 		{
 			// 途中でスキルを使う可能性があるので、更新してみる
-			m_UseSkill = m_Player->GetVehicle().GetSkill().useSkillNow();
-			m_FinishReloadTime = m_Player->GetVehicle().GetStatus().reloadTime() * 60.0f;
+			m_UseSkill = m_Player->GetVehicle().GetSkill().GetUseSkillNow();
+			m_FinishReloadTime = m_Player->GetVehicle().GetStatus().GetReloadTime() * 60.0f;
 		}		
 
 		// 時間を計測
-		m_NowReloadTime += m_Player->GetVehicle().GetStatus().addTime();
+		m_NowReloadTime += m_Player->GetVehicle().GetStatus().GetAddTime();
 		
 		// クイックリロードが有効中
 		bool enableQuickReload = m_Reload->GetEnableQuickReload();
@@ -166,7 +166,7 @@ void CpuReload::Begin()
 void CpuReload::Update()
 {
 	// リロードが完了していない状態
-	if (Reload::finishReload() == false)
+	if (Reload::GetFinishReload() == false)
 	{
 		m_NowReloadTime += 1.0f;
 		// リロード完了時間を超えたら

@@ -37,7 +37,7 @@ void MainGun::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
 	GetGraphics().SetWorldMatrix(m_WorldMatrix);
-	GetResource().SetStaticModel(Parts::tag() + "Gun");
+	GetResource().SetStaticModel(Parts::GetTag() + "Gun");
 }
 
 void MainGun::UpdateMatrix(const D3DXMATRIX & ParentMatirx)

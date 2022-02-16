@@ -38,11 +38,11 @@ namespace PlayerUi
 		m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
 		// 増加する量
-		float t = m_Player->GetVehicle().GetSkill().timeToActivateSkill();
+		float t = m_Player->GetVehicle().GetSkill().GetTimeToActivateSkill();
 		m_AddAmount = m_MaxDrawSize / t * Fps::Get().deltaTime;
 		
 		// 減らす量
-		m_TimeLimit = m_Player->GetVehicle().GetSkill().timeLimit();
+		m_TimeLimit = m_Player->GetVehicle().GetSkill().GetTimeLimit();
 		m_SubAmount = m_MaxDrawSize / m_TimeLimit * Fps::Get().deltaTime + 0.2f;
 
 		m_Color = D3DXVECTOR4(0.7f, 0.7f, 0.1f, 1.0f);
@@ -54,7 +54,7 @@ namespace PlayerUi
 		if (m_Pause->NowPausing()) { return; }
 		
 		// スキルを使ったかどうか
-		m_Use = m_Player->GetVehicle().GetSkill().useSkillNow();
+		m_Use = m_Player->GetVehicle().GetSkill().GetUseSkillNow();
 		// ゲージを増やす
 		AddGage();
 		Use();
@@ -86,7 +86,7 @@ namespace PlayerUi
 	void DrawSkill::AddGage()
 	{
 		// まだスキルが使える状態じゃない
-		if (m_Player->GetVehicle().GetSkill().alreadyUseble() == false)
+		if (m_Player->GetVehicle().GetSkill().GetAlreadyUseble() == false)
 		{
 			// ゲージを増やす
 			m_DrawSize += m_AddAmount;
@@ -150,7 +150,7 @@ namespace PlayerUi
 		m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
 		// リロード時間の取得
-		float t = m_Player->GetVehicle().GetStatus().reloadTime();
+		float t = m_Player->GetVehicle().GetStatus().GetReloadTime();
 		// 増える量を計算
 		m_DefaultAmount = m_MaxSizeAmount / t * Fps::Get().deltaTime;
 
@@ -272,7 +272,7 @@ namespace PlayerUi
 
 		// ゲージをとアイコンの更新		
 		// スキルを使用中
-		if (m_Player->GetVehicle().GetSkill().useSkillNow())
+		if (m_Player->GetVehicle().GetSkill().GetUseSkillNow())
 		{
 			AddGageAndMoveIcon(m_QuickAmount);
 		}
@@ -293,7 +293,7 @@ namespace PlayerUi
 	// リロード完了
 	void Reload::Finish()
 	{
-		if (m_Player->GetReload().finishReload())
+		if (m_Player->GetReload().GetFinishReload())
 		{
 			m_NowGageAmount = m_MaxSizeAmount;
 			m_IconPosition.x = m_GagePosition.x + m_MaxSizeAmount;
@@ -366,13 +366,13 @@ namespace PlayerUi
 	{
 		m_Player = Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR);
 		// 実際のHPとMAXのサイズから描画する比率を求める
-		m_DrawRatioAmount = m_MaxDrawSize / m_Player->GetVehicle().GetStatus().maxHp();
+		m_DrawRatioAmount = m_MaxDrawSize / m_Player->GetVehicle().GetStatus().GetMaxHp();
 	}
 
 	void Hp::Update()
 	{
 		// 現在のHP
-		m_NowHpAmount = m_Player->GetVehicle().GetStatus().hp();
+		m_NowHpAmount = m_Player->GetVehicle().GetStatus().GetHp();
 		// 更新前のHPと比較する
 		if (m_OldHpAmount != m_NowHpAmount)
 		{

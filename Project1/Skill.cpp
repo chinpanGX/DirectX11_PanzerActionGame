@@ -28,17 +28,17 @@ Skill::~Skill()
 	m_UseSkill.clear();
 }
 
-void Skill::SetSkill(std::unique_ptr<IUseSkill> useSkill)
+void Skill::SetSkill(std::unique_ptr<IUseSkill> UseSkill)
 {
-	m_UseSkill.emplace_back(std::move(useSkill));
+	m_UseSkill.emplace_back(std::move(UseSkill));
 }
 
-void Skill::Begin(float timeToActivateSkill)
+void Skill::Begin(float TimeToActivateSkill)
 {
-	m_TimeToActivateSkill = timeToActivateSkill;
+	m_TimeToActivateSkill = TimeToActivateSkill;
 }
 
-void Skill::Update(Status& status, const D3DXVECTOR3& position)
+void Skill::Update(Status& Status, const D3DXVECTOR3& Position)
 {
 	switch (m_Phase)
 	{
@@ -54,7 +54,7 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		break;
 	// スキルを使う
 	case 2:
-		Use(status);
+		Use(Status);
 		break;
 	// スキルを使っている間
 	case 3:
@@ -62,14 +62,14 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 		if (m_Effect)
 		{
 			// エフェクトの位置を戦車に合わせる
-			m_Effect->GetTransform().SetPosition(position);
+			m_Effect->GetTransform().SetPosition(Position);
 			// アニメーションを再生する
 			PlayAnim();
 		}
 		// ５秒間有効
 		if (m_NowTime > m_TimeLimit)
 		{
-			Reset(status);
+			Reset(Status);
 		}
 		break;
 	}
@@ -78,17 +78,17 @@ void Skill::Update(Status& status, const D3DXVECTOR3& position)
 void Skill::PlayEffect(Pawn * Pawn)
 {
 	auto pos = Pawn->GetVehicle().GetBodyTransform().GetPosition();
-	m_Effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<SkillParticle>(ELayer::LAYER_2D_EFFECT);
+	m_Effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<Billboard::SkillParticle>(ELayer::LAYER_2D_EFFECT);
 	m_Effect->GetTransform().SetPosition(pos);
 }
 
-void Skill::Reset(Status & status)
+void Skill::Reset(Status & Status)
 {
 	m_AlreadyUseble = false;
 	m_NowUse = false;
 	for (size_t i = 0; i < m_UseSkill.size(); ++i)
 	{
-		m_UseSkill[i]->Reset(status);
+		m_UseSkill[i]->Reset(Status);
 	}
 	m_NowTime = 0.0f;
 	m_Phase = 0;
@@ -115,32 +115,32 @@ void Skill::Enable(Pawn* Pawn)
 }
 
 /* ゲッター */
-const D3DXVECTOR4 & Skill::uv() const
+const D3DXVECTOR4 & Skill::GetTexUV() const
 {
 	return m_UvParam;
 }
 
-const int32_t Skill::phase() const
+const int32_t Skill::GetPhase() const
 {
 	return m_Phase;
 }
 
-const float Skill::timeToActivateSkill() const
+const float Skill::GetTimeToActivateSkill() const
 {
 	return m_TimeToActivateSkill;
 }
 
-const float Skill::timeLimit() const
+const float Skill::GetTimeLimit() const
 {
 	return m_TimeLimit;
 }
 
-const bool Skill::alreadyUseble() const
+const bool Skill::GetAlreadyUseble() const
 {
 	return m_AlreadyUseble;
 }
 
-const bool Skill::useSkillNow() const
+const bool Skill::GetUseSkillNow() const
 {
 	return m_NowUse;
 }
@@ -161,13 +161,13 @@ void Skill::Charge()
 	}
 }
 
-void Skill::Use(Status & status)
+void Skill::Use(Status & Status)
 {
 	m_AlreadyUseble = false;
 	m_NowUse = true;
 	for (size_t i = 0; i < m_UseSkill.size(); ++i)
 	{
-		m_UseSkill[i]->Use(status);
+		m_UseSkill[i]->Use(Status);
 	}
 	m_Phase = 3;
 }

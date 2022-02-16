@@ -17,9 +17,9 @@ namespace UseSkill
 	{
 	public:
 		AttackUp() = delete;
-		AttackUp(float mag);
-		void Use(Status& status)override;
-		void Reset(Status & status)override;
+		AttackUp(float Mag);
+		void Use(Status& Status)override;
+		void Reset(Status & Status)override;
 	private:
 		float m_Defualt;
 		float m_Mag; // î{ó¶
@@ -30,9 +30,9 @@ namespace UseSkill
 	{
 	public:
 		DefenceUp() = delete;
-		DefenceUp(float mag);
-		void Use(Status& status)override;
-		void Reset(Status & status)override;
+		DefenceUp(float Mag);
+		void Use(Status& Status)override;
+		void Reset(Status & Status)override;
 	private:
 		float m_Defualt;
 		float m_Mag; // î{ó¶
@@ -43,9 +43,9 @@ namespace UseSkill
 	{
 	public:
 		SpeedUp() = delete;
-		SpeedUp(float mag);
-		void Use(Status& status)override;
-		void Reset(Status & status)override;
+		SpeedUp(float Mag);
+		void Use(Status& Status)override;
+		void Reset(Status & Status)override;
 	private:
 		float m_DefualtSpeed;
 		float m_DefualtAddForce;
@@ -56,8 +56,8 @@ namespace UseSkill
 	class HealHp final : public IUseSkill
 	{
 	public:
-		void Use(Status& status)override;
-		void Reset(Status & status)override;
+		void Use(Status& Status)override;
+		void Reset(Status & Status)override;
 	private:
 		float m_AmountHeal = 0.2f; // âÒïúÇ∑ÇÈäÑçá = 20%
 	};
@@ -65,8 +65,8 @@ namespace UseSkill
 	class QuickReload final : public IUseSkill
 	{
 	public:
-		void Use(Status& status)override;
-		void Reset(Status & status)override;
+		void Use(Status& Status)override;
+		void Reset(Status & Status)override;
 	private:
 		float m_DefualtReloadTime;
 	};

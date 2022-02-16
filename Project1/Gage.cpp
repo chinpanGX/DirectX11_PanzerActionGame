@@ -34,7 +34,7 @@ void RemainGage::Begin()
 
 void RemainGage::Update(GameManager* Manager, Pawn * Pawn, int32_t Type)
 {
-	float cost = Pawn->GetVehicle().GetStatus().cost();
+	float cost = Pawn->GetVehicle().GetStatus().GetCost();
 	float nowgage = GetGage(Type) - (cost * 10.0f);
 	// ゲージが残っていないので、リスポーンできない
 	if (nowgage <= 0.0f)

@@ -85,7 +85,7 @@ void Bullet::Create(const D3DXVECTOR3 & Position, const D3DXVECTOR3 & Vector)
 	m_State = std::make_unique<BulletStateMove>();
 
 	// ƒŠƒ\[ƒX
-	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<MuzzleFlash>(ELayer::LAYER_2D_EFFECT);
+	auto effect = Engine::Get().GetApplication()->GetScene()->AddGameObject<Billboard::MuzzleFlash>(ELayer::LAYER_2D_EFFECT);
 	effect->GetTransform().SetPosition(Position);
 }
 
@@ -147,12 +147,12 @@ void Bullet::DownDDE()
 	}
 }
 
-const float Bullet::distdecay() const
+const float Bullet::GetDistdecay() const
 {
 	return m_Distdecay;
 }
 
-const float Bullet::speed() const
+const float Bullet::GetSpeed() const
 {
 	return m_Speed;
 }

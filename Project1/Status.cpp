@@ -17,16 +17,16 @@ Status::~Status()
 {
 }
 
-void Status::Set(Country country, float cost, float hp, float attack, float defence, float speed, float reloadTime, float rotSpeed)
+void Status::Set(Country country, float cost, float hp, float SetAttack, float SetDefence, float speed, float reloadTime, float rotSpeed)
 {
 	m_Country = country;
 	m_Cost = cost;
 	m_MaxHp = hp;
 	m_Hp = hp;
-	m_defaltAttack = attack;
-	m_Attack = attack;
-	m_defaultDefence = defence;
-	m_Defense = defence;
+	m_defaltAttack = SetAttack;
+	m_Attack = SetAttack;
+	m_defaultDefence = SetDefence;
+	m_Defense = SetDefence;
 	m_defaultSpeed = speed;
 	m_Speed = speed;
 	m_defaultReloadTime = reloadTime;
@@ -44,22 +44,22 @@ void Status::Reset()
 }
 
 #pragma region _Getter&Setter_function_
-const Status::Country & Status::country() const
+const Status::Country & Status::GetCountry() const
 {
 	return m_Country;
 }
 
-const float Status::cost() const
+const float Status::GetCost() const
 {
 	return m_Cost;
 }
 
-const float Status::maxHp() const
+const float Status::GetMaxHp() const
 {
 	return m_MaxHp;
 }
 
-void Status::hp(float Hp)
+void Status::SetHp(float Hp)
 {
 	float tmp = Hp;
 	// マックスより多くならないようにする
@@ -70,82 +70,82 @@ void Status::hp(float Hp)
 	m_Hp = tmp;
 }
 
-const float Status::hp() const
+const float Status::GetHp() const
 {
 	return m_Hp;
 }
 
-void Status::attack(float Attack)
+void Status::SetAttack(float Attack)
 {
 	m_Attack = Attack;
 }
 
-const float Status::attack() const
+const float Status::GetAttack() const
 {
 	return m_Attack;
 }
 
-void Status::defence(float Defence)
+void Status::SetDefence(float Defence)
 {
 	m_Defense = Defence;
 }
 
-const float Status::defence() const
+const float Status::GetDefence() const
 {
 	return m_Defense;
 }
 
-void Status::speed(float Speed)
+void Status::SetSpeed(float Speed)
 {
 	m_Speed = Speed;
 }
 
-const float Status::speed() const
+const float Status::GetSpeed() const
 {
 	return m_Speed;
 }
 
-void Status::addForce(float force)
+void Status::SetAddForce(float Force)
 {
-	m_AddForce = force;
+	m_AddForce = Force;
 }
 
-const float Status::addForce() const
+const float Status::GetAddForce() const
 {
 	return m_AddForce;
 }
 
-const float Status::rotSpeed() const
+const float Status::GetRotSpeed() const
 {
 	return m_RotSpeed;
 }
 
-const float Status::gunAngleUpMax() const
+const float Status::GetGunAngleUpMax() const
 {
 	return m_GunUpMax;
 }
 
-const float Status::gunAngleDownMax() const
+const float Status::GetGunAngleDownMax() const
 {
 	return m_GunDownMax;
 }
 
-void Status::reloadAddTime(float AddTime)
+void Status::SetAddTime(float AddTime)
 {
 	m_AddTime = AddTime;
 }
 
-const float Status::addTime() const
+const float Status::GetAddTime() const
 {
 	return m_AddTime;
 }
 
-void Status::reloadTime(float time)
+void Status::SetReloadTime(float Time)
 {
-	m_ReloadTime = time;
+	m_ReloadTime = Time;
 }
 
-const float Status::reloadTime() const
+const float Status::GetReloadTime() const
 {
 	return m_ReloadTime;
 }

@@ -9,17 +9,19 @@
 #pragma once
 #include "Effect.h"
 
-class Target final: public Effect
+namespace Billboard
 {
-public:
-	Target();
-	~Target();
-	void Begin()override;
-	void Update()override;
-	void Event()override;
-	void Draw()override;
-private:
-	float m_CoolTime = 100.0f; // •`‰æ‚µ‚È‚¢ŽžŠÔ
-	bool m_NotDraw = false; // true‚Å•`‰æ‚µ‚È‚¢
-};
-
+	class Target final : public Effect
+	{
+	public:
+		Target();
+		~Target();
+		void Begin()override;
+		void Update()override;
+		void Event()override;
+		void Draw()override;
+	private:
+		float m_CoolTime = 100.0f; // •`‰æ‚µ‚È‚¢ŽžŠÔ
+		bool m_NotDraw = false; // true‚Å•`‰æ‚µ‚È‚¢
+	};
+}

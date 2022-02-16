@@ -30,8 +30,8 @@ public:
 	// ˆĞ—ÍŒ¸Š
 	void DownDDE();
 
-	const float distdecay() const;
-	const float speed() const;
+	const float GetDistdecay() const;
+	const float GetSpeed() const;
 private:
 	void OnCollisionToPawn(class Pawn * Pawn);
 	std::unique_ptr<BulletState> m_State;

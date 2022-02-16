@@ -11,80 +11,80 @@
 #include "SkillList.h"
 
 // î{ó¶ÇÉZÉbÉg
-UseSkill::AttackUp::AttackUp(float mag) : m_Mag(mag)
+UseSkill::AttackUp::AttackUp(float Mag) : m_Mag(Mag)
 {
 
 }
 
-void UseSkill::AttackUp::Use(Status& status)
+void UseSkill::AttackUp::Use(Status& Status)
 {
-	m_Defualt = status.attack();
+	m_Defualt = Status.GetAttack();
 	float nowAttack = m_Defualt * m_Mag;
-	status.attack(nowAttack);
+	Status.SetAttack(nowAttack);
 }
 
-void UseSkill::AttackUp::Reset(Status & status)
+void UseSkill::AttackUp::Reset(Status & Status)
 {
-	status.attack(m_Defualt);
+	Status.SetAttack(m_Defualt);
 }
 
-UseSkill::DefenceUp::DefenceUp(float mag) : m_Mag(mag)
+UseSkill::DefenceUp::DefenceUp(float Mag) : m_Mag(Mag)
 {
 	
 }
 
-void UseSkill::DefenceUp::Use(Status& status)
+void UseSkill::DefenceUp::Use(Status& Status)
 {
-	m_Defualt = status.defence();
+	m_Defualt = Status.GetDefence();
 	float nowDefence = m_Defualt * m_Mag;
-	status.defence(nowDefence);
+	Status.SetDefence(nowDefence);
 }
 
-void UseSkill::DefenceUp::Reset(Status & status)
+void UseSkill::DefenceUp::Reset(Status & Status)
 {
-	status.defence(m_Defualt);
+	Status.SetDefence(m_Defualt);
 }
 
-UseSkill::SpeedUp::SpeedUp(float mag) : m_Mag(mag)
+UseSkill::SpeedUp::SpeedUp(float Mag) : m_Mag(Mag)
 {
 }
 
-void UseSkill::SpeedUp::Use(Status& status)
+void UseSkill::SpeedUp::Use(Status& Status)
 {
-	m_DefualtSpeed = status.speed();
-	m_DefualtAddForce = status.addForce();
+	m_DefualtSpeed = Status.GetSpeed();
+	m_DefualtAddForce = Status.GetAddForce();
 	float nowSpeed = m_DefualtSpeed * m_Mag;
 	float addForceMag = 3.0f;
-	status.speed(nowSpeed);
-	status.addForce(addForceMag);
+	Status.SetSpeed(nowSpeed);
+	Status.SetAddForce(addForceMag);
 }
 
-void UseSkill::SpeedUp::Reset(Status & status)
+void UseSkill::SpeedUp::Reset(Status & Status)
 {
-	status.speed(m_DefualtSpeed);
-	status.addForce(m_DefualtAddForce);
+	Status.SetSpeed(m_DefualtSpeed);
+	Status.SetAddForce(m_DefualtAddForce);
 }
 
-void UseSkill::HealHp::Use(Status& status)
+void UseSkill::HealHp::Use(Status& Status)
 {
 	// âÒïúÇ∑ÇÈó ÇãÅÇﬂÇÈ
-	float heal = status.maxHp() * m_AmountHeal;
+	float heal = Status.GetMaxHp() * m_AmountHeal;
 	// âÒïúÇµÇΩHP
-	float nowHp = status.hp() + heal;
-	status.hp(nowHp);
+	float nowHp = Status.GetHp() + heal;
+	Status.SetHp(nowHp);
 }
 
-void UseSkill::HealHp::Reset(Status & status)
+void UseSkill::HealHp::Reset(Status & Status)
 {
 }
 
-void UseSkill::QuickReload::Use(Status & status)
+void UseSkill::QuickReload::Use(Status & Status)
 {
-	m_DefualtReloadTime = status.reloadTime();
-	status.reloadTime(0.5f);
+	m_DefualtReloadTime = Status.GetReloadTime();
+	Status.SetReloadTime(0.5f);
 }
 
-void UseSkill::QuickReload::Reset(Status & status)
+void UseSkill::QuickReload::Reset(Status & Status)
 {
-	status.reloadTime(m_DefualtReloadTime);
+	Status.SetReloadTime(m_DefualtReloadTime);
 }

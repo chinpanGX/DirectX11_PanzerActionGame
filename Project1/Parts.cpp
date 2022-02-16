@@ -9,7 +9,7 @@
 #include "Graphics.h"
 #include "Parts.h"
 
-Parts::Parts(const std::string & Tag) : m_Tagname(Tag), m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
+Parts::Parts(const std::string & Tag) : m_Tag(Tag), m_Resource(*Engine::Get().GetResource()), m_Graphics(*Engine::Get().GetGraphics())
 {
 }
 
@@ -18,9 +18,9 @@ const D3DXMATRIX & Parts::GetWorldMatrix() const
 	return m_WorldMatrix;
 }
 
-const std::string & Parts::tag() const
+const std::string & Parts::GetTag() const
 {
-	return m_Tagname;
+	return m_Tag;
 }
 
 Resource & Parts::GetResource() const

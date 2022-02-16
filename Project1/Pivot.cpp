@@ -13,10 +13,10 @@
 #include "Fps.h"
 #include "Pivot.h"
 
-Pivot::Pivot(Vehicle & vehicle) : m_Vehicle(vehicle)
+Pivot::Pivot(Vehicle & Vehicle) : m_Vehicle(Vehicle)
 {
 	m_Transform = AddComponent<Transform>();
-	m_MoveComponent = std::make_unique<MoveComponent>(m_Vehicle.GetStatus());
+	m_MoveComponent = std::make_unique<MoveComponent>(Vehicle.GetStatus());
 }
 
 Pivot::~Pivot()

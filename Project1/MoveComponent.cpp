@@ -31,7 +31,7 @@ void MoveComponent::Update(Transform& transform)
 		m_cmd = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
 	}
 	bool nowInput = false;
-	myLib::Timeline acc(0.0f, m_Status.speed(), m_Status.addForce());
+	myLib::Timeline acc(0.0f, m_Status.GetSpeed(), m_Status.GetAddForce());
 	for (int32_t i = 0; i < 2; i++)
 	{
 		nowInput = m_cmd->GetNowInput(i);
@@ -69,29 +69,29 @@ void MoveComponent::MoveBackward(Transform & transform, float deltaTime)
 
 void MoveComponent::RotRight(Transform & transform, float deltaTime)
 {
-	transform.GetRotation().y += m_Status.rotSpeed() * deltaTime;
+	transform.GetRotation().y += m_Status.GetRotSpeed() * deltaTime;
 }
 
 void MoveComponent::RotLeft(Transform & transform, float deltaTime)
 {	
-	transform.GetRotation().y -= m_Status.rotSpeed() * deltaTime;	
+	transform.GetRotation().y -= m_Status.GetRotSpeed() * deltaTime;	
 }
 
 void MoveComponent::GunUp(Transform & transform, float deltaTime)
 {
-	transform.GetRotation().x -= m_Status.rotSpeed() * 0.9f * deltaTime;
-	if (transform.GetRotation().x <= -m_Status.gunAngleUpMax())
+	transform.GetRotation().x -= m_Status.GetRotSpeed() * 0.9f * deltaTime;
+	if (transform.GetRotation().x <= -m_Status.GetGunAngleUpMax())
 	{
-		transform.GetRotation().x = -m_Status.gunAngleUpMax();
+		transform.GetRotation().x = -m_Status.GetGunAngleUpMax();
 	}
 }
 
 void MoveComponent::GunDown(Transform & transform, float deltaTime)
 {
-	transform.GetRotation().x += m_Status.rotSpeed() * 0.9f * deltaTime;
-	if (transform.GetRotation().x >= m_Status.gunAngleDownMax())
+	transform.GetRotation().x += m_Status.GetRotSpeed() * 0.9f * deltaTime;
+	if (transform.GetRotation().x >= m_Status.GetGunAngleDownMax())
 	{
-		transform.GetRotation().x = m_Status.gunAngleDownMax();
+		transform.GetRotation().x = m_Status.GetGunAngleDownMax();
 	}
 }
 

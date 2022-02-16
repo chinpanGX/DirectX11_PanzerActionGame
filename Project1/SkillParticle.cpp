@@ -14,23 +14,23 @@
 #include "SkillParticle.h"
 #include "Fps.h"
 
-SkillParticle::SkillParticle() : Effect()
+Billboard::SkillParticle::SkillParticle() : Effect()
 {
 	m_Transform = AddComponent<Transform>();
 	m_Transform->SetScale(10.0f);
 	m_Time = 0.0;
 }
 
-SkillParticle::~SkillParticle()
+Billboard::SkillParticle::~SkillParticle()
 {
 }
 
-void SkillParticle::Begin()
+void Billboard::SkillParticle::Begin()
 {
 	
 }
 
-void SkillParticle::Update()
+void Billboard::SkillParticle::Update()
 {
 	// ポーズ中かどうか
 	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
@@ -39,11 +39,11 @@ void SkillParticle::Update()
 	Effect::Update();
 }
 
-void SkillParticle::Event()
+void Billboard::SkillParticle::Event()
 {
 }
 
-void SkillParticle::Draw()
+void Billboard::SkillParticle::Draw()
 {
 	// テクスチャ座標を計算
 	float x = Effect::GetFrame() % 4 * (1.0f / 4.0f);

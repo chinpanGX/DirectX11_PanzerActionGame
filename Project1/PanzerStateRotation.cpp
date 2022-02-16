@@ -91,7 +91,7 @@ void State::TurretRotation::Update(Enemy* pEnemy, float deltaTime)
 	}
 
 	// スキルが使える状態なら、使う
-	if (pEnemy->GetVehicle().GetSkill().alreadyUseble())
+	if (pEnemy->GetVehicle().GetSkill().GetAlreadyUseble())
 	{
 		pEnemy->UseSkill();
 		pEnemy->ChangeState(std::make_unique<State::Stay>());
@@ -101,7 +101,7 @@ void State::TurretRotation::Update(Enemy* pEnemy, float deltaTime)
 	if (-0.5f < dir && dir < 0.5f)
 	{
 		// リロードが完了したら撃つ
-		if (pEnemy->GetReload().finishReload() == true)
+		if (pEnemy->GetReload().GetFinishReload() == true)
 		{
 			pEnemy->ChangeState(std::make_unique<State::Shot>());
 		}

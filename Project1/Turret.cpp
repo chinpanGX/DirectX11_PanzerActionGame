@@ -35,7 +35,7 @@ void Turret::Draw()
 {
 	Actor::UpdateMatrix(*m_Transform);
 	GetGraphics().SetWorldMatrix(m_WorldMatrix);
-	GetResource().SetStaticModel(Parts::tag() + "Turret");
+	GetResource().SetStaticModel(Parts::GetTag() + "Turret");
 }
 
 void Turret::UpdateMatrix(const D3DXMATRIX & ParentMatirx)

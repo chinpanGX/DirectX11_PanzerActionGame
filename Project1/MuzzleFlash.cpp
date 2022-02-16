@@ -14,21 +14,21 @@
 #include "GameCamera.h"
 #include "Pause.h"
 
-MuzzleFlash::MuzzleFlash()
+Billboard::MuzzleFlash::MuzzleFlash()
 {
 	m_Transform = AddComponent<Transform>();
 }
 
-MuzzleFlash::~MuzzleFlash()
+Billboard::MuzzleFlash::~MuzzleFlash()
 {
 }
 
-void MuzzleFlash::Begin()
+void Billboard::MuzzleFlash::Begin()
 {
 	m_Transform->Begin();
 }
 
-void MuzzleFlash::Update()
+void Billboard::MuzzleFlash::Update()
 {
 	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
@@ -40,11 +40,11 @@ void MuzzleFlash::Update()
 	}
 }
 
-void MuzzleFlash::Event()
+void Billboard::MuzzleFlash::Event()
 {
 }
 
-void MuzzleFlash::Draw()
+void Billboard::MuzzleFlash::Draw()
 {
 	// テクスチャ座標を計算
 	float x = Effect::GetFrame() % 4 * (1.0f / 4.0f);
@@ -73,7 +73,7 @@ void MuzzleFlash::Draw()
 	m_Graphics.SetWorldMatrix(world);
 
 	// テクスチャの設定
-	m_Resource.SetTexture(0, "Explosion");
+	m_Resource.SetTexture(0, "Billboard::Explosion");
 	
 	Effect::Draw();
 }

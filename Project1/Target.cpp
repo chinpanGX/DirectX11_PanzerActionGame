@@ -14,23 +14,23 @@
 #include "Bullet.h"
 #include "Fps.h"
 
-Target::Target()
+Billboard::Target::Target()
 {
 	m_Transform = AddComponent<Transform>();
 	m_Collider = AddComponent<Collider>();
 }
 
-Target::~Target()
+Billboard::Target::~Target()
 {
 }
 
-void Target::Begin()
+void Billboard::Target::Begin()
 {
 	m_Transform->SetScale(5.0f, 5.0f, 1.0f);
 	m_Collider->SetSphere3(*m_Transform, 5.0f);
 }
 
-void Target::Update()
+void Billboard::Target::Update()
 {
 	// ポーズ中
 	if (Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
@@ -70,12 +70,12 @@ void Target::Update()
 	Actor::UpdateCollision(*m_Collider);
 }
 
-void Target::Event()
+void Billboard::Target::Event()
 {
 	
 }
 
-void Target::Draw()
+void Billboard::Target::Draw()
 {
 	// 描画が可能なら
 	if (!m_NotDraw) 

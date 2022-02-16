@@ -15,7 +15,7 @@ class Pivot : public Actor
 {
 public:
 	Pivot() = delete;
-	Pivot(Vehicle& m_Vehicle);
+	Pivot(Vehicle& Vehicle);
 	~Pivot();
 	void Begin()override;
 	void Update()override;
@@ -38,6 +38,6 @@ private:
 	const float m_TspOffset = 20.0f;
 	const float m_FpsOffset = 13.0f;
 	const float m_TargetOffset = 50.0f;
-	class Vehicle& m_Vehicle;
+	Vehicle& m_Vehicle;
 };
 
