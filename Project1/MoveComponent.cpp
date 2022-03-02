@@ -24,7 +24,7 @@ MoveComponent::~MoveComponent()
 {
 }
 
-void MoveComponent::Update(Transform& transform)
+void MoveComponent::Update(Transform& Transform)
 {
 	if (m_cmd == nullptr)
 	{
@@ -50,51 +50,58 @@ void MoveComponent::Update(Transform& transform)
 	}
 }
 
-void MoveComponent::MoveForward(Transform & transform, float deltaTime)
+// 前進
+void MoveComponent::MoveForward(Transform & Transform, float DeltaTime)
 {
 	// 進むベクトル
-	m_Velocity = transform.forward() * m_Speed * deltaTime;	
+	m_Velocity = Transform.forward() * m_Speed * DeltaTime;	
 
-	transform.GetPosition().x += m_Velocity.x;
-	transform.GetPosition().z += m_Velocity.z;
+	Transform.GetPosition().x += m_Velocity.x;
+	Transform.GetPosition().z += m_Velocity.z;
 }
 
-void MoveComponent::MoveBackward(Transform & transform, float deltaTime)
+// 後退
+void MoveComponent::MoveBackward(Transform & Transform, float DeltaTime)
 {
-	m_Velocity = -transform.forward() * m_Speed * deltaTime;
+	m_Velocity = -Transform.forward() * m_Speed * DeltaTime;
 
-	transform.GetPosition().x += m_Velocity.x;
-	transform.GetPosition().z += m_Velocity.z;
+	Transform.GetPosition().x += m_Velocity.x;
+	Transform.GetPosition().z += m_Velocity.z;
 }
 
-void MoveComponent::RotRight(Transform & transform, float deltaTime)
+// 右旋回
+void MoveComponent::RotRight(Transform & Transform, float DeltaTime)
 {
-	transform.GetRotation().y += m_Status.GetRotSpeed() * deltaTime;
+	Transform.GetRotation().y += m_Status.GetRotSpeed() * DeltaTime;
 }
 
-void MoveComponent::RotLeft(Transform & transform, float deltaTime)
+// 左旋回
+void MoveComponent::RotLeft(Transform & Transform, float DeltaTime)
 {	
-	transform.GetRotation().y -= m_Status.GetRotSpeed() * deltaTime;	
+	Transform.GetRotation().y -= m_Status.GetRotSpeed() * DeltaTime;	
 }
 
-void MoveComponent::GunUp(Transform & transform, float deltaTime)
+// 砲塔をあげる
+void MoveComponent::GunUp(Transform & Transform, float DeltaTime)
 {
-	transform.GetRotation().x -= m_Status.GetRotSpeed() * 0.9f * deltaTime;
-	if (transform.GetRotation().x <= -m_Status.GetGunAngleUpMax())
+	Transform.GetRotation().x -= m_Status.GetRotSpeed() * 0.9f * DeltaTime;
+	if (Transform.GetRotation().x <= -m_Status.GetGunAngleUpMax())
 	{
-		transform.GetRotation().x = -m_Status.GetGunAngleUpMax();
+		Transform.GetRotation().x = -m_Status.GetGunAngleUpMax();
 	}
 }
 
-void MoveComponent::GunDown(Transform & transform, float deltaTime)
+// 砲塔を下げる
+void MoveComponent::GunDown(Transform & Transform, float DeltaTime)
 {
-	transform.GetRotation().x += m_Status.GetRotSpeed() * 0.9f * deltaTime;
-	if (transform.GetRotation().x >= m_Status.GetGunAngleDownMax())
+	Transform.GetRotation().x += m_Status.GetRotSpeed() * 0.9f * DeltaTime;
+	if (Transform.GetRotation().x >= m_Status.GetGunAngleDownMax())
 	{
-		transform.GetRotation().x = m_Status.GetGunAngleDownMax();
+		Transform.GetRotation().x = m_Status.GetGunAngleDownMax();
 	}
 }
 
+// ストップ
 void MoveComponent::Stop()
 {
 	m_Speed = 0.0f;

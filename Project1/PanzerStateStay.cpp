@@ -65,7 +65,7 @@ float FindTargetDirection(Player * pTarget, Enemy* Enemy, const D3DXVECTOR3& for
 	D3DXVECTOR3 cross;
 	// pivotの前ベクトルとdistの外積を求める
 	D3DXVec3Cross(&cross, &forward, &dist);
-	float t = cross.x - cross.y - cross.z;
-	// t > 0.0fなら右にいる
-	return t;
+	float Transform = cross.x - cross.y - cross.z;
+	// Transform > 0.0fなら右にいる
+	return Transform;
 }

@@ -3,7 +3,7 @@
 	[Parameters.h]
 	Author : 出合翔太
 
-	パラメータの表示
+	戦車のパラメータの表示
 
 ---------------------------------------------------------------*/
 #pragma once
@@ -18,6 +18,6 @@ public:
 	~Parameters();
 	void Draw(float Param, const D3DXVECTOR2& Position);
 private:
-	std::unique_ptr<class Render> m_Render;
+	std::unique_ptr<class RenderGage> m_Render;
 	std::unique_ptr<class Renderer2D> m_Bg;
 };

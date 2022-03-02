@@ -659,7 +659,7 @@ bool Intersect(const OBB3 & a, const OBB3 & b)
 }
 
 // ˜A‘±Õ“ËŒŸ’m
-bool CCD(const Sphere3 & p, const Sphere3 & q, float & t)
+bool CCD(const Sphere3 & p, const Sphere3 & q, float & Transform)
 {
 	D3DXVECTOR3 x = p.GetOldCenter() - q.GetOldCenter();
 	D3DXVECTOR3 y = p.GetCenter() - p.GetOldCenter() - (q.GetCenter() - q.GetOldCenter());
@@ -677,8 +677,8 @@ bool CCD(const Sphere3 & p, const Sphere3 & q, float & t)
 	{
 		dist = Math::Sqrt(dist);
 		// ¬‚³‚¢‚Ì‚Ù‚¤‚Ì‰ð
-		t = (-b - dist) / (2.0f * a);
-		if (t >= 0.0f && t <= 0.0f)
+		Transform = (-b - dist) / (2.0f * a);
+		if (Transform >= 0.0f && Transform <= 0.0f)
 		{
 			return true;
 		}

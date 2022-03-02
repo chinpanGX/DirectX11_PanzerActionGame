@@ -99,6 +99,7 @@ void GameStageSetterRock::Set(Scene * Scene)
 // 背景用の岩を配置
 void GameStageSetterRock::SetBackGround()
 {
+	
 	Set(-130.0f, 5.0f, 300.0f, 5.0f);
 	Set(-250.0f, 6.0f, -330.0f, 16.5f);
 	Set(250.0f, 6.0f, -330.0f, 14.5f);
@@ -113,7 +114,7 @@ void GameStageSetterRock::SetBackGround()
 		m_Scene->AddGameObject<Rock>(LAYER_3D_STAGE)->Create("Rock", m_Position[i], m_Size[i], angle);		
 	}
 
-	// リセット
+	// 一度リセット
 	m_ObjectCount = 0;
 	m_Position.clear();
 	m_Size.clear();

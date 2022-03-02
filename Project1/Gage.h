@@ -47,6 +47,6 @@ namespace GameBg
 	private:
 		float m_EmenyGage = 1000.0f;
 		float m_PlayerGage = 1000.0f;
-		std::unique_ptr<class Render> m_Render;
+		std::unique_ptr<class RenderGage> m_Render;
 	};
 }

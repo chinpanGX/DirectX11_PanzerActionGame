@@ -35,9 +35,9 @@ void myLib::Timeline::Reverce(float& v)
 	}
 }
 
-void myLib::Timeline::SetRate(float t)
+void myLib::Timeline::SetRate(float Transform)
 {
-	m_Rate = t;
+	m_Rate = Transform;
 }
 #pragma endregion Timeline‚Ìƒƒ\ƒbƒh
 

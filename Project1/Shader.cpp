@@ -44,7 +44,7 @@ PixelShader::PixelShader(Graphics & Graphics)
 {
 	std::string assetname = "Asset/Shader/";
 	
-	// メモリ確保、タグ登録とロード
+	// メモリ確保、
 	m_Map["Default"] = std::make_unique<LoadPixelShader>(Graphics);
 	m_Map["NoLighting"] = std::make_unique<LoadPixelShader>(Graphics);
 	m_Map["Mapping"] = std::make_unique<LoadPixelShader>(Graphics);
@@ -53,6 +53,7 @@ PixelShader::PixelShader(Graphics & Graphics)
 	m_Map["ToonAnim"] = std::make_unique<LoadPixelShader>(Graphics);
 	m_Map["GrayScaleTexture"] = std::make_unique<LoadPixelShader>(Graphics);
 	
+	// タグ登録とロード
 	m_Map["Default"]->Load(assetname + "vertexLightingPS.cso");
 	m_Map["NoLighting"]->Load(assetname + "unlitTexturePS.cso");
 	m_Map["Mapping"]->Load(assetname + "MappingPS.cso");

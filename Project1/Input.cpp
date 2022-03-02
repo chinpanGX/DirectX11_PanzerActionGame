@@ -356,7 +356,7 @@ HRESULT Mouse::Init(HINSTANCE hInst, HWND hWnd, bool bShow)
 	if (FAILED(result))
 
 	{
-		MessageBox(hWnd, "Can't setup mouse", "Warning", MB_OK | MB_ICONWARNING);
+		MessageBox(hWnd, "Can'Transform setup mouse", "Warning", MB_OK | MB_ICONWARNING);
 		return result;
 	}
 	// 他のアプリと協調モードに設定

@@ -16,15 +16,15 @@ public:
 	MoveComponent() = delete;
 	MoveComponent(Status& status);
 	~MoveComponent();
-	void Update(Transform& transform);
+	void Update(Transform& Transform);
 
 	// ƒAƒNƒVƒ‡ƒ“
-	void MoveForward(Transform & transform, float deltaTime);
-	void MoveBackward(Transform & transform, float deltaTime);
-	void RotRight(Transform& transform, float deltaTime);
-	void RotLeft(Transform& transform, float deltaTime);
-	void GunUp(Transform& transform, float deltaTime);
-	void GunDown(Transform& transform, float deltaTime);
+	void MoveForward(Transform & Transform, float DeltaTime);
+	void MoveBackward(Transform & Transform, float DeltaTime);
+	void RotRight(Transform& Transform, float DeltaTime);
+	void RotLeft(Transform& Transform, float DeltaTime);
+	void GunUp(Transform& Transform, float DeltaTime);
+	void GunDown(Transform& Transform, float DeltaTime);
 	void Stop();
 
 	const D3DXVECTOR3& GetVelocity() const;

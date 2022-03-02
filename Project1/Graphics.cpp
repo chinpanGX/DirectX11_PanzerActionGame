@@ -15,6 +15,7 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	HRESULT hr = S_OK;
 	D3D_FEATURE_LEVEL featurelevel = D3D_FEATURE_LEVEL_11_0;
 
+
 	// デバイス、スワップチェーン、コンテキスト生成
 	DXGI_SWAP_CHAIN_DESC sd;
 	ZeroMemory(&sd, sizeof(sd));
@@ -34,6 +35,7 @@ Graphics::Graphics() :	m_Device(nullptr), m_DeviceContext(nullptr), m_SwapChain(
 	sd.Windowed = FALSE;
 #endif
 	sd.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH; // alt-enter fullscreen
+
 
 	hr = D3D11CreateDeviceAndSwapChain(NULL, D3D_DRIVER_TYPE_HARDWARE, NULL, 0, NULL, 0, D3D11_SDK_VERSION, &sd,
 		m_SwapChain.GetAddressOf(), m_Device.GetAddressOf(), &featurelevel, m_DeviceContext.GetAddressOf());
@@ -151,9 +153,10 @@ void Graphics::SetAlphaToCoverageEnable(bool Enable)
 	}
 }
 
-#pragma region _SetDepthStencilSwichONOFF_
+// デプスステンシルの有効/無効の切り替え
 void Graphics::SetDepthEnable(bool Enable)
 {
+
 	if (Enable)
 	{
 		m_DeviceContext->OMSetDepthStencilState(m_DepthStateEnable.Get(), NULL);
@@ -163,9 +166,10 @@ void Graphics::SetDepthEnable(bool Enable)
 		m_DeviceContext->OMSetDepthStencilState(m_DepthStateDisable.Get(), NULL);
 	}
 }
-#pragma endregion _デプスステンシルの有効/無効の切り替え_
+
 
 #pragma region _UpdateContantBuffer_
+// 2D用
 void Graphics::SetWorldViewProjection2D()
 {
 	using namespace DirectX;
@@ -182,6 +186,7 @@ void Graphics::SetWorldViewProjection2D()
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &projection);
 }
 
+// ワールドマトリクス
 void Graphics::SetWorldMatrix(D3DXMATRIX & WorldMatrix)
 {
 	D3DXMATRIX world;
@@ -189,6 +194,7 @@ void Graphics::SetWorldMatrix(D3DXMATRIX & WorldMatrix)
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD], &world);
 }
 
+// ビューマトリクス
 void Graphics::SetViewMatrix(D3DXMATRIX & ViewMatrix)
 {
 	D3DXMATRIX view;
@@ -196,6 +202,7 @@ void Graphics::SetViewMatrix(D3DXMATRIX & ViewMatrix)
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_VIEW], &view);
 }
 
+// プロジェクションマトリクス
 void Graphics::SetProjectionMatrix(D3DXMATRIX & ProjectionMatrix)
 {
 	D3DXMATRIX proj;
@@ -203,21 +210,25 @@ void Graphics::SetProjectionMatrix(D3DXMATRIX & ProjectionMatrix)
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PROJECTION], &proj);
 }
 
+// マテリアル
 void Graphics::SetMaterial(Material Material)
 {
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_MATERIAL], &Material);
 }
 
+// ライト
 void Graphics::SetLight(Light Light)
 {
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_LIGHT], &Light);
 }
 
+// カメラ
 void Graphics::SetCameraPosition(D3DXVECTOR3 CameraPosition)
 {
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_CAMERA], &D3DXVECTOR4(CameraPosition.x, CameraPosition.y, CameraPosition.z, 1.0f));
 }
 
+// 汎用パラメータ
 void Graphics::SetParameter(D3DXVECTOR4 Parameter)
 {
 	UpdateConstantBuffer(m_Buffer[EBuffer::CONSTANT_BUFFER_PARAMETER], &Parameter);
@@ -225,24 +236,28 @@ void Graphics::SetParameter(D3DXVECTOR4 Parameter)
 #pragma endregion _コンスタントバッファの更新_
 
 #pragma region _SetBlendState_
+// デフォルト
 void Graphics::SetBlendStateDefault()
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_NORMAL].Get(), blendFactor, 0xffffffff);
 }
 
+// 加算合成
 void Graphics::SetBlendStateAdd()
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_ADD].Get(), blendFactor, 0xffffffff);
 }
 
+// 透過有り加算合成
 void Graphics::SetBlendStateAddAlpha()
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	m_DeviceContext->OMSetBlendState(m_BlendState[EBlendState::BLENDSTATE_ADDALPHA].Get(), blendFactor, 0xffffffff);
 }
 
+// 減算合成
 void Graphics::SetBlendStateSub()
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
@@ -331,6 +346,7 @@ void Graphics::SettingSamplerState()
 	//samplerDesc.MaxAnisotropy = 16;
 	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
 	//samplerDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+	// ミップマップの設定
 	samplerDesc.MinLOD = 0;
 	samplerDesc.MaxLOD = D3D11_FLOAT32_MAX;
 	samplerDesc.MaxAnisotropy = 16;
@@ -351,6 +367,7 @@ void Graphics::CreateConstantBuffer()
 	hBufferDesc.MiscFlags = 0;
 	hBufferDesc.StructureByteStride = sizeof(float);
 
+	// 各種コンスタントバッファの生成
 	m_Device->CreateBuffer(&hBufferDesc, NULL, m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD].GetAddressOf());
 	m_DeviceContext->VSSetConstantBuffers(0, 1, m_Buffer[EBuffer::CONSTANT_BUFFER_WORLD].GetAddressOf());
 

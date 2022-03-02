@@ -10,7 +10,7 @@
 #include "Effect.h"
 
 class Pause;
-class Render;
+class RenderGage;
 class Player;
 namespace PlayerUi
 {	
@@ -31,7 +31,7 @@ namespace PlayerUi
 		void Use();
 
 		D3DXVECTOR4 m_Color;
-		std::unique_ptr<Render> m_Render;
+		std::unique_ptr<RenderGage> m_Render;
 		Player* m_Player;
 		Pause* m_Pause;
 
@@ -80,7 +80,7 @@ namespace PlayerUi
 
 		std::unique_ptr<Renderer2D> m_ReloadIcon;
 		std::unique_ptr<Renderer2D> m_QuickReload;
-		std::unique_ptr<Render> m_Render;
+		std::unique_ptr<RenderGage> m_Render;
 		Player* m_Player;
 		Pause* m_Pause;
 
@@ -111,7 +111,7 @@ namespace PlayerUi
 		void Event()override;
 		void Draw()override;
 	private:
-		std::unique_ptr<Render> m_Render;
+		std::unique_ptr<RenderGage> m_Render;
 		Player* m_Player;
 		const float m_MaxDrawSize = 400.0f; // MAXèÛë‘HP
 

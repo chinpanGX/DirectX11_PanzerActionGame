@@ -52,8 +52,8 @@ private:
 	void UpdateColorChenge();
 
 	void DrawSelect();
-	void DrawSetting();
-	void DrawInput();
+	//void DrawSetting();
+	//void DrawInput();
 
 	std::unique_ptr<class Renderer2D> m_Render;
 	D3DXVECTOR4 m_Color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f);

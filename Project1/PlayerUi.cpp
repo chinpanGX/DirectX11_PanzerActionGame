@@ -25,7 +25,7 @@ namespace PlayerUi
 #pragma region DrawSkill_method
 	DrawSkill::DrawSkill()
 	{
-		m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+		m_Render = std::make_unique<RenderGage>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 	}
 
 	DrawSkill::~DrawSkill()
@@ -38,8 +38,8 @@ namespace PlayerUi
 		m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
 		// ëùâ¡Ç∑ÇÈó 
-		float t = m_Player->GetVehicle().GetSkill().GetTimeToActivateSkill();
-		m_AddAmount = m_MaxDrawSize / t * Fps::Get().deltaTime;
+		float Transform = m_Player->GetVehicle().GetSkill().GetTimeToActivateSkill();
+		m_AddAmount = m_MaxDrawSize / Transform * Fps::Get().deltaTime;
 		
 		// å∏ÇÁÇ∑ó 
 		m_TimeLimit = m_Player->GetVehicle().GetSkill().GetTimeLimit();
@@ -133,7 +133,7 @@ namespace PlayerUi
 	{
 		m_QuickReload = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Gage");
 		m_ReloadIcon = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Reload");
-		m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+		m_Render = std::make_unique<RenderGage>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 		float center = static_cast<float>(SCREEN_WIDTH / 2);
 		m_GagePosition = D3DXVECTOR2((center - 300.0f), 750.0f);		
 		m_QuickRangePosition = D3DXVECTOR2(center, 750.0f);
@@ -150,9 +150,9 @@ namespace PlayerUi
 		m_Pause = Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE);
 
 		// ÉäÉçÅ[Éhéûä‘ÇÃéÊìæ
-		float t = m_Player->GetVehicle().GetStatus().GetReloadTime();
+		float Transform = m_Player->GetVehicle().GetStatus().GetReloadTime();
 		// ëùÇ¶ÇÈó ÇåvéZ
-		m_DefaultAmount = m_MaxSizeAmount / t * Fps::Get().deltaTime;
+		m_DefaultAmount = m_MaxSizeAmount / Transform * Fps::Get().deltaTime;
 
 		m_QuickAmount = m_MaxSizeAmount / 0.5f * Fps::Get().deltaTime;
 		
@@ -355,7 +355,7 @@ namespace PlayerUi
 #pragma region _HPGage_
 	Hp::Hp()
 	{
-		m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+		m_Render = std::make_unique<RenderGage>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 	}
 
 	Hp::~Hp()

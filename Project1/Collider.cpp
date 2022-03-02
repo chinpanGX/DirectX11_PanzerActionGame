@@ -56,9 +56,9 @@ void Collider::SystemDraw()
 	}
 }
 
-void Collider::SetSphere3(const Transform & t, const float & Radius)
+void Collider::SetSphere3(const Transform & Transform, const float & Radius)
 {
-	auto transform = t;
+	auto transform = Transform;
 	m_sphere = std::make_unique<Sphere3>(transform.GetPosition(), Radius);
 }
 
@@ -71,9 +71,9 @@ const Sphere3 & Collider::GetSphere3() const
 	return *m_sphere;
 }
 
-void Collider::SetAABB3(const Transform& t, const D3DXVECTOR3 & Size)
+void Collider::SetAABB3(const Transform& Transform, const D3DXVECTOR3 & Size)
 {
-	auto transform = t;
+	auto transform = Transform;
 	m_aabb = std::make_unique<AABB3>(transform.GetPosition(), Size);
 }
 
@@ -86,9 +86,9 @@ const AABB3& Collider::GetAABB3() const
 	return *m_aabb;
 }
 
-void Collider::SetOBB3(const Transform& t, const D3DXVECTOR3 & Size)
+void Collider::SetOBB3(const Transform& Transform, const D3DXVECTOR3 & Size)
 {
-	m_obb = std::make_unique<OBB3>(t, Size);
+	m_obb = std::make_unique<OBB3>(Transform, Size);
 }
 
 const OBB3 & Collider::GetOBB3() const

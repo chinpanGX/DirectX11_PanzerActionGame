@@ -67,15 +67,15 @@ void TitleSystem::Draw()
 		case EState::SETTING_SELECT:
 			DrawSetting();
 			break;
-#endif
 		// Deviceの変更のチェック
 		case EState::CHECK_INPUT:
 			DrawInput();
 			break;
+#endif
 	}
 }
 
-#pragma region _SelectionStatus_
+#pragma region _SelectionStatus_ // 選択状況を確認する変数のセッター＆ゲッター
 void TitleSystem::SetState(uint32_t State)
 {
 	m_State = State;
@@ -176,6 +176,7 @@ void TitleSystem::DrawSelect()
 	}
 }
 
+#if 0
 // Settingの画面
 void TitleSystem::DrawSetting()
 {
@@ -224,4 +225,5 @@ void TitleSystem::DrawInput()
 		}
 	}
 }
+#endif
 #pragma endregion privateメソッド

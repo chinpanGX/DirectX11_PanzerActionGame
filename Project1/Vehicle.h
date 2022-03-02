@@ -33,13 +33,19 @@ public:
 	void Shot(const Transform& transform);
 	
 	//　当たり判定関係
+	// 更新
 	void ColiisionUpdate(int32_t Element, const D3DXVECTOR3& Position, Transform& Transform);
+	// コライダーの取得
 	Collider& GetCollider(int32_t Element) const;
+	// コライダーの配列のサイズ
 	const uint32_t GetColliderNum() const;
 
+	// 戦車のパーツのトランスフォームを取得
 	class Transform& GetBodyTransform() const;
 	class Transform& GetTurretTransform() const;
 	class Transform& GetGunTransform() const;
+
+
 	Status& GetStatus() const;
 	Skill& GetSkill() const;
 protected:

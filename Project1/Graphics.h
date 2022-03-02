@@ -64,7 +64,8 @@ public:
 	void End();
 	void SetAlphaToCoverageEnable(bool Enable);
 	void SetDepthEnable(bool Enable);
-	//　コンスタントバッファの
+	
+	// GPUに転送
 	void SetWorldViewProjection2D();
 	void SetWorldMatrix(D3DXMATRIX & WorldMatrix);
 	void SetViewMatrix(D3DXMATRIX & ViewMatrix);
@@ -80,6 +81,7 @@ public:
 	void SetBlendStateAddAlpha();
 	void SetBlendStateSub();
 
+	// ゲッター
 	const ComPtr<ID3D11Device> GetDevice() const;
 	const ComPtr<ID3D11DeviceContext> GetDeviceContext() const;
 private:

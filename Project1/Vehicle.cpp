@@ -66,11 +66,11 @@ void Vehicle::SetStartPosition(Pawn* Pawn, const D3DXVECTOR3& Pos, const D3DXVEC
 // 撃つ
 void Vehicle::Shot(const Transform & Transform)
 {
-	auto t = Transform;
+	auto transform = Transform;
 	// 発射位置
-	D3DXVECTOR3 pos = t.GetPosition() + t.forward() * m_GunLength;
+	D3DXVECTOR3 pos = transform.GetPosition() + transform.forward() * m_GunLength;
 	// 飛んでいく方向ベクトル
-	D3DXVECTOR3 vector = t.forward();
+	D3DXVECTOR3 vector = transform.forward();
 	
 	// Bulletのインスタンスを生成する
 	auto normalBullet = Engine::Get().GetApplication()->GetScene()->AddGameObject<Bullet>(LAYER_3D_ACTOR);
@@ -94,6 +94,7 @@ Collider & Vehicle::GetCollider(int32_t Element) const
 	return *m_Collider[Element];
 }
 
+// コライダーの配列のサイズ
 const uint32_t Vehicle::GetColliderNum() const
 {
 	return m_Collider.size();

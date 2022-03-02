@@ -43,6 +43,7 @@ void Renderer3D::Draw()
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
 
+// 床用のポリゴンの生成
 void Renderer3D::CreatePlane(float Distance, int UvTiling, D3DXVECTOR2 tex)
 {
 	float pos = Distance;
@@ -82,6 +83,7 @@ void Renderer3D::CreatePlane(float Distance, int UvTiling, D3DXVECTOR2 tex)
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
 }
 
+// 壁用のポリゴンの生成
 void Renderer3D::CreateWall(float Distance, int UvTiling, D3DXVECTOR2 Tex)
 {
 	float pos = Distance;

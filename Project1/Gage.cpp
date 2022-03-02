@@ -83,7 +83,7 @@ const float RemainGage::GetGage(int32_t Type) const
 
 GameBg::DrawGage::DrawGage()
 {
-	m_Render = std::make_unique<Render>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
+	m_Render = std::make_unique<RenderGage>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource());
 }
 
 GameBg::DrawGage::~DrawGage()

@@ -96,6 +96,7 @@ Renderer2D::~Renderer2D()
 
 }
 
+// ’¸“_î•ñ‚ÌÝ’è
 void Renderer2D::SetVertex(const D3DXVECTOR2 & pos, const D3DXVECTOR2 & size, const D3DXVECTOR2 & ul, const D3DXVECTOR2 & lr, const D3DXVECTOR4 & color)
 {
 	Vertex3D vertex[4];
@@ -273,7 +274,7 @@ void Renderer2D::Draw(const D3DXVECTOR2& pos, const D3DXVECTOR2& size, const D3D
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
 
-Render::Render(Graphics & Graphics, Resource & Resource) : m_Graphics(Graphics), m_Resource(Resource)
+RenderGage::RenderGage(Graphics & Graphics, Resource & Resource) : m_Graphics(Graphics), m_Resource(Resource)
 {
 	Vertex3D vertex[4];
 	vertex[0].Position = D3DXVECTOR3(-1.0f, 1.0f, 0.0f);
@@ -310,11 +311,11 @@ Render::Render(Graphics & Graphics, Resource & Resource) : m_Graphics(Graphics),
 	m_Graphics.GetDevice()->CreateBuffer(&bd, &sd, m_VertexBuffer.GetAddressOf());
 }
 
-Render::~Render()
+RenderGage::~RenderGage()
 {
 }
 
-void Render::Draw(float param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & color)
+void RenderGage::Draw(float param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & color)
 {
 
 	D3D11_MAPPED_SUBRESOURCE msr;
@@ -365,7 +366,7 @@ void Render::Draw(float param, const D3DXVECTOR2 & pos, const D3DXVECTOR4 & colo
 	m_Graphics.GetDeviceContext()->Draw(4, 0);
 }
 
-void Render::Draw(float param, const D3DXVECTOR2 & pos, float size_y, const std::string & texture, const D3DXVECTOR4 & color)
+void RenderGage::Draw(float param, const D3DXVECTOR2 & pos, float size_y, const std::string & texture, const D3DXVECTOR4 & color)
 {
 	D3D11_MAPPED_SUBRESOURCE msr;
 	m_Graphics.GetDeviceContext()->Map(m_VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);

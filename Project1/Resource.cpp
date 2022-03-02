@@ -118,8 +118,8 @@ void Resource::AudioSetVolume(const std::string & Tag, float Volume)
 
 void Resource::SetTexture(int slot, const std::string & Tag)
 {
-	ID3D11ShaderResourceView* t = m_Texture->GetTexture(Tag);
-	m_Graphics.GetDeviceContext()->PSSetShaderResources(slot, 1, &t);
+	ID3D11ShaderResourceView* Transform = m_Texture->GetTexture(Tag);
+	m_Graphics.GetDeviceContext()->PSSetShaderResources(slot, 1, &Transform);
 }
 
 void Resource::SetShader(const std::string & Tag)

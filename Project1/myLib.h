@@ -155,11 +155,11 @@ namespace myLib
 		inline static float GetRandomXORf()
 		{
 			static Random ins;
-			unsigned int t = (ins.xorRandomSeedX ^ (ins.xorRandomSeedX << 11));
+			unsigned int Transform = (ins.xorRandomSeedX ^ (ins.xorRandomSeedX << 11));
 			ins.xorRandomSeedX = ins.xorRandomSeedY;
 			ins.xorRandomSeedY = ins.xorRandomSeedZ;
 			ins.xorRandomSeedZ = ins.xorRandomSeedW;
-			ins.xorRandomSeedW = (ins.xorRandomSeedW ^ (ins.xorRandomSeedW >> 19)) ^ (t ^ (t >> 8));
+			ins.xorRandomSeedW = (ins.xorRandomSeedW ^ (ins.xorRandomSeedW >> 19)) ^ (Transform ^ (Transform >> 8));
 
 			return float(ins.xorRandomSeedW % 10000) / float(10000);
 		}
@@ -263,7 +263,7 @@ namespace myLib
 		void Reverce(float& v);
 
 		// •Ï‰»—¦‚Ìİ’è
-		void SetRate(float t);
+		void SetRate(float Transform);
 	private:
 		// ‚Q‹æŠÔ
 		boost::numeric::interval<float> m_Interval;

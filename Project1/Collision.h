@@ -91,4 +91,4 @@ bool Intersect(const OBB3& a, const OBB3& b);
 
 // 連続衝突検知
 // 0が前フレーム、1現在のフレーム
-bool CCD(const Sphere3& p, const Sphere3& q, float& t);
+bool CCD(const Sphere3& p, const Sphere3& q, float& Transform);

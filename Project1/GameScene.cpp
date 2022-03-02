@@ -32,7 +32,7 @@
 #include "PlayerBulletAmount.h"
 #include <thread>
 
-#pragma region GameScene::PanzerSelect_method
+#pragma region 戦車選択画面
 void GameScene::PanzerSelect::Init()
 {	
 	// オブジェクトの追加
@@ -76,7 +76,7 @@ void GameScene::PanzerSelect::Draw()
 	Engine::Get().GetGraphics()->SetLight(light);
 }
 
-#pragma region private_Fuc
+#pragma region private関数 Load/Unload
 void GameScene::PanzerSelect::Load()
 {
 	// マルチスレッドでロード
@@ -117,7 +117,7 @@ void GameScene::PanzerSelect::Thread_Audio()
 void GameScene::PanzerSelect::Thread_Texture_A()
 {
 	Engine::Get().GetResource()->LoadTexture("SelectUi", "SelectUi.png");
-	Engine::Get().GetResource()->LoadTexture("Param", "Parameters.png");
+	Engine::Get().GetResource()->LoadTexture("ParamBG", "Parameters.png");
 	Engine::Get().GetResource()->LoadTexture("Waffuru", "waffuru.tif");
 	Engine::Get().GetResource()->LoadTexture("SkillList", "SkillList.png");
 }
@@ -138,7 +138,7 @@ void GameScene::PanzerSelect::Thread_Model()
 
 #pragma endregion GameScene::PanzerSelectメソッド
 
-#pragma region GameScene::Tutorial_method
+#pragma region チュートリアルシーン
 void GameScene::Tutorial::Init()
 {
 	AddGameObject<GameCamera>(ELayer::LAYER_CAMERA);
@@ -186,6 +186,7 @@ void GameScene::Tutorial::Draw()
 	Engine::Get().GetGraphics()->SetLight(light);
 }
 
+#pragma region private関数　load/Unload
 void GameScene::Tutorial::Load()
 {
 	// オーディオのロード
@@ -213,7 +214,7 @@ void GameScene::Tutorial::Unload()
 #pragma endregion private関数
 #pragma endregion GameScene::Tutorialメソッド
 
-#pragma region GameScene::Game_method
+#pragma region ゲームシーン
 void GameScene::Game::Init()
 {
 	AddGameObject<GameCommand>(ELayer::LAYER_SYSTEM);
@@ -265,6 +266,7 @@ void GameScene::Game::Draw()
 	Engine::Get().GetGraphics()->SetLight(light);
 }
 
+#pragma region private関数 Load/Unload
 void GameScene::Game::Load()
 {
 	// マルチスレッドでロード
@@ -333,5 +335,5 @@ void GameScene::Game::Unload()
 	//Engine::Get().GetResource()->UnloadModel("Rock03_02");
 	//Engine::Get().GetResource()->UnloadModel("Rock03_03");
 }
-
+#pragma endregion private関数
 #pragma endregion GameScene::Gameメソッド

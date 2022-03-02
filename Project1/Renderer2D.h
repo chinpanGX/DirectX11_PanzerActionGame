@@ -40,12 +40,12 @@ private:
 	Microsoft::WRL::ComPtr<ID3D11Buffer> m_VertexBuffer;
 };
 
-class Render
+class RenderGage
 {
 public:
-	Render() = delete;
-	Render(Graphics& Graphics, Resource& Resource);
-	~Render();
+	RenderGage() = delete;
+	RenderGage(Graphics& Graphics, Resource& Resource);
+	~RenderGage();
 	void Draw(float param, const D3DXVECTOR2& pos, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 	void Draw(float param, const D3DXVECTOR2& pos, float size_y, const std::string& texture, const D3DXVECTOR4& color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, 1.0f));
 private:
