@@ -13,7 +13,7 @@
 #include "Player.h"
 #include "Audio.h"
 #include "Gage.h"
-#include "SPawn.h"
+#include "Spawn.h"
 #include "AudioManager.h"
 
 GameAudio::GameAudio()
@@ -82,20 +82,23 @@ void ResultAudio::Update(GameManager * Manager, Pawn * Pawn, int32_t Type)
 
 void ResultAudio::Begin(bool IsPlayerWin)
 {
-	std::string name;
+	std::string tag;
 	// プレイヤーが勝ったかどうか
 	bool f = IsPlayerWin;
+
+	// ロードするタグを決める
 	// 勝ち
 	if (f == true)
 	{
-		name = "Win";
+		tag = "Win";
 	}
 	// 負け
 	else if(f == false)
 	{
-		name = "Lose";
+		tag = "Lose";
 	}
-	// 登録したオーディオを再生
-	Engine::Get().GetResource()->AudioLoad(name, true);
-	Engine::Get().GetResource()->AudioPlay(name, 0.3f);
+
+	// 登録したタグからオーディオをロード→再生
+	Engine::Get().GetResource()->AudioLoad(tag, true);
+	Engine::Get().GetResource()->AudioPlay(tag, 0.3f);
 }

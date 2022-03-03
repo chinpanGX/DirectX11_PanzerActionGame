@@ -23,6 +23,7 @@ Resource::Resource(Graphics & Graphics) : m_Graphics(Graphics)
 
 Resource::~Resource()
 {
+	// テクスチャ
 	m_Texture->Unload("Bg");
 	m_Texture->Unload("Ui");
 	m_Texture->Unload("Grass");
@@ -33,6 +34,7 @@ Resource::~Resource()
 	m_Texture->Unload("Number");
 	m_Texture->Unload("Timer");
 	m_Texture->Unload("ToonAnim");
+	// モデル
 	m_StaticModel->Unload("Sky");
 	m_StaticModel->Unload("Fence");
 	m_StaticModel->Unload("Bullet");
@@ -77,6 +79,7 @@ void Resource::LoadModel_ThreadA()
 }
 #pragma endregion 共通で使うリソースのロード
 
+// モデルのロード処理・アンロード処理
 void Resource::LoadModel(const std::string & Tag, const std::string & FileName)
 {
 	m_StaticModel->Load(Tag, FileName);
@@ -86,9 +89,8 @@ void Resource::UnloadModel(const std::string & Tag)
 {
 	m_StaticModel->Unload(Tag);
 }
-#pragma endregion モデルのロード
 
-#pragma region AudioSystem
+// オーディオのロード・アンロード
 void Resource::AudioLoad(const std::string & Tag, bool Loop)
 {
 	m_Audio->Load(Tag, Loop);
@@ -99,29 +101,35 @@ void Resource::AudioUnload()
 	m_Audio->Unload();
 }
 
-// オーディオの操作
+#pragma region オーディオの操作
+// 再生
 void Resource::AudioPlay(const std::string & Tag, float Volume)
 {
 	m_Audio->Play(Tag, Volume);
 }
 
+// ストップ
 void Resource::AudioStop()
 {
 	m_Audio->Stop();
 }
 
+// 音量の変更
 void Resource::AudioSetVolume(const std::string & Tag, float Volume)
 {
 	m_Audio->SetVolume(Tag, Volume);
 }
 #pragma endregion オーディオ関係
 
+// テクスチャのセット
 void Resource::SetTexture(int slot, const std::string & Tag)
 {
 	ID3D11ShaderResourceView* Transform = m_Texture->GetTexture(Tag);
 	m_Graphics.GetDeviceContext()->PSSetShaderResources(slot, 1, &Transform);
 }
 
+#pragma region シェーダーのセット
+// まとめてセットする
 void Resource::SetShader(const std::string & Tag)
 {
 	SetVertexShader(Tag);
@@ -129,22 +137,26 @@ void Resource::SetShader(const std::string & Tag)
 	SetPixelShader(Tag);
 }
 
+// 頂点シェーダー
 void Resource::SetVertexShader(const std::string& Tag)
 {
 	m_Graphics.GetDeviceContext()->VSSetShader(m_VertexShader->GetVertexShader(Tag), nullptr, 0);
 }
 
+// 頂点レイアウト
 void Resource::SetInputLayout(const std::string& Tag)
 {
 	m_Graphics.GetDeviceContext()->IASetInputLayout(m_VertexShader->GetInputLayout(Tag));
 }
 
+// ピクセルシェーダー
 void Resource::SetPixelShader(const std::string& Tag)
 {
 	m_Graphics.GetDeviceContext()->PSSetShader(m_PixelShader->GetPixelShader(Tag), nullptr, 0);
 }
+#pragma endregion シェーダーのセット
 
+// モデルのセット
 void Resource::SetStaticModel(const std::string& Tag)
 {
 	m_StaticModel->Draw(Tag);
-}

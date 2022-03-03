@@ -17,6 +17,7 @@ Status::~Status()
 {
 }
 
+// ステータス値をセット
 void Status::Set(Country country, float cost, float hp, float SetAttack, float SetDefence, float speed, float reloadTime, float rotSpeed)
 {
 	m_Country = country;
@@ -34,6 +35,7 @@ void Status::Set(Country country, float cost, float hp, float SetAttack, float S
 	m_RotSpeed = rotSpeed;
 }
 
+// デフォルトの状態にリセットする
 void Status::Reset()
 {
 	m_Hp = m_MaxHp;
@@ -43,7 +45,7 @@ void Status::Reset()
 	m_ReloadTime = m_defaultReloadTime;
 }
 
-#pragma region _Getter&Setter_function_
+#pragma region _ゲッター＆セッターの関数_
 const Status::Country & Status::GetCountry() const
 {
 	return m_Country;

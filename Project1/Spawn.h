@@ -21,32 +21,32 @@ public:
 	void Update(GameManager* Manager, Pawn* Pawn, int32_t Type)override;
 	const bool GetResPawn() const;
 private:
-	std::vector<std::unique_ptr<class ISPawn>> m_SPawn;
+	std::vector<std::unique_ptr<class ISpawn>> m_Spawn;
 	bool m_IsResPawn = false; // trueでリスポーンする
 };
 
-class ISPawn
+class ISpawn
 {
 public:
-	ISPawn() {}
-	virtual ~ISPawn() {}
-	virtual void SetSPawn() = 0;
+	ISpawn() {}
+	virtual ~ISpawn() {}
+	virtual void SetSpawn() = 0;
 };
 
 // プレイヤーのスポーン
-class PlayerSPawn final : public ISPawn
+class PlayerSpawn final : public ISpawn
 {
 public:
-	PlayerSPawn();
-	~PlayerSPawn();
-	void SetSPawn()override;
+	PlayerSpawn();
+	~PlayerSpawn();
+	void SetSpawn()override;
 };
 
 // エネミーのスポーン
-class EnemySPawn final : public ISPawn
+class EnemySpawn final : public ISpawn
 {
 public:
-	EnemySPawn();
-	~EnemySPawn();
-	 void SetSPawn()override;
+	EnemySpawn();
+	~EnemySpawn();
+	 void SetSpawn()override;
 };

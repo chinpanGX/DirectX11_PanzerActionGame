@@ -129,6 +129,7 @@ void Player::Draw()
 	GetVehicle().Draw();
 }
 
+// リスポーン(Param = Position : リスポーンする位置)
 void Player::Respawn(const D3DXVECTOR3& Position)
 {
 	m_DrawSkill->Reset();
@@ -141,6 +142,7 @@ void Player::Respawn(const D3DXVECTOR3& Position)
 
 void Player::UseSkill()
 {
+	// スキルを使える状態でない
 	if (GetVehicle().GetSkill().GetAlreadyUseble() == false) { return; }
 	// スキルを使う
 	GetVehicle().GetSkill().Enable(this);	
@@ -151,15 +153,14 @@ void Player::UseSkill()
 void Player::Shot()
 {
 	// リロードが終わっていない OR 弾数が0のとき　=> 撃てない
-	if (m_PlayerReload->GetFinishReload() == false || m_AmountBullets == 0) 
-	{ 
-		return; 
-	}
+	if (m_PlayerReload->GetFinishReload() == false || m_AmountBullets == 0) { return; }
+	
 	// 弾数を減らして行く
 	m_AmountBullets--;
 
 	// 射撃
 	GetVehicle().Shot(GetPivot().GetTransform());
+	
 	// オーディオ
 	Engine::Get().GetResource()->AudioPlay("Shot");
 	

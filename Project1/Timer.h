@@ -16,7 +16,7 @@ class DrawTimerMinute final : public DrawNumber
 public:
 	DrawTimerMinute();
 	~DrawTimerMinute();
-	void Draw(int32_t Value)override;
+	void Draw(int32_t Value)override; // Value = 値
 };
 
 // 秒
@@ -25,7 +25,7 @@ class DrawTimerSecond final : public DrawNumber
 public:
 	DrawTimerSecond();
 	~DrawTimerSecond();
-	void Draw(int32_t Value)override;
+	void Draw(int32_t Value)override; // Value = 値
 };
 
 namespace GameBg
@@ -40,11 +40,12 @@ namespace GameBg
 		void Event()override;
 		void Draw()override;
 	private:
-		std::vector<std::unique_ptr<DrawNumber>> m_DrawTimer;
+		std::vector<std::unique_ptr<DrawNumber>> m_DrawTimer; 
 		const float m_TimeLimitMin; // タイムリミット（分）
-		int32_t m_Minute; // 分
-		int32_t m_Second;	  // 秒
-		float m_NowTime;  // 今の時間
+		int32_t m_Minute;	// 分
+		int32_t m_Second;	// 秒
+		float m_NowTime;	// 今の時間
+		
 		// 設定済みかどうかのフラグ
 		bool m_Is1minSetColor = false;
 		bool m_Is10secSetColor = false;

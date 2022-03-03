@@ -21,7 +21,7 @@ GarageCamera::GarageCamera() : m_Graphics(*Engine::Get().GetGraphics())
 	m_Angle = Math::ToRadians(60.0f);
 
 	// アスペクト比の計算	
-	m_Aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
+	m_Aspect = static_cast<float>(SCREEN_WIDTH / SCREEN_HEIGHT);
 }
 
 GarageCamera::~GarageCamera()

@@ -77,6 +77,7 @@ void CircleParticle::Event()
 
 void CircleParticle::Draw()
 {
+	// AlphaToCoverageを有効
 	m_Graphics.SetAlphaToCoverageEnable(true);
 
 	// ライティングなし
@@ -118,6 +119,8 @@ void CircleParticle::Draw()
 
 	// ブレンドステートを元に戻す
 	m_Graphics.SetBlendStateDefault();
+
+	// AlphaToCoverageを無効
 	m_Graphics.SetAlphaToCoverageEnable(false);
 }
 

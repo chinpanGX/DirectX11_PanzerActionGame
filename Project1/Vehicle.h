@@ -54,7 +54,7 @@ protected:
 	// ステータスの設定
 	void SetPanzer();
 	void SetStatus(Status::Country Country, float Cost, float Hp, float Attack, float Defence, float Speed, float Reload, float RotSpeed);
-	// 弾がでる位置の補正値を決める
+	// 弾がでる位置の補正
 	void ShotPointOffsetLength(float Length);
 
 	//　戦車

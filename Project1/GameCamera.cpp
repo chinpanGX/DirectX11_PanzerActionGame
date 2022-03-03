@@ -14,7 +14,7 @@
 #pragma region CameCamera_method
 GameCamera::GameCamera() : m_Position(D3DXVECTOR3(0.0f, 5.0f, -8.0f)), m_Target(D3DXVECTOR3(0.0f, 0.0f, 0.0f)), m_Graphics(*Engine::Get().GetGraphics()), m_EnableFpsMode(false)
 {
-	m_Aspect = (float)SCREEN_WIDTH / SCREEN_HEIGHT;
+	m_Aspect = static_cast<float>(SCREEN_WIDTH / SCREEN_HEIGHT);
 }
 
 GameCamera::~GameCamera()

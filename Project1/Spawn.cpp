@@ -13,12 +13,12 @@
 #include "Vehicle.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "SPawn.h"
+#include "Spawn.h"
 
 Respawn::Respawn()
 {
-	m_SPawn.emplace_back(std::make_unique<PlayerSPawn>());
-	m_SPawn.emplace_back(std::make_unique<EnemySPawn>());
+	m_Spawn.emplace_back(std::make_unique<PlayerSpawn>());
+	m_Spawn.emplace_back(std::make_unique<EnemySpawn>());
 }
 
 Respawn::~Respawn()
@@ -36,10 +36,10 @@ void Respawn::Update(GameManager * Manager, Pawn * Pawn, int32_t Type)
 		switch (Type)
 		{
 		case ID::E_Player:
-			m_SPawn[ID::E_Player]->SetSPawn();
+			m_Spawn[ID::E_Player]->SetSpawn();
 			break;
 		case ID::E_Enemy1:
-			m_SPawn[ID::E_Enemy1]->SetSPawn();
+			m_Spawn[ID::E_Enemy1]->SetSpawn();
 			break;
 		}
 	}
@@ -50,30 +50,33 @@ const bool Respawn::GetResPawn() const
 	return m_IsResPawn;
 }
 
-PlayerSPawn::PlayerSPawn()
+PlayerSpawn::PlayerSpawn()
 {
 }
 
-PlayerSPawn::~PlayerSPawn()
+PlayerSpawn::~PlayerSpawn()
 {
 }
 
-void PlayerSPawn::SetSPawn()
+void PlayerSpawn::SetSpawn()
 {
 	float x = static_cast<float>(myLib::Random::Rand_R(-200, 200));
+
 	Engine::Get().GetApplication()->GetScene()->GetGameObject<Player>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, -220.0f));
 }
 
-EnemySPawn::EnemySPawn()
+EnemySpawn::EnemySpawn()
 {
 }
 
-EnemySPawn::~EnemySPawn()
+EnemySpawn::~EnemySpawn()
 {
 }
 
-void EnemySPawn::SetSPawn()
+void EnemySpawn::SetSpawn()
 {
+	
 	float x = static_cast<float>(myLib::Random::Rand_R(-200, 200));
+
 	Engine::Get().GetApplication()->GetScene()->GetGameObject<Enemy>(ELayer::LAYER_3D_ACTOR)->Respawn(D3DXVECTOR3(x, 0.0f, 180.0f));
 }

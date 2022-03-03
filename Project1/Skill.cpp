@@ -86,12 +86,14 @@ void Skill::Reset(Status & Status)
 {
 	m_AlreadyUseble = false;
 	m_NowUse = false;
+	// スキルのリセット
 	for (size_t i = 0; i < m_UseSkill.size(); ++i)
 	{
 		m_UseSkill[i]->Reset(Status);
 	}
 	m_NowTime = 0.0f;
 	m_Phase = 0;
+	// エフェクトを消す
 	if (m_Effect != nullptr)
 	{
 		m_Effect->OnDestroy();

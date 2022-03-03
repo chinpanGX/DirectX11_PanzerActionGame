@@ -61,7 +61,7 @@ void PlayerReload::Begin()
 	m_FinishReloadTime = m_Player->GetVehicle().GetStatus().GetReloadTime() * 60.0f;
 	m_OnReloadStop = false;
 	m_Time = 0.0f;
-	m_Count = 0;
+	m_ClickCount = 0;
 }
 
 void PlayerReload::Update()
@@ -85,7 +85,7 @@ void PlayerReload::Update()
 		if (enableQuickReload)
 		{
 			// 左クリックをすると
-			if (m_Command->GetNowInput(InputCode::Shot) && m_Count == m_EnableQuickReloadCount)
+			if (m_Command->GetNowInput(InputCode::Shot) && m_ClickCount == m_EnableQuickReloadCount)
 			{
 				// リロードが終了する
 				Reload::FinishReload();
@@ -100,7 +100,7 @@ void PlayerReload::Update()
 			if (m_Command->GetNowInput(InputCode::Shot))
 			{				
 				// クイックリロードが有効なカウント && スキルを使っていないとき
-				if(m_Count == m_EnableQuickReloadCount && m_UseSkill == false)
+				if(m_ClickCount == m_EnableQuickReloadCount && m_UseSkill == false)
 				{					
 					m_Reload->SetEnableQuickReload(false);
 					// リロードがストップする
@@ -108,7 +108,7 @@ void PlayerReload::Update()
 					m_OnReloadStop = true;
 				}
 				// クリックしたカウントを数えておく
-				m_Count++;
+				m_ClickCount++;
 			}
 		}
 		// リロード時間を超えたとき

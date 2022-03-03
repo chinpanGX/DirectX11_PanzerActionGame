@@ -133,11 +133,10 @@ const bool TitleSystem::GetSelect() const
 #pragma endregion _選択状況_
 
 #pragma region private_method
-// カラーチェンジ
 void TitleSystem::UpdateColorChenge()
 {
-	m_Color.x += m_Changecolor;
-	m_Color.z += m_Changecolor;
+	m_Color.x += m_Changecolor; // r値
+	m_Color.z += m_Changecolor; // b値
 	if (m_Color.x < 0.1f)
 	{
 		m_Color.x = 0.1f;

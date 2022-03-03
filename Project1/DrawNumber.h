@@ -17,7 +17,7 @@ public:
 	DrawNumber() = delete;
 	DrawNumber(float Size, int32_t Digit); // 描画サイズ、桁数
 	virtual ~DrawNumber(){}
-	virtual void Draw(int32_t Value) = 0; // "param" Value = 数値 
+	virtual void Draw(int32_t Value) = 0; // Value = 数値 
 	void SetColor(float Red, float Green, float Blue, float Alpha);
 protected:
 	void NumberDraw(const D3DXVECTOR2& Position, int32_t Num);

@@ -140,6 +140,7 @@ void Graphics::End()
 	m_SwapChain->Present(1, 0);
 }
 
+// AlphaToCaverage‚Ì—LŒø/–³Œø‚ÌØ‚è‘Ö‚¦
 void Graphics::SetAlphaToCoverageEnable(bool Enable)
 {
 	float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };

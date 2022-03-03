@@ -3,6 +3,8 @@
 	[Timer.cpp]
 	Author : 出合翔太
 
+	制限時間の描画
+
 ---------------------------------------------------------------*/
 #include "Fps.h"
 #include "Engine.h"
@@ -79,7 +81,6 @@ void GameBg::Timer::Update()
 	// ボーズ中なら、タイマーをストップ
 	if(Engine::Get().GetApplication()->GetScene()->GetGameObject<Pause>(ELayer::LAYER_2D_PAUSE)->NowPausing()) { return; }
 	
-
 	m_NowTime -= Fps::Get().deltaTime;
 	// 残り１分になったら黄色くする
 	if (!m_Is1minSetColor && m_NowTime < 60.0f)

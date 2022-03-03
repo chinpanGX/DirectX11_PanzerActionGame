@@ -53,11 +53,13 @@ Collider & Actor::GetCollider() const
 }
 
 #pragma region proteced_method
+// コリジョン位置の更新
 void Actor::UpdateCollision(Collider & Collider)
 {
 	Collider.Update(m_Transform->GetPosition(), *m_Transform);
 }
 
+// マトリクスの更新
 void Actor::UpdateMatrix(Transform & Transform)
 {
 	D3DXMATRIX world, scale, rot, trans;

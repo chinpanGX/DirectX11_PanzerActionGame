@@ -162,6 +162,7 @@ void Vehicle::SetStatus(Status::Country Country, float Cost, float Hp, float Att
 	m_Status->Set(Country, Cost, Hp, Attack, Defence, Speed, Reload, RotSpeed);
 }
 
+// ’e‚Ìo‚éˆÊ’u‚Ì’²®
 void Vehicle::ShotPointOffsetLength(float Length)
 {
 	m_GunLength = Length;
