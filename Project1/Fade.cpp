@@ -80,8 +80,9 @@ Fade::EState Fade::GetState() const
 	return m_State;
 }
 
-bool Fade::ChackState()
+bool Fade::CheckStateNotNone()
 {
+	// ステートがNONE以外ならtrue
 	if (m_State != E_NONE)
 	{
 		return true;

@@ -212,11 +212,11 @@ void GameBg::PanzerSelectUi::DrawGameRule(D3DXVECTOR2 Position, D3DXVECTOR2 Size
 }
 #pragma endregion PranzerSelectUi_method
 
-#pragma region Mode_method
+#pragma region モード選択
 GameBg::Mode::Mode()
 {
 	m_Renderer2D = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "SelectList");
-	m_Renderer = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Ui");
+	m_BgFrame = std::make_unique<Renderer2D>(*Engine::Get().GetGraphics(), *Engine::Get().GetResource(), "Ui");
 }
 
 GameBg::Mode::~Mode()
@@ -265,10 +265,11 @@ void GameBg::Mode::Draw()
 
 bool GameBg::Mode::SetMode(bool f)
 {
-	m_Mode = f;
-	return m_Mode;
+	m_TutorialMode = f;
+	return m_TutorialMode;
 }
 
+// 背景の枠を描画する
 void GameBg::Mode::DrawFrame(D3DXVECTOR2 Position, float Size_y)
 {
 	auto Size = D3DXVECTOR2(512.0f, Size_y);
@@ -277,19 +278,23 @@ void GameBg::Mode::DrawFrame(D3DXVECTOR2 Position, float Size_y)
 	m_Renderer->Draw(Position, Size, ul, lr, D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
 }
 
+// ゲームモードの表示
 void GameBg::Mode::DrawModeName(D3DXVECTOR2 Position, float Size_y)
 {
-	if (m_Mode)
+	if (m_TutorialMode)
 	{
+		// チュートリアル
 		m_Renderer2D->Draw(Position, D3DXVECTOR2(432.0f, Size_y), D3DXVECTOR2(0.25f, 0.25f), D3DXVECTOR2(0.5f, 0.5f));
 	}
 	else
 	{
+		// ゲーム
 		m_Renderer2D->Draw(Position, D3DXVECTOR2(432.0f, Size_y), D3DXVECTOR2(0.25f, 0.0f), D3DXVECTOR2(0.5f, 0.25f));
 	}
 }
 #pragma endregion Mode_method
 
+#pragma region チュートリアルの操作方法の描画
 GameBg::TutorialUi::TutorialUi()
 {
 	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui04");
@@ -320,3 +325,4 @@ void GameBg::TutorialUi::Draw()
 
 	m_Renderer2D->Draw(pos, size, min, max);
 }
+#pragma endregion　チュートリアルの操作方法の描画 

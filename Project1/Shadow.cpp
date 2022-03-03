@@ -3,6 +3,8 @@
 	[Shadow.cpp]
 	Author : èoçá„ƒëæ
 
+	âe
+
 ----------------------------------------------------------------*/
 #include "Graphics.h"
 #include "Resource.h"

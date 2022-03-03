@@ -62,6 +62,7 @@ void TitleParticle::Draw()
 
 	m_Render->Draw(pos, m_Size, texMin, texMax, m_Color);
 
+	// ブレンドステートを元に戻す
 	Engine::Get().GetGraphics()->SetBlendStateDefault();
 }
 

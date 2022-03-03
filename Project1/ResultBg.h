@@ -20,14 +20,14 @@ namespace GameBg
 		void Update()override;
 		void Event()override;
 		void Draw()override;
-		void Begin(bool Winner);
+		void Begin(bool PlayerWin);
 		class ResultState& GetState() const;
 	private:
 		std::unique_ptr<Renderer2D> m_Fade;
 		std::unique_ptr<class ResultState>m_State;
 		int32_t m_Count;
 		float m_Alpha;
-		bool m_flag;
+		bool m_PlayerWin;
 	};
 
 	// ƒŠƒUƒ‹ƒgUI

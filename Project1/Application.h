@@ -26,7 +26,7 @@ public:
 	template<typename T>
 	inline void SetScene()
 	{
-		if (m_Fade->ChackState())
+		if (m_Fade->CheckStateNotNone())
 		{
 			return;
 		}

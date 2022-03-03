@@ -39,21 +39,23 @@ void GameBg::ResultBg::Event()
 
 void GameBg::ResultBg::Draw()
 {
-	if (m_flag)
+	if (m_PlayerWin)
 	{
+		// WINを表示
 		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.0f), D3DXVECTOR2(1.0f, 0.5f));
 	}
 	else
 	{
+		// LOSEを表示
 		m_Renderer2D->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(1.0f, 1.0f));
 	}
 	m_Fade->Draw(Bg::GetSize() * 0.5f, Bg::GetSize(), D3DXVECTOR2(0.0f, 0.5f), D3DXVECTOR2(0.5f, 1.0f), D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_State->GetAlpha()));
 }
 
 // 最初に呼び出す
-void GameBg::ResultBg::Begin(bool Winner)
+void GameBg::ResultBg::Begin(bool PlayerWin)
 {
-	m_flag = Winner;
+	m_PlayerWin = PlayerWin;
 }
 
 ResultState & GameBg::ResultBg::GetState() const
@@ -64,7 +66,9 @@ ResultState & GameBg::ResultBg::GetState() const
 
 GameBg::ResultUi::ResultUi()
 {
+	// 次のシーンの選択肢
 	m_Renderer2D = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui02", Bg::GetSize() * 0.5f, D3DXVECTOR2(512.0f, 384.0f));
+	// どれを選んでいるかのマーカー
 	m_Marker = std::make_unique<Renderer2D>(m_Graphics, m_Resource, "Ui");
 }
 
@@ -74,14 +78,17 @@ GameBg::ResultUi::~ResultUi()
 
 void GameBg::ResultUi::Begin()
 {
+	// 背景
 	m_Bg = Engine::Get().GetApplication()->GetScene()->GetGameObject<GameBg::ResultBg>(ELayer::LAYER_2D_BG);
 }
 
 void GameBg::ResultUi::Update()
 {
 	auto& State = m_Bg->GetState();
+	// アルファ値を取得する
 	m_Alpha = State.GetAlpha();
-	//	選択している位置に移動して描画
+
+	//	マーカー選択している位置に移動させる
 	switch (State.GetSelect())
 	{
 	case 0:
@@ -109,9 +116,10 @@ void GameBg::ResultUi::Draw()
 	D3DXVECTOR2 texMax = D3DXVECTOR2(0.25f, 0.5f);
 	D3DXVECTOR4 color = D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha);
 
+
 	m_Marker->Draw(D3DXVECTOR2(x, m_Draw_y), size, texMin, texMax, color);
 
-	// 背景が暗くなったら、表示する
+	// 背景が暗くなったら、選択肢を表示する
 	if (m_Alpha >= 0.7f)
 	{
 		m_Renderer2D->Draw();

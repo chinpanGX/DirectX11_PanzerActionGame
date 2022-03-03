@@ -141,6 +141,8 @@ const D3DXVECTOR3 & Bullet::GetDirectionVector() const
 void Bullet::DownDDE()
 {
 	m_Distdecay -= 0.02f; // Œ¸Š—Ê
+
+	// Å’á’l‚ğİ’è‚·‚é
 	if (m_Distdecay < 0.7f)
 	{
 		m_Distdecay = 0.7f;

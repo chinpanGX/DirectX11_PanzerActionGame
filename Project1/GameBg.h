@@ -74,9 +74,9 @@ namespace GameBg
 		void DrawFrame(D3DXVECTOR2 Position, float Size_y);	// 背景枠の点滅
 		void DrawModeName(D3DXVECTOR2 Position, float Size_y);	// ゲームモード
 
-		std::unique_ptr<Renderer2D> m_Renderer;
-		SelectCommand* m_Command;
-		bool m_Mode; // trueでチュートリアル、falseでゲーム
+		std::unique_ptr<Renderer2D> m_BgFrame;
+		SelectCommand* m_Command; 
+		bool m_TutorialMode; // trueでチュートリアル、falseでゲーム
 		float m_Alpha = 1.0f;
 		float m_Color = 0.01f;
 	};
