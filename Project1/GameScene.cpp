@@ -186,7 +186,8 @@ void GameScene::Tutorial::Draw()
 	Engine::Get().GetGraphics()->SetLight(light);
 }
 
-#pragma region private関数　load/Unload
+#pragma endregion チュートリアルシーン
+
 void GameScene::Tutorial::Load()
 {
 	// オーディオのロード
@@ -211,8 +212,7 @@ void GameScene::Tutorial::Unload()
 	Engine::Get().GetResource()->UnloadTexture("Target");
 	Engine::Get().GetResource()->AudioUnload();
 }
-#pragma endregion private関数
-#pragma endregion GameScene::Tutorialメソッド
+
 
 #pragma region ゲームシーン
 void GameScene::Game::Init()

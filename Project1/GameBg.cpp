@@ -275,7 +275,8 @@ void GameBg::Mode::DrawFrame(D3DXVECTOR2 Position, float Size_y)
 	auto Size = D3DXVECTOR2(512.0f, Size_y);
 	auto ul = D3DXVECTOR2(0.0f, 0.375f);
 	auto lr = D3DXVECTOR2(0.25f, 0.5f);
-	m_Renderer->Draw(Position, Size, ul, lr, D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
+	m_Renderer2D->Draw(Position, Size, ul, lr, D3DXVECTOR4(1.0f, 1.0f, 1.0f, m_Alpha));
+	
 }
 
 // ゲームモードの表示
@@ -325,4 +326,4 @@ void GameBg::TutorialUi::Draw()
 
 	m_Renderer2D->Draw(pos, size, min, max);
 }
-#pragma endregion　チュートリアルの操作方法の描画 
+#pragma endregion チュートリアルの操作方法の描画 

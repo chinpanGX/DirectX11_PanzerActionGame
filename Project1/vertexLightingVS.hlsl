@@ -4,7 +4,7 @@
     Author : o‡ãÄ‘¾
 
 ------------------------------------------*/
-#include "common.hlsli"
+#include "Common.hlsli"
 
 void main(in VS_IN In, out PS_IN Out)
 {

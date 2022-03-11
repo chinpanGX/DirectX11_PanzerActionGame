@@ -359,6 +359,8 @@ void Graphics::SettingSamplerState()
 
 void Graphics::CreateConstantBuffer()
 {
+	m_Buffer.resize(EBuffer::CONSTANT_BUFFER_NUM_MAX);
+
 	/// 定数バッファ生成
 	D3D11_BUFFER_DESC hBufferDesc{};
 	hBufferDesc.ByteWidth = sizeof(D3DXMATRIX);

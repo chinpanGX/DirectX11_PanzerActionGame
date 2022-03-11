@@ -160,3 +160,4 @@ void Resource::SetPixelShader(const std::string& Tag)
 void Resource::SetStaticModel(const std::string& Tag)
 {
 	m_StaticModel->Draw(Tag);
+}

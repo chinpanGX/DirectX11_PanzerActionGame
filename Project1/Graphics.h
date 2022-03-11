@@ -10,6 +10,7 @@
 #include "Singleton.h"
 #include "stdafx.h"
 #include <array>
+#include <vector>
 
 #define SAFE_RELEASE(p) do { if(p){ (p)->Release(); (p) = NULL;} } while(0)
 
@@ -51,6 +52,11 @@ struct Light
 	D3DXVECTOR4 Ambient;
 	D3DXVECTOR4 Position;
 	D3DXVECTOR4 Angle;
+};
+
+struct InstanceData
+{
+	D3DXMATRIX World;
 };
 
 class Graphics final
@@ -127,5 +133,5 @@ private:
 		CONSTANT_BUFFER_PARAMETER,
 		CONSTANT_BUFFER_NUM_MAX
 	};
-	std::array<ComPtr<ID3D11Buffer>, EBuffer::CONSTANT_BUFFER_NUM_MAX> m_Buffer;
+	std::vector<ComPtr<ID3D11Buffer>> m_Buffer;
 };

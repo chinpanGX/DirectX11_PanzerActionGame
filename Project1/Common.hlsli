@@ -4,21 +4,10 @@
     Autrhor : 出合翔太
 
 --------------------------------------------*/
-
-//マトリクスバッファ
-cbuffer WorldBuffer : register(b0)
+struct InstanceData
 {
-    matrix _World;
-}
-cbuffer ViewBuffer : register(b1)
-{
-    matrix _View;
-}
-cbuffer ProjectionBuffer : register(b2)
-{
-    matrix _Projection;
-}
-
+    float4x4 _World;    
+};
 
 struct VS_IN
 {
@@ -66,11 +55,25 @@ struct LIGHT
     float4 Angle;
 };
 
+//マトリクスバッファ
+cbuffer WorldBuffer : register(b0)
+{
+    matrix _World;
+}
+cbuffer ViewBuffer : register(b1)
+{
+    matrix _View;
+}
+
+cbuffer ProjectionBuffer : register(b2)
+{
+    matrix _Projection;
+}
+
 cbuffer LightBuffer : register(b4)
 {
     LIGHT _Light;
 }
-
 
 cbuffer CameraBuffer : register(b5)
 {
@@ -80,4 +83,9 @@ cbuffer CameraBuffer : register(b5)
 cbuffer ParameterBuffer : register(b6)
 {
     float4 _Parameter;
+}
+
+cbuffer InstanceBuffer : register(b7)
+{
+    InstanceData _Data[500];
 }
